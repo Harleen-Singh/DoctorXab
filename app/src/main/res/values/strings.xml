@@ -1,0 +1,15 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="app_name">DOC-App-Android</string>
+    <string name="logo">LOGO</string>
+    <string name="tv_desc">Sign In to your Account</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign In</string>
+    <string name="or_sign_in_with">-or Sign In with-</string>
+    <string name="google">Google</string>
+    <string name="facebook">Facebook</string>
+    <string name="sign_up"><u>Sign Up</u></string>
+    <string name="don_t_have_an_account">Don\'t have an account?</string>
+    <string name="doctor">DOCTOR</string>
+    <string name="patient">PATIENT</string>
+</resources>
