@@ -13,5 +13,6 @@
     <color name="scnd_blue_white">#F7F9FF</color>
     <color name="scnd_light_blue">#DCE1F9</color>
     <color name="scnd_grey">#8B91AB</color>
+    <color name="app.compat.light">#fffafafa</color>
 
 </resources>
