@@ -16,6 +16,6 @@ public class MainActivity extends AppCompatActivity {
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
-        setContentView(R.layout.sign_in_as);
+        setContentView(R.layout.sign_up_doctor_patient);
     }
 }
