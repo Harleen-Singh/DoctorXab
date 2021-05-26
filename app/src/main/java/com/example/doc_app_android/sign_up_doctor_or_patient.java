@@ -27,7 +27,7 @@ public class sign_up_doctor_or_patient extends AppCompatActivity {
         setContentView(R.layout.sign_up_doctor_patient);
         doctorField = findViewById(R.id.edit_status_doctor);
         patientField = findViewById(R.id.edit_status_patient);
-        signIn = findViewById(R.id.dp_sign_in);
+        signIn = findViewById(R.id.tv_sign_in);
         signUp = findViewById(R.id.btn_sign_up);
         backImgButton = findViewById(R.id.back_button_img);
 
