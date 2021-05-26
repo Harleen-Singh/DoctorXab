@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,12 +12,22 @@ public class sign_as extends AppCompatActivity {
     private Button Doctor,Patient;
     private Boolean catcher;
     private sign_next sign_next;
+    private ImageView backImgButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_as);
         Doctor = findViewById(R.id.button_doctor);
         Patient = findViewById(R.id.button_patient);
+        backImgButton = findViewById(R.id.back_button_img);
+
+        backImgButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
 
     Doctor.setOnClickListener(new View.OnClickListener() {
         @Override

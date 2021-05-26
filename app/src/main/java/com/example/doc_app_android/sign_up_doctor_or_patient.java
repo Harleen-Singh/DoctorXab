@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ public class sign_up_doctor_or_patient extends AppCompatActivity {
     private Intent intent;
     private TextView signIn;
     private Button signUp;
+    private ImageView backImgButton;
 
 
     @Override
@@ -27,6 +29,14 @@ public class sign_up_doctor_or_patient extends AppCompatActivity {
         patientField = findViewById(R.id.edit_status_patient);
         signIn = findViewById(R.id.dp_sign_in);
         signUp = findViewById(R.id.btn_sign_up);
+        backImgButton = findViewById(R.id.back_button_img);
+
+        backImgButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
