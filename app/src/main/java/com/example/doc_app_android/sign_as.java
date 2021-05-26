@@ -36,6 +36,7 @@ public class sign_as extends AppCompatActivity {
             Intent intent = new Intent(sign_as.this, sign_next.class);
             intent.putExtra("catcher",catcher);
            startActivity(intent);
+           finish();
         }
     });
     Patient.setOnClickListener(new View.OnClickListener() {
@@ -45,6 +46,7 @@ public class sign_as extends AppCompatActivity {
             Intent intent = new Intent(sign_as.this, sign_next.class);
             intent.putExtra("catcher",catcher);
             startActivity(intent);
+            finish();
         }
     });
 

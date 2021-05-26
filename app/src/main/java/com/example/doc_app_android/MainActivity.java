@@ -16,6 +16,10 @@ public class MainActivity extends AppCompatActivity {
 private Button signIn;
 private TextView signUp;
 
+    @Override
+    public void onBackPressed() {
+        super.finishAffinity();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +31,7 @@ private TextView signUp;
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "Satya do your work !", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "To be Done !", Toast.LENGTH_SHORT).show();
             }
         });
         signUp.setOnClickListener(new View.OnClickListener() {

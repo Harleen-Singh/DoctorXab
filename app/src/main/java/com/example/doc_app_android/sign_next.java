@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
@@ -16,6 +17,10 @@ public class sign_next extends AppCompatActivity {
     private Boolean Catch;
     private TextView signIn;
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +32,7 @@ public class sign_next extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(sign_next.this,MainActivity.class);
+                intent = new Intent(sign_next.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -36,9 +41,9 @@ public class sign_next extends AppCompatActivity {
         Next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(sign_next.this,sign_up_doctor_or_patient.class);
-              Catch = getIntent().getBooleanExtra("catcher",false);
-                intent.putExtra("Catch",Catch);
+                intent = new Intent(sign_next.this, sign_up_doctor_or_patient.class);
+                Catch = getIntent().getBooleanExtra("catcher", false);
+                intent.putExtra("Catch", Catch);
                 startActivity(intent);
             }
         });
