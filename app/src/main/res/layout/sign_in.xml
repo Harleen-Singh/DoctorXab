@@ -54,27 +54,35 @@
         app:layout_constraintTop_toBottomOf="@id/tv_desc"
         android:theme="@style/EditTextTheme"/>
 
-    <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/edit_password"
-        android:theme="@style/EditTextTheme"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edit_pass"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="55dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="55dp"
-        android:background="@drawable/text_field_1"
-        android:hint="@string/password"
-        android:textColorHint="#8B91AB"
-        android:textColor="#8B91AB"
-        android:inputType="textPassword"
-        android:paddingStart="20dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:singleLine="true"
-        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/edit_username" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_username"
+        app:hintEnabled="false"
+        app:passwordToggleEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/create_pass"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/text_field_1"
+            android:fontFamily="@font/rubik"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            android:textColor="#8B91AB"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:singleLine="true"
+            android:textSize="14sp"
+            android:theme="@style/EditTextTheme"
+            tools:ignore="RtlSymmetry" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btn_sign_in"
@@ -90,7 +98,7 @@
         android:text="@string/sign_in"
         android:textSize="14sp"
         android:textColor="@color/app.compat.light"
-        app:layout_constraintTop_toBottomOf="@id/edit_password" />
+        app:layout_constraintTop_toBottomOf="@id/edit_pass" />
 
     <TextView
         android:id="@+id/tv_or"
