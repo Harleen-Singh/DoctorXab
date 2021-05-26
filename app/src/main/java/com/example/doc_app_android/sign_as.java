@@ -1,0 +1,42 @@
+package com.example.doc_app_android;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class sign_as extends AppCompatActivity {
+    private Button Doctor,Patient;
+    private Boolean catcher;
+    private sign_next sign_next;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.sign_as);
+        Doctor = findViewById(R.id.button_doctor);
+        Patient = findViewById(R.id.button_patient);
+
+    Doctor.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            catcher = false;
+            Intent intent = new Intent(sign_as.this, sign_next.class);
+            intent.putExtra("catcher",catcher);
+           startActivity(intent);
+        }
+    });
+    Patient.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            catcher = true;
+            Intent intent = new Intent(sign_as.this, sign_next.class);
+            intent.putExtra("catcher",catcher);
+            startActivity(intent);
+        }
+    });
+
+    }
+
+}
