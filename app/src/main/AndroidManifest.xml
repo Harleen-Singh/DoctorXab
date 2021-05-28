@@ -9,13 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoActionBar">
-        <activity android:name=".sign_as"
-            android:theme="@style/NoActionBar"/>
-        <activity android:name=".sign_next"
-            android:theme="@style/NoActionBar"/>
-        <activity android:name=".sign_up_doctor_or_patient"
-            android:theme="@style/NoActionBar"/>
-        <activity android:name=".MainActivity"
+        <activity android:name=".Home"
+            android:theme="@style/NoActionBar">
+        </activity>
+        <activity
+            android:name=".sign_as"
+            android:theme="@style/NoActionBar" />
+        <activity
+            android:name=".sign_next"
+            android:theme="@style/NoActionBar" />
+        <activity
+            android:name=".sign_up_doctor_or_patient"
+            android:theme="@style/NoActionBar" />
+        <activity
+            android:name=".MainActivity"
             android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +31,5 @@
             </intent-filter>
         </activity>
     </application>
-
-
 
 </manifest>

@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="4dp"
+    app:cardElevation="3dp"
+    app:cardUseCompatPadding="true">
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/patient_details_row"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="54dp"
+                android:layout_height="54dp"
+                android:layout_gravity="center"
+                android:layout_marginLeft="21dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginBottom="9dp"
+                android:src="@drawable/home_profile" />
+
+            <TextView
+                android:id="@+id/patient_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="19dp"
+                android:layout_weight="8"
+                android:fontFamily="@font/rubik_medium"
+                android:text="Roman Reign"
+                android:textColor="@color/scnd_blue"
+                android:textSize="20sp" />
+
+
+            <ImageView
+                android:id="@+id/open_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="58dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginRight="31dp"
+                android:layout_marginBottom="9dp"
+                android:layout_weight="1"
+                android:src="@drawable/arrow_down"
+                android:contentDescription="TODO" />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        <RelativeLayout
+            android:id="@+id/expandable_layout"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/expandable_profile_image"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginLeft="21dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="9dp"
+                android:src="@drawable/home_profile" />
+
+
+            <ImageView
+                android:id="@+id/close_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="31dp"
+                android:layout_marginRight="28dp"
+                android:layout_marginBottom="9dp"
+                android:src="@drawable/arrow_up"
+                android:contentDescription="TODO" />
+
+            <TextView
+                android:id="@+id/expandable_patient_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/expandable_profile_image"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/rubik_medium"
+                android:text="Roman Reign"
+                android:textColor="@color/scnd_blue"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/expandable_patient_lastcheckup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/expandable_patient_name"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginTop="4dp"
+                android:fontFamily="@font/rubik_medium"
+                android:text="Last Checkup: 24 March, 2021"
+                android:textColor="@color/scnd_grey"
+                android:textSize="14sp" />
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/expandable_patient_age"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="11dp"
+                android:layout_below="@id/expandable_patient_lastcheckup"
+                android:orientation="horizontal">
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/rubik_medium"
+                    android:layout_marginLeft="130dp"
+                    android:text="Age:"
+                    android:textColor="@color/scnd_blue"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/patient_age"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="4dp"
+                    android:fontFamily="@font/rubik_medium"
+                    android:text="1"
+                    android:textColor="@color/scnd_grey"
+                    android:textSize="14sp" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/expandable_patient_case_level"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:layout_below="@id/expandable_patient_age"
+                android:orientation="horizontal">
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/rubik_medium"
+                    android:layout_marginLeft="130dp"
+                    android:text="CASE LEVEL:"
+                    android:textColor="@color/scnd_blue"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/patient_caselevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="4dp"
+                    android:fontFamily="@font/rubik_medium"
+                    android:text="OPERATION"
+                    android:textColor="@color/scnd_grey"
+                    android:textSize="14sp" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/expandable_patient_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:layout_below="@id/expandable_patient_case_level"
+                android:orientation="horizontal">
+
+
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/rubik_medium"
+                    android:layout_marginLeft="130dp"
+                    android:text="STATE:"
+                    android:textColor="@color/scnd_blue"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/patient_state"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="4dp"
+                    android:fontFamily="@font/rubik_medium"
+                    android:text="Punjab"
+                    android:textColor="@color/scnd_grey"
+                    android:textSize="14sp" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/expandable_patient_addorHistory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:layout_below="@id/expandable_patient_state"
+                android:orientation="horizontal">
+
+
+
+
+                <Button
+                    android:id="@+id/add_details"
+                    android:layout_width="110dp"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="67dp"
+                    android:background="@drawable/btn_theme_1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="ADD"
+                    android:textColor="@color/app.compat.light"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/patient_history"
+                    android:layout_width="110dp"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="67dp"
+                    android:background="@drawable/btn_theme_2"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:text="HISTORY"
+                    android:textColor="#8B91AB"
+                    android:textSize="14sp" />
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+        </RelativeLayout>
+
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+</androidx.cardview.widget.CardView>
