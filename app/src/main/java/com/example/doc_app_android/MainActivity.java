@@ -31,7 +31,8 @@ private TextView signUp;
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "To be Done !", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this,Home.class);
+                startActivity(intent);
             }
         });
         signUp.setOnClickListener(new View.OnClickListener() {

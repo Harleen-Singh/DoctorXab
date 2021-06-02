@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+
+
+    <item
+        android:id="@+id/menu_profile"
+        android:icon="@drawable/profile"
+        android:iconTint="@color/teal_200"
+        android:title="PROFILE" />
+
+    <item
+        android:id="@+id/menu_appointments"
+        android:icon="@drawable/appointments"
+        android:title="APPOINTMENTS"/>
+
+    <item
+        android:id="@+id/menu_schedule"
+        android:icon="@drawable/schedule"
+        android:title="SCHEDULE"/>
+
+    <item
+        android:id="@+id/menu_settings"
+        android:icon="@drawable/settings"
+        android:title="SETTINGS"/>
+
+
+    <item
+        android:id="@+id/menu_privacyplicy"
+        android:icon="@drawable/ic_outline_privacy_tip_24"
+        android:title="PRIVACY POLICY"/>
+
+
+
+
+    <item
+        android:id="@+id/menu_logout"
+        android:icon="@drawable/logout"
+        android:title="LOG OUT"/>
+
+
+
+</menu>

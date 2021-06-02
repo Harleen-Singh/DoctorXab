@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/scnd_blue_white"
+    android:orientation="vertical">
+
+
+    <ImageButton
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/ic_baseline_close_24"
+        android:layout_gravity="right"
+        android:backgroundTint="@color/scnd_blue_white"
+        android:contentDescription="TODO" />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_marginTop="63dp"
+        android:id="@+id/profile_image"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/home_profile"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="ADMIN NAME"
+        android:layout_gravity="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/theme"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:text="ORTHOLOGIST"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/scnd_blue"
+        android:textStyle="bold"
+        android:textSize="14sp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#8B91AB"
+        android:id="@+id/HorizontalLine"
+        />
+
+</androidx.appcompat.widget.LinearLayoutCompat>
