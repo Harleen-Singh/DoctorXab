@@ -1,5 +1,8 @@
 package com.example.doc_app_android.Adapter;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 public class PatientDetails {
 
     private String name;

@@ -41,7 +41,8 @@ public class sign_up_doctor_or_patient extends AppCompatActivity {
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(sign_up_doctor_or_patient.this, "Functionality not added !", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(sign_up_doctor_or_patient.this, Home.class);
+                startActivity(intent);
             }
         });
 
