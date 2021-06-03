@@ -28,4 +28,12 @@
     <string name="close">Close</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="patient_info">PATIENT INFO</string>
+    <string name="alex_silver">Alex Silver</string>
+    <string name="case_of">CASE OF:</string>
+    <string name="age">AGE:</string>
+    <string name="gender">GENDER:</string>
+    <string name="orthologist">ORTHOLOGIST</string>
+    <string name="_34">34</string>
+    <string name="female">FEMALE</string>
 </resources>
