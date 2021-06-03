@@ -33,6 +33,7 @@ public class sign_next extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 intent = new Intent(sign_next.this, MainActivity.class);
+                intent.putExtra("reg",true);
                 startActivity(intent);
                 finish();
             }

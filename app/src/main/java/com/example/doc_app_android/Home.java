@@ -3,22 +3,23 @@ package com.example.doc_app_android;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+
 import com.example.doc_app_android.Adapter.PatientDetails;
 import com.example.doc_app_android.Adapter.PatientDetailsAdapter;
+
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ public class Home extends AppCompatActivity {
     ActionBarDrawerToggle toggle;
     MenuItem menuItem;
     Menu menu;
+    private boolean regornot = false;
+
 
     private RecyclerView rcv;
     private ArrayList<PatientDetails> data;
@@ -41,6 +44,8 @@ public class Home extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         rcv = findViewById(R.id.patient_details_rcv);
+
+        regornot = getIntent().getBooleanExtra("reg", false);
 
 
 
@@ -101,8 +106,13 @@ public class Home extends AppCompatActivity {
                         break;
 
                     case R.id.menu_logout:
-                        Toast.makeText(getApplicationContext(), "Settings Pane is opened.", Toast.LENGTH_SHORT).show();
-                        temp = new LogOutFragment();
+                        if(regornot){
+                            Intent intent = new Intent(Home.this, MainActivity.class);
+                            startActivity(intent);
+                            //finish();
+                        } else{
+                            finish();
+                        }
                         break;
                 }
 
