@@ -1,5 +1,6 @@
 package com.example.doc_app_android.Adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,12 @@ import java.util.ArrayList;
 public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAdapter.PatientDetailsHolder> {
 
     private ArrayList<PatientDetails> data;
+    private Context mContext;
+
+    public PatientDetailsAdapter(ArrayList<PatientDetails> data, Context mContext) {
+        this.data = data;
+        this.mContext = mContext;
+    }
 
     public PatientDetailsAdapter(ArrayList<PatientDetails> data) {
         this.data = data;
@@ -87,7 +94,7 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
                 @Override
                 public void onClick(View v) {
                     Animation animation1;
-                    animation1 = AnimationUtils.loadAnimation(itemView.getContext(),
+                    animation1 = AnimationUtils.loadAnimation(mContext,
                             R.anim.fadeout);
                     patient_row.setVisibility(View.GONE);
                     patient_row.startAnimation(animation1);
@@ -99,7 +106,7 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
                 @Override
                 public void onClick(View v) {
                     Animation animation1;
-                    animation1 = AnimationUtils.loadAnimation(itemView.getContext(),
+                    animation1 = AnimationUtils.loadAnimation(mContext,
                             R.anim.fadein);
                     expandable_layout.setVisibility(View.GONE);
                     patient_row.setVisibility(View.VISIBLE);

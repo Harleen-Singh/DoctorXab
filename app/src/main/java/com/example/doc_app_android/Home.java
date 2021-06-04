@@ -127,7 +127,7 @@ public class Home extends AppCompatActivity {
     }
 
     private void setRecycler(){
-        PatientDetailsAdapter patientDetailsAdapter = new PatientDetailsAdapter(data);
+        PatientDetailsAdapter patientDetailsAdapter = new PatientDetailsAdapter(data,this);
         rcv.setAdapter(patientDetailsAdapter);
         rcv.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
