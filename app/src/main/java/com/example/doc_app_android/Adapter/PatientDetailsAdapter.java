@@ -1,5 +1,6 @@
 package com.example.doc_app_android.Adapter;
 
+import android.animation.LayoutTransition;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.transition.AutoTransition;
+import androidx.transition.TransitionManager;
 
 import com.example.doc_app_android.R;
 
@@ -93,11 +96,8 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
             open_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Animation animation1;
-                    animation1 = AnimationUtils.loadAnimation(mContext,
-                            R.anim.fadeout);
                     patient_row.setVisibility(View.GONE);
-                    patient_row.startAnimation(animation1);
+                    TransitionManager.beginDelayedTransition(linearLayout, new AutoTransition());
                     expandable_layout.setVisibility(View.VISIBLE);
                 }
             });
@@ -105,12 +105,9 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
             close_button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Animation animation1;
-                    animation1 = AnimationUtils.loadAnimation(mContext,
-                            R.anim.fadein);
                     expandable_layout.setVisibility(View.GONE);
+                    TransitionManager.beginDelayedTransition(linearLayout, new AutoTransition());
                     patient_row.setVisibility(View.VISIBLE);
-                    patient_row.startAnimation(animation1);
 
                 }
             });

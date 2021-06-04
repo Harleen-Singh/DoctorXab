@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.example.doc_app_android.Adapter.PatientDetailsAdapter;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Home extends AppCompatActivity {
 
@@ -129,7 +131,8 @@ public class Home extends AppCompatActivity {
     private void setRecycler(){
         PatientDetailsAdapter patientDetailsAdapter = new PatientDetailsAdapter(data,this);
         rcv.setAdapter(patientDetailsAdapter);
-        rcv.setHasFixedSize(true);
+        ((SimpleItemAnimator) Objects.requireNonNull(rcv.getItemAnimator())).setSupportsChangeAnimations(false);
+        //rcv.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rcv.setLayoutManager(linearLayoutManager);
     }
