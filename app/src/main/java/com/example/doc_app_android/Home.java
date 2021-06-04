@@ -151,8 +151,5 @@ public class Home extends AppCompatActivity {
         data.add(new PatientDetails("Ankita Thakur", "09-01-2021", "23", "OPERATION", "Punjab"));
         data.add(new PatientDetails("Harleen Singh", "10-01-2021", "24", "OPERATION", "Punjab"));
 
-
-
-
     }
 }

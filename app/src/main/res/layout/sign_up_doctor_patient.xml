@@ -158,12 +158,12 @@
         android:layout_marginLeft="55dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="55dp"
-        android:background="@drawable/btn_theme_1"
+        android:background="@drawable/btn_bg_changer"
         android:clickable="true"
         android:focusable="true"
         android:fontFamily="@font/rubik_medium"
         android:text="@string/sign_up1"
-        android:textColor="@color/app.compat.light"
+        android:textColor="@drawable/btn_text_color"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -183,7 +183,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_sign_up" />
-
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/btn_parent_layout"
