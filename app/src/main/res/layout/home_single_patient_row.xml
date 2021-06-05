@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/patient_parent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardCornerRadius="4dp"
-    android:id="@+id/patient_parent"
     app:cardElevation="3dp"
     app:cardUseCompatPadding="true">
 
@@ -12,7 +12,6 @@
         android:id="@+id/patient_details_row"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
         android:orientation="vertical">
 
         <androidx.appcompat.widget.LinearLayoutCompat
@@ -55,8 +54,8 @@
                 android:layout_marginRight="31dp"
                 android:layout_marginBottom="9dp"
                 android:layout_weight="1"
-                android:src="@drawable/arrow_down"
-                android:contentDescription="TODO" />
+                android:contentDescription="TODO"
+                android:src="@drawable/arrow_down" />
 
 
         </androidx.appcompat.widget.LinearLayoutCompat>
@@ -65,8 +64,8 @@
         <RelativeLayout
             android:id="@+id/expandable_layout"
             android:layout_width="match_parent"
-            android:visibility="gone"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
 
             <ImageView
                 android:id="@+id/close_button"
@@ -80,8 +79,8 @@
                 android:layout_marginEnd="31dp"
                 android:layout_marginRight="28dp"
                 android:layout_marginBottom="9dp"
-                android:src="@drawable/arrow_up"
-                android:contentDescription="TODO" />
+                android:contentDescription="TODO"
+                android:src="@drawable/arrow_up" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/expandable_profile_image"
@@ -94,8 +93,6 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="9dp"
                 android:src="@drawable/home_profile" />
-
-
 
 
             <TextView
@@ -129,21 +126,19 @@
                 android:id="@+id/expandable_patient_age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/expandable_patient_lastcheckup"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="11dp"
-                android:layout_below="@id/expandable_patient_lastcheckup"
                 android:orientation="horizontal">
-
-
 
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/rubik_medium"
-                    android:text="Age:"
-                    android:gravity="right"
                     android:layout_weight="1"
+                    android:fontFamily="@font/rubik_medium"
+                    android:gravity="right"
+                    android:text="Age:"
                     android:textColor="@color/scnd_blue"
                     android:textSize="14sp" />
 
@@ -167,11 +162,10 @@
                 android:id="@+id/expandable_patient_case_level"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/expandable_patient_age"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="2dp"
-                android:layout_below="@id/expandable_patient_age"
                 android:orientation="horizontal">
-
 
 
                 <TextView
@@ -189,8 +183,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
                     android:layout_marginLeft="4dp"
+                    android:layout_weight="1"
                     android:fontFamily="@font/rubik_medium"
                     android:text="OPERATION"
                     android:textColor="@color/scnd_grey"
@@ -203,20 +197,18 @@
                 android:id="@+id/expandable_patient_state"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/expandable_patient_case_level"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="2dp"
-                android:layout_below="@id/expandable_patient_case_level"
                 android:orientation="horizontal">
-
-
 
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:fontFamily="@font/rubik_medium"
                     android:gravity="right"
-                    android:layout_weight="1"
                     android:text="STATE:"
                     android:textColor="@color/scnd_blue"
                     android:textSize="14sp" />
@@ -226,8 +218,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
                     android:layout_marginLeft="4dp"
+                    android:layout_weight="1"
                     android:fontFamily="@font/rubik_medium"
                     android:text="Punjab"
                     android:textColor="@color/scnd_grey"
@@ -241,14 +233,12 @@
                 android:id="@+id/expandable_patient_addorHistory"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/expandable_patient_state"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="15dp"
                 android:gravity="center"
-                android:layout_below="@id/expandable_patient_state"
                 android:orientation="horizontal">
-
-
 
 
                 <Button
