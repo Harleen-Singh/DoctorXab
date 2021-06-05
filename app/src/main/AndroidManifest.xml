@@ -9,9 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/NoActionBar">
-        <activity android:name=".Home"
-            android:theme="@style/NoActionBar">
-        </activity>
+        <activity android:name=".DoctorProfile"
+            android:theme="@style/NoActionBar"/>
+        <activity
+            android:name=".Home"
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".sign_as"
             android:theme="@style/NoActionBar" />

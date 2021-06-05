@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
@@ -37,6 +38,7 @@ public class Home extends AppCompatActivity {
     private boolean regornot = false;
 
 
+
     private RecyclerView rcv;
     private ArrayList<PatientDetails> data;
 
@@ -44,6 +46,9 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+
+
 
         rcv = findViewById(R.id.patient_details_rcv);
 
@@ -72,8 +77,9 @@ public class Home extends AppCompatActivity {
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-//        getSupportFragmentManager().beginTransaction().replace(R.id.container, new ProfileFragment()).commit();
-//        nav.setCheckedItem(R.id.menu_profile);
+        nav.setCheckedItem(R.id.menu_profile);
+
+
 
 
         nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -82,43 +88,42 @@ public class Home extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 switch (item.getItemId()){
+
                     case R.id.menu_profile:
-                        Toast.makeText(getApplicationContext(), "Home Pane is opened.", Toast.LENGTH_SHORT).show();
-                        temp = new ProfileFragment();
+                        Intent openProfile = new Intent(Home.this, DoctorProfile.class);
+                        startActivity(openProfile);
                         break;
 
                     case R.id.menu_appointments:
-                        Toast.makeText(getApplicationContext(), "Call Pane is opened.", Toast.LENGTH_SHORT).show();
-                        temp = new AppointmentFragment();
+                        Toast.makeText(getApplicationContext(), "Appointments Pane is opened.", Toast.LENGTH_SHORT).show();
                         break;
 
                     case R.id.menu_schedule:
-                        Toast.makeText(getApplicationContext(), "Settings Pane is opened.", Toast.LENGTH_SHORT).show();
-                        temp = new ScheduleFragment();
+                        Toast.makeText(getApplicationContext(), "Schedule Pane is opened.", Toast.LENGTH_SHORT).show();
+
                         break;
 
                     case R.id.menu_settings:
                         Toast.makeText(getApplicationContext(), "Settings Pane is opened.", Toast.LENGTH_SHORT).show();
-                        temp = new SettingsFragment();
+
                         break;
 
                     case R.id.menu_privacyplicy:
-                        Toast.makeText(getApplicationContext(), "Settings Pane is opened.", Toast.LENGTH_SHORT).show();
-                        temp = new PrivacyPolicyFragment();
+                        Toast.makeText(getApplicationContext(), "Privacy Policy Pane is opened.", Toast.LENGTH_SHORT).show();
+
                         break;
 
                     case R.id.menu_logout:
                         if(regornot){
                             Intent intent = new Intent(Home.this, MainActivity.class);
                             startActivity(intent);
-                            //finish();
+                            finish();
                         } else{
                             finish();
                         }
                         break;
                 }
 
-                //getSupportFragmentManager().beginTransaction().replace(R.id.container, temp).commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
