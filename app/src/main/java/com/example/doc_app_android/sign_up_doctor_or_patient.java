@@ -7,7 +7,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class sign_up_doctor_or_patient extends AppCompatActivity {
@@ -47,7 +49,7 @@ public class sign_up_doctor_or_patient extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(sign_up_doctor_or_patient.this, loginActivity.class);
+                intent = new Intent(sign_up_doctor_or_patient.this,MainActivity.class);
                 startActivity(intent);
                 finish();
             }

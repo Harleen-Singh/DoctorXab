@@ -115,7 +115,7 @@ public class Home extends AppCompatActivity {
 
                     case R.id.menu_logout:
                         if(regornot){
-                            Intent intent = new Intent(Home.this, loginActivity.class);
+                            Intent intent = new Intent(Home.this, MainActivity.class);
                             startActivity(intent);
                             finish();
                         } else{
