@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/Static_date"
+        android:layout_width="0dp"
+        android:layout_height="19dp"
+        android:layout_marginVertical="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@color/white"
+        android:fontFamily="@font/rubik_medium"
+        android:text="DATE:"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/getDate"
+        app:layout_constraintStart_toStartOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/getDate"
+        android:layout_width="0dp"
+        android:layout_height="19dp"
+        android:text="21 March ,2021"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/rubik_medium"
+        android:layout_margin="10dp"
+        app:layout_constraintStart_toEndOf="@+id/Static_date"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/editBtn"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:background="#00FFFFFF"
+        android:layout_marginRight="40dp"
+        android:src="@drawable/edit_24"
+        app:layout_constraintEnd_toEndOf="@+id/deleteBtn"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/deleteBtn"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:background="#00FFFFFF"
+        android:src="@drawable/delete_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="12dp"
+        android:background="@drawable/rec_back"
+        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ut faucibus tellus amet, elementum habitant. Blandit non imperdiet convallis aliquam egestas posuere at. Eget molestie lorem nibh nisl neque fames. Nunc praesent rhoncus, quam purus semper"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.526"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/getDate" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
