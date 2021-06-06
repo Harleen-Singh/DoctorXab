@@ -49,12 +49,11 @@ public class sign_up_doctor_or_patient extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(sign_up_doctor_or_patient.this,MainActivity.class);
+                intent = new Intent(sign_up_doctor_or_patient.this, MainActivity.class);
                 startActivity(intent);
                 finish();
             }
         });
-
 
 
         catcher = getIntent().getBooleanExtra("Catch", false);

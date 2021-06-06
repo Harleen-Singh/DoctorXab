@@ -7,10 +7,10 @@ import com.example.doc_app_android.services.loginService;
 
 
 public class Login_data {
-    loginService service ;
-    String loginUsername , password;
+    loginService service;
+    String loginUsername, password;
 
-    public Login_data(String username, String password , Context context) {
+    public Login_data(String username, String password, Context context) {
         this.loginUsername = username;
         this.password = password;
     }

@@ -9,10 +9,11 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class sign_as extends AppCompatActivity {
-    private Button Doctor,Patient;
+    private Button Doctor, Patient;
     private Boolean catcher;
     private sign_next sign_next;
     private ImageView backImgButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,26 +30,26 @@ public class sign_as extends AppCompatActivity {
         });
 
 
-    Doctor.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            catcher = false;
-            Intent intent = new Intent(sign_as.this, sign_next.class);
-            intent.putExtra("catcher",catcher);
-           startActivity(intent);
-           finish();
-        }
-    });
-    Patient.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            catcher = true;
-            Intent intent = new Intent(sign_as.this, sign_next.class);
-            intent.putExtra("catcher",catcher);
-            startActivity(intent);
-            finish();
-        }
-    });
+        Doctor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                catcher = false;
+                Intent intent = new Intent(sign_as.this, sign_next.class);
+                intent.putExtra("catcher", catcher);
+                startActivity(intent);
+                finish();
+            }
+        });
+        Patient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                catcher = true;
+                Intent intent = new Intent(sign_as.this, sign_next.class);
+                intent.putExtra("catcher", catcher);
+                startActivity(intent);
+                finish();
+            }
+        });
 
     }
 

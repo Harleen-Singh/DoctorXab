@@ -51,7 +51,7 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
 
         holder.name.setText(data.get(position).getName());
         holder.expandableName.setText(data.get(position).getName());
-        holder.lastCheckup.setText("Last Checkup: "  + data.get(position).getLast_checkUp());
+        holder.lastCheckup.setText("Last Checkup: " + data.get(position).getLast_checkUp());
         holder.age.setText(data.get(position).getAge());
         holder.caseLevel.setText(data.get(position).getCase_level());
         holder.state.setText(data.get(position).getState());

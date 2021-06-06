@@ -17,6 +17,7 @@ public class DoctorProfile extends AppCompatActivity {
     private Button edit;
     private RelativeLayout editLayout;
     private RelativeLayout saveLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +56,6 @@ public class DoctorProfile extends AppCompatActivity {
 
             }
         });
-
 
 
         backButton.setOnClickListener(new View.OnClickListener() {
