@@ -5,11 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 public class sign_next extends AppCompatActivity {
     private Button Next;
@@ -32,7 +29,7 @@ public class sign_next extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                intent = new Intent(sign_next.this, MainActivity.class);
+                intent = new Intent(sign_next.this, loginActivity.class);
                 intent.putExtra("reg",true);
                 startActivity(intent);
                 finish();
