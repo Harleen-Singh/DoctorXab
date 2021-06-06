@@ -4,7 +4,9 @@ plugins {
 
 android {
     compileSdkVersion 30
-
+        dataBinding{
+            enabled = true
+        }
     defaultConfig {
         applicationId "com.example.doc_app_android"
         minSdkVersion 16
@@ -41,4 +43,8 @@ repositories {
         androidTestImplementation 'androidx.test.ext:junit:1.1.2'
         androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
         implementation 'com.github.tank777.expandable-recycler-view:expandablerecyclerview:1.6@aa'
+        implementation 'com.android.volley:volley:1.2.0'
+        implementation 'androidx.lifecycle:lifecycle-viewmodel:2.3.1'
+        implementation 'androidx.lifecycle:lifecycle-livedata:2.3.1'
+
     }
