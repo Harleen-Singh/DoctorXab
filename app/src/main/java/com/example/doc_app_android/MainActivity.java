@@ -1,6 +1,7 @@
 package com.example.doc_app_android;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,9 +13,12 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.doc_app_android.Data_model.Login_data;
+import com.example.doc_app_android.Dialogs.dialogs;
 import com.example.doc_app_android.databinding.SignInBinding;
 import com.example.doc_app_android.services.loginService;
 import com.example.doc_app_android.view_model.Login_view_model;
+
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +46,13 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("TAG", "onChanged: username " + login_data.getloginUsername());
                 Log.e("TAG", "onChanged: pass " + login_data.getPassword());
                 service = new loginService(login_data, MainActivity.this);
+
+                if(TextUtils.isEmpty(Objects.requireNonNull(login_data).getloginUsername())){
+                    signInBinding.editUsername.setError("Enter Username");
+                }
+                if(TextUtils.isEmpty(Objects.requireNonNull(login_data).getPassword())){
+                    signInBinding.editPass.setError("Enter Password");
+                }
             }
         });
     }

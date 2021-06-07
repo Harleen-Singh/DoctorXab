@@ -1,6 +1,7 @@
 package com.example.doc_app_android.services;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.doc_app_android.Data_model.Login_data;
+import com.example.doc_app_android.Dialogs.dialogs;
 import com.example.doc_app_android.Globals;
 import com.example.doc_app_android.Home;
 import com.example.doc_app_android.R;
@@ -31,21 +33,19 @@ public class loginService {
     private Activity mContext;
     private String userName, pass;
     private ProgressDialog progressDialog;
+    private dialogs dialogs = new dialogs();
 
     public loginService(Login_data data, Activity context) {
         this.userName = data.getloginUsername();
         this.pass = data.getPassword();
         this.mContext = context;
+        progressDialog = new ProgressDialog(mContext,R.style.AlertDialog);
         getData();
     }
 
     public void getData() {
         Log.d("TAG", "getData: we are in getData");
-        progressDialog = new ProgressDialog(mContext, R.style.AlertDialog);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMessage("Signing In....");
-        progressDialog.show();
-
+        dialogs.alertDialogLogin(progressDialog);
         JSONObject postparams = null;
         try {
             postparams = new JSONObject();
@@ -73,13 +73,13 @@ public class loginService {
                     Intent i;
                     if (isDoc) {
                         i = new Intent(mContext, Home.class);
-                        progressDialog.dismiss();
+                        dialogs.dismissDialog(progressDialog);
                         mContext.startActivity(i);
                         mContext.finish();
                         Toast.makeText(mContext, "Hello Doc " + userName, Toast.LENGTH_SHORT).show();
                     } else {
                         i = new Intent(mContext, Home.class);
-                        progressDialog.dismiss();
+                        dialogs.dismissDialog(progressDialog);
                         mContext.startActivity(i);
                         mContext.finish();
                         Toast.makeText(mContext, "Hello patient " + userName, Toast.LENGTH_SHORT).show();
@@ -94,15 +94,15 @@ public class loginService {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if(error instanceof NoConnectionError) {
-                    displayDialog("Not Connected to Internet");
+                    dialogs.displayDialog("Not Connected to Internet",mContext);
                 }
                 else if(error instanceof ClientError){
-                    displayDialog("Invalid User!");
+                    dialogs.displayDialog("Invalid Credentials!",mContext);
                 }
                 else {
                     Log.d("", "error.networkRespose.toString()" + error.networkResponse.toString());
                 }
-                progressDialog.dismiss();
+                dialogs.dismissDialog(progressDialog);
                     Log.d("TAG", "onErrorResponse: " + error.getLocalizedMessage());
             }
         });
@@ -136,12 +136,6 @@ public class loginService {
         editor.apply();
     }
 
-    public final void displayDialog(String str) {
-        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(mContext, R.style.AlertDialog);
-        builder.setMessage(str);
-        androidx.appcompat.app.AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-        alertDialog.getWindow().getWindowStyle();
-    }
+
 
 }
