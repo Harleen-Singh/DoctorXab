@@ -1,5 +1,6 @@
 package com.example.doc_app_android;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -24,6 +25,8 @@ public class MainActivity extends AppCompatActivity {
 
     private loginService service;
     private Login_view_model viewModel;
+    private ProgressDialog progressDialog;
+    private dialogs dialogs = new dialogs();
 
     @Override
     public void onBackPressed() {
@@ -34,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        progressDialog = new ProgressDialog(this,R.style.AlertDialog);
 
         SignInBinding signInBinding = DataBindingUtil.setContentView(this, R.layout.sign_in);
         viewModel = new ViewModelProvider(this).get(Login_view_model.class);
@@ -43,15 +47,17 @@ public class MainActivity extends AppCompatActivity {
         viewModel.getUser().observe(this, new Observer<Login_data>() {
             @Override
             public void onChanged(Login_data login_data) {
-                Log.e("TAG", "onChanged: username " + login_data.getloginUsername());
-                Log.e("TAG", "onChanged: pass " + login_data.getPassword());
-                service = new loginService(login_data, MainActivity.this);
 
                 if(TextUtils.isEmpty(Objects.requireNonNull(login_data).getloginUsername())){
                     signInBinding.editUsername.setError("Enter Username");
                 }
                 if(TextUtils.isEmpty(Objects.requireNonNull(login_data).getPassword())){
                     signInBinding.editPass.setError("Enter Password");
+                }
+                else {
+                    Log.e("TAG", "onChanged: username " + login_data.getloginUsername());
+                    Log.e("TAG", "onChanged: pass " + login_data.getPassword());
+                    service = new loginService(login_data, MainActivity.this);
                 }
             }
         });
