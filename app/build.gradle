@@ -4,9 +4,11 @@ plugins {
 
 android {
     compileSdkVersion 30
-        dataBinding{
-            enabled = true
-        }
+
+    buildFeatures{
+        dataBinding = true
+    }
+
     defaultConfig {
         applicationId "com.example.doc_app_android"
         minSdkVersion 16

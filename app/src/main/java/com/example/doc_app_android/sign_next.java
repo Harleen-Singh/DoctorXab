@@ -10,12 +10,17 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.example.doc_app_android.databinding.SignNextBinding;
+import com.example.doc_app_android.view_model.Login_view_model;
+import com.example.doc_app_android.view_model.Register_view_model;
 
 public class sign_next extends AppCompatActivity {
-    private Button Next;
-    private Intent intent;
-    private Boolean Catch;
-    private TextView signIn;
+
+    private Register_view_model register_view_model;
 
     @Override
     public void onBackPressed() {
@@ -25,28 +30,28 @@ public class sign_next extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sign_next);
-        Next = findViewById(R.id.btn_next);
-        signIn = findViewById(R.id.tv_sign_in);
 
-        signIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intent = new Intent(sign_next.this, MainActivity.class);
-                intent.putExtra("reg", true);
-                startActivity(intent);
-                finish();
-            }
-        });
+        SignNextBinding signNextBinding = DataBindingUtil.setContentView(this,R.layout.sign_next);
+        register_view_model = new ViewModelProvider(this).get(Register_view_model.class);
+        signNextBinding.setLifecycleOwner(this);
+        signNextBinding.setRegisterViewModel(register_view_model);
 
-        Next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                intent = new Intent(sign_next.this, sign_up_doctor_or_patient.class);
-                Catch = getIntent().getBooleanExtra("catcher", false);
-                intent.putExtra("Catch", Catch);
-                startActivity(intent);
-            }
-        });
+
+        register_view_model.isDoc.setValue(getIntent().getBooleanExtra("catcher", false));
+
+        register_view_model.frameLayout.setValue(View.GONE);
+
     }
+
+//    @Override
+//    protected void onDestroy() {
+//        super.onDestroy();
+//        finish();
+//    }
+//
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        finish();
+//    }
 }

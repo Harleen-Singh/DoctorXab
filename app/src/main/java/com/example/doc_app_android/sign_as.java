@@ -11,7 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 public class sign_as extends AppCompatActivity {
     private Button Doctor, Patient;
     private Boolean catcher;
-    private sign_next sign_next;
     private ImageView backImgButton;
 
     @Override
