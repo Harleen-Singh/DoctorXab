@@ -8,9 +8,9 @@ import com.example.doc_app_android.R;
 
 public class dialogs {
 
-    public void alertDialogLogin(ProgressDialog progressDialog){
+    public void alertDialogLogin(ProgressDialog progressDialog , String msg){
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMessage("Signing In....");
+        progressDialog.setMessage(msg);
         progressDialog.show();
     }
 

@@ -13,13 +13,6 @@ public class Register_data {
         this.isDoc = is_Doc;
     }
 
-    public Register_data(String specialistof, String conslt, String cpass, String cfpass) {
-        this.specialistof = specialistof;
-        this.conslt = conslt;
-        this.cpass = cpass;
-        this.cfpass = cfpass;
-    }
-
     public String getUsername() {
         return username;
     }
