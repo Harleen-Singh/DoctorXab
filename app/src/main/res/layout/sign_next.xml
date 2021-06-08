@@ -276,7 +276,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:elevation="100dp"
-            android:visibility="@{registerViewModel.frameLayout , default=gone}"
+            android:visibility="@{registerViewModel.frameLayout , default=visible}"
             android:background="@color/app.compat.light">
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -304,6 +304,7 @@
                     android:layout_height="24dp"
                     android:layout_marginTop="40dp"
                     android:layout_marginStart="40dp"
+                    android:onClick="@{(v) -> registerViewModel.onClickBack(v)}"
                     android:background="@drawable/app_back_button"
                     app:layout_constraintBottom_toTopOf="@+id/tv_logo1"
                     app:layout_constraintStart_toStartOf="parent"
@@ -331,7 +332,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginRight="55dp"
                     android:background="@drawable/text_field_1"
-                    android:hint="@string/specialist_of"
+                    android:hint="@{registerViewModel.hintChange}"
                     android:visibility="visible"
                     android:text="@={registerViewModel.specialistof}"
                     android:inputType="text"
@@ -346,30 +347,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_desc1" />
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:id="@+id/edit_status_patient"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="55dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginRight="55dp"
-                    android:background="@drawable/text_field_1"
-                    android:hint="@string/consult_to"
-                    android:text="@={registerViewModel.consultation}"
-                    android:inputType="text"
-                    android:paddingStart="20dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:singleLine="true"
-                    android:textColor="#8B91AB"
-                    android:textColorHint="#8B91AB"
-                    android:textSize="14sp"
-                    android:theme="@style/EditTextTheme"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_desc1"
-                    android:visibility="gone"/>
-
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/edit_create_pass"

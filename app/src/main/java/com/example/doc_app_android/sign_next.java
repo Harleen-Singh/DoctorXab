@@ -8,6 +8,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
+import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.databinding.DataBindingUtil;
@@ -24,34 +25,30 @@ public class sign_next extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        if (register_view_model.frameLayout.getValue() == View.VISIBLE)
+            register_view_model.frameLayout.setValue(View.GONE);
+        else
+            super.onBackPressed();
+
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        SignNextBinding signNextBinding = DataBindingUtil.setContentView(this,R.layout.sign_next);
+        SignNextBinding signNextBinding = DataBindingUtil.setContentView(this, R.layout.sign_next);
         register_view_model = new ViewModelProvider(this).get(Register_view_model.class);
         signNextBinding.setLifecycleOwner(this);
         signNextBinding.setRegisterViewModel(register_view_model);
 
 
         register_view_model.isDoc.setValue(getIntent().getBooleanExtra("catcher", false));
-
+        if (getIntent().getBooleanExtra("catcher", false)) {
+            register_view_model.hintChange.setValue(R.string.consult_to);
+        } else {
+            register_view_model.hintChange.setValue(R.string.specialist_of);
+        }
         register_view_model.frameLayout.setValue(View.GONE);
-
     }
 
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        finish();
-//    }
-//
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        finish();
-//    }
 }

@@ -1,5 +1,6 @@
 package com.example.doc_app_android.view_model;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
@@ -13,6 +14,7 @@ import com.example.doc_app_android.MainActivity;
 public class Register_view_model extends ViewModel {
 
     public MutableLiveData<Integer> frameLayout = new MutableLiveData<Integer>();
+    public MutableLiveData<Integer> hintChange = new MutableLiveData<Integer>();
     public Register_data register_data ;
     public MutableLiveData<Register_data> userMutableLiveData = new MutableLiveData<>();
     public MutableLiveData<String> username = new MutableLiveData<>();
@@ -21,7 +23,6 @@ public class Register_view_model extends ViewModel {
     public MutableLiveData<String> specialistof = new MutableLiveData<>();
     public MutableLiveData<String> createpass = new MutableLiveData<>();
     public MutableLiveData<String> cfmpass = new MutableLiveData<>();
-    public MutableLiveData<String> consultation = new MutableLiveData<>();
 
     public MutableLiveData<Boolean> isDoc = new MutableLiveData<>();
 
@@ -46,15 +47,16 @@ public class Register_view_model extends ViewModel {
         Intent intent = new Intent(view.getContext(), MainActivity.class);
             view.getContext().startActivity(intent);
     }
+
     public void onClickSignUp(View view){
         register_data.setCfpass(cfmpass.getValue());
         register_data.setCpass(createpass.getValue());
-        if(isDoc.getValue()){
-            register_data.setConslt(consultation.getValue());
-        }
-        else {
-            register_data.setSpecialistof(specialistof.getValue());
-        }
+        register_data.setSpecialistof(specialistof.getValue());
         userMutableLiveData.setValue(register_data);
     }
+    public void onClickBack(View v){
+        if (frameLayout.getValue() == View.VISIBLE)
+            frameLayout.setValue(View.GONE);   // is done only when second frag is visible so if condition is also not required
+    }
+
 }
