@@ -2,10 +2,7 @@ package com.example.doc_app_android;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -18,8 +15,6 @@ import com.example.doc_app_android.Dialogs.dialogs;
 import com.example.doc_app_android.databinding.SignInBinding;
 import com.example.doc_app_android.services.loginService;
 import com.example.doc_app_android.view_model.Login_view_model;
-
-import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        progressDialog = new ProgressDialog(this,R.style.AlertDialog);
+        progressDialog = new ProgressDialog(this, R.style.AlertDialog);
 
         SignInBinding signInBinding = DataBindingUtil.setContentView(this, R.layout.sign_in);
         viewModel = new ViewModelProvider(this).get(Login_view_model.class);
@@ -48,16 +43,29 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onChanged(Login_data login_data) {
 
-                if(TextUtils.isEmpty(Objects.requireNonNull(login_data).getloginUsername())){
-                    signInBinding.editUsername.setError("Enter Username");
+                if (login_data.getPassword() != null && login_data.getloginUsername() != null) {
+
+                    if (!login_data.getloginUsername().isEmpty() && !login_data.getPassword().isEmpty()) {
+                        Log.e("TAG", "onChanged: username " + login_data.getloginUsername());
+                        Log.e("TAG", "onChanged: pass " + login_data.getPassword());
+                        service = new loginService(login_data, MainActivity.this);
+
+                    } else if (!login_data.getloginUsername().isEmpty() && login_data.getPassword().isEmpty()) {
+                        signInBinding.editPass.setError("Enter Password");
+                    } else if (login_data.getloginUsername().isEmpty() && !login_data.getPassword().isEmpty()) {
+                        signInBinding.editUsername.setError("Enter Username");
+                    } else {
+                        signInBinding.editUsername.setError("Enter Username");
+                        signInBinding.editPass.setError("Enter Password");
+                    }
                 }
-                if(TextUtils.isEmpty(Objects.requireNonNull(login_data).getPassword())){
-                    signInBinding.editPass.setError("Enter Password");
-                }
-                else {
-                    Log.e("TAG", "onChanged: username " + login_data.getloginUsername());
-                    Log.e("TAG", "onChanged: pass " + login_data.getPassword());
-                    service = new loginService(login_data, MainActivity.this);
+                else{
+                    if(login_data.getPassword() == null){
+                        signInBinding.editPass.setError("Enter Password");
+                    }
+                    if(login_data.getloginUsername() == null) {
+                        signInBinding.editUsername.setError("Enter Username");
+                    }
                 }
             }
         });
