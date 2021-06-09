@@ -53,7 +53,7 @@ public class signUpService {
             postparams.put("password",data.getCpass() );
             postparams.put("email",data.getEmail() );
             postparams.put("contact",data.getContact() );
-            if(isDoc)
+            if(!isDoc)
                 postparams.put("department",data.getSpecialistof() );
           else
                 postparams.put("doctor",data.getSpecialistof() );
