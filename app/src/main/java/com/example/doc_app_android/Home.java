@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
+import com.example.doc_app_android.Adapter.BodyParts;
+import com.example.doc_app_android.Adapter.BodyPartsAdapter;
 import com.example.doc_app_android.Adapter.PatientDetails;
 import com.example.doc_app_android.Adapter.PatientDetailsAdapter;
 import com.example.doc_app_android.HomeFragments.AppointmentsFragment;
@@ -40,7 +42,9 @@ public class Home extends AppCompatActivity {
     private ActionBarDrawerToggle toggle;
     private boolean regornot = false;
     private RecyclerView rcv;
+    private RecyclerView button_rcv;
     private ArrayList<PatientDetails> data;
+    private ArrayList<BodyParts> data1;
 
 
 
@@ -56,6 +60,7 @@ public class Home extends AppCompatActivity {
 
 
         rcv = findViewById(R.id.patient_details_rcv);
+        button_rcv = findViewById(R.id.button_rcv);
 
         regornot = getIntent().getBooleanExtra("reg", false);
 
@@ -132,7 +137,9 @@ public class Home extends AppCompatActivity {
         });
 
         init();
+        initButton();
         setRecycler();
+        setButtonRecycler();
     }
 
     private void setRecycler(){
@@ -158,4 +165,24 @@ public class Home extends AppCompatActivity {
         data.add(new PatientDetails("Harleen Singh", "10-01-2021", "24", "OPERATION", "Punjab"));
 
     }
+
+    private void setButtonRecycler(){
+        BodyPartsAdapter bodyPartsAdapter = new BodyPartsAdapter(data1, this);
+        button_rcv.setAdapter(bodyPartsAdapter);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false);
+        button_rcv.setLayoutManager(linearLayoutManager);
+    }
+
+    private void initButton(){
+        data1 = new ArrayList<>();
+        data1.add(new BodyParts("Wrist"));
+        data1.add(new BodyParts("Elbow"));
+        data1.add(new BodyParts("Hip"));
+        data1.add(new BodyParts("Eyes"));
+        data1.add(new BodyParts("Ears"));
+        data1.add(new BodyParts("Nose"));
+        data1.add(new BodyParts("Others"));
+
+    }
 }
+

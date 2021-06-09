@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/button_single_row"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/scnd_blue_white"
+    android:backgroundTint="@color/scnd_blue_white"
+    android:orientation="horizontal">
+
+    <Button
+        android:id="@+id/button_dynamic"
+        android:layout_width="108dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/add_label_theme"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Wrist"
+        android:textColor="@color/scnd_grey"
+        android:textSize="14sp"
+        android:layout_marginRight="6dp" />
+
+</androidx.appcompat.widget.LinearLayoutCompat>

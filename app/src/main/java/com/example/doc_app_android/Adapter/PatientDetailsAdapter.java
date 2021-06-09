@@ -32,9 +32,6 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
         this.mContext = mContext;
     }
 
-    public PatientDetailsAdapter(ArrayList<PatientDetails> data) {
-        this.data = data;
-    }
 
     @NonNull
     @Override
@@ -64,17 +61,17 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
 
     class PatientDetailsHolder extends RecyclerView.ViewHolder {
 
-        TextView name;
-        TextView expandableName;
-        TextView lastCheckup;
-        TextView age;
-        TextView caseLevel;
-        TextView state;
-        ImageView open_button;
-        ImageView close_button;
-        RelativeLayout expandable_layout;
-        LinearLayoutCompat linearLayout;
-        LinearLayoutCompat patient_row;
+        private TextView name;
+        private TextView expandableName;
+        private TextView lastCheckup;
+        private TextView age;
+        private TextView caseLevel;
+        private TextView state;
+        private ImageView open_button;
+        private ImageView close_button;
+        private RelativeLayout expandable_layout;
+        private LinearLayoutCompat linearLayout;
+        private LinearLayoutCompat patient_row;
 
 
         public PatientDetailsHolder(@NonNull View itemView) {
