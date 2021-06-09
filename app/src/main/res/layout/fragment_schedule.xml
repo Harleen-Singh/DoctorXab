@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".HomeFragments.ScheduleFragment">
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/profile_top_bar_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="26dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginRight="26dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/schedule_back_button"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/app_back_button" />
+
+        <TextView
+            android:id="@+id/schedule_label"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/rubik"
+            android:gravity="center"
+            android:text="Schedule"
+            android:textColor="@color/black"
+            android:textSize="24sp" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Schedule"
+        android:textSize="30sp"
+        android:textColor="#000"
+        android:textStyle="bold"
+        android:layout_gravity="center"/>
+
+</FrameLayout>

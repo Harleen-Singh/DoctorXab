@@ -4,11 +4,12 @@
     android:id="@+id/vertical_scrollable"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".DoctorProfile">
+    tools:context=".HomeFragments.ProfileFragment">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/white"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -223,7 +224,6 @@
                         android:id="@+id/saved_save_button"
                         android:layout_width="92dp"
                         android:layout_height="50dp"
-
                         android:background="@drawable/btn_theme_1"
                         android:clickable="true"
                         android:focusable="true"

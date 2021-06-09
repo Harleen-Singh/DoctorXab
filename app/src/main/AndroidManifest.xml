@@ -14,9 +14,6 @@
         android:theme="@style/NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".DoctorProfile"
-            android:theme="@style/NoActionBar" />
-        <activity
             android:name=".Home"
             android:theme="@style/NoActionBar" />
         <activity

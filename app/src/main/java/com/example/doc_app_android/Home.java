@@ -4,21 +4,29 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.example.doc_app_android.Adapter.PatientDetails;
 import com.example.doc_app_android.Adapter.PatientDetailsAdapter;
+import com.example.doc_app_android.HomeFragments.AppointmentsFragment;
+import com.example.doc_app_android.HomeFragments.PrivacyPolicyFragment;
+import com.example.doc_app_android.HomeFragments.ProfileFragment;
+import com.example.doc_app_android.HomeFragments.ScheduleFragment;
+import com.example.doc_app_android.HomeFragments.SettingsFragment;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -26,23 +34,23 @@ import java.util.Objects;
 
 public class Home extends AppCompatActivity {
 
-    NavigationView nav;
-    Toolbar toolbar;
-    DrawerLayout drawerLayout;
-    ActionBarDrawerToggle toggle;
-    MenuItem menuItem;
-    Menu menu;
+    private NavigationView nav;
+    private Toolbar toolbar;
+    private DrawerLayout drawerLayout;
+    private ActionBarDrawerToggle toggle;
     private boolean regornot = false;
-
-
-
     private RecyclerView rcv;
     private ArrayList<PatientDetails> data;
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
 
 
 
@@ -53,24 +61,20 @@ public class Home extends AppCompatActivity {
 
 
 
+
         // For adding the action bar.
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
-        //
+
         nav = (NavigationView)findViewById(R.id.nav_menu);
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer);
 
-        // we have passes five parameters in the ActionBarDrawerToggle constructor
-        // 1. Context itself.
-        // 2. drawerlayout object, we have passed the drawer layout object in the function for connecting the drawer layout with toggle button.
-        // 3. toolbar object, to fix the toggle button to the toolbar.
-        // 4. two messages has been passed open and close(It can only be passed through string file reference).
+
         toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
 
-        // we have used addDrawerListener with drawerlayout object and passed toggle button as parameter because drawer layout will monitor
-        // the activity of the toggle button and as its response it will be opened or closed.
+
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
@@ -87,27 +91,27 @@ public class Home extends AppCompatActivity {
                 switch (item.getItemId()){
 
                     case R.id.menu_profile:
-                        Intent openProfile = new Intent(Home.this, DoctorProfile.class);
-                        startActivity(openProfile);
+                        temp = new ProfileFragment();
                         break;
 
                     case R.id.menu_appointments:
                         Toast.makeText(getApplicationContext(), "Appointments Pane is opened.", Toast.LENGTH_SHORT).show();
+                        temp = new AppointmentsFragment();
                         break;
 
                     case R.id.menu_schedule:
                         Toast.makeText(getApplicationContext(), "Schedule Pane is opened.", Toast.LENGTH_SHORT).show();
-
+                        temp = new ScheduleFragment();
                         break;
 
                     case R.id.menu_settings:
                         Toast.makeText(getApplicationContext(), "Settings Pane is opened.", Toast.LENGTH_SHORT).show();
-
+                        temp = new SettingsFragment();
                         break;
 
                     case R.id.menu_privacyplicy:
                         Toast.makeText(getApplicationContext(), "Privacy Policy Pane is opened.", Toast.LENGTH_SHORT).show();
-
+                        temp = new PrivacyPolicyFragment();
                         break;
 
                     case R.id.menu_logout:
@@ -121,6 +125,7 @@ public class Home extends AppCompatActivity {
                         break;
                 }
 
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container, temp).commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
@@ -134,7 +139,6 @@ public class Home extends AppCompatActivity {
         PatientDetailsAdapter patientDetailsAdapter = new PatientDetailsAdapter(data,this);
         rcv.setAdapter(patientDetailsAdapter);
         ((SimpleItemAnimator) Objects.requireNonNull(rcv.getItemAnimator())).setSupportsChangeAnimations(false);
-        //rcv.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rcv.setLayoutManager(linearLayoutManager);
     }
