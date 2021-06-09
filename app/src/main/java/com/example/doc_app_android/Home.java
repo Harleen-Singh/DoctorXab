@@ -1,6 +1,8 @@
 package com.example.doc_app_android;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -43,16 +45,10 @@ public class Home extends AppCompatActivity {
     private ArrayList<PatientDetails> data;
 
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
-
-
 
 
         rcv = findViewById(R.id.patient_details_rcv);
@@ -60,16 +56,14 @@ public class Home extends AppCompatActivity {
         regornot = getIntent().getBooleanExtra("reg", false);
 
 
-
-
         // For adding the action bar.
-        toolbar = (Toolbar)findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
 
-        nav = (NavigationView)findViewById(R.id.nav_menu);
-        drawerLayout = (DrawerLayout)findViewById(R.id.drawer);
+        nav = (NavigationView) findViewById(R.id.nav_menu);
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
 
 
         toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
@@ -81,14 +75,13 @@ public class Home extends AppCompatActivity {
         nav.setCheckedItem(R.id.menu_profile);
 
 
-
-
         nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             Fragment temp;
+
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
-                switch (item.getItemId()){
+                switch (item.getItemId()) {
 
                     case R.id.menu_profile:
                         temp = new ProfileFragment();
@@ -115,17 +108,16 @@ public class Home extends AppCompatActivity {
                         break;
 
                     case R.id.menu_logout:
-                        if(regornot){
-                            Intent intent = new Intent(Home.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else{
-                            finish();
-                        }
+                        SharedPreferences.Editor editor = getSharedPreferences("tokenFile", Context.MODE_PRIVATE).edit();
+                        editor.clear();
+                        editor.apply();
+                        Intent intent = new Intent(Home.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
                         break;
                 }
-
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container, temp).commit();
+                if (temp != null)
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container, temp).commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
@@ -135,15 +127,15 @@ public class Home extends AppCompatActivity {
         setRecycler();
     }
 
-    private void setRecycler(){
-        PatientDetailsAdapter patientDetailsAdapter = new PatientDetailsAdapter(data,this);
+    private void setRecycler() {
+        PatientDetailsAdapter patientDetailsAdapter = new PatientDetailsAdapter(data, this);
         rcv.setAdapter(patientDetailsAdapter);
         ((SimpleItemAnimator) Objects.requireNonNull(rcv.getItemAnimator())).setSupportsChangeAnimations(false);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         rcv.setLayoutManager(linearLayoutManager);
     }
 
-    private void init(){
+    private void init() {
         data = new ArrayList<>();
 
         data.add(new PatientDetails("John Cena", "01-01-2021", "21", "OPERATION", "New York"));

@@ -129,10 +129,10 @@ public class loginService {
     private void saveToPreferences() {
         SharedPreferences.Editor editor = mContext.getSharedPreferences("tokenFile", Context.MODE_PRIVATE).edit();
         editor.putBoolean("isDoc", isDoc);
-        editor.putBoolean("isPatient", isPatient);
         editor.putString("id", userID);
         editor.putString("username", userName);
         editor.putString("Email", email);
+        editor.putString("pass" , pass);
         editor.apply();
     }
 

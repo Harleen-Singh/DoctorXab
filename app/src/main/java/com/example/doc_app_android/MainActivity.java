@@ -1,8 +1,12 @@
 package com.example.doc_app_android;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -38,6 +42,16 @@ public class MainActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(Login_view_model.class);
         signInBinding.setLifecycleOwner(this);
         signInBinding.setViewmodel(viewModel);
+
+
+        final SharedPreferences sp = getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+        boolean isDoc = sp.getBoolean("isDoc", false);
+        if (sp.contains("id")) {
+            Intent intent = new Intent(this, Home.class);
+            startActivity(intent);
+            finish();
+        }
+
 
         viewModel.getUser().observe(this, new Observer<Login_data>() {
             @Override
