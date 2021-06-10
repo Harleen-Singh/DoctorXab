@@ -1,6 +1,8 @@
 package com.example.doc_app_android;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
@@ -116,17 +118,17 @@ public class Home extends AppCompatActivity implements BodyPartsAdapter.OnPartLi
                         break;
 
                     case R.id.menu_logout:
-                        if (regornot) {
-                            Intent intent = new Intent(Home.this, MainActivity.class);
-                            startActivity(intent);
-                            finish();
-                        } else {
-                            finish();
-                        }
+                        SharedPreferences.Editor editor = getSharedPreferences("tokenFile", Context.MODE_PRIVATE).edit();
+                        editor.clear();
+                        editor.apply();
+                        Intent intent = new Intent(Home.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
                         break;
                 }
 
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container, temp).commit();
+                if (temp != null)
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container, temp).commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }

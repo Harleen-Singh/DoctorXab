@@ -2,7 +2,9 @@ package com.example.doc_app_android.services;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -24,12 +26,16 @@ import com.example.doc_app_android.R;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.logging.Handler;
+
 public class signUpService {
     private Register_data data;
     private Activity mContext;
     private ProgressDialog progressDialog;
     private boolean isDoc;
     public String url;
+    String id , usernameResp , email ;
+    private boolean isDoctor;
     private com.example.doc_app_android.Dialogs.dialogs dialogs = new dialogs();
     public signUpService(Register_data data, Activity activity , boolean isDoc) {
         this.data = data;
@@ -53,11 +59,18 @@ public class signUpService {
             postparams.put("password",data.getCpass() );
             postparams.put("email",data.getEmail() );
             postparams.put("contact",data.getContact() );
-            if(isDoc)
-                postparams.put("department",data.getSpecialistof() );
+            if(!isDoc)
+                postparams.put("department",Integer.parseInt("1"));
+//                postparams.put("department",Integer.parseInt(data.getSpecialistof()) );
           else
                 postparams.put("doctor",data.getSpecialistof() );
 //            postparams.put("password", pass);
+
+            Log.e("TAG", "getData: " + data.getUsername()  );
+            Log.e("TAG", "getData: " + data.getCpass()  );
+            Log.e("TAG", "getData: " + data.getEmail()  );
+            Log.e("TAG", "getData: " + data.getContact()  );
+            Log.e("TAG", "getData: " + data.getSpecialistof()  );
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -66,15 +79,22 @@ public class signUpService {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postparams, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                try {
-                    Log.d("TAG", "onResponse: we are processing");
-                    JSONObject rootObject = new JSONObject(String.valueOf(response));
-
-                } catch (JSONException e) {
-                    Log.d("TAG", "onResponse: Sorry failed");
+                Log.d("TAG", "onResponse: we are processing");
+                Log.e("TAG", "onResponse: "+response );
+                dialogs.dismissDialog(progressDialog);
+                try{
+                    JSONObject root = new JSONObject(String.valueOf(response));
+                    id = root.getString("id");
+                    email = root.getString("email");
+                    usernameResp = root.getString("username");
+                    isDoctor = root.getBoolean("is_doctor");
+                    saveToPreferences();
+                    Intent intent = new Intent(mContext, Home.class);
+                    mContext.startActivity(intent);
+                    mContext.finish();
+                }catch (Exception e){
                     e.printStackTrace();
                 }
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -94,22 +114,17 @@ public class signUpService {
         });
         MyRequestQueue.add(jsonObjectRequest);
 
-        jsonObjectRequest.setRetryPolicy(new RetryPolicy() {
-            @Override
-            public int getCurrentTimeout() {
-                return 50000;
-            }
 
-            @Override
-            public int getCurrentRetryCount() {
-                return 50000;
-            }
+    }
 
-            @Override
-            public void retry(VolleyError error) throws VolleyError {
-
-            }
-        });
+    private void saveToPreferences() {
+        SharedPreferences.Editor editor = mContext.getSharedPreferences("tokenFile", Context.MODE_PRIVATE).edit();
+        editor.putBoolean("isDoc", isDoctor);
+        editor.putString("id", id);
+        editor.putString("username", usernameResp);
+        editor.putString("Email", email);
+        editor.putString("pass" , data.getCpass());
+        editor.apply();
     }
 
 }
