@@ -104,18 +104,26 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/patient_details_rcv"
+            <FrameLayout
+                android:id="@+id/patient_container"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginBottom="8dp"
                 android:background="@color/scnd_blue_white"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linear_layout"
+                app:layout_constraintTop_toBottomOf="@+id/linear_layout">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/patient_details_rcv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/scnd_blue_white"
+                android:visibility="visible"
                 tools:listitem="@layout/home_single_patient_row" />
+
+            </FrameLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
