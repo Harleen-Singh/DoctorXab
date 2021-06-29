@@ -32,17 +32,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
-                <androidx.appcompat.widget.LinearLayoutCompat
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/ll_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    tools:layout_editor_absoluteX="16dp">
 
                     <TextView
                         android:id="@+id/topTitleName"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
-                        android:layout_weight="9"
                         android:fadingEdge="horizontal"
                         android:fontFamily="@font/rubik_bold"
                         android:gravity="center"
@@ -50,31 +51,52 @@
                         android:text="@string/logo"
                         android:textColor="@color/theme"
                         android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/ib_search"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageButton
+                        android:id="@+id/ib_search"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_marginRight="10dp"
-                        android:layout_weight="1"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
                         android:background="@color/scnd_blue_white"
                         android:backgroundTint="@color/white"
                         android:contentDescription="Search Button"
-                        android:src="@drawable/search" />
+                        android:src="@drawable/search"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/ib_noti"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageButton
+                        android:id="@+id/ib_noti"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginRight="15dp"
-                        android:layout_weight="1"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginRight="16dp"
                         android:background="@color/scnd_blue_white"
                         android:backgroundTint="@color/white"
                         android:contentDescription="Notifications Button"
-                        android:src="@drawable/notifications" />
+                        android:src="@drawable/notifications"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <EditText
+                        android:id="@+id/et_search"
+                        android:layout_width="0dp"
+                        android:layout_height="33dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/topTitleName"
+                        app:layout_constraintStart_toStartOf="@+id/topTitleName"
+                        app:layout_constraintTop_toBottomOf="@+id/topTitleName"
+                        android:visibility="gone"/>
 
 
-                </androidx.appcompat.widget.LinearLayoutCompat>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             </androidx.appcompat.widget.Toolbar>

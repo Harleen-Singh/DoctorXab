@@ -7,16 +7,14 @@
 
     <TextView
         android:id="@+id/tv_logo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:fontFamily="@font/rubik_bold"
+        android:layout_width="91dp"
+        android:layout_height="18.8dp"
+        android:background="@drawable/splash"
+        android:layout_marginTop="60dp"
         android:gravity="center"
-        android:text="@string/logo"
         android:textColor="@color/theme"
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -24,13 +22,13 @@
         android:id="@+id/back_button_img"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_marginTop="40dp"
         android:layout_marginStart="40dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/app_back_button"
         app:layout_constraintBottom_toTopOf="@+id/tv_logo"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginLeft="50dp" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_desc"
@@ -54,7 +52,6 @@
         android:layout_marginRight="55dp"
         android:background="@drawable/text_field_1"
         android:hint="@string/specialist_of"
-        android:visibility="visible"
         android:inputType="text"
         android:paddingStart="20dp"
         android:paddingLeft="20dp"
@@ -64,9 +61,11 @@
         android:textColorHint="#8B91AB"
         android:textSize="14sp"
         android:theme="@style/EditTextTheme"
+        android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_desc" />
+
     <androidx.appcompat.widget.AppCompatEditText
         android:id="@+id/edit_status_patient"
         android:layout_width="match_parent"
@@ -85,10 +84,10 @@
         android:textColorHint="#8B91AB"
         android:textSize="14sp"
         android:theme="@style/EditTextTheme"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_desc"
-        android:visibility="gone"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_desc" />
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -98,10 +97,10 @@
         android:layout_marginLeft="55dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="55dp"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_status_doctor"
-        app:hintEnabled="false"
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -112,10 +111,10 @@
             android:fontFamily="@font/rubik"
             android:hint="@string/create_password"
             android:inputType="textPassword"
-            android:textColor="#8B91AB"
             android:paddingStart="20dp"
             android:paddingLeft="20dp"
             android:singleLine="true"
+            android:textColor="#8B91AB"
             android:textSize="14sp"
             android:theme="@style/EditTextTheme"
             tools:ignore="RtlSymmetry" />
@@ -128,10 +127,10 @@
         android:layout_marginLeft="55dp"
         android:layout_marginTop="20dp"
         android:layout_marginRight="55dp"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_create_pass"
-        app:hintEnabled="false"
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -142,10 +141,10 @@
             android:fontFamily="@font/rubik"
             android:hint="@string/confirm_password"
             android:inputType="textPassword"
-            android:textColor="#8B91AB"
             android:paddingStart="20dp"
             android:paddingLeft="20dp"
             android:singleLine="true"
+            android:textColor="#8B91AB"
             android:textSize="14sp"
             android:theme="@style/EditTextTheme"
             tools:ignore="RtlSymmetry" />
@@ -197,8 +196,8 @@
             android:id="@+id/layout_google"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingRight="10dp"
             android:orientation="vertical"
+            android:paddingRight="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/layout_facebook"
             app:layout_constraintStart_toStartOf="parent"
@@ -263,8 +262,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="@+id/btn_parent_layout"
         android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="@+id/btn_parent_layout"
         app:layout_constraintStart_toStartOf="@+id/btn_parent_layout"
         app:layout_constraintTop_toBottomOf="@+id/btn_parent_layout">
 
@@ -291,8 +290,8 @@
             android:focusable="true"
             android:fontFamily="@font/rubik"
             android:gravity="center"
-            android:paddingTop="15dp"
             android:paddingLeft="10dp"
+            android:paddingTop="15dp"
             android:text="@string/sign_in"
             android:textColor="@color/theme"
             app:layout_constraintBottom_toBottomOf="parent"
