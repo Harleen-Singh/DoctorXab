@@ -10,6 +10,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -51,6 +53,8 @@ public class Home extends AppCompatActivity implements BodyPartsAdapter.OnPartLi
     private RecyclerView button_rcv;
     private ArrayList<PatientDetails> data;
     private ArrayList<BodyParts> data1;
+    private ImageButton search , noti , draw_btn;
+    private EditText search_field;
     private int selectedItemPosition = 0;
 
 
@@ -62,21 +66,35 @@ public class Home extends AppCompatActivity implements BodyPartsAdapter.OnPartLi
 
         //rcv = findViewById(R.id.patient_details_rcv);
         button_rcv = findViewById(R.id.button_rcv);
-
         regornot = getIntent().getBooleanExtra("reg", false);
-
+        search = findViewById(R.id.search_btn);
+        search_field = findViewById(R.id.edit_search);
+        search.setOnClickListener(new View.OnClickListener() {
+                                      @Override
+                                      public void onClick(View view) {
+                                          if(search_field.getVisibility()==View.GONE)
+                                          search_field.setVisibility(View.VISIBLE);
+                                          else
+                                              search_field.setVisibility(View.GONE);
+                                      }
+                                  }
+        );
 
         // For adding the action bar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("");
         setSupportActionBar(toolbar);
-
-
         nav = (NavigationView) findViewById(R.id.nav_menu);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        draw_btn = findViewById(R.id.drawer_btn);
 
+        toggle = new ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close);
 
-        toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
+        draw_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
 
 
         drawerLayout.addDrawerListener(toggle);

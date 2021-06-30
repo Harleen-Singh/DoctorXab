@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.appcompat.widget.Toolbar xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragtoolbar"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:elevation="4dp"
+    app:contentInsetStart="0dp"
+    >
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="20dp">
+
+        <ImageButton
+            android:id="@+id/drawer_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/hamburger"
+            android:foreground="?android:attr/actionBarItemBackground"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar_title"
+            app:layout_constraintEnd_toStartOf="@+id/toolbar_title"
+            app:layout_constraintHorizontal_bias="0.126"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/toolbar_title"
+            app:layout_constraintVertical_bias="0.625" />
+
+        <TextView
+            android:id="@+id/toolbar_title"
+            android:layout_width="100dp"
+            android:layout_height="21.86dp"
+            android:layout_gravity="center"
+            android:background="@drawable/splash"
+            android:elevation="5dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/search_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:background="@color/scnd_blue_white"
+            android:backgroundTint="@color/white"
+            android:clickable="true"
+            android:foreground="?android:attr/actionBarItemBackground"
+            android:contentDescription="Search Button"
+            android:focusable="true"
+            android:src="@drawable/search_toolbar"
+            app:layout_constraintBottom_toBottomOf="@+id/toolbar_title"
+            app:layout_constraintStart_toEndOf="@+id/toolbar_title"
+            app:layout_constraintTop_toTopOf="@+id/toolbar_title" />
+
+        <ImageButton
+            android:id="@+id/noti_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/scnd_blue_white"
+            android:backgroundTint="@color/white"
+            android:clickable="true"
+            android:contentDescription="Notifications Button"
+            android:focusable="true"
+            android:foreground="?android:attr/actionBarItemBackground"
+            android:src="@drawable/notifications"
+            app:layout_constraintBottom_toBottomOf="@+id/search_btn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/search_btn"
+            app:layout_constraintTop_toTopOf="@+id/search_btn"
+            />
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/edit_search"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:background="@drawable/edit_text_search"
+            android:drawableRight="@drawable/search_edit_text"
+            android:hint="@string/search_here"
+            android:layout_marginTop="20dp"
+            android:inputType="text"
+            android:paddingStart="20dp"
+            android:paddingLeft="20dp"
+            android:paddingEnd="20dp"
+            android:paddingRight="20dp"
+            android:singleLine="true"
+            android:textColor="#8B91AB"
+            android:textColorHint="#8B91AB"
+            android:textSize="14sp"
+            android:theme="@style/EditTextTheme"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/noti_btn"
+            app:layout_constraintStart_toStartOf="@+id/drawer_btn"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_title" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.appcompat.widget.Toolbar>
