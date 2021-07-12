@@ -93,7 +93,7 @@
             android:textColorHint="#8B91AB"
             android:textSize="14sp"
             android:theme="@style/EditTextTheme"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/noti_btn"
             app:layout_constraintStart_toStartOf="@+id/drawer_btn"
