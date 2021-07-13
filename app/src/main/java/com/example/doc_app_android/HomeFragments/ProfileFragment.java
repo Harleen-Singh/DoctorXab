@@ -76,7 +76,6 @@ public class ProfileFragment extends Fragment {
 
         // Inflate the layout for this fragment
 
-        backButton = (ImageView) view.findViewById(R.id.profile_back_button_save);
         savedSave = (Button)view.findViewById(R.id.saved_save_button);
         edit = (Button)view.findViewById(R.id.saved_edit_button);
         save = (Button)view.findViewById(R.id.btn_edit_save);
