@@ -39,10 +39,13 @@
     <string name="search_here">Search Here</string>
     <string name="appointment_with">APPOINTMENT WITH</string>
     <string name="cancel">cancel</string>
+    <string name="x_ray">X-RAY</string>
     <array name="patientFilters">
         <item>CHECKUP HISTORY</item>
         <item>X-RAY/SCAN</item>
-        <item><P>PRESCRIPTION</P></item>
+        <item>
+            <P>PRESCRIPTION</P>
+        </item>
         <item>APPOINTMENT</item>
     </array>
 </resources>
