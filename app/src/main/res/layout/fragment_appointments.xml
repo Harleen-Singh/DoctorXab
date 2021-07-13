@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    >
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:background="@color/scnd_blue_white"
     tools:context=".HomeFragments.AppointmentsFragment">
 
@@ -123,26 +128,29 @@
         android:fontFamily="@font/rubik_semi_bold"
         android:textColor="@drawable/btn_text_color_1"
         app:layout_constraintTop_toBottomOf="@id/btn_apmnt" />
+
     <Button
         android:id="@+id/btn_note"
         android:layout_width="155dp"
         android:layout_height="42dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/btn_bg_changer_2"
         android:clickable="true"
         android:focusable="true"
+        android:fontFamily="@font/rubik_semi_bold"
+        android:text="ADD A NOTE"
+        android:textColor="@drawable/btn_text_color_1"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.049"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/btn_bg_changer_2"
-        android:text="ADD A NOTE"
-        android:layout_marginLeft="20dp"
-        android:fontFamily="@font/rubik_semi_bold"
-        android:textColor="@drawable/btn_text_color_1"
         app:layout_constraintTop_toBottomOf="@id/btn_remain" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
+</ScrollView>
 
 
