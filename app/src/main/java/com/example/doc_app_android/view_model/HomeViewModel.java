@@ -23,7 +23,6 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     public LiveData<ArrayList<FilterData>> getFilters(){
-        Log.d("TAG", "getFilters: " + service.getdata(app).getValue().get(0).getFilter());
         return service.getdata(app);
     }
 

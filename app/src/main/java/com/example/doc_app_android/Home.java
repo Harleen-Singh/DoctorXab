@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -56,12 +57,16 @@ public class Home extends AppCompatActivity {
         binding.setLifecycleOwner(this);
         binding.filterRcv.setAdapter(filterAdapter);
         model = new ViewModelProvider(this).get(HomeViewModel.class);
+
         model.getFilters().observe(this, new Observer<ArrayList<FilterData>>() {
             @Override
             public void onChanged(ArrayList<FilterData> filterData) {
                 filterAdapter.setFilter(filterData);
+                filterAdapter.notifyDataSetChanged();
             }
         });
+
+
         search_field = findViewById(R.id.edit_search);
         search.setOnClickListener(new View.OnClickListener() {
             @Override

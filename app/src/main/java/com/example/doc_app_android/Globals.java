@@ -6,4 +6,5 @@ public class Globals {
     public static String loginURL = serverURL + "login";
     public static String patientRegister = serverURL + "register/patient";
     public static String docRegister = serverURL + "register/doctor";
+    public static String docFilter = serverURL + "problems";
 }
