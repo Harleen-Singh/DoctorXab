@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,7 +23,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.doc_app_android.Adapter.FilterRCVadapter;
 import com.example.doc_app_android.data_model.FilterData;
-import com.example.doc_app_android.HomeFragments.AppointmentsFragment;
+import com.example.doc_app_android.PatentHomeFragments.AppointmentsFragment;
 import com.example.doc_app_android.HomeFragments.PrivacyPolicyFragment;
 import com.example.doc_app_android.HomeFragments.ProfileFragment;
 import com.example.doc_app_android.HomeFragments.ScheduleFragment;

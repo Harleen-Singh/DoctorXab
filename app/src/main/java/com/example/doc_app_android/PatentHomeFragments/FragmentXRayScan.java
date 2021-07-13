@@ -16,6 +16,11 @@ public class FragmentXRayScan extends Fragment {
         // Required empty public constructor
     }
 
+    public static FragmentXRayScan newInstance() {
+        FragmentXRayScan fragment = new FragmentXRayScan();
+        return fragment;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

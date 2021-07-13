@@ -24,7 +24,7 @@
 
         <Button
             android:id="@+id/button_dynamic"
-            android:layout_width="115dp"
+            android:layout_width="150dp"
             android:layout_height="43dp"
             android:background="@drawable/btn_theme_2"
             android:clickable="true"

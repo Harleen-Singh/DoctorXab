@@ -1,4 +1,4 @@
-package com.example.doc_app_android.PatientsInfo;
+package com.example.doc_app_android.PatentHomeFragments;
 
 import android.os.Bundle;
 
@@ -24,12 +24,9 @@ public class patientCheckUpHistory extends Fragment {
         // Required empty public constructor
     }
 
-    public static patientCheckUpHistory newInstance(String param1, String param2) {
+    public static patientCheckUpHistory newInstance() {
         patientCheckUpHistory fragment = new patientCheckUpHistory();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -46,7 +43,7 @@ public class patientCheckUpHistory extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View root =  inflater.inflate(R.layout.fragment_patient_check_up_history, container, false);
-        rView = root.findViewById(R.id.rView);
+
 
 
         return root;

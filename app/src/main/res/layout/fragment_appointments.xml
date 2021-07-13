@@ -10,7 +10,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/scnd_blue_white"
-    tools:context=".HomeFragments.AppointmentsFragment">
+    tools:context=".PatentHomeFragments.AppointmentsFragment">
 
     <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         android:id="@+id/calendarView"

@@ -15,6 +15,10 @@ public class FragmentPrescription extends Fragment {
     public FragmentPrescription() {
         // Required empty public constructor
     }
+    public static FragmentPrescription newInstance() {
+        FragmentPrescription fragment = new FragmentPrescription();
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

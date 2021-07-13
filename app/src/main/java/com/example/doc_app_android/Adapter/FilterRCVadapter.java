@@ -1,7 +1,9 @@
 package com.example.doc_app_android.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Build;
+import android.text.style.IconMarginSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +15,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.doc_app_android.PatentHomeFragments.AppointmentsFragment;
+import com.example.doc_app_android.PatentHomeFragments.FragmentPrescription;
+import com.example.doc_app_android.PatentHomeFragments.FragmentXRayScan;
+import com.example.doc_app_android.PatentHomeFragments.patientCheckUpHistory;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.FilterData;
 import com.example.doc_app_android.databinding.SingleFilterBinding;
@@ -27,9 +36,19 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
 
     public ArrayList<FilterData> data = new ArrayList<>();
     public Context context;
-    public int preSelectionPos;
+    public int preSelectionPos , openedFrag =0;
+    public SharedPreferences pref;
+    Fragment temp =  null;
     public FilterRCVadapter(Context context) {
+        pref = context.getSharedPreferences("tokenFile",Context.MODE_PRIVATE);
         this.context = context;
+        if(!pref.getBoolean("isDoc",false)){ // patient initial fragment for checkUp history
+            temp = patientCheckUpHistory.newInstance();
+            AppCompatActivity appCompatActivity = (AppCompatActivity)context ;
+            appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.Home_frameLayout,temp).commit();
+        }else{
+            // case for initial screen for doctor
+        }
     }
 
     public void setFilter(ArrayList<FilterData> dataList) {
@@ -55,6 +74,35 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
         }
     }
 
+    private void callFragments(String filterData, int position) {
+        if(openedFrag!=position){
+            openedFrag = position;
+
+            if(pref.getBoolean("isDoc",false)){
+                // TODO
+            }else{
+
+                Log.d("TAG", "callFragments: " + filterData);
+            }
+            switch (filterData.trim()){
+                case "CHECKUP HISTORY":
+                    temp = patientCheckUpHistory.newInstance();
+                    break;
+                case "X-RAY/SCAN":
+                    temp = FragmentXRayScan.newInstance();
+                    break;
+                case "PRESCRIPTION":
+                    temp = FragmentPrescription.newInstance();
+                    break;
+                case "APPOINTMENT":
+                    temp = AppointmentsFragment.newInstance();
+                    break;
+            }
+            AppCompatActivity appCompatActivity = (AppCompatActivity)context ;
+            appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.Home_frameLayout,temp).commit();
+        }
+    }
+
     @Override
     public int getItemCount() {
         return data.size();
@@ -76,6 +124,8 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
             preSelectionPos = getAdapterPosition();
             Log.e("TAG", "onClick: next" + getAdapterPosition());
             notifyItemChanged(preSelectionPos);
+            callFragments(binding.buttonDynamic.getText().toString(),preSelectionPos);
+
         }
     }
 
