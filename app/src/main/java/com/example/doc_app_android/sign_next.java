@@ -1,26 +1,17 @@
 package com.example.doc_app_android;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.OnBackPressedCallback;
-import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.doc_app_android.Data_model.Register_data;
+import com.example.doc_app_android.data_model.Register_data;
 import com.example.doc_app_android.databinding.SignNextBinding;
 import com.example.doc_app_android.services.signUpService;
-import com.example.doc_app_android.view_model.Login_view_model;
 import com.example.doc_app_android.view_model.Register_view_model;
 
 public class sign_next extends AppCompatActivity {

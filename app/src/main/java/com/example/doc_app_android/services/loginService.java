@@ -1,7 +1,6 @@
 package com.example.doc_app_android.services;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -18,7 +17,7 @@ import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.doc_app_android.Data_model.Login_data;
+import com.example.doc_app_android.data_model.Login_data;
 import com.example.doc_app_android.Dialogs.dialogs;
 import com.example.doc_app_android.Globals;
 import com.example.doc_app_android.Home;

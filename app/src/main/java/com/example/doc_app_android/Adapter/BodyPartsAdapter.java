@@ -1,7 +1,6 @@
 package com.example.doc_app_android.Adapter;
 
 import android.content.Context;
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,18 +8,13 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SimpleItemAnimator;
 
-import com.example.doc_app_android.HomeFragments.DataLoaderFragment;
-import com.example.doc_app_android.HomeFragments.ProfileFragment;
 import com.example.doc_app_android.R;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class BodyPartsAdapter extends RecyclerView.Adapter<BodyPartsAdapter.BodyPartsHolder> {
 
@@ -44,7 +38,7 @@ public class BodyPartsAdapter extends RecyclerView.Adapter<BodyPartsAdapter.Body
     public BodyPartsHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
 
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.bparts_single_row, parent, false);
+        View view = inflater.inflate(R.layout.single_filter, parent, false);
         return new BodyPartsHolder(view, onPartListener);
     }
 

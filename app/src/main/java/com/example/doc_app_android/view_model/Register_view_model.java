@@ -1,15 +1,13 @@
 package com.example.doc_app_android.view_model;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.doc_app_android.Data_model.Register_data;
+import com.example.doc_app_android.data_model.Register_data;
 import com.example.doc_app_android.MainActivity;
 
 public class Register_view_model extends ViewModel {

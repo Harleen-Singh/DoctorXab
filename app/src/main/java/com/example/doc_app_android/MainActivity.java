@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -14,7 +13,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.doc_app_android.Data_model.Login_data;
+import com.example.doc_app_android.data_model.Login_data;
 import com.example.doc_app_android.Dialogs.dialogs;
 import com.example.doc_app_android.databinding.SignInBinding;
 import com.example.doc_app_android.services.loginService;

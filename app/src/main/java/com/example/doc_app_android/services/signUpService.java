@@ -6,18 +6,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.android.volley.ClientError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.doc_app_android.Data_model.Register_data;
+import com.example.doc_app_android.data_model.Register_data;
 import com.example.doc_app_android.Dialogs.dialogs;
 import com.example.doc_app_android.Globals;
 import com.example.doc_app_android.Home;
@@ -25,8 +23,6 @@ import com.example.doc_app_android.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.logging.Handler;
 
 public class signUpService {
     private Register_data data;

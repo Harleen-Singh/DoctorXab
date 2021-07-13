@@ -3,14 +3,11 @@ package com.example.doc_app_android.view_model;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 
-import androidx.databinding.BaseObservable;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.doc_app_android.Data_model.Login_data;
-import com.example.doc_app_android.R;
+import com.example.doc_app_android.data_model.Login_data;
 import com.example.doc_app_android.sign_as;
 
 

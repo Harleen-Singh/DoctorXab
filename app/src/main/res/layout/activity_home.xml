@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/fragmentHome_container"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
         android:id="@+id/drawer"
@@ -31,49 +32,53 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/linear_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/scnd_blue_white"
-                android:backgroundTint="@color/scnd_blue_white"
-                android:orientation="vertical"
-                android:scrollbarAlwaysDrawHorizontalTrack="true"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/button_rcv"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:listitem="@layout/bparts_single_row" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
-
-
             <FrameLayout
-                android:id="@+id/patient_container"
+                android:id="@+id/fragmentHome_container"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:background="@color/scnd_blue_white"
-                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linear_layout">
+                app:layout_constraintTop_toBottomOf="@id/toolbar">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/patient_details_rcv"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/scnd_blue_white"
-                android:visibility="visible"
-                tools:listitem="@layout/home_single_patient_row" />
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/linear_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/scnd_blue_white"
+                        android:orientation="vertical"
+                        android:scrollbarAlwaysDrawHorizontalTrack="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/filter_rcv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:listitem="@layout/single_filter" />
+
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+                    <FrameLayout
+                        android:id="@+id/Home_frameLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:background="@color/scnd_blue_white"
+                        android:visibility="visible"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/linear_layout" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
             </FrameLayout>
 
@@ -92,9 +97,8 @@
             app:itemTextColor="@color/scnd_blue"
             app:menu="@menu/drawer_options" />
 
-
     </androidx.drawerlayout.widget.DrawerLayout>
+</layout>
 
-</FrameLayout>
 
 

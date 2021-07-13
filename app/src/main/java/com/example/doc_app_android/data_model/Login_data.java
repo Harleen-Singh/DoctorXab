@@ -1,4 +1,4 @@
-package com.example.doc_app_android.Data_model;
+package com.example.doc_app_android.data_model;
 
 
 import android.content.Context;
