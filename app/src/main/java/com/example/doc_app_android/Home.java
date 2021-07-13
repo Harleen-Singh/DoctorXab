@@ -40,8 +40,8 @@ public class Home extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
     private boolean regornot = false;
-    ActivityHomeBinding binding;
     private FilterRCVadapter filterAdapter;
+    ActivityHomeBinding binding;
     private EditText search_field;
     private ImageButton search , draw_btn;
     private HomeViewModel model;
