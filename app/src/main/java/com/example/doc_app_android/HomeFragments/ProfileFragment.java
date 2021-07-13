@@ -112,13 +112,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getFragmentManager().beginTransaction().remove(ProfileFragment.this).commit();
-            }
-        });
         return view ;
     }
 }
