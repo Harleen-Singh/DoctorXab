@@ -18,7 +18,6 @@ import com.example.doc_app_android.R;
  */
 public class AppointmentsFragment extends Fragment {
 
-    private ImageView back_button;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -65,13 +64,6 @@ public class AppointmentsFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_appointments, container, false);
 
-        back_button = (ImageView)view.findViewById(R.id.appointment_back_button);
-        back_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getFragmentManager().beginTransaction().remove(AppointmentsFragment.this).commit();
-            }
-        });
 
         // Inflate the layout for this fragment
         return view;

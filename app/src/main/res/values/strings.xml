@@ -37,4 +37,6 @@
     <string name="_34">34</string>
     <string name="female">FEMALE</string>
     <string name="search_here">Search Here</string>
+    <string name="appointment_with">APPOINTMENT WITH</string>
+    <string name="cancel">cancel</string>
 </resources>
