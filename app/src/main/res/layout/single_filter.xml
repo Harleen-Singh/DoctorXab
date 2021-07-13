@@ -24,15 +24,16 @@
 
         <Button
             android:id="@+id/button_dynamic"
-            android:layout_width="wrap_content"
+            android:layout_width="115dp"
             android:layout_height="43dp"
-            android:layout_marginRight="6dp"
             android:background="@drawable/btn_theme_2"
             android:clickable="true"
             android:focusable="true"
             android:text="@{FilterData.filter}"
             android:textColor="@color/scnd_grey"
-            android:paddingHorizontal="5dp"
+            android:paddingHorizontal="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
             android:textSize="14sp" />
 
     </RelativeLayout>

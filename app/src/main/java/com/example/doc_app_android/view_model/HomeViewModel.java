@@ -16,12 +16,15 @@ import java.util.ArrayList;
 
 public class HomeViewModel extends AndroidViewModel {
     filterService service = new filterService();
+    public Application app;
     public HomeViewModel(@NonNull @NotNull Application application) {
         super(application);
+        this.app = application;
     }
+
     public LiveData<ArrayList<FilterData>> getFilters(){
-        Log.d("TAG", "getFilters: " + service.getdata().getValue().get(0).getFilter());
-        return service.getdata();
+        Log.d("TAG", "getFilters: " + service.getdata(app).getValue().get(0).getFilter());
+        return service.getdata(app);
     }
 
 }
