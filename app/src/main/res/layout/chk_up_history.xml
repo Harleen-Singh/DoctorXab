@@ -1,74 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="200dp"
+    android:layout_marginTop="8dp">
 
-    <TextView
-        android:id="@+id/Static_date"
-        android:layout_width="0dp"
-        android:layout_height="19dp"
-        android:layout_marginVertical="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@color/white"
-        android:fontFamily="@font/rubik_medium"
-        android:text="DATE:"
-        android:textColor="@color/black"
-        android:textSize="16sp"
-        app:layout_constraintBaseline_toBaselineOf="@+id/getDate"
-        app:layout_constraintStart_toStartOf="parent"
-        />
-
-    <TextView
-        android:id="@+id/getDate"
-        android:layout_width="0dp"
-        android:layout_height="19dp"
-        android:text="21 March ,2021"
-        android:textSize="16sp"
-        android:textColor="@color/black"
-        android:fontFamily="@font/rubik_medium"
-        android:layout_margin="10dp"
-        app:layout_constraintStart_toEndOf="@+id/Static_date"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/editBtn"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="10dp"
-        android:background="#00FFFFFF"
-        android:layout_marginRight="40dp"
-        android:src="@drawable/edit_24"
-        app:layout_constraintEnd_toEndOf="@+id/deleteBtn"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/deleteBtn"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="15dp"
-        android:background="#00FFFFFF"
-        android:src="@drawable/delete_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="12dp"
-        android:background="@drawable/rec_back"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ut faucibus tellus amet, elementum habitant. Blandit non imperdiet convallis aliquam egestas posuere at. Eget molestie lorem nibh nisl neque fames. Nunc praesent rhoncus, quam purus semper"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/getDate" />
+        >
 
+        <TextView
+            android:id="@+id/Static_date"
+            android:layout_width="59dp"
+            android:layout_height="22dp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginStart="40dp"
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="9dp"
+            android:background="@color/white"
+            android:fontFamily="@font/rubik_medium"
+            android:text="DATE:"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/getDate"
+            android:layout_width="0dp"
+            android:layout_height="19dp"
+            android:fontFamily="@font/rubik_medium"
+            android:text="21 March ,2021"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/Static_date"
+            app:layout_constraintStart_toEndOf="@+id/Static_date"
+            app:layout_constraintTop_toTopOf="@id/Static_date"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <ImageButton
+            android:id="@+id/editBtn"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="17dp"
+            android:layout_marginRight="17dp"
+            android:layout_marginBottom="13dp"
+            android:background="#00FFFFFF"
+            android:src="@drawable/edit_24"
+            app:layout_constraintBottom_toTopOf="@+id/textView"
+            app:layout_constraintEnd_toStartOf="@+id/deleteBtn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <ImageButton
+            android:id="@+id/deleteBtn"
+            android:layout_width="14dp"
+            android:layout_height="18dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
+            android:background="#00FFFFFF"
+            android:src="@drawable/delete_24"
+            app:layout_constraintBottom_toBottomOf="@+id/editBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/editBtn"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="335dp"
+            android:layout_height="150dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/text_area_bground"
+            android:fontFamily="@font/rubik"
+            android:paddingStart="12dp"
+            android:paddingTop="7dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="7dp"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ut faucibus tellus amet, elementum habitant. Blandit non imperdiet convallis aliquam egestas posuere at. Eget molestie lorem nibh nisl neque fames. Nunc praesent rhoncus, quam purus semper"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/deleteBtn"
+            app:layout_constraintHorizontal_bias="0.526"
+            app:layout_constraintStart_toStartOf="@+id/Static_date"
+            app:layout_constraintTop_toBottomOf="@+id/getDate" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
