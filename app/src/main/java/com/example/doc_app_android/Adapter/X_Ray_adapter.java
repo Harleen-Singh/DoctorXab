@@ -15,6 +15,7 @@ import java.util.ArrayList;
 public class X_Ray_adapter extends RecyclerView.Adapter<X_Ray_adapter.X_RayVH> {
     private ArrayList<Xray_data> data;
     public X_Ray_adapter() {
+        //empty
     }
     public void setdata(ArrayList<Xray_data> d){
         this.data=d;
