@@ -7,4 +7,7 @@ public class Globals {
     public static String patientRegister = serverURL + "register/patient";
     public static String docRegister = serverURL + "register/doctor";
     public static String docFilter = serverURL + "problems";
+    public static String profileDoctor = serverURL + "doctor/";
+    public static String profilePatient = serverURL + "patient/";
+
 }

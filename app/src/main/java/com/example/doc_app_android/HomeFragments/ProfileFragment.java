@@ -3,7 +3,11 @@ package com.example.doc_app_android.HomeFragments;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +18,9 @@ import android.widget.RelativeLayout;
 import android.widget.Toolbar;
 
 import com.example.doc_app_android.R;
+import com.example.doc_app_android.data_model.ProfileData;
+import com.example.doc_app_android.databinding.FragmentProfileBinding;
+import com.example.doc_app_android.view_model.ProfileViewModel;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -38,6 +45,8 @@ public class ProfileFragment extends Fragment {
     private RelativeLayout editLayout;
     private RelativeLayout saveLayout;
     private Toolbar toolbar;
+    private ProfileViewModel profileViewModel;
+
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -87,20 +96,30 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View view = inflater.inflate(R.layout.fragment_profile, container, false);
+        FragmentProfileBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_profile, container, false );
+        binding.setLifecycleOwner(this);
+
+        profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+
+        profileViewModel.getProfileDetails().observe(getViewLifecycleOwner(), new Observer<ProfileData>() {
+            @Override
+            public void onChanged(ProfileData profileData) {
+                binding.doctorNameText.setText(profileData.getUserName());
+                binding.emailAddressText.setText(profileData.getEmail());
+
+            }
+        });
 
 
-        // Inflate the layout for this fragment
+        binding.profileBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().remove(ProfileFragment.this).commit();
 
-        savedSave = (Button)view.findViewById(R.id.saved_save_button);
-        edit = (Button)view.findViewById(R.id.saved_edit_button);
-        save = (Button)view.findViewById(R.id.btn_edit_save);
-        editLayout = (RelativeLayout)view.findViewById(R.id.doctor_profile_edit);
-        saveLayout = (RelativeLayout)view.findViewById(R.id.doctor_profile_save);
+            }
+        });
 
-
-
-        savedSave.setOnClickListener(new View.OnClickListener() {
+        binding.savedSaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -110,27 +129,27 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        edit.setOnClickListener(new View.OnClickListener() {
+        binding.savedEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                saveLayout.setVisibility(View.GONE);
-                editLayout.setVisibility(View.VISIBLE);
+                binding.doctorProfileSave.setVisibility(View.GONE);
+                binding.doctorProfileEdit.setVisibility(View.VISIBLE);
 
             }
         });
 
 
-        save.setOnClickListener(new View.OnClickListener() {
+        binding.btnEditSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editLayout.setVisibility(View.GONE);
-                saveLayout.setVisibility(View.VISIBLE);
+                binding.doctorProfileEdit.setVisibility(View.GONE);
+                binding.doctorProfileSave.setVisibility(View.VISIBLE);
 
 
             }
         });
 
-        return view ;
+        return binding.getRoot() ;
     }
 }
