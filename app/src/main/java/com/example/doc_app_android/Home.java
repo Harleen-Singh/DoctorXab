@@ -47,6 +47,14 @@ public class Home extends AppCompatActivity {
     private HomeViewModel model;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+
+        binding.toolbar.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_home);
@@ -64,6 +72,7 @@ public class Home extends AppCompatActivity {
                 filterAdapter.notifyDataSetChanged();
             }
         });
+
 
 
         search_field = findViewById(R.id.edit_search);

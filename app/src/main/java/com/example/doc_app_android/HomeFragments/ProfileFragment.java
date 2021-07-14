@@ -2,6 +2,7 @@ package com.example.doc_app_android.HomeFragments;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toolbar;
 
 import com.example.doc_app_android.R;
 
@@ -35,6 +37,7 @@ public class ProfileFragment extends Fragment {
     private Button edit;
     private RelativeLayout editLayout;
     private RelativeLayout saveLayout;
+    private Toolbar toolbar;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -68,6 +71,19 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        // This particular line will hide the default toolbar of the Home Activity when fragment gets opened.
+        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        // This particular line will show the default toolbar of the Home Activity on Home Page when fragment gets closed.
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -83,11 +99,13 @@ public class ProfileFragment extends Fragment {
         saveLayout = (RelativeLayout)view.findViewById(R.id.doctor_profile_save);
 
 
+
         savedSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 getFragmentManager().beginTransaction().remove(ProfileFragment.this).commit();
+
 
             }
         });
@@ -108,6 +126,7 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 editLayout.setVisibility(View.GONE);
                 saveLayout.setVisibility(View.VISIBLE);
+
 
             }
         });

@@ -8,7 +8,7 @@
 
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/profile_top_bar_save"
+        android:id="@+id/schedule_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
