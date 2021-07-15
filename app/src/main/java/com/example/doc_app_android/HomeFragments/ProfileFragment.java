@@ -20,7 +20,10 @@ import android.widget.Toolbar;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.databinding.FragmentProfileBinding;
+import com.example.doc_app_android.services.ProfileEditService;
 import com.example.doc_app_android.view_model.ProfileViewModel;
+
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,6 +49,8 @@ public class ProfileFragment extends Fragment {
     private RelativeLayout saveLayout;
     private Toolbar toolbar;
     private ProfileViewModel profileViewModel;
+    private ProfileData profileData;
+    private ProfileEditService profileEditService = new ProfileEditService();
 
 
     public ProfileFragment() {
@@ -96,8 +101,10 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        FragmentProfileBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_profile, container, false );
+       FragmentProfileBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_profile, container, false );
         binding.setLifecycleOwner(this);
+
+        binding.doctorProfileEdit.setVisibility(View.GONE);
 
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
@@ -111,11 +118,12 @@ public class ProfileFragment extends Fragment {
         });
 
 
+
+
         binding.profileBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getFragmentManager().beginTransaction().remove(ProfileFragment.this).commit();
-
             }
         });
 
@@ -143,9 +151,21 @@ public class ProfileFragment extends Fragment {
         binding.btnEditSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                binding.doctorProfileEdit.setVisibility(View.GONE);
-                binding.doctorProfileSave.setVisibility(View.VISIBLE);
 
+                profileData = new ProfileData(binding.doctorEmail.getText().toString(), binding.doctorName.getText().toString(), binding.doctorPhoneNumber.getText().toString());
+                profileEditService.init(profileData, getContext());
+
+
+
+
+                profileViewModel.getEditedProfileDetails().observe(getViewLifecycleOwner(), new Observer<ProfileData>() {
+                    @Override
+                    public void onChanged(ProfileData profileData) {
+                        binding.emailAddressText.setText(profileData.getEmail());
+                    }
+                });
+
+                getFragmentManager().beginTransaction().remove(ProfileFragment.this).commit();
 
             }
         });

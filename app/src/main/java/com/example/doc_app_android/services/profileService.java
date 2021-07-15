@@ -3,9 +3,11 @@ package com.example.doc_app_android.services;
 import android.app.Activity;
 import android.app.Application;
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -16,13 +18,16 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.RetryPolicy;
+import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.doc_app_android.Dialogs.dialogs;
 import com.example.doc_app_android.Globals;
+import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.view_model.ProfileViewModel;
+import com.google.android.material.badge.BadgeDrawable;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,30 +40,34 @@ public class profileService {
     boolean is_Doc, is_Patient;
     private int department;
     private Context context;
+    private ProgressDialog progressDialog;
     private final com.example.doc_app_android.Dialogs.dialogs dialogs = new dialogs();
     private ProfileData profileData;
-    private MutableLiveData<ProfileData> mutableProfileData =  new MutableLiveData<>();
+    private MutableLiveData<ProfileData> mutableProfileData = new MutableLiveData<>();
     private int problem, doctor;
 
 
-
-
-    public LiveData<ProfileData> getProfileDetails(Application application, Context mContext){
+    public LiveData<ProfileData> getProfileDetails(Application application, Context mContext) {
         context = mContext;
 
         final SharedPreferences sp = application.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
         boolean isDoc = sp.getBoolean("isDoc", false);
         String dorP_id = sp.getString("id", "");
 
-        if(isDoc){
+        if (isDoc) {
             //Log.d("Testing", "Url: " +Globals.profileDoctor + dorP_id )
+            progressDialog = new ProgressDialog(context, R.style.AlertDialog);
             getData(Globals.profileDoctor + dorP_id, true);
-        } else{
+
+        } else {
             dorP_id = "60";
+            progressDialog = new ProgressDialog(context, R.style.AlertDialog);
             getData(Globals.profilePatient + dorP_id, false);
+
         }
         return mutableProfileData;
     }
+
 
 
 
@@ -73,7 +82,7 @@ public class profileService {
 
                 try {
                     Log.d("Testing", String.valueOf(response));
-                    if(isDoctor) {
+                    if (isDoctor) {
                         JSONObject user = response.getJSONObject("user");
                         id = user.getInt("id");
                         userName = user.getString("username");
@@ -84,7 +93,7 @@ public class profileService {
                         department = response.getInt("department");
 
                         profileData = new ProfileData(id, userName, email, is_Doc, is_Patient, department);
-                    } else{
+                    } else {
 
                         JSONObject user = response.getJSONObject("user");
                         id = user.getInt("id");
@@ -99,6 +108,7 @@ public class profileService {
 
                     }
                     mutableProfileData.postValue(profileData);
+                    dialogs.dismissDialog(progressDialog);
 
                 } catch (JSONException e) {
                     Log.d("Testing", "onResponse: Error Occured" + "\n" + e);
@@ -108,12 +118,13 @@ public class profileService {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                if(error instanceof NoConnectionError) {
-                    dialogs.displayDialog("Not Connected to Internet",context);
-                }
-                else {
+                if (error instanceof NoConnectionError) {
+                    dialogs.displayDialog("Not Connected to Internet", context);
+                } else {
                     Log.d("", "error.networkRespose.toString()" + error.networkResponse.toString());
                 }
+
+                dialogs.dismissDialog(progressDialog);
             }
         });
 
@@ -138,6 +149,8 @@ public class profileService {
 
 
     }
+
+
 
 
 }

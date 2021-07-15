@@ -4,6 +4,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+
     <androidx.appcompat.widget.LinearLayoutCompat
 
         android:id="@+id/parent_linearLayout"
@@ -48,6 +49,7 @@
                             android:id="@+id/profile_back_button"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
+
                             android:src="@drawable/app_back_button" />
 
                         <TextView
@@ -277,13 +279,12 @@
                             android:layout_marginLeft="55dp"
                             android:layout_marginRight="55dp"
                             android:background="@drawable/text_field_1"
-                            android:hint="@string/username"
+                            android:hint="Name"
                             android:inputType="text"
                             android:paddingStart="20dp"
                             android:paddingLeft="20dp"
                             android:paddingRight="20dp"
                             android:singleLine="true"
-                            android:text="Dr. Sumit Dadwal"
                             android:textColor="#8B91AB"
                             android:textColorHint="#8B91AB"
                             android:textSize="14sp"
@@ -298,13 +299,12 @@
                             android:layout_marginTop="20dp"
                             android:layout_marginRight="55dp"
                             android:background="@drawable/text_field_1"
-                            android:hint="@string/username"
+                            android:hint="Email"
                             android:inputType="textEmailAddress"
                             android:paddingStart="20dp"
                             android:paddingLeft="20dp"
                             android:paddingRight="20dp"
                             android:singleLine="true"
-                            android:text="sumitdadwl01@gmail.com"
                             android:textColor="#8B91AB"
                             android:textColorHint="#8B91AB"
                             android:textSize="14sp"
@@ -319,13 +319,12 @@
                             android:layout_marginTop="20dp"
                             android:layout_marginRight="55dp"
                             android:background="@drawable/text_field_1"
-                            android:hint="@string/username"
+                            android:hint="Phone Number"
                             android:inputType="number"
                             android:paddingStart="20dp"
                             android:paddingLeft="20dp"
                             android:paddingRight="20dp"
                             android:singleLine="true"
-                            android:text="9988022333"
                             android:textColor="#8B91AB"
                             android:textColorHint="#8B91AB"
                             android:textSize="14sp"
@@ -340,13 +339,12 @@
                             android:layout_marginTop="20dp"
                             android:layout_marginRight="55dp"
                             android:background="@drawable/text_field_1"
-                            android:hint="@string/username"
+                            android:hint="Speciality"
                             android:inputType="text"
                             android:paddingStart="20dp"
                             android:paddingLeft="20dp"
                             android:paddingRight="20dp"
                             android:singleLine="true"
-                            android:text="Orthology"
                             android:textColor="#8B91AB"
                             android:textColorHint="#8B91AB"
                             android:textSize="14sp"
