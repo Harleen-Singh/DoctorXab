@@ -1,11 +1,24 @@
 package com.example.doc_app_android.data_model;
 
+import java.util.ArrayList;
+
 public class PrescData {
-private  String prescText,date;
-    public PrescData(String prescText, String date) {
-        this.prescText = prescText;
+private  String date;
+private ArrayList<Pat_prescription> prescText;
+
+    public PrescData(String date, ArrayList<Pat_prescription> prescText) {
         this.date = date;
+        this.prescText = prescText;
     }
+
+    public ArrayList<Pat_prescription> getPrescText() {
+        return prescText;
+    }
+
+    public void setPrescText(ArrayList<Pat_prescription> prescText) {
+        this.prescText = prescText;
+    }
+
     public String getDate() {
         return date;
     }
@@ -14,11 +27,5 @@ private  String prescText,date;
         this.date = date;
     }
 
-    public String getPrescText() {
-        return prescText;
-    }
 
-    public void setPrescText(String prescText) {
-        this.prescText = prescText;
-    }
 }

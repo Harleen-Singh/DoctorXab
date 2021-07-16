@@ -1,6 +1,7 @@
 package com.example.doc_app_android.Adapter;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -8,8 +9,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doc_app_android.R;
-import com.example.doc_app_android.data_model.PrescData;
-import com.example.doc_app_android.databinding.ListPrescBinding;
+import com.example.doc_app_android.data_model.Pat_prescription;
 import com.example.doc_app_android.databinding.SingleListPrescBinding;
 
 import org.jetbrains.annotations.NotNull;
@@ -17,16 +17,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class prescListDataAdapter extends RecyclerView.Adapter<prescListDataAdapter.ViewHolder> {
-    private ArrayList<PrescData> data = new ArrayList<>();
-
-    public prescListDataAdapter(){
-        // required
+//    private ArrayList<PrescData> data = new ArrayList<>();
+public ArrayList<Pat_prescription> data;
+    private int itemCount =4 ;
+    public prescListDataAdapter(ArrayList<Pat_prescription> prescData){
+        data = prescData; // contains Arraylist of prescription only
     }
 
-    public void setData(ArrayList<PrescData> d){this.data = d;}
-
-
-    @NonNull
     @NotNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
@@ -36,12 +33,24 @@ public class prescListDataAdapter extends RecyclerView.Adapter<prescListDataAdap
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull prescListDataAdapter.ViewHolder holder, int position) {
-        holder.Binding.setPrescData(data.get(position));
+        holder.Binding.setPrescription(data.get(position));
     }
+
+    public void updateItemCount(){
+        itemCount = data.size();
+        notifyItemRangeInserted(4,data.size());
+//        notifyItemChanged(4);
+    }
+
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return itemCount;
+    }
+
+    public void setDefaultItemCount() {
+        itemCount = 4;
+        notifyItemRangeRemoved(4,data.size()-4);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

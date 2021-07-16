@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="presc_data"
-            type="com.example.doc_app_android.data_model.PrescData" />
+            name="Prescription"
+            type="com.example.doc_app_android.data_model.Pat_prescription" />
     </data>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,7 +21,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:background="@color/scnd_blue_white"
                 android:fontFamily="@font/rubik"
-                android:text="@{presc_data.prescText}"
+                android:text="@{Prescription.prescription}"
                 android:textColor="@color/theme"
                 android:textSize="14sp"
                 android:gravity="center"

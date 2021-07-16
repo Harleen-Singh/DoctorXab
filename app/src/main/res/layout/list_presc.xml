@@ -20,43 +20,55 @@
 
             <TextView
                 android:id="@+id/Static_date"
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
                 android:background="@color/white"
                 android:fontFamily="@font/rubik_medium"
                 android:layout_marginBottom="5dp"
-                android:text="DATE:"
+                android:gravity="start"
                 android:textColor="@color/black"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toTopOf="@+id/list_rview"
-                app:layout_constraintStart_toStartOf="@+id/list_rview"
+                android:text="@{presc_data.date}"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
-            <TextView
-                android:id="@+id/getDate"
-                android:layout_width="0dp"
-                android:layout_height="19dp"
-                android:fontFamily="@font/rubik_medium"
-                android:text="@{presc_data.date}"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="@+id/Static_date"
-                app:layout_constraintStart_toEndOf="@+id/Static_date"
-                app:layout_constraintTop_toTopOf="@id/Static_date"
-                app:layout_constraintVertical_bias="0.0" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list_rview"
                 android:layout_width="335dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/single_list_presc"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/single_list_presc" />
+
+            <ImageButton
+                android:id="@+id/arrow"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/down_arrow"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Static_date" />
+                app:layout_constraintTop_toBottomOf="@+id/list_rview" />
+
+            <ImageButton
+                android:id="@+id/arrow_up"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/arrow_up"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/list_rview" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>
