@@ -28,7 +28,7 @@ import org.json.JSONObject;
 
 public class ProfileEditService {
 
-    private int id,age;
+    private int id, age;
     private String userName, name, phoneNumber, address, email, image;
     private ProfileData editedProfileData;
     private MutableLiveData<ProfileData> mutableProfileData = new MutableLiveData<>();
@@ -37,23 +37,21 @@ public class ProfileEditService {
     private com.example.doc_app_android.Dialogs.dialogs dialogs = new dialogs();
 
 
-
-
-    public ProfileEditService(){
+    public ProfileEditService() {
 
     }
 
 
-    public void init(ProfileData profileData, Context context){
-       this.context = context;
-        final SharedPreferences sp =context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+    public void init(ProfileData profileData, Context context) {
+        this.context = context;
+        final SharedPreferences sp = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
 //        boolean isDoc = sp.getBoolean("isDoc", false);
         String id = sp.getString("id", "");
         progressDialog = new ProgressDialog(context, R.style.AlertDialog);
         editData(Globals.editGenDetails + id, profileData);
     }
 
-    public LiveData<ProfileData> getEditedProfileDetails(){
+    public LiveData<ProfileData> getEditedProfileDetails() {
         return mutableProfileData;
     }
 
@@ -102,7 +100,7 @@ public class ProfileEditService {
             public void onErrorResponse(VolleyError error) {
 
                 if (error instanceof NoConnectionError) {
-                    dialogs.displayDialog("Not Connected to Internet",context);
+                    dialogs.displayDialog("Not Connected to Internet", context);
 
                 }
                 if (error instanceof ServerError) {
@@ -139,7 +137,7 @@ public class ProfileEditService {
 
     }
 
-    public ProfileData getProfileEditedObject(){
+    public ProfileData getProfileEditedObject() {
         return editedProfileData;
     }
 }

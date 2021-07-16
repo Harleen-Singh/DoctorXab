@@ -22,6 +22,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.doc_app_android.Adapter.FilterRCVadapter;
+import com.example.doc_app_android.HomeFragments.DataLoaderFragment;
 import com.example.doc_app_android.data_model.FilterData;
 import com.example.doc_app_android.PatentHomeFragments.AppointmentsFragment;
 import com.example.doc_app_android.HomeFragments.PrivacyPolicyFragment;
@@ -148,6 +149,8 @@ public class Home extends AppCompatActivity {
                 return true;
             }
         });
+
+
 
 
     }

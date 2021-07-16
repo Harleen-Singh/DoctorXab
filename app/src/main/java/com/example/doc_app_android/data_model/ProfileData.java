@@ -1,14 +1,37 @@
 package com.example.doc_app_android.data_model;
 
 public class ProfileData {
-
-    private int id;
-    private String userName, email, name;
+    private int id, count, department, doctor, problem, age;
+    private String userName, email, name, phoneNumber, address, image;
     boolean isDoc, isPatient;
-    private int department;
-    private int doctor, problem;
-    private String phoneNumber, address, image;
-    private int age;
+
+
+    public ProfileData(int id, int count, int doctor, int problem, String userName, String email, String name, String phoneNumber, String image, boolean isDoc, boolean isPatient) {
+        this.id = id;
+        this.count = count;
+        this.doctor = doctor;
+        this.problem = problem;
+        this.userName = userName;
+        this.email = email;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.image = image;
+        this.isDoc = isDoc;
+        this.isPatient = isPatient;
+    }
+
+
+
+    public ProfileData(int id, int count, int doctor, int problem, String userName, String email, boolean isDoc, boolean isPatient) {
+        this.id = id;
+        this.count = count;
+        this.doctor = doctor;
+        this.problem = problem;
+        this.userName = userName;
+        this.email = email;
+        this.isDoc = isDoc;
+        this.isPatient = isPatient;
+    }
 
     public ProfileData(int id, String userName, String email, boolean isDoc, boolean isPatient, int department) {
         this.id = id;
@@ -59,6 +82,26 @@ public class ProfileData {
 
     public String getEmail() {
         return email;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getImage() {
+        return image;
     }
 
     public boolean isDoc() {
@@ -132,4 +175,6 @@ public class ProfileData {
     public void setAge(int age) {
         this.age = age;
     }
+
+
 }

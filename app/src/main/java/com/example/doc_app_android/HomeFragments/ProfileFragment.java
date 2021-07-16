@@ -88,20 +88,21 @@ public class ProfileFragment extends Fragment {
     public void onResume() {
         super.onResume();
         // This particular line will hide the default toolbar of the Home Activity when fragment gets opened.
-        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
     }
+
     @Override
     public void onStop() {
         super.onStop();
         // This particular line will show the default toolbar of the Home Activity on Home Page when fragment gets closed.
-        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-       FragmentProfileBinding binding = DataBindingUtil.inflate(inflater,R.layout.fragment_profile, container, false );
+        FragmentProfileBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
         binding.setLifecycleOwner(this);
 
         binding.doctorProfileEdit.setVisibility(View.GONE);
@@ -116,8 +117,6 @@ public class ProfileFragment extends Fragment {
 
             }
         });
-
-
 
 
         binding.profileBackButton.setOnClickListener(new View.OnClickListener() {
@@ -156,8 +155,6 @@ public class ProfileFragment extends Fragment {
                 profileEditService.init(profileData, getContext());
 
 
-
-
                 profileViewModel.getEditedProfileDetails().observe(getViewLifecycleOwner(), new Observer<ProfileData>() {
                     @Override
                     public void onChanged(ProfileData profileData) {
@@ -170,6 +167,6 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        return binding.getRoot() ;
+        return binding.getRoot();
     }
 }
