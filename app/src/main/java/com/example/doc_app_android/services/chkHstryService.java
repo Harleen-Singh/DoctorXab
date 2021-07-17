@@ -22,7 +22,7 @@ public class chkHstryService {
     }
 
     private void loadData() {
-        String date = "Unknown";
+        String date = "15-07-04";
         String textArea = "A Quick Brown Fox Jumps Over the Lazy Dog";
         ArrayList<CkpHstryData> temp = new ArrayList<>();
         temp.add(new CkpHstryData(date,textArea));
@@ -39,7 +39,7 @@ public class chkHstryService {
 
     private void loadDescData() {
         String date = "11-02-03";
-        String textArea = "Let's make the lazy dogs jump";
+        String textArea = "An apple a day keeps the doctor away";
         ckpHstryData = new CkpHstryData(date,textArea);
         data.setValue(ckpHstryData);
     }
