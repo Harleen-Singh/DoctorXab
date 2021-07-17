@@ -4,13 +4,14 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.doc_app_android.data_model.CkpHstryData;
-import com.example.doc_app_android.data_model.Xray_data;
 
 
 import java.util.ArrayList;
 
 public class chkHstryService {
     private MutableLiveData<ArrayList<CkpHstryData>> data_model;
+    private MutableLiveData<CkpHstryData> data;
+    private CkpHstryData ckpHstryData;
 
     public LiveData<ArrayList<CkpHstryData>> getCkpHstryData() {
         if (data_model == null) {
@@ -27,5 +28,21 @@ public class chkHstryService {
         temp.add(new CkpHstryData(date,textArea));
         data_model.setValue(temp);
     }
+
+    public LiveData<CkpHstryData> get_Xray_desc() {
+        if (data == null) {
+            data = new MutableLiveData<>();
+            loadDescData();
+        }
+        return data;
+    }
+
+    private void loadDescData() {
+        String date = "11-02-03";
+        String textArea = "Let's make the lazy dogs jump";
+        ckpHstryData = new CkpHstryData(date,textArea);
+        data.setValue(ckpHstryData);
+    }
+
 
 }

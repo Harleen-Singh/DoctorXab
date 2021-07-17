@@ -1,11 +1,18 @@
 package com.example.doc_app_android.Adapter;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.doc_app_android.PatentHomeFragments.FragmentXRayScan;
+import com.example.doc_app_android.PatentHomeFragments.FragmentXrayReport;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.Xray_data;
 import com.example.doc_app_android.databinding.SingleListXrayBinding;
@@ -13,10 +20,17 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class X_Ray_adapter extends RecyclerView.Adapter<X_Ray_adapter.X_RayVH> {
+
     private ArrayList<Xray_data> data;
-    public X_Ray_adapter() {
-        //empty
+    Fragment temp = null;
+    private Context mContext;
+
+    public X_Ray_adapter(Context context) {
+        this.mContext =context;
+
     }
+
+
     public void setdata(ArrayList<Xray_data> d){
         this.data=d;
     }
@@ -32,6 +46,17 @@ public class X_Ray_adapter extends RecyclerView.Adapter<X_Ray_adapter.X_RayVH> {
     @Override
     public void onBindViewHolder(@NonNull @NotNull X_Ray_adapter.X_RayVH holder, int position) {
         holder.binding.setXRayData(data.get(position));
+        holder.binding.btnViewXray.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                temp = FragmentXrayReport.newInstance();
+                AppCompatActivity appCompatActivity = (AppCompatActivity)mContext ;
+                Log.d("mContext-->>", "onClick: "+mContext);
+                appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container,temp).commit();
+            }
+        });
+
+
         Log.d("TAG", "onBindViewHolder: "+ data.get(position));
     }
 

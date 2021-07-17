@@ -43,7 +43,7 @@ public class FragmentXRayScan extends Fragment {
                              Bundle savedInstanceState) {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_x_ray_scan,null , false);
-        X_Ray_adapter adapter = new X_Ray_adapter();
+        X_Ray_adapter adapter = new X_Ray_adapter(getContext());
         binding.XRAYrcv.setAdapter(adapter);
         model = new ViewModelProvider(requireActivity()).get(FragmentXrayScanViewModel.class);
         model.get_Xray_data().observe(getViewLifecycleOwner(), new Observer<ArrayList<Xray_data>>() {

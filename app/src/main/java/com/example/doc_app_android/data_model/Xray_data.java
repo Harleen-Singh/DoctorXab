@@ -10,7 +10,6 @@ public class Xray_data {
         this.time = time;
     }
 
-
     public String getXray_ID() {
         return xray_ID;
     }
