@@ -13,14 +13,16 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MainActivity"
-        tools:openDrawer="end">
+        tools:openDrawer="end"
+        android:animateLayoutChanges="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/home_layout_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/scnd_blue_white"
-            android:visibility="visible">
+            android:visibility="visible"
+            android:animateLayoutChanges="true">
 
 
             <include
@@ -37,11 +39,13 @@
                 android:layout_height="0dp"
                 android:id="@+id/fragmentHome_container"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/toolbar">
+                app:layout_constraintTop_toBottomOf="@id/toolbar"
+                android:animateLayoutChanges="true">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:animateLayoutChanges="true">
 
 
                     <androidx.appcompat.widget.LinearLayoutCompat
@@ -54,7 +58,8 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:animateLayoutChanges="true">
 
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/filter_rcv"
@@ -62,7 +67,8 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal"
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                            tools:listitem="@layout/single_filter" />
+                            tools:listitem="@layout/single_filter"
+                            />
 
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -75,7 +81,8 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/linear_layout" />
+                        app:layout_constraintTop_toBottomOf="@+id/linear_layout"
+                        android:animateLayoutChanges="true"/>
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -95,7 +102,8 @@
             app:headerLayout="@layout/nav_header"
             app:itemIconTint="@color/scnd_blue"
             app:itemTextColor="@color/scnd_blue"
-            app:menu="@menu/drawer_options" />
+            app:menu="@menu/drawer_options"
+            android:animateLayoutChanges="true"/>
 
     </androidx.drawerlayout.widget.DrawerLayout>
 </layout>
