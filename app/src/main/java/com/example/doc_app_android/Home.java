@@ -1,5 +1,6 @@
 package com.example.doc_app_android;
 
+import android.animation.LayoutTransition;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -80,6 +81,8 @@ public class Home extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                LayoutTransition layoutTransition = binding.homeLayoutContainer.getLayoutTransition();
+                layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
                 if(search_field.getVisibility()==View.GONE)
                     search_field.setVisibility(View.VISIBLE);
                 else
