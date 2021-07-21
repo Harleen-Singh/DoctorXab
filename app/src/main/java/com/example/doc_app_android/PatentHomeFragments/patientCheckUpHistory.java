@@ -2,6 +2,7 @@ package com.example.doc_app_android.PatentHomeFragments;
 
 import android.os.Bundle;
 
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -48,12 +49,17 @@ public class patientCheckUpHistory extends Fragment {
         checkupHistoryAdapter adapter = new checkupHistoryAdapter();
         binding.rView.setAdapter(adapter);
         model = new ViewModelProvider(requireActivity()).get(FragmentChkHstryViewModel.class);
+        binding.progressbar.setVisibility(View.VISIBLE);
         model.getChkHstryData().observe(getViewLifecycleOwner(), new Observer<ArrayList<CkpHstryData>>() {
             @Override
             public void onChanged(ArrayList<CkpHstryData> ckpHstryData) {
                 Log.d("TAG", "onChanged: " + ckpHstryData);
                 adapter.setData(ckpHstryData);
                 adapter.notifyDataSetChanged();
+                if (ckpHstryData.isEmpty()){
+                    binding.background.setBackground(AppCompatResources.getDrawable(requireContext(),R.drawable.no_data));
+                }
+                binding.progressbar.setVisibility(View.GONE);
             }
         });
         return binding.getRoot();
