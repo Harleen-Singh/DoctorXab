@@ -28,13 +28,31 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class FragmentXrayReport extends Fragment {
-
+    private static final String XRAYID = "XrayID";
+    private static final String DATE = "date";
+    private static final String TIME = "time";
+    private static final String CATEGORY = "category";
+    private static final String REPORTDATE = "reportDate";
+    private static final String REPORTDATA = "reportData";
+    private static final String IMAGEURL = "imageURL";
+    private static final String REPORTID = "reportData";
+    private Xray_data data;
     public FragmentXrayReport() {
         // Required empty public constructor
     }
 
-    public static FragmentXrayReport newInstance() {
+    public static FragmentXrayReport newInstance(Xray_data xray_data) {
         FragmentXrayReport fragment = new FragmentXrayReport();
+        Bundle args = new Bundle();
+        args.putString(XRAYID,xray_data.getXray_ID());
+        args.putString(DATE,xray_data.getDate());
+        args.putString(TIME,xray_data.getTime());
+        args.putString(CATEGORY,xray_data.getCategory());
+        args.putString(REPORTID,xray_data.getReportId());
+        args.putString(REPORTDATE,xray_data.getReportDate());
+        args.putString(REPORTDATA,xray_data.getReportData());
+        args.putString(IMAGEURL,xray_data.getImageUrl());
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -52,12 +70,22 @@ public class FragmentXrayReport extends Fragment {
 
     FragmentXrayReportBinding binding;
     public FragmentChkHstryViewModel desc_model;
-    private FragmentXrayScanViewModel xray_model;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments()!=null){
+            String xrayid, date,time,category,reportdate ,reportID , reportdata,imageURL;
+            xrayid = getArguments().getString(XRAYID);
+            date = getArguments().getString(DATE);
+            time = getArguments().getString(TIME);
+            category = getArguments().getString(CATEGORY);
+            reportdate = getArguments().getString(REPORTDATE);
+            reportdata = getArguments().getString(REPORTDATA);
+            reportID = getArguments().getString(REPORTID);
+            imageURL = getArguments().getString(IMAGEURL);
+            data = new Xray_data(xrayid,category,date,time,imageURL,reportID,reportdate,reportdata);
+        }
     }
 
     @Override
@@ -65,27 +93,11 @@ public class FragmentXrayReport extends Fragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_xray_report,null,false);
         binding.setLifecycleOwner(this);
-        desc_model = new ViewModelProvider(requireActivity()).get(FragmentChkHstryViewModel.class);
-        xray_model = new ViewModelProvider(requireActivity()).get(FragmentXrayScanViewModel.class);
-        xray_model.get_XrayReport_data().observe(getViewLifecycleOwner(), new Observer<Xray_data>() {
-            @Override
-            public void onChanged(Xray_data xray_data) {
-                binding.tvXrayIDValue.setText(xray_data.getXray_ID());
-                binding.tvDateVal.setText(xray_data.getDate());
-                binding.tvTimeVal.setText(xray_data.getTime());
-                binding.tvCategoryVal.setText(xray_data.getCategory());
-            }
-        });
-        desc_model.get_XrayReport_desc().observe(getViewLifecycleOwner(), new Observer<CkpHstryData>() {
-            @Override
-            public void onChanged(CkpHstryData ckpHstryData) {
-                binding.getDate.setText(ckpHstryData.getDate());
-                binding.textViewDesc.setText(ckpHstryData.getReportData());
-            }
-        });
+        binding.setXRayData(data);
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                assert getFragmentManager() != null;
                 getFragmentManager().beginTransaction().remove(FragmentXrayReport.this).commit();
             }
         });

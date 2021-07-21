@@ -15,15 +15,13 @@ import java.util.ArrayList;
 
 public class FragmentXrayScanViewModel extends AndroidViewModel {
     xray_service service = new xray_service();
+    Application app;
     public FragmentXrayScanViewModel(@NonNull @NotNull Application application) {
         super(application);
+        this.app = application;
     }
 
     public LiveData<ArrayList<Xray_data>> get_Xray_data(){
-        return service.getX_ray_data();
-    }
-
-    public LiveData<Xray_data> get_XrayReport_data() {
-        return service.getX_ray_Report();
+        return service.getX_ray_data(app);
     }
 }

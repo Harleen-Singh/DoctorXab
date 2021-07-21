@@ -3,6 +3,7 @@ package com.example.doc_app_android.PatentHomeFragments;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.LifecycleOwner;
@@ -46,12 +47,16 @@ public class FragmentXRayScan extends Fragment {
         X_Ray_adapter adapter = new X_Ray_adapter(getContext());
         binding.XRAYrcv.setAdapter(adapter);
         model = new ViewModelProvider(requireActivity()).get(FragmentXrayScanViewModel.class);
+        binding.progressbar.setVisibility(View.VISIBLE);
         model.get_Xray_data().observe(getViewLifecycleOwner(), new Observer<ArrayList<Xray_data>>() {
             @Override
             public void onChanged(ArrayList<Xray_data> xray_data) {
-                Log.d("TAG", "onChanged: " + xray_data.get(0).getCategory());
                 adapter.setdata(xray_data);
                 adapter.notifyDataSetChanged();
+                if (xray_data.isEmpty()){
+                    binding.TopLayout.setBackground(AppCompatResources.getDrawable(requireContext(),R.drawable.no_data));
+                }
+                binding.progressbar.setVisibility(View.GONE);
             }
         });
         return binding.getRoot();

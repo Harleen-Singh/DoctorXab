@@ -21,13 +21,12 @@ import java.util.ArrayList;
 
 public class X_Ray_adapter extends RecyclerView.Adapter<X_Ray_adapter.X_RayVH> {
 
-    private ArrayList<Xray_data> data;
+    private ArrayList<Xray_data> data = new ArrayList<>();
     Fragment temp = null;
     private Context mContext;
 
     public X_Ray_adapter(Context context) {
         this.mContext =context;
-
     }
 
 
@@ -49,13 +48,11 @@ public class X_Ray_adapter extends RecyclerView.Adapter<X_Ray_adapter.X_RayVH> {
         holder.binding.btnViewXray.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                temp = FragmentXrayReport.newInstance();
+                temp = FragmentXrayReport.newInstance(data.get(position));
                 AppCompatActivity appCompatActivity = (AppCompatActivity)mContext ;
-                Log.d("mContext-->>", "onClick: "+mContext);
-                appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container,temp).commit();
+                appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container,temp).addToBackStack(null).commit();
             }
         });
-
 
         Log.d("TAG", "onBindViewHolder: "+ data.get(position));
     }

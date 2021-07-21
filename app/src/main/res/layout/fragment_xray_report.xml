@@ -6,9 +6,6 @@
         <variable
             name="X_ray_data"
             type="com.example.doc_app_android.data_model.Xray_data" />
-        <variable
-            name="X_ray_desc"
-            type="com.example.doc_app_android.data_model.CkpHstryData"/>
     </data>
 
 
@@ -17,7 +14,8 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context=".PatentHomeFragments.FragmentXrayReport"
-    >
+    android:clickable="true"
+    android:focusable="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -226,7 +224,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/rubik_medium"
-                android:text="@{X_ray_desc.date}"
+                android:text="@{X_ray_data.reportDate}"
                 android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="@+id/Static_date"
@@ -244,7 +242,7 @@
                 android:paddingTop="12dp"
                 android:paddingEnd="12dp"
                 android:paddingBottom="12dp"
-                android:text="@{X_ray_desc.reportData}"
+                android:text="@{X_ray_data.reportData}"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
