@@ -16,7 +16,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.doc_app_android.Dialogs.dialogs;
 import com.example.doc_app_android.Globals;
-import com.example.doc_app_android.data_model.CkpHstryData;
 import com.example.doc_app_android.data_model.Xray_data;
 
 import org.json.JSONArray;
@@ -55,8 +54,8 @@ public class xray_service {
                         xray_ID = obj.getString("pic_id");
                         imageUrl = obj.getString("image");
                         time = obj.getString("time");
-//                            date = obj.getString("date");
-                        date = "30-30-30";
+                            date = obj.getString("date");
+//                        date = "30-30-30";
                         category = obj.getString("category");
                         JSONObject reportObj = obj.getJSONObject("report");
                         reportId = reportObj.getString("id");

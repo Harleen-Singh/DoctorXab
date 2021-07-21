@@ -5,18 +5,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.doc_app_android.PatentHomeFragments.FragmentXRayScan;
 import com.example.doc_app_android.PatentHomeFragments.FragmentXrayReport;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.Xray_data;
 import com.example.doc_app_android.databinding.SingleListXrayBinding;
+
 import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 public class X_Ray_adapter extends RecyclerView.Adapter<X_Ray_adapter.X_RayVH> {
