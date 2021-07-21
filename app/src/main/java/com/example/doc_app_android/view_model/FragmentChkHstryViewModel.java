@@ -16,11 +16,13 @@ import java.util.ArrayList;
 
 public class FragmentChkHstryViewModel extends AndroidViewModel {
     chkHstryService service = new chkHstryService();
+    Application app;
     public FragmentChkHstryViewModel(@NonNull @NotNull Application application) {
         super(application);
+        app = application;
     }
     public LiveData<ArrayList<CkpHstryData>> getChkHstryData(){
-        return service.getCkpHstryData();
+        return service.getCkpHstryData(app);
     }
 
     public LiveData<CkpHstryData> get_XrayReport_desc() {

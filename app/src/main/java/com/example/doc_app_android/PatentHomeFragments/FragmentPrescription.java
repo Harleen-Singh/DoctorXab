@@ -54,6 +54,8 @@ public class FragmentPrescription extends Fragment {
         prescListAdapter adapter = new prescListAdapter();
         binding.parentRview.setAdapter(adapter);
         model = new ViewModelProvider(requireActivity()).get(FragmentPrescViewModel.class);
+        ArrayList<PrescData> prescDatatemp = new ArrayList<>();
+        adapter.setData(prescDatatemp);
         model.getPrescData().observe(getViewLifecycleOwner(), new Observer<ArrayList<PrescData>>() {
             @Override
             public void onChanged(ArrayList<PrescData> prescData) {
@@ -61,6 +63,7 @@ public class FragmentPrescription extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
+        
         return binding.getRoot();
     }
 }

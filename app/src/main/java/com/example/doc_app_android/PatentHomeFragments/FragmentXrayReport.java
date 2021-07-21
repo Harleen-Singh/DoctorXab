@@ -80,7 +80,7 @@ public class FragmentXrayReport extends Fragment {
             @Override
             public void onChanged(CkpHstryData ckpHstryData) {
                 binding.getDate.setText(ckpHstryData.getDate());
-                binding.textViewDesc.setText(ckpHstryData.getTextarea());
+                binding.textViewDesc.setText(ckpHstryData.getReportData());
             }
         });
         binding.backButton.setOnClickListener(new View.OnClickListener() {

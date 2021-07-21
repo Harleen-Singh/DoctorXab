@@ -8,6 +8,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,7 @@ public class patientCheckUpHistory extends Fragment {
         model.getChkHstryData().observe(getViewLifecycleOwner(), new Observer<ArrayList<CkpHstryData>>() {
             @Override
             public void onChanged(ArrayList<CkpHstryData> ckpHstryData) {
+                Log.d("TAG", "onChanged: " + ckpHstryData);
                 adapter.setData(ckpHstryData);
                 adapter.notifyDataSetChanged();
             }

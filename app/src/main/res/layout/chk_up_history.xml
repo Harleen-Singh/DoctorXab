@@ -85,7 +85,7 @@
             android:paddingTop="12dp"
             android:paddingEnd="12dp"
             android:paddingBottom="12dp"
-            android:text="@{chk_data.textarea}"
+            android:text="@{chk_data.reportData}"
             android:textColor="@color/black"
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="parent"

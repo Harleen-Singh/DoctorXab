@@ -1,6 +1,7 @@
 package com.example.doc_app_android.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +18,17 @@ import java.util.ArrayList;
 
 
 public class checkupHistoryAdapter extends RecyclerView.Adapter<checkupHistoryAdapter.ViewHolder> {
-    private ArrayList<CkpHstryData> data;
+    private ArrayList<CkpHstryData> chkupdata  ;
 
     public checkupHistoryAdapter() {
-        // empty constructor
+        chkupdata = new ArrayList<>();
+        Log.d("TAG", "checkupHistoryAdapter constructor: "+ chkupdata);
     }
 
-  public void setData(ArrayList<CkpHstryData> d){this.data = d;}
+  public void setData(ArrayList<CkpHstryData> d){
+        this.chkupdata = d;
+        Log.d("TAG", "checkupHistoryAdapter constructor: "+ chkupdata);
+    }
 
     @NonNull
     @org.jetbrains.annotations.NotNull
@@ -35,12 +40,13 @@ public class checkupHistoryAdapter extends RecyclerView.Adapter<checkupHistoryAd
 
     @Override
     public void onBindViewHolder(@NonNull @org.jetbrains.annotations.NotNull checkupHistoryAdapter.ViewHolder holder, int position) {
-            holder.binding.setChkData(data.get(position));
+            holder.binding.setChkData(chkupdata.get(position));
+            holder.binding.executePendingBindings();
     }
 
     @Override
     public int getItemCount() {
-        return data.size();
+        return chkupdata.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

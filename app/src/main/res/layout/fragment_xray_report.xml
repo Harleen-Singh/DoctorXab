@@ -244,7 +244,7 @@
                 android:paddingTop="12dp"
                 android:paddingEnd="12dp"
                 android:paddingBottom="12dp"
-                android:text="@{X_ray_desc.textarea}"
+                android:text="@{X_ray_desc.reportData}"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 app:layout_constraintBottom_toBottomOf="parent"
