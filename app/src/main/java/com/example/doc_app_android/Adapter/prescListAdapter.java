@@ -1,18 +1,15 @@
 package com.example.doc_app_android.Adapter;
 
-import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.PrescData;
-import com.example.doc_app_android.databinding.ChkUpHistoryBinding;
 import com.example.doc_app_android.databinding.ListPrescBinding;
 
 import org.jetbrains.annotations.NotNull;
@@ -45,7 +42,7 @@ public class prescListAdapter extends RecyclerView.Adapter<prescListAdapter.View
         prescListDataAdapter childAdapter = new prescListDataAdapter(data.get(position).getPrescText());
         holder.Binding.listRview.setAdapter(childAdapter);
         childAdapter.notifyDataSetChanged();
-        if (data.get(position).getPrescText().size() >= 4) {
+        if (data.get(position).getPrescText().size() > 4) {
             holder.Binding.arrow.setVisibility(View.VISIBLE);
             holder.Binding.arrow.setOnClickListener(new View.OnClickListener() {
                 @Override
