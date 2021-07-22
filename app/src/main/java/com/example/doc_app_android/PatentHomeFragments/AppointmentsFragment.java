@@ -66,6 +66,7 @@ public class AppointmentsFragment extends Fragment {
                 intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,"");
                 intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,"");
                 startActivity(intent);
+
             }
         });
 
