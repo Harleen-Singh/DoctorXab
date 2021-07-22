@@ -19,7 +19,7 @@
                 android:id="@+id/progressbar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/theme"
+                android:indeterminateTint="@color/theme"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@+id/rView"
                 app:layout_constraintEnd_toEndOf="parent"

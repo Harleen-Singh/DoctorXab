@@ -1,7 +1,7 @@
 package com.example.doc_app_android.Adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -33,6 +33,7 @@ public ArrayList<Pat_prescription> data;
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull prescListDataAdapter.ViewHolder holder, int position) {
+        Log.d("TAG", "onBindViewHolder: "+position);
         holder.Binding.setPrescription(data.get(position));
     }
 
@@ -45,7 +46,10 @@ public ArrayList<Pat_prescription> data;
 
     @Override
     public int getItemCount() {
-        return itemCount;
+        if(itemCount>data.size())
+            return data.size();
+        else
+            return itemCount;
     }
 
     public void setDefaultItemCount() {
