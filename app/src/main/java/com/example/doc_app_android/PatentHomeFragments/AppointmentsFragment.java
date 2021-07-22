@@ -58,7 +58,25 @@ public class AppointmentsFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_appointments,null,false);
 
         binding.calendarView.setSelectedDate(LocalDate.now());
+        binding.btnNote.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(binding.CLayoutNote.getVisibility()==View.VISIBLE){
+                    binding.CLayoutNote.setVisibility(View.GONE);
+                }else{
+                    binding.CLayoutNote.setVisibility(View.VISIBLE);
+//                    binding.scrollView.fullScroll(View.FOCUS_DOWN);
+//                    binding.scrollView.smoothScrollTo(0,1000);
+                    binding.scrollView.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            binding.scrollView.fullScroll(View.FOCUS_DOWN);
+                        }
+                    },100);
+                }
 
+            }
+        });
         binding.btnRemain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
