@@ -4,6 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.provider.CalendarContract;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -11,20 +19,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.jetbrains.annotations.NotNull;
-import org.threeten.bp.LocalDate;
-import android.provider.CalendarContract;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.Toast;
-
 import com.example.doc_app_android.Adapter.NotesRVAdapter;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.databinding.FragmentAppointmentsBinding;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+
+import org.jetbrains.annotations.NotNull;
+import org.threeten.bp.LocalDate;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -43,7 +45,7 @@ public class AppointmentsFragment extends Fragment {
 
     NotesRVAdapter adapter = new NotesRVAdapter(getContext());
     FragmentAppointmentsBinding binding;
-    private ArrayList<String> message;
+    private ArrayList<String> message ;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -67,6 +69,29 @@ public class AppointmentsFragment extends Fragment {
                 intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,"");
                 startActivity(intent);
 
+            }
+        });
+
+        binding.textViewNote.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s.toString().equals("")){
+                    Log.e("TAG", "onCreateView: disabled" );
+                    binding.btnSave.setEnabled(false);
+                }else{
+                    Log.e("TAG", "onCreateView: enabled" );
+                    binding.btnSave.setEnabled(true);
+                }
             }
         });
 
@@ -127,7 +152,7 @@ public class AppointmentsFragment extends Fragment {
         String json = sharedPreferences.getString("msg",null);
         Type type = new TypeToken<ArrayList<String>>() {}.getType();
         message = gson.fromJson(json,type);
-        if(message.size()==0){
+        if(message==null){
             message = new ArrayList<>();
         }
     }
