@@ -36,7 +36,7 @@ public class DoctorListService {
     }
 
     public MutableLiveData<ArrayList<DocData>> getId_name_Pair(Context context) {
-        this.app =context;
+        this.app = context;
         if (id_name_Pair == null) {
             data = new MutableLiveData<>();
             id_name_Pair = new MutableLiveData<>();

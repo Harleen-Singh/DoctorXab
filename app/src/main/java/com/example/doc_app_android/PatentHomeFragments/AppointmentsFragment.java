@@ -26,6 +26,7 @@ import com.example.doc_app_android.Adapter.NotesRVAdapter;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.AppointmentData;
 import com.example.doc_app_android.data_model.DocData;
+import com.example.doc_app_android.data_model.DoctorListViewModel;
 import com.example.doc_app_android.databinding.FragmentAppointmentsBinding;
 import com.example.doc_app_android.services.DoctorListService;
 import com.example.doc_app_android.view_model.FragApmntViewModel;
@@ -67,8 +68,10 @@ public class AppointmentsFragment extends Fragment {
 
     NotesRVAdapter adapter = new NotesRVAdapter(getContext());
     FragmentAppointmentsBinding binding;
+    DoctorListService docListService = new DoctorListService();
     private ArrayList<String> message;
     private FragApmntViewModel viewModel;
+    private DoctorListViewModel doctorListViewModel;
     private ArrayList<AppointmentData> appointmentData = new ArrayList<>();
 
     @Override
@@ -82,13 +85,12 @@ public class AppointmentsFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_appointments, null, false);
 
         viewModel = new ViewModelProvider(requireActivity()).get(FragApmntViewModel.class);
-
-        binding.setLifecycleOwner(this);
-
-        Map<String, String> docNames = new HashMap<>();
+        doctorListViewModel = new ViewModelProvider(requireActivity()).get(DoctorListViewModel.class);
         binding.progressbar.setVisibility(View.VISIBLE);
-        DoctorListService docListService = new DoctorListService();
-        docListService.getId_name_Pair(requireContext()).observe(requireActivity(), new Observer<ArrayList<DocData>>() {
+        binding.setLifecycleOwner(this);
+        Map<String, String> docNames = new HashMap<>();
+
+        doctorListViewModel.getID_name_pair().observe(requireActivity(), new Observer<ArrayList<DocData>>() {
             @Override
             public void onChanged(ArrayList<DocData> docData) {
                 Log.e(TAG, "onChanged: " + "GOT DOC LIST");
