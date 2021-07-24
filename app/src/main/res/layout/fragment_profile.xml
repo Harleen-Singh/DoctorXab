@@ -58,7 +58,7 @@
                             android:src="@drawable/app_back_button" />
 
                         <TextView
-                            android:id="@+id/settings_label_safe"
+                            android:id="@+id/profile_label_save"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/rubik"
@@ -252,16 +252,34 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <TextView
+                        <androidx.appcompat.widget.LinearLayoutCompat
                             android:id="@+id/profile_label"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="39dp"
-                            android:fontFamily="@font/rubik"
-                            android:gravity="center"
-                            android:text="PROFILE"
-                            android:textColor="@color/black"
-                            android:textSize="24sp" />
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginLeft="26dp"
+                            android:layout_marginTop="36dp"
+                            android:layout_marginRight="26dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:id="@+id/profile_edit_back_button"
+                                android:layout_width="24dp"
+                                android:layout_height="24dp"
+                                android:src="@drawable/app_back_button" />
+
+                            <TextView
+                                android:id="@+id/profile_Edit_Label"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/rubik"
+                                android:gravity="center"
+                                android:text="PROFILE"
+                                android:textColor="@color/black"
+                                android:textSize="24sp" />
+                        </androidx.appcompat.widget.LinearLayoutCompat>
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/doctor_profile_image_edit"

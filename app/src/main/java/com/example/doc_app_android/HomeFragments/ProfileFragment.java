@@ -1,7 +1,9 @@
 package com.example.doc_app_android.HomeFragments;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -25,6 +27,8 @@ import com.example.doc_app_android.services.ProfileEditService;
 import com.example.doc_app_android.view_model.ProfileViewModel;
 import com.squareup.picasso.Picasso;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
 /**
@@ -43,13 +47,6 @@ public class ProfileFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    private ImageView backButton;
-    private Button savedSave;
-    private Button save;
-    private Button edit;
-    private RelativeLayout editLayout;
-    private RelativeLayout saveLayout;
-    private Toolbar toolbar;
     private ProfileViewModel profileViewModel;
     private ProfileData profileData;
     private ProfileEditService profileEditService = new ProfileEditService();
@@ -93,6 +90,7 @@ public class ProfileFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
     }
 
+
     @Override
     public void onStop() {
         super.onStop();
@@ -101,11 +99,12 @@ public class ProfileFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         FragmentProfileBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
         binding.setLifecycleOwner(this);
+
 
         binding.doctorProfileEdit.setVisibility(View.GONE);
         binding.profileProgress.setVisibility(View.VISIBLE);
@@ -115,7 +114,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onChanged(ProfileData profileData) {
 
-                if(!TextUtils.isEmpty(profileData.getName()) && !TextUtils.isEmpty(profileData.getEmail()) && !TextUtils.isEmpty(profileData.getPhoneNumber())) {
+                if (!TextUtils.isEmpty(profileData.getName()) && !TextUtils.isEmpty(profileData.getEmail()) && !TextUtils.isEmpty(profileData.getPhoneNumber())) {
 
                     binding.doctorNameText.setText(profileData.getName());
                     binding.emailAddressText.setText(profileData.getEmail());
@@ -132,7 +131,6 @@ public class ProfileFragment extends Fragment {
                         .into(binding.doctorProfileImageSave);
 
                 binding.profileProgress.setVisibility(View.GONE);
-
 
 
             }
@@ -166,27 +164,92 @@ public class ProfileFragment extends Fragment {
             }
         });
 
+        binding.profileEditBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.doctorProfileEdit.setVisibility(View.GONE);
+                binding.doctorProfileSave.setVisibility(View.VISIBLE);
+
+            }
+        });
+
 
         binding.btnEditSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                profileData = new ProfileData(binding.doctorEmail.getText().toString(), binding.doctorName.getText().toString(), binding.doctorPhoneNumber.getText().toString());
-                profileEditService.init(profileData, getContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                AlertDialog.Builder builder1 = new AlertDialog.Builder(getActivity());
 
 
-                profileViewModel.getEditedProfileDetails().observe(getViewLifecycleOwner(), new Observer<ProfileData>() {
+                //builder.setPositiveButton()
+                String name = binding.doctorName.getText().toString();
+                String email = binding.doctorEmail.getText().toString();
+                String phoneNumber = binding.doctorPhoneNumber.getText().toString();
+
+                if (TextUtils.isEmpty(name) && TextUtils.isEmpty(email) && TextUtils.isEmpty(phoneNumber)) {
+                    builder.setMessage("Please enter Name, Email and Phone Number.");
+
+                } else if (TextUtils.isEmpty(name) && TextUtils.isEmpty(email)) {
+                    builder.setMessage("Please enter Name and Email.");
+
+                } else if(TextUtils.isEmpty(email) && TextUtils.isEmpty(phoneNumber)){
+                    builder.setMessage("Please enter Email and Phone Number.");
+                } else if(TextUtils.isEmpty(name) && TextUtils.isEmpty(phoneNumber)){
+                    builder.setMessage("Please enter Name and Phone Number.");
+                } else if( TextUtils.isEmpty(name)){
+                    builder.setMessage("Please enter Name.");
+                } else if(TextUtils.isEmpty(email)){
+                    builder.setMessage("Please enter Email.");
+                } else if(TextUtils.isEmpty(phoneNumber)){
+                    builder.setMessage("Please enter Phone Number.");
+                } else{
+                    builder1.setMessage("Do you want to Edit?");
+                    builder1.setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            profileData = new ProfileData(binding.doctorEmail.getText().toString(), binding.doctorName.getText().toString(), binding.doctorPhoneNumber.getText().toString());
+                            profileEditService.init(profileData, getContext());
+                            profileViewModel.getEditedProfileDetails().observe(getViewLifecycleOwner(), new Observer<ProfileData>() {
+                                @Override
+                                public void onChanged(ProfileData profileData) {
+                                    binding.emailAddressText.setText(profileData.getEmail());
+                                }
+                            });
+
+                            getFragmentManager().beginTransaction().remove(ProfileFragment.this).commit();
+                        }
+                    });
+
+                    builder1.setNegativeButton(R.string.No, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+
+                    builder1.create();
+                    builder1.show();
+
+                }
+                builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
-                    public void onChanged(ProfileData profileData) {
-                        binding.emailAddressText.setText(profileData.getEmail());
+                    public void onClick(DialogInterface dialog, int which) {
+
                     }
                 });
 
-                getFragmentManager().beginTransaction().remove(ProfileFragment.this).commit();
+                builder.create();
+                builder.show();
+
+
+
 
             }
         });
 
         return binding.getRoot();
     }
+
+
 }

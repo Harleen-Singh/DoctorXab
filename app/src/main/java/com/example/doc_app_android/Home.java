@@ -57,6 +57,20 @@ public class Home extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+
+        if (count == 0) {
+            super.onBackPressed();
+            //additional code
+        } else {
+            getSupportFragmentManager().popBackStack();
+        }
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_home);
@@ -147,7 +161,7 @@ public class Home extends AppCompatActivity {
                 }
 
                 if (temp != null)
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container, temp).commit();
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container, temp).addToBackStack("name").commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
