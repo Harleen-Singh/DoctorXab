@@ -109,7 +109,7 @@ public class ProfileFragment extends Fragment {
 
         binding.doctorProfileEdit.setVisibility(View.GONE);
         binding.profileProgress.setVisibility(View.VISIBLE);
-        profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+        profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
 
         profileViewModel.getProfileDetails().observe(getViewLifecycleOwner(), new Observer<ProfileData>() {
             @Override
