@@ -135,7 +135,7 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:fontFamily="@font/rubik_semi_bold"
-                android:text="ADD REMAINDER"
+                android:text="ADD REMINDER"
                 android:textColor="@drawable/btn_text_color_1"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.049"
