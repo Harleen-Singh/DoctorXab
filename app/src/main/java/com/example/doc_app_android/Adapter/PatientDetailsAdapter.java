@@ -3,6 +3,7 @@ package com.example.doc_app_android.Adapter;
 import android.animation.LayoutTransition;
 import android.content.Context;
 import android.provider.ContactsContract;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,18 +56,23 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
 
     @Override
     public void onBindViewHolder(@NonNull PatientDetailsAdapter.PatientDetailsHolder holder, int position) {
-        holder.binding.patientName.setText(data.get(position).getName());
-        holder.binding.expandablePatientName.setText(data.get(position).getName());
-        holder.binding.expandablePatientLastcheckup.setText("Last Checkup: " + "16-07-2021");
-        holder.binding.patientAge.setText(data.get(position).getAge());
-        holder.binding.patientCaselevel.setText("Operation");
-        holder.binding.patientState.setText(data.get(position).getState());
-        Picasso.get()
-                .load(data.get(position).getImage())
-                .into(holder.binding.profileImage);
-        Picasso.get()
-                .load(data.get(position).getImage())
-                .into(holder.binding.expandableProfileImage);
+        if(!TextUtils.isEmpty(data.get(position).getName()) && !TextUtils.isEmpty(data.get(position).getName()) && !TextUtils.isEmpty(data.get(position).getAge()) && !TextUtils.isEmpty(data.get(position).getState()) && !TextUtils.isEmpty(data.get(position).getImage())){
+            holder.binding.patientName.setText(data.get(position).getName());
+            holder.binding.expandablePatientName.setText(data.get(position).getName());
+            holder.binding.expandablePatientLastcheckup.setText("Last Checkup: " + "16-07-2021");
+            holder.binding.patientAge.setText(data.get(position).getAge());
+            holder.binding.patientCaselevel.setText("Operation");
+            holder.binding.patientState.setText(data.get(position).getState());
+            Picasso.get()
+                    .load(data.get(position).getImage())
+                    .placeholder(R.drawable.doctor_profile_image)
+                    .into(holder.binding.profileImage);
+            Picasso.get()
+                    .load(data.get(position).getImage())
+                    .placeholder(R.drawable.doctor_profile_image)
+                    .into(holder.binding.expandableProfileImage);
+        }
+
     }
 
     @Override
@@ -85,28 +91,20 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
             binding.openButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Animation animation = AnimationUtils.loadAnimation(mContext, R.anim.fadein);
                     binding.patientRow.setVisibility(View.GONE);
-
-
-//                    binding.patientRow.startAnimation(animation);
-                    //TransitionManager.beginDelayedTransition(binding.patientDetailsRow, new AutoTransition());
-//                    binding.expandableLayout.setVisibility(View.VISIBLE);
-//                    slideDown(binding.expandableLayout);
                     expand(binding.expandableLayout);
-
-
                 }
             });
 
             binding.closeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    binding.expandableLayout.setVisibility(View.GONE);
+                    //binding.expandableLayout.setVisibility(View.GONE);
+                    collapse(binding.expandableLayout, binding);
                     //collapse(binding.expandableLayout, binding);
                     //TransitionManager.beginDelayedTransition(binding.patientDetailsRow, new AutoTransition());
 
-                    binding.patientRow.setVisibility(View.VISIBLE);
+                    //binding.patientRow.setVisibility(View.VISIBLE);
 
 
                 }
@@ -176,7 +174,22 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
             a.setDuration((int) (initialHeight / v.getContext().getResources().getDisplayMetrics().density));
             v.startAnimation(a);
 
-            binding.patientRow.setVisibility(View.VISIBLE);
+            a.setAnimationListener(new Animation.AnimationListener() {
+                @Override
+                public void onAnimationStart(Animation animation) {
+                }
+
+                @Override
+                public void onAnimationEnd(Animation animation) {
+                    binding.patientRow.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onAnimationRepeat(Animation animation) {
+
+                }
+            });
+
         }
     }
 }

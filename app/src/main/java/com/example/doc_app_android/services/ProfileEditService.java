@@ -31,7 +31,7 @@ public class ProfileEditService {
     private int id, age;
     private String userName, name, phoneNumber, address, email, image;
     private ProfileData editedProfileData;
-    private MutableLiveData<ProfileData> mutableProfileData = new MutableLiveData<>();
+    private MutableLiveData<ProfileData> mutableProfileData ;
     private Context context;
     private ProgressDialog progressDialog;
     private com.example.doc_app_android.Dialogs.dialogs dialogs = new dialogs();
@@ -52,6 +52,9 @@ public class ProfileEditService {
     }
 
     public LiveData<ProfileData> getEditedProfileDetails() {
+        if(mutableProfileData == null){
+            mutableProfileData = new MutableLiveData<>();
+        }
         return mutableProfileData;
     }
 
