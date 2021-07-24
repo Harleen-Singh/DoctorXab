@@ -45,15 +45,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         final SharedPreferences sp = getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
-        editor = sp.edit();
-        editor.putString("cur_frag_id","1");
-        editor.apply();
+//        editor = sp.edit();
+//        editor.putString("cur_frag_id","1");
+//        editor.apply();
 
         boolean isDoc = sp.getBoolean("isDoc", false);
         if (sp.contains("id")) {
-            editor = sp.edit();
-            editor.putString("cur_frag_id","1");
-            editor.apply();
+//            editor = sp.edit();
+//            editor.putString("cur_frag_id","1");
+//            editor.apply();
             Intent intent = new Intent(this, Home.class);
             startActivity(intent);
             finish();
