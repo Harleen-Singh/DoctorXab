@@ -16,12 +16,16 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doc_app_android.Adapter.NotesRVAdapter;
 import com.example.doc_app_android.R;
+import com.example.doc_app_android.data_model.AppointmentData;
 import com.example.doc_app_android.databinding.FragmentAppointmentsBinding;
+import com.example.doc_app_android.view_model.FragApmntViewModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -46,6 +50,8 @@ public class AppointmentsFragment extends Fragment {
     NotesRVAdapter adapter = new NotesRVAdapter(getContext());
     FragmentAppointmentsBinding binding;
     private ArrayList<String> message ;
+    private FragApmntViewModel viewModel;
+    private   ArrayList<AppointmentData> appointmentData = new ArrayList<>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,6 +63,17 @@ public class AppointmentsFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_appointments,null,false);
 
+        viewModel = new ViewModelProvider(requireActivity()).get(FragApmntViewModel.class);
+
+        binding.setLifecycleOwner(this);
+
+        viewModel.getApmntData().observe(getViewLifecycleOwner(), new Observer<ArrayList<AppointmentData>>() {
+            @Override
+            public void onChanged(ArrayList<AppointmentData> appointmentData) {
+
+            }
+        });
+
         binding.calendarView.setSelectedDate(LocalDate.now());
         binding.btnNote.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -65,8 +82,6 @@ public class AppointmentsFragment extends Fragment {
                     binding.CLayoutNote.setVisibility(View.GONE);
                 }else{
                     binding.CLayoutNote.setVisibility(View.VISIBLE);
-//                    binding.scrollView.fullScroll(View.FOCUS_DOWN);
-//                    binding.scrollView.smoothScrollTo(0,1000);
                     binding.scrollView.postDelayed(new Runnable() {
                         @Override
                         public void run() {
@@ -153,6 +168,7 @@ public class AppointmentsFragment extends Fragment {
                 }
             }
         });
+
         return binding.getRoot();
     }
 
