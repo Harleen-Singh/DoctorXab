@@ -24,6 +24,7 @@
         <activity
             android:name=".Home"
             android:theme="@style/NoActionBar"
+            android:screenOrientation="landscape"
             android:configChanges="keyboardHidden|orientation"/>
         <activity
             android:name=".sign_as"
