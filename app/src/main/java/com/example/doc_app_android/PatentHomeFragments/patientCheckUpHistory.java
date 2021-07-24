@@ -45,7 +45,7 @@ public class patientCheckUpHistory extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-       binding = DataBindingUtil.inflate(inflater,R.layout.fragment_patient_check_up_history,null,false);
+        binding = DataBindingUtil.inflate(inflater,R.layout.fragment_patient_check_up_history,null,false);
         checkupHistoryAdapter adapter = new checkupHistoryAdapter();
         binding.rView.setAdapter(adapter);
         model = new ViewModelProvider(requireActivity()).get(FragmentChkHstryViewModel.class);

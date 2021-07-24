@@ -2,10 +2,11 @@
 
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.constraintlayout.widget.ConstraintLayout
 
         android:id="@+id/parent_linearLayout"
         android:layout_width="match_parent"
@@ -17,7 +18,11 @@
         <ScrollView
             android:id="@+id/vertical_scrollable"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -92,7 +97,6 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/rubik_bold"
                             android:gravity="center"
-                            android:text="Dr.Sumit Dadwal"
                             android:textColor="@color/scnd_blue"
                             android:textSize="20sp" />
 
@@ -137,7 +141,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
                                 android:fontFamily="@font/rubik"
-                                android:text="Sumitdadwal01gmailcom"
+
                                 android:textColor="@color/scnd_blue"
                                 android:textSize="16sp" />
 
@@ -177,7 +181,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="20dp"
                                 android:fontFamily="@font/rubik"
-                                android:text="9988022633"
                                 android:textColor="@color/scnd_blue"
                                 android:textSize="16sp" />
 
@@ -380,6 +383,17 @@
         </ScrollView>
 
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        <ProgressBar
+            android:id="@+id/profile_progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:indeterminateTint="@color/theme"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

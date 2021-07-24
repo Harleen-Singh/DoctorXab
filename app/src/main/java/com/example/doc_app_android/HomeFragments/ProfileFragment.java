@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.databinding.FragmentProfileBinding;
 import com.example.doc_app_android.services.ProfileEditService;
 import com.example.doc_app_android.view_model.ProfileViewModel;
+import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
@@ -106,14 +108,32 @@ public class ProfileFragment extends Fragment {
         binding.setLifecycleOwner(this);
 
         binding.doctorProfileEdit.setVisibility(View.GONE);
-
+        binding.profileProgress.setVisibility(View.VISIBLE);
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
         profileViewModel.getProfileDetails().observe(getViewLifecycleOwner(), new Observer<ProfileData>() {
             @Override
             public void onChanged(ProfileData profileData) {
-                binding.doctorNameText.setText(profileData.getUserName());
-                binding.emailAddressText.setText(profileData.getEmail());
+
+                if(!TextUtils.isEmpty(profileData.getName()) && !TextUtils.isEmpty(profileData.getEmail()) && !TextUtils.isEmpty(profileData.getPhoneNumber())) {
+
+                    binding.doctorNameText.setText(profileData.getName());
+                    binding.emailAddressText.setText(profileData.getEmail());
+                    binding.contactText.setText(profileData.getPhoneNumber());
+                } else {
+                    binding.doctorNameText.setText("Sam Dawson");
+                    binding.emailAddressText.setText("example@gmail.com");
+                    binding.contactText.setText("9999999999");
+                }
+
+                Picasso.get()
+                        .load(profileData.getImage())
+                        .placeholder(R.drawable.doctor_profile_image)
+                        .into(binding.doctorProfileImageSave);
+
+                binding.profileProgress.setVisibility(View.GONE);
+
+
 
             }
         });
