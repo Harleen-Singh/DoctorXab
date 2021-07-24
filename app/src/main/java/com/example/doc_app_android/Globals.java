@@ -15,4 +15,5 @@ public class Globals {
     public static String xray = serverURL + "xrays/";
     public static String prescription = serverURL + "prescriptions/";
     public static String appointment = serverURL + "getappointment";
+    public static String docList = serverURL + "doctors";
 }
