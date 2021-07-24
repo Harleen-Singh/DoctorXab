@@ -32,55 +32,100 @@ import java.util.Map;
 
 public class DoctorPatientListService {
 
-    private int id, doctor, count, problem;
-    private String username, email, name, image, phoneNumber;
+    private int id, doctor, count, problem, age;
+    private String username, email, name, image, phoneNumber, state;
     private boolean isDoc, isPatient;
-    private JSONArray results;
-    private JSONObject object;
-    private JSONObject user;
-    private ArrayList<ProfileData> data =  new ArrayList<>();
-    private ProfileData profileData;
-    private MutableLiveData<ArrayList<ProfileData>> mutableLiveDatadata = new MutableLiveData<>();
+//    private  results;
+//    private  object;
+//    private  user;
+
+    private MutableLiveData<ArrayList<ProfileData>> mutableLiveElbowData;
+    private MutableLiveData<ArrayList<ProfileData>> mutableLiveWristData;
+    private MutableLiveData<ArrayList<ProfileData>> mutableLiveKneeData;
+    private MutableLiveData<ArrayList<ProfileData>> mutableLiveHipData;
+    private MutableLiveData<ArrayList<ProfileData>> mutableLiveData;
 
 
-
-    public LiveData<ArrayList<ProfileData>> getPatientListForDoctorHome(String problemId, Context context){
-        if(mutableLiveDatadata == null){
-            mutableLiveDatadata = new MutableLiveData<>();
+    public LiveData<ArrayList<ProfileData>> getPatientListForDoctorHome(String problemId, Context context) {
+        if (problemId.equals("1")) {
+            if (mutableLiveElbowData == null) {
+                mutableLiveElbowData = new MutableLiveData<>();
+                mutableLiveData = mutableLiveElbowData;
+                getPatientList(Globals.doctorHomeScreenPatientList + problemId, context, problemId);
+            } else {
+                mutableLiveData = mutableLiveElbowData;
+            }
+        } else if (problemId.equals("2")) {
+            if (mutableLiveWristData == null) {
+                mutableLiveWristData = new MutableLiveData<>();
+                mutableLiveData = mutableLiveWristData;
+                getPatientList(Globals.doctorHomeScreenPatientList + problemId, context, problemId);
+            } else {
+                mutableLiveData = mutableLiveWristData;
+            }
+        } else if (problemId.equals("3")) {
+            if (mutableLiveKneeData == null) {
+                mutableLiveKneeData = new MutableLiveData<>();
+                mutableLiveData = mutableLiveKneeData;
+                getPatientList(Globals.doctorHomeScreenPatientList + problemId, context, problemId);
+            } else {
+                mutableLiveData = mutableLiveKneeData;
+            }
+        } else if (problemId.equals("4")) {
+            if (mutableLiveHipData == null) {
+                mutableLiveHipData = new MutableLiveData<>();
+                mutableLiveData = mutableLiveHipData;
+                getPatientList(Globals.doctorHomeScreenPatientList + problemId, context, problemId);
+            } else {
+                mutableLiveData = mutableLiveHipData;
+            }
         }
-        getPatientList(Globals.doctorHomeScreenPatientList + problemId, context);
-        return mutableLiveDatadata;
+
+        return mutableLiveData;
     }
 
-    private void getPatientList(String url, Context context) {
-
+    private void getPatientList(String url, Context context, String problem_Id) {
+        ArrayList<ProfileData> data = new ArrayList<>();
         final RequestQueue patientDetailsQueue = Volley.newRequestQueue(context);
         JsonObjectRequest getPatientListObject = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("DoctorPatientList", "OnResponse: " + response);
                 try {
+
                     count = response.getInt("count");
-                    results = response.getJSONArray("results");
+                    JSONArray results = response.getJSONArray("results");
                     for (int i = 0; i < results.length(); i++) {
-                        object = results.getJSONObject(i);
-                        user = object.getJSONObject("user");
+                        JSONObject object = results.getJSONObject(i);
+                        JSONObject user = object.getJSONObject("user");
                         id = user.getInt("id");
                         name = user.getString("name");
                         image = user.getString("image");
                         phoneNumber = user.getString("phone_number");
                         username = user.getString("username");
                         email = user.getString("email");
+                        age = user.getInt("age");
+                        state = user.getString("state");
                         isDoc = user.getBoolean("is_doctor");
                         isPatient = user.getBoolean("is_patient");
                         doctor = object.getInt("doctor");
                         problem = object.getInt("problem");
                         //int id, int count, int doctor, int problem, String userName, String email, String name, String phoneNumber, String image, boolean isDoc, boolean isPatient
-                        profileData = new ProfileData(id, count, doctor, problem, username, email, name, phoneNumber, image, isDoc, isPatient);
+                        ProfileData profileData = new ProfileData(id, count, doctor, problem, username, email, name, phoneNumber, image, isDoc, isPatient, age, state);
                         data.add(profileData);
                     }
 
-                    mutableLiveDatadata.setValue(data);
+                    if (problem_Id.equals("1")) {
+                        mutableLiveElbowData.setValue(data);
+                    } else if (problem_Id.equals("2")) {
+                        mutableLiveWristData.setValue(data);
+                    } else if (problem_Id.equals("3")) {
+                        mutableLiveKneeData.setValue(data);
+                    } else if (problem_Id.equals("4")) {
+                        mutableLiveHipData.setValue(data);
+                    }
+
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -106,12 +151,12 @@ public class DoctorPatientListService {
                 SharedPreferences pref = context.getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
                 Map<String, String> params = new HashMap<>();
 
-                String creds = String.format("%s:%s",pref.getString("username", ""),pref.getString("pass", ""));
+                String creds = String.format("%s:%s", pref.getString("username", ""), pref.getString("pass", ""));
                 String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
                 params.put("Authorization", auth);
-//                params.put("Username", pref.getString("username", ""));
+//
                 Log.d("Credentials", "Username: " + pref.getString("username", "") + "\n" + "password: " + pref.getString("pass", ""));
-//                params.put("Password", pref.getString("pass", ""));
+//
                 return params;
             }
         };

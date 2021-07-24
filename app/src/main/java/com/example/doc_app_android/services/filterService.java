@@ -57,7 +57,7 @@ public class filterService {
                             id = obj.getString("id");
                             filter = obj.getString("problem");
                             department = obj.getString("Department");
-                            Log.d("TAG", "onResponse: " + filter);
+                           // Log.d("TAG", "onResponse: " + filter);
                             list.add(new FilterData(filter, id, department));
                         }
                         data.setValue(list);

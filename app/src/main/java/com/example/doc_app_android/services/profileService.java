@@ -36,32 +36,36 @@ public class profileService {
 
 
     private int id;
-    private String userName, email;
+    private String userName, email, name, image, phoneNumber;
     boolean is_Doc, is_Patient;
     private int department;
     private Context context;
-    private ProgressDialog progressDialog;
+    //private ProgressDialog progressDialog;
     private final com.example.doc_app_android.Dialogs.dialogs dialogs = new dialogs();
     private ProfileData profileData;
-    private MutableLiveData<ProfileData> mutableProfileData = new MutableLiveData<>();
+    private MutableLiveData<ProfileData> mutableProfileData;
     private int problem, doctor;
 
 
     public LiveData<ProfileData> getProfileDetails(Application application, Context mContext) {
-        context = mContext;
 
         final SharedPreferences sp = application.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
         boolean isDoc = sp.getBoolean("isDoc", false);
         String dorP_id = sp.getString("id", "");
 
+        if (mutableProfileData == null){
+            mutableProfileData = new MutableLiveData<>();
+        }
+        context = mContext;
+
+
+
         if (isDoc) {
             //Log.d("Testing", "Url: " +Globals.profileDoctor + dorP_id )
-            progressDialog = new ProgressDialog(context, R.style.AlertDialog);
             getData(Globals.profileDoctor + dorP_id, true);
 
         } else {
             dorP_id = "60";
-            progressDialog = new ProgressDialog(context, R.style.AlertDialog);
             getData(Globals.profilePatient + dorP_id, false);
 
         }
@@ -89,10 +93,13 @@ public class profileService {
                         email = user.getString("email");
                         is_Doc = user.getBoolean("is_doctor");
                         is_Patient = user.getBoolean("is_patient");
+                        name = user.getString("name");
+                        image = user.getString("image");
+                        phoneNumber = user.getString("phone_number");
 
                         department = response.getInt("department");
 
-                        profileData = new ProfileData(id, userName, email, is_Doc, is_Patient, department);
+                        profileData = new ProfileData(id, userName, email, is_Doc, is_Patient, department, image, name, phoneNumber);
                     } else {
 
                         JSONObject user = response.getJSONObject("user");
@@ -104,11 +111,14 @@ public class profileService {
 
                         doctor = response.getInt("doctor");
                         problem = response.getInt("problem");
-                        profileData = new ProfileData(id, userName, email, is_Doc, is_Patient, doctor, problem);
+                        name = user.getString("name");
+                        image = user.getString("image");
+                        phoneNumber = user.getString("phone_number");
+                        profileData = new ProfileData(id, userName, email, is_Doc, is_Patient, doctor, problem, image, name, phoneNumber);
 
                     }
-                    mutableProfileData.postValue(profileData);
-                    dialogs.dismissDialog(progressDialog);
+                    mutableProfileData.setValue(profileData);
+                    //dialogs.dismissDialog(progressDialog);
 
                 } catch (JSONException e) {
                     Log.d("Testing", "onResponse: Error Occured" + "\n" + e);
@@ -124,7 +134,7 @@ public class profileService {
                     Log.d("", "error.networkRespose.toString()" + error.networkResponse.toString());
                 }
 
-                dialogs.dismissDialog(progressDialog);
+                //dialogs.dismissDialog(progressDialog);
             }
         });
 

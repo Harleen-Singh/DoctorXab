@@ -16,14 +16,16 @@ import java.util.ArrayList;
 public class DataLoaderViewModel extends AndroidViewModel {
 
     private DoctorPatientListService service = new DoctorPatientListService();
+    private Application app;
 
 
     public DataLoaderViewModel(@NonNull @NotNull Application application) {
         super(application);
+        app = application;
     }
 
     public LiveData<ArrayList<ProfileData>> getPatientListForDoctorHome(String problemId){
-        return service.getPatientListForDoctorHome(problemId, getApplication().getApplicationContext());
+        return service.getPatientListForDoctorHome(problemId, app.getApplicationContext());
     }
 
 

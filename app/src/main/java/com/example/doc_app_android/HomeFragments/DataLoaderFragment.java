@@ -34,6 +34,7 @@ public class DataLoaderFragment extends Fragment {
     private static String id;
     private DataLoaderViewModel dataLoaderViewModel;
     private PatientDetailsAdapter patientDetailsAdapter;
+    private DataLoaderFragment fragment;
 
 
     public DataLoaderFragment() {
@@ -59,16 +60,20 @@ public class DataLoaderFragment extends Fragment {
         FragmentDataLoaderBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_data_loader, container, false);
         patientDetailsAdapter = new PatientDetailsAdapter(getContext());
         binding.detailsRcv.setAdapter(patientDetailsAdapter);
-        ((SimpleItemAnimator) Objects.requireNonNull(binding.detailsRcv.getItemAnimator())).setSupportsChangeAnimations(false);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
-        binding.detailsRcv.setLayoutManager(linearLayoutManager);
-
-        dataLoaderViewModel = new ViewModelProvider(this).get(DataLoaderViewModel.class);
+//        ((SimpleItemAnimator) Objects.requireNonNull(binding.detailsRcv.getItemAnimator())).setSupportsChangeAnimations(false);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+//        binding.detailsRcv.setLayoutManager(linearLayoutManager);
+        binding.dataLoadingProgressBar.setVisibility(View.VISIBLE);
+        dataLoaderViewModel = new ViewModelProvider(requireActivity()).get(DataLoaderViewModel.class);
         dataLoaderViewModel.getPatientListForDoctorHome(id).observe(getViewLifecycleOwner(), new Observer<ArrayList<ProfileData>>() {
             @Override
             public void onChanged(ArrayList<ProfileData> profileData) {
                 patientDetailsAdapter.setdata(profileData);
                 patientDetailsAdapter.notifyDataSetChanged();
+//                if(profileData.isEmpty()){
+//
+//                }
+                binding.dataLoadingProgressBar.setVisibility(View.GONE);
             }
         });
 
