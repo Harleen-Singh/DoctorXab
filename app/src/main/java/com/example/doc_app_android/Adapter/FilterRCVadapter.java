@@ -54,18 +54,18 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
             appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.Home_frameLayout, temp).commit();
         } else {
             // This will open the initial screen of doctor Home.
-//            cur_frag_id = pref.getString("cur_frag_id", "");
-//            if (cur_frag_id.equals("1")) {
+            cur_frag_id = pref.getString("cur_frag_id", "");
+            if (cur_frag_id.equals("1")) {
                 temp = DataLoaderFragment.newInstance("1");
                 Log.e("HomeIssue", "DataLoaderFragment is getting implemented with id 1");
-//            } else {
-//                temp = DataLoaderFragment.newInstance(cur_frag_id);
-//                Log.e("HomeIssue", "DataLoaderFragment is getting implemented with cur_frag_id " + cur_frag_id);
-//
-//            }
+            } else {
+                temp = DataLoaderFragment.newInstance(cur_frag_id);
+                Log.e("HomeIssue", "DataLoaderFragment is getting implemented with cur_frag_id " + cur_frag_id);
+
+            }
             AppCompatActivity appCompatActivity = (AppCompatActivity) context;
             appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.Home_frameLayout, temp).commit();
-            //Log.e("HomeIssue", "DataLoaderFragment has been transacted with id " + cur_frag_id);
+            Log.e("HomeIssue", "DataLoaderFragment has been transacted with id " + cur_frag_id);
         }
     }
 
@@ -82,9 +82,9 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
 
     @Override
     public void onBindViewHolder(@NonNull @NotNull FilterRCVadapter.FilterVH holder, int position) {
-//        Log.e("HomeIssues", "onBindHolder is called with position: " + position);
-//        // This will setup the initial button to be clicked
-//        preSelectionPos = pref.getInt("prev_selected_position", 0);
+        Log.e("HomeIssues", "onBindHolder is called with position: " + position);
+        // This will setup the initial button to be clicked
+        //preSelectionPos = pref.getInt("prev_selected_position", 0);
         holder.binding.setFilterData(data.get(position));
         if (position == preSelectionPos) {
             holder.binding.buttonDynamic.setTextColor(AppCompatResources.getColorStateList(context, R.color.white));
@@ -102,9 +102,9 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
                 // TODO
                 // This part of code controls the opening of different screens through Patient home dynamic buttons.
                 temp = DataLoaderFragment.newInstance(problem_id.getId());
-//                editor = pref.edit();
-//                editor.putString("cur_frag_id", problem_id.getId());
-//                editor.apply();
+                editor = pref.edit();
+                editor.putString("cur_frag_id", problem_id.getId());
+                editor.apply();
                 Log.e("Testing", "Id: " + problem_id.getId());
 
             } else {
@@ -151,10 +151,10 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
             notifyItemChanged(preSelectionPos);
             preSelectionPos = getAdapterPosition();
             Log.e("TAG", "onClick: next:" + getAdapterPosition());
-//            pref = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
-//            editor = pref.edit();
-//            editor.putInt("prev_selected_position", preSelectionPos);
-//            editor.apply();
+            pref = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+            editor = pref.edit();
+            editor.putInt("prev_selected_position", preSelectionPos);
+            editor.apply();
 
             notifyItemChanged(preSelectionPos);
             callFragments(binding.buttonDynamic.getText().toString(), preSelectionPos, data.get(preSelectionPos));
