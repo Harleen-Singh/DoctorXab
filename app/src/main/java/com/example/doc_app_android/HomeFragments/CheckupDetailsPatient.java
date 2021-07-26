@@ -2,6 +2,8 @@ package com.example.doc_app_android.HomeFragments;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.doc_app_android.R;
+import com.example.doc_app_android.databinding.FragmentCheckupDetailsPatientBinding;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,6 +52,21 @@ public class CheckupDetailsPatient extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        // This particular line will hide the default toolbar of the Home Activity when fragment gets opened.
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        // This particular line will show the default toolbar of the Home Activity on Home Page when fragment gets closed.
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -61,6 +79,67 @@ public class CheckupDetailsPatient extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_checkup_details_patient, container, false);
+        FragmentCheckupDetailsPatientBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_checkup_details_patient, container, false);
+        binding.setLifecycleOwner(this);
+
+        binding.checkupDetailsBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragmentManager().beginTransaction().remove(CheckupDetailsPatient.this).commit();
+            }
+        });
+
+        binding.addAboutCheckup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.checkupDetailsChangeableTv.setText("ADD ABOUT CHECKUP");
+                binding.addAboutCheckup.setVisibility(View.GONE);
+                binding.addAboutCheckupLabel.setVisibility(View.VISIBLE);
+
+
+                binding.checkupDetailsContainerAboutCheckup.setVisibility(View.VISIBLE);
+                binding.checkupDetailsSaveButton.setVisibility(View.VISIBLE);
+
+
+
+            }
+        });
+
+        binding.checkupDetailsSaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.addAboutCheckupLabel.setVisibility(View.GONE);
+                binding.checkupDetailsContainerAboutCheckup.setVisibility(View.GONE);
+                binding.checkupDetailsSaveButton.setVisibility(View.GONE);
+                binding.checkupDetailsContainerXrayScan.setVisibility(View.GONE);
+
+                binding.addAboutCheckup.setVisibility(View.VISIBLE);
+                binding.addXrayScan.setVisibility(View.VISIBLE);
+
+
+
+            }
+        });
+
+        binding.addXrayScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.checkupDetailsChangeableTv.setText("ADD X-RAY/SCAN");
+                if(binding.checkupDetailsContainerAboutCheckup.getVisibility() == View.VISIBLE){
+                    binding.checkupDetailsContainerAboutCheckup.setVisibility(View.GONE);
+                }
+                binding.addXrayScan.setVisibility(View.GONE);
+
+
+                binding.addAboutCheckupLabel.setVisibility(View.VISIBLE);
+                binding.checkupDetailsContainerXrayScan.setVisibility(View.VISIBLE);
+                binding.checkupDetailsSaveButton.setVisibility(View.VISIBLE);
+
+
+            }
+        });
+
+
+        return binding.getRoot();
     }
 }

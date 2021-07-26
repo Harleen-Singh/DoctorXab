@@ -17,12 +17,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.transition.AutoTransition;
 import androidx.transition.TransitionManager;
 
+import com.example.doc_app_android.HomeFragments.CheckupDetailsPatient;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.databinding.HomeSinglePatientRowBinding;
@@ -116,6 +119,14 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
                     profileData.setRowExpanded(true);
                     notifyItemChanged(getAbsoluteAdapterPosition());
 
+                }
+            });
+
+            binding.addDetails.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    FragmentManager fragmentManager = ((AppCompatActivity)mContext).getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.fragmentHome_container, new CheckupDetailsPatient()).commit();
                 }
             });
 
