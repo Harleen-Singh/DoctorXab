@@ -126,7 +126,7 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
                 @Override
                 public void onClick(View v) {
                     FragmentManager fragmentManager = ((AppCompatActivity)mContext).getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.fragmentHome_container, new CheckupDetailsPatient()).commit();
+                    fragmentManager.beginTransaction().replace(R.id.fragmentHome_container, new CheckupDetailsPatient()).addToBackStack("name1").commit();
                 }
             });
 

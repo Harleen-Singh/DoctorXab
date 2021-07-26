@@ -94,9 +94,12 @@ public class CheckupDetailsPatient extends Fragment {
             public void onClick(View v) {
                 binding.checkupDetailsChangeableTv.setText("ADD ABOUT CHECKUP");
                 binding.addAboutCheckup.setVisibility(View.GONE);
+
+                if(binding.checkupDetailsContainerXrayScan.getVisibility() == View.VISIBLE){
+                    binding.checkupDetailsContainerXrayScan.setVisibility(View.GONE);
+                    binding.addXrayScan.setVisibility(View.VISIBLE);
+                }
                 binding.addAboutCheckupLabel.setVisibility(View.VISIBLE);
-
-
                 binding.checkupDetailsContainerAboutCheckup.setVisibility(View.VISIBLE);
                 binding.checkupDetailsSaveButton.setVisibility(View.VISIBLE);
 
@@ -130,7 +133,12 @@ public class CheckupDetailsPatient extends Fragment {
                 }
                 binding.addXrayScan.setVisibility(View.GONE);
 
+                if(binding.checkupDetailsContainerAboutCheckup.getVisibility() == View.VISIBLE){
+                    binding.checkupDetailsContainerAboutCheckup.setVisibility(View.GONE);
+                    binding.addAboutCheckup.setVisibility(View.VISIBLE);
+                }
 
+                binding.addAboutCheckup.setVisibility(View.VISIBLE);
                 binding.addAboutCheckupLabel.setVisibility(View.VISIBLE);
                 binding.checkupDetailsContainerXrayScan.setVisibility(View.VISIBLE);
                 binding.checkupDetailsSaveButton.setVisibility(View.VISIBLE);
