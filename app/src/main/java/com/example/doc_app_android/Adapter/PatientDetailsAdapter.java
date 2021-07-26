@@ -4,6 +4,7 @@ import android.animation.LayoutTransition;
 import android.content.Context;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,6 +74,15 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
                     .into(holder.binding.expandableProfileImage);
         }
 
+        boolean isExpandedLayout = data.get(position).isExpanded();
+        boolean isExpandedPatientRow = data.get(position).isRowExpanded();
+
+
+        holder.binding.patientRow.setVisibility(isExpandedPatientRow? View.VISIBLE : View.GONE);
+        holder.binding.expandableLayout.setVisibility(isExpandedLayout? View.VISIBLE : View.GONE);
+
+
+
     }
 
     @Override
@@ -91,105 +101,29 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
             binding.openButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    binding.patientRow.setVisibility(View.GONE);
-                    expand(binding.expandableLayout);
+                    ProfileData profileData = data.get(getAbsoluteAdapterPosition());
+                    profileData.setRowExpanded(!profileData.isRowExpanded());
+                    profileData.setExpanded(true);
+                    notifyItemChanged(getAbsoluteAdapterPosition());
                 }
             });
 
             binding.closeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //binding.expandableLayout.setVisibility(View.GONE);
-                    collapse(binding.expandableLayout, binding);
-                    //collapse(binding.expandableLayout, binding);
-                    //TransitionManager.beginDelayedTransition(binding.patientDetailsRow, new AutoTransition());
-
-                    //binding.patientRow.setVisibility(View.VISIBLE);
-
-
-                }
-            });
-
-            binding.addDetails.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
-
-
-        }
-
-
-        public void expand(final View v) {
-            int matchParentMeasureSpec = View.MeasureSpec.makeMeasureSpec(((View) v.getParent()).getWidth(), View.MeasureSpec.EXACTLY);
-            int wrapContentMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-            v.measure(matchParentMeasureSpec, wrapContentMeasureSpec);
-            final int targetHeight = v.getMeasuredHeight();
-
-            // Older versions of android (pre API 21) cancel animations for views with a height of 0.
-            v.getLayoutParams().height = 1;
-            v.setVisibility(View.VISIBLE);
-            Animation a = new Animation() {
-                @Override
-                protected void applyTransformation(float interpolatedTime, Transformation t) {
-                    v.getLayoutParams().height = interpolatedTime == 1
-                            ? ViewGroup.LayoutParams.WRAP_CONTENT
-                            : (int) (targetHeight * interpolatedTime);
-                    v.requestLayout();
-                }
-
-                @Override
-                public boolean willChangeBounds() {
-                    return true;
-                }
-            };
-
-            // Expansion speed of 1dp/ms
-            a.setDuration((int) (targetHeight / v.getContext().getResources().getDisplayMetrics().density));
-            v.startAnimation(a);
-        }
-
-        public void collapse(final View v, HomeSinglePatientRowBinding binding) {
-            final int initialHeight = v.getMeasuredHeight();
-
-            Animation a = new Animation() {
-                @Override
-                protected void applyTransformation(float interpolatedTime, Transformation t) {
-                    if (interpolatedTime == 1) {
-                        v.setVisibility(View.GONE);
-                    } else {
-                        v.getLayoutParams().height = initialHeight - (int) (initialHeight * interpolatedTime);
-                        v.requestLayout();
-                    }
-                }
-
-                @Override
-                public boolean willChangeBounds() {
-                    return true;
-                }
-            };
-
-            // Collapse speed of 1dp/ms
-            a.setDuration((int) (initialHeight / v.getContext().getResources().getDisplayMetrics().density));
-            v.startAnimation(a);
-
-            a.setAnimationListener(new Animation.AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
-                }
-
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    binding.patientRow.setVisibility(View.VISIBLE);
-                }
-
-                @Override
-                public void onAnimationRepeat(Animation animation) {
+                    ProfileData profileData = data.get(getAbsoluteAdapterPosition());
+                    profileData.setExpanded(!profileData.isExpanded());
+                    profileData.setRowExpanded(true);
+                    notifyItemChanged(getAbsoluteAdapterPosition());
 
                 }
             });
 
         }
+
+
+
+
+
     }
 }

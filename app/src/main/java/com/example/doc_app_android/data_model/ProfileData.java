@@ -3,7 +3,8 @@ package com.example.doc_app_android.data_model;
 public class ProfileData {
     private int id, count, department, doctor, problem, age;
     private String userName, email, name, phoneNumber, address, image, state;
-    boolean isDoc, isPatient;
+    boolean isDoc, isPatient, isExpanded, isRowExpanded;
+
 
 
     public ProfileData(int id, int count, int doctor, int problem, String userName, String email, String name, String phoneNumber, String image, boolean isDoc, boolean isPatient, int age, String state) {
@@ -20,6 +21,8 @@ public class ProfileData {
         this.isPatient = isPatient;
         this.age = age;
         this.state = state;
+        this.isExpanded = false;
+        this.isRowExpanded = true;
     }
 
 
@@ -75,6 +78,32 @@ public class ProfileData {
         this.name = name;
         this.phoneNumber = phoneNumber;
     }
+
+    public boolean isRowExpanded() {
+        return isRowExpanded;
+    }
+
+    public void setRowExpanded(boolean rowExpanded) {
+        isRowExpanded = rowExpanded;
+    }
+
+    public boolean isExpanded() {
+        return isExpanded;
+    }
+
+    public void setExpanded(boolean expanded) {
+        isExpanded = expanded;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+
 
     public String getPhoneNumber() {
         return phoneNumber;
