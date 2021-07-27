@@ -7,7 +7,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".HomeFragments.DataLoaderFragment">
+        tools:context=".DoctorHomeFragments.DataLoaderFragment">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/details_rcv"

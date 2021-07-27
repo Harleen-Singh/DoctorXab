@@ -1,4 +1,4 @@
-package com.example.doc_app_android.HomeFragments;
+package com.example.doc_app_android.DoctorHomeFragments;
 
 import android.os.Bundle;
 
@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.databinding.FragmentCheckupDetailsPatientBinding;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -81,6 +82,18 @@ public class CheckupDetailsPatient extends Fragment {
         // Inflate the layout for this fragment
         FragmentCheckupDetailsPatientBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_checkup_details_patient, container, false);
         binding.setLifecycleOwner(this);
+
+        assert getArguments() != null;
+        String name = getArguments().getString("name");
+        String image = getArguments().getString("image");
+        String age = getArguments().getString("age");
+
+        Picasso.get()
+                .load(image)
+                .placeholder(R.drawable.doctor_profile_image)
+                .into(binding.checkupDetailsProfileImage);
+        binding.checkupDetailsDoctorName.setText(name);
+        binding.checkupDetailsAge.setText(age);
 
         binding.checkupDetailsBackButton.setOnClickListener(new View.OnClickListener() {
             @Override

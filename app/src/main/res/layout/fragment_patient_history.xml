@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".DoctorHomeFragments.PatientHistoryFragment">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+            <ImageView
+                android:id="@+id/patient_info_back_button"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_marginStart="26dp"
+                android:layout_marginLeft="26dp"
+                android:layout_marginTop="46dp"
+                android:src="@drawable/app_back_button"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/patient_info_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/rubik"
+                android:gravity="center"
+                android:text="PATIENT INFO"
+                android:textColor="@color/black"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/patient_info_profile_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="30dp"
+                android:src="@drawable/doctor_profile_image"
+                app:layout_constraintEnd_toEndOf="@id/patient_info_label"
+                app:layout_constraintStart_toStartOf="@id/patient_info_label"
+                app:layout_constraintTop_toBottomOf="@id/patient_info_label" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/patient_info_share_button"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="84dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/callbg"
+                android:gravity="center"
+                app:layout_constraintBottom_toTopOf="@id/patient_info_edit_button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.utils.widget.ImageFilterButton
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_below="@+id/profile_toolbar"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:background="@color/scnd_light_blue"
+                    android:src="@drawable/ic_sharedb" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/patient_info_edit_button"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/callbg"
+                android:gravity="center"
+                app:layout_constraintBottom_toTopOf="@id/patient_info_chat_button"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/patient_info_share_button">
+
+                <androidx.constraintlayout.utils.widget.ImageFilterButton
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_below="@+id/profile_toolbar"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:background="@color/scnd_light_blue"
+                    android:src="@drawable/ic_editdb" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/patient_info_chat_button"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/callbg"
+                android:gravity="center"
+                app:layout_constraintBottom_toTopOf="@id/patient_info_add_button"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/patient_info_edit_button">
+
+                <androidx.constraintlayout.utils.widget.ImageFilterButton
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_below="@+id/profile_toolbar"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:background="@color/scnd_light_blue"
+                    android:src="@drawable/ic_messagedb" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <TextView
+                android:id="@+id/patient_info_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/rubik"
+                android:text="ALEX SILVER"
+                android:textColor="@color/scnd_blue"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@id/patient_info_profile_image"
+                app:layout_constraintStart_toStartOf="@id/patient_info_profile_image"
+                app:layout_constraintTop_toBottomOf="@id/patient_info_profile_image" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/patient_info_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="@id/patient_info_name_tv"
+                app:layout_constraintStart_toStartOf="@id/patient_info_name_tv"
+                app:layout_constraintTop_toBottomOf="@id/patient_info_name_tv">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/case_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/patient_info_caseof_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="right"
+                        android:text="CASE OF:"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/patient_info_department"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik"
+                        android:gravity=""
+                        android:text="ORTHOLOGIST"
+                        android:textColor="@color/scnd_blue"
+                        android:textSize="14sp" />
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/patient_info_age"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="right"
+                        android:text="AGE:"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/patient_info_age_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik"
+                        android:text="34"
+                        android:textColor="@color/scnd_blue"
+                        android:textSize="14sp" />
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/patient_info_gender_label"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="right"
+                        android:text="GENDER:"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/patient_info_gender"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/rubik"
+                        android:text="MALE"
+                        android:textColor="@color/scnd_blue"
+                        android:textSize="14sp" />
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/patient_info_add_button"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginRight="20dp"
+                android:background="@drawable/callbg"
+                android:gravity="center"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/patient_info_chat_button">
+
+                <androidx.constraintlayout.utils.widget.ImageFilterButton
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_below="@+id/profile_toolbar"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:background="@color/scnd_light_blue"
+                    android:src="@drawable/ic_add" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/patient_history_labels_rcv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="@id/patient_info_container"
+                app:layout_constraintStart_toStartOf="@id/patient_info_container"
+                app:layout_constraintTop_toBottomOf="@id/patient_info_container"
+                tools:listitem="@layout/single_filter" />
+
+            <FrameLayout
+                android:id="@+id/patient_info_frame"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="37dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/patient_history_labels_rcv"
+                app:layout_constraintStart_toStartOf="@id/patient_history_labels_rcv"
+                app:layout_constraintTop_toBottomOf="@id/patient_history_labels_rcv"
+                tools:listitem="@layout/chk_up_history" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+</layout>

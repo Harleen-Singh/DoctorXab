@@ -1,4 +1,4 @@
-package com.example.doc_app_android.HomeFragments;
+package com.example.doc_app_android.DoctorHomeFragments;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -8,17 +8,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.Toolbar;
 
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.ProfileData;
@@ -28,8 +23,6 @@ import com.example.doc_app_android.view_model.ProfileViewModel;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.

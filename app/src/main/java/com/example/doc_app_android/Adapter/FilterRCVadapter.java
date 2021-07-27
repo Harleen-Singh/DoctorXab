@@ -2,26 +2,18 @@ package com.example.doc_app_android.Adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
-import android.text.TextUtils;
-import android.text.style.IconMarginSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
-import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.doc_app_android.HomeFragments.DataLoaderFragment;
+import com.example.doc_app_android.DoctorHomeFragments.DataLoaderFragment;
 import com.example.doc_app_android.PatentHomeFragments.AppointmentsFragment;
 import com.example.doc_app_android.PatentHomeFragments.FragmentPrescription;
 import com.example.doc_app_android.PatentHomeFragments.FragmentXRayScan;
@@ -33,7 +25,6 @@ import com.example.doc_app_android.databinding.SingleFilterBinding;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.function.LongFunction;
 
 public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.FilterVH> {
 
@@ -43,6 +34,17 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
     public SharedPreferences pref;
     private SharedPreferences.Editor editor;
     Fragment temp = null;
+    private boolean ispatientHistoryfragment;
+
+    public FilterRCVadapter(Context context, boolean ispatientHistoryfragment) {
+        this.context = context;
+        this.ispatientHistoryfragment = ispatientHistoryfragment;
+        if(ispatientHistoryfragment){
+            temp = patientCheckUpHistory.newInstance();
+            AppCompatActivity appCompatActivity = (AppCompatActivity) context;
+            appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.patient_info_frame, temp).commit();
+        }
+    }
 
     public FilterRCVadapter(Context context) {
         pref = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
@@ -82,6 +84,24 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
             holder.binding.buttonDynamic.setTextColor(AppCompatResources.getColorStateList(context, R.color.scnd_grey));
             holder.binding.buttonDynamic.setBackground(AppCompatResources.getDrawable(context, R.drawable.btn_theme_2));
         }
+    }
+
+    private void callPatientCheckupFragments(String data, int position, FilterData problem_id){
+
+        switch (data.trim()) {
+            case "CHECKUP HISTORY":
+                temp = patientCheckUpHistory.newInstance();
+                break;
+            case "X-RAY/SCAN":
+                temp = FragmentXRayScan.newInstance();
+                break;
+            case "APPOINTMENT":
+                temp = AppointmentsFragment.newInstance();
+                break;
+        }
+        AppCompatActivity appCompatActivity = (AppCompatActivity) context;
+        appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.patient_info_frame, temp).commit();
+
     }
 
     private void callFragments(String filterData, int position, FilterData problem_id) {
@@ -136,7 +156,11 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
             Log.e("TAG", "onClick: next:" + getAdapterPosition());
 
             notifyItemChanged(preSelectionPos);
-            callFragments(binding.buttonDynamic.getText().toString(), preSelectionPos, data.get(preSelectionPos));
+            if(ispatientHistoryfragment){
+                callPatientCheckupFragments(binding.buttonDynamic.getText().toString(), preSelectionPos, data.get(preSelectionPos));
+            } else {
+                callFragments(binding.buttonDynamic.getText().toString(), preSelectionPos, data.get(preSelectionPos));
+            }
 
         }
     }

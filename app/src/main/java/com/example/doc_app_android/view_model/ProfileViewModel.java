@@ -1,14 +1,12 @@
 package com.example.doc_app_android.view_model;
 
 import android.app.Application;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.doc_app_android.HomeFragments.ProfileFragment;
 import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.services.ProfileEditService;
 import com.example.doc_app_android.services.profileService;

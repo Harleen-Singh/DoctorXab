@@ -1,31 +1,20 @@
 package com.example.doc_app_android.Adapter;
 
-import android.animation.LayoutTransition;
 import android.content.Context;
-import android.provider.ContactsContract;
+import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.Transformation;
-import android.view.animation.TranslateAnimation;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.transition.AutoTransition;
-import androidx.transition.TransitionManager;
 
-import com.example.doc_app_android.HomeFragments.CheckupDetailsPatient;
+import com.example.doc_app_android.DoctorHomeFragments.CheckupDetailsPatient;
+import com.example.doc_app_android.DoctorHomeFragments.PatientHistoryFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.databinding.HomeSinglePatientRowBinding;
@@ -125,8 +114,28 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
             binding.addDetails.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    CheckupDetailsPatient checkupDetailsPatient = new CheckupDetailsPatient();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name", data.get(getAbsoluteAdapterPosition()).getName());
+                    bundle.putString("image", data.get(getAbsoluteAdapterPosition()).getImage());
+                    bundle.putString("age", data.get(getAbsoluteAdapterPosition()).getAge());
+                    checkupDetailsPatient.setArguments(bundle);
                     FragmentManager fragmentManager = ((AppCompatActivity)mContext).getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.fragmentHome_container, new CheckupDetailsPatient()).addToBackStack("name1").commit();
+                    fragmentManager.beginTransaction().replace(R.id.fragmentHome_container, checkupDetailsPatient).addToBackStack("name1").commit();
+                }
+            });
+
+            binding.patientHistory.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    PatientHistoryFragment patientHistoryFragment = new PatientHistoryFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("name", data.get(getAbsoluteAdapterPosition()).getName());
+                    bundle.putString("image", data.get(getAbsoluteAdapterPosition()).getImage());
+                    bundle.putString("age", data.get(getAbsoluteAdapterPosition()).getAge());
+                    patientHistoryFragment.setArguments(bundle);
+                    FragmentManager fragmentManager = ((AppCompatActivity)mContext).getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.fragmentHome_container, patientHistoryFragment).addToBackStack("name3").commit();
                 }
             });
 

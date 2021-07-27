@@ -1,15 +1,12 @@
-package com.example.doc_app_android.HomeFragments;
+package com.example.doc_app_android.DoctorHomeFragments;
 
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +18,8 @@ import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.databinding.FragmentDataLoaderBinding;
 import com.example.doc_app_android.view_model.DataLoaderViewModel;
-import com.example.doc_app_android.view_model.ProfileViewModel;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 
 public class DataLoaderFragment extends Fragment {

@@ -44,12 +44,19 @@
     <string name="Yes">Yes</string>
     <string name="No">No</string>
 
+
     <array name="patientFilters">
         <item>CHECKUP HISTORY</item>
         <item>X-RAY/SCAN</item>
         <item>
             <P>PRESCRIPTION</P>
         </item>
+        <item>APPOINTMENT</item>
+    </array>
+
+    <array name="patientInfoFilters">
+        <item>CHECKUP HISTORY</item>
+        <item>X-RAY/SCAN</item>
         <item>APPOINTMENT</item>
     </array>
 </resources>
