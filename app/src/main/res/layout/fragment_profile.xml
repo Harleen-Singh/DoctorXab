@@ -6,6 +6,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
+
+
     <androidx.constraintlayout.widget.ConstraintLayout
 
         android:id="@+id/parent_linearLayout"
@@ -54,7 +56,6 @@
                             android:id="@+id/profile_back_button"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
-
                             android:src="@drawable/app_back_button" />
 
                         <TextView
@@ -73,6 +74,8 @@
                         android:id="@+id/doctor_profile_image_save"
                         android:layout_width="148dp"
                         android:layout_height="154dp"
+                        app:civ_border_width="2dp"
+                        app:civ_border_color="@android:color/black"
                         android:layout_below="@+id/profile_toolbar"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
@@ -285,6 +288,8 @@
                             android:id="@+id/doctor_profile_image_edit"
                             android:layout_width="150dp"
                             android:layout_height="150dp"
+                            app:civ_border_width="2dp"
+                            app:civ_border_color="@android:color/black"
                             android:layout_below="@id/profile_label"
                             android:layout_centerHorizontal="true"
                             android:layout_gravity="center"

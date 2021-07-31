@@ -1,11 +1,30 @@
 package com.example.doc_app_android.data_model;
 
+import android.graphics.Bitmap;
+
 public class ProfileData {
     private int id, count, department, doctor, problem, age;
-    private String userName, email, name, phoneNumber, address, image, state;
+    private String userName, email, name, phoneNumber, address, image, state, speciality;
     boolean isDoc, isPatient, isExpanded, isRowExpanded;
+    private Bitmap bitmap;
 
+    public String getSpeciality() {
+        return speciality;
+    }
 
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public ProfileData(int id, String speciality, String email, String name, String phoneNumber, String image, Bitmap bitmap) {
+        this.id = id;
+        this.speciality = speciality;
+        this.email = email;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.image = image;
+        this.bitmap = bitmap;
+    }
 
     public ProfileData(int id, int count, int doctor, int problem, String userName, String email, String name, String phoneNumber, String image, boolean isDoc, boolean isPatient, int age, String state) {
         this.id = id;

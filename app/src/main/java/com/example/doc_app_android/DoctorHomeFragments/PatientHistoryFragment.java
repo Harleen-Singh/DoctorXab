@@ -99,7 +99,7 @@ public class PatientHistoryFragment extends Fragment {
         String image = getArguments().getString("image");
 
         binding.patientInfoNameTv.setText(name);
-        binding.patientInfoAge.setText(age);
+        binding.patientInfoAgeLabel.setText(age);
         Picasso.get()
                 .load(image)
                 .placeholder(R.drawable.doctor_profile_image)

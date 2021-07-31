@@ -5,10 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.transition.CircularPropagation;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,11 +32,15 @@ import com.example.doc_app_android.DoctorHomeFragments.PrivacyPolicyFragment;
 import com.example.doc_app_android.DoctorHomeFragments.ProfileFragment;
 import com.example.doc_app_android.DoctorHomeFragments.ScheduleFragment;
 import com.example.doc_app_android.DoctorHomeFragments.SettingsFragment;
+import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.databinding.ActivityHomeBinding;
 import com.example.doc_app_android.view_model.HomeViewModel;
 import com.google.android.material.navigation.NavigationView;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Home extends AppCompatActivity {
 
@@ -46,6 +53,8 @@ public class Home extends AppCompatActivity {
     private EditText search_field;
     private ImageButton search , draw_btn;
     private HomeViewModel model;
+    private CircleImageView nav_profile;
+    private TextView nav_name, nav_speciality;
 
     @Override
     protected void onResume() {
@@ -79,6 +88,9 @@ public class Home extends AppCompatActivity {
         binding.setLifecycleOwner(this);
         binding.filterRcv.setAdapter(filterAdapter);
         model = new ViewModelProvider(this).get(HomeViewModel.class);
+//        nav_profile = findViewById(R.id.nav_profile_image);
+//        nav_name = findViewById(R.id.nav_profile_name);
+//        nav_speciality = findViewById(R.id.nav_profile_specility);
 
         model.getFilters().observe(this, new Observer<ArrayList<FilterData>>() {
             @Override
@@ -87,6 +99,20 @@ public class Home extends AppCompatActivity {
                 filterAdapter.notifyDataSetChanged();
             }
         });
+
+//        model.getHomeDrawerProfileDetails().observe(this, new Observer<ProfileData>() {
+//            @Override
+//            public void onChanged(ProfileData profileData) {
+//
+//                if(!TextUtils.isEmpty(profileData.getName()) && !TextUtils.isEmpty(profileData.getImage())) {
+//                    nav_name.setText(profileData.getName().toString());
+//                    Picasso.get()
+//                            .load(profileData.getImage())
+//                            .placeholder(R.drawable.doctor_profile_image)
+//                            .into(nav_profile);
+//                }
+//            }
+//        });
 
 
 

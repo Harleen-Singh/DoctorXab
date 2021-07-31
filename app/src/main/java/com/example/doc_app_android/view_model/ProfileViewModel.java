@@ -1,12 +1,16 @@
 package com.example.doc_app_android.view_model;
 
 import android.app.Application;
+import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.doc_app_android.DoctorHomeFragments.ProfileFragment;
 import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.services.ProfileEditService;
 import com.example.doc_app_android.services.profileService;
@@ -44,6 +48,12 @@ public class ProfileViewModel extends AndroidViewModel {
     public LiveData<ProfileData> getEditedProfileDetails(){
         return  profileEditService.getEditedProfileDetails();
     }
+
+//    public void onClickBackButton(View view){
+////        FragmentManager fragmentManager = ((AppCompatActivity)application.getApplicationContext()).getSupportFragmentManager();
+////        fragmentManager.beginTransaction().remove(application.).commit();
+//
+//    }
 
 //    public void onClickSaveEditedData(View view){
 //

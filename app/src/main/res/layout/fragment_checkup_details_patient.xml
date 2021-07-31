@@ -496,7 +496,7 @@
                             android:paddingTop="6dp"
                             android:paddingEnd="13dp"
                             android:paddingBottom="6dp"
-                            android:text="TYPE HERE"
+                            android:hint="TYPE HERE"
                             android:textAlignment="textStart"
                             android:textColor="@color/scnd_blue"
                             android:textSize="14sp" />

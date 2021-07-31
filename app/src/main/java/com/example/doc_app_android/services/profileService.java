@@ -49,30 +49,29 @@ public class profileService {
 
     public LiveData<ProfileData> getProfileDetails(Application application, Context mContext) {
 
+        context = mContext;
+
+
         final SharedPreferences sp = application.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
         boolean isDoc = sp.getBoolean("isDoc", false);
         String dorP_id = sp.getString("id", "");
 
-        if (mutableProfileData == null){
+        if (mutableProfileData == null) {
             mutableProfileData = new MutableLiveData<>();
+            if (isDoc) {
+                //Log.d("Testing", "Url: " +Globals.profileDoctor + dorP_id )
+                getData(Globals.profileDoctor + dorP_id, true);
+
+            } else {
+                dorP_id = "60";
+                getData(Globals.profilePatient + dorP_id, false);
+
+            }
         }
-        context = mContext;
 
 
-
-        if (isDoc) {
-            //Log.d("Testing", "Url: " +Globals.profileDoctor + dorP_id )
-            getData(Globals.profileDoctor + dorP_id, true);
-
-        } else {
-            dorP_id = "60";
-            getData(Globals.profilePatient + dorP_id, false);
-
-        }
         return mutableProfileData;
     }
-
-
 
 
     public void getData(String url, boolean isDoctor) {
@@ -159,8 +158,6 @@ public class profileService {
 
 
     }
-
-
 
 
 }
