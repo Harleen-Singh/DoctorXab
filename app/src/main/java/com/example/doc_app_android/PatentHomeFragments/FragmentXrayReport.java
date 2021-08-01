@@ -14,6 +14,7 @@ import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.Xray_data;
 import com.example.doc_app_android.databinding.FragmentXrayReportBinding;
 import com.example.doc_app_android.view_model.FragmentChkHstryViewModel;
+import com.squareup.picasso.Picasso;
 
 public class FragmentXrayReport extends Fragment {
     private static final String XRAYID = "XrayID";
@@ -81,6 +82,7 @@ public class FragmentXrayReport extends Fragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_xray_report,null,false);
         binding.setLifecycleOwner(this);
+        Picasso.get().load(data.getImageUrl()).error(R.drawable.errorloadimg).placeholder(R.drawable.loading).into(binding.imgXray);
         binding.setXRayData(data);
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
