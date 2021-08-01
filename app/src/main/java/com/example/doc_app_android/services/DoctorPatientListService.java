@@ -32,9 +32,12 @@ import java.util.Map;
 
 public class DoctorPatientListService {
 
-    private int id, doctor, count, problem, age;
+    private int patient_Id, doctor, count, problem, age;
     private String username, email, name, image, phoneNumber, state;
     private boolean isDoc, isPatient;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+
 //    private  results;
 //    private  object;
 //    private  user;
@@ -98,7 +101,7 @@ public class DoctorPatientListService {
                     for (int i = 0; i < results.length(); i++) {
                         JSONObject object = results.getJSONObject(i);
                         JSONObject user = object.getJSONObject("user");
-                        id = user.getInt("id");
+                         patient_Id = user.getInt("id");
                         name = user.getString("name");
                         image = user.getString("image");
                         phoneNumber = user.getString("phone_number");
@@ -111,8 +114,13 @@ public class DoctorPatientListService {
                         doctor = object.getInt("doctor");
                         problem = object.getInt("problem");
                         //int id, int count, int doctor, int problem, String userName, String email, String name, String phoneNumber, String image, boolean isDoc, boolean isPatient
-                        ProfileData profileData = new ProfileData(id, count, doctor, problem, username, email, name, phoneNumber, image, isDoc, isPatient, age, state);
+                        ProfileData profileData = new ProfileData(patient_Id, count, doctor, problem, username, email, name, phoneNumber, image, isDoc, isPatient, age, state);
                         data.add(profileData);
+
+//                        preferences = context.getSharedPreferences("token", Context.MODE_PRIVATE);
+//                        editor = preferences.edit();
+//                        editor.putString("id", pat)
+
                     }
 
                     if (problem_Id.equals("1")) {

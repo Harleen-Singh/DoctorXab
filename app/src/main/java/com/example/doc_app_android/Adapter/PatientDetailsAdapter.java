@@ -1,6 +1,7 @@
 package com.example.doc_app_android.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -27,6 +28,8 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
 
     private ArrayList<ProfileData> data = new ArrayList<>();
     private Context mContext;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     public PatientDetailsAdapter(Context mContext) {
 
@@ -133,6 +136,13 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
                     bundle.putString("name", data.get(getAbsoluteAdapterPosition()).getName());
                     bundle.putString("image", data.get(getAbsoluteAdapterPosition()).getImage());
                     bundle.putString("age", data.get(getAbsoluteAdapterPosition()).getAge());
+
+                    preferences = mContext.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+                    editor = preferences.edit();
+
+                    editor.putString("patient_id",String.valueOf(data.get(getAbsoluteAdapterPosition()).getPateint_Id()));
+                    editor.apply();
+
                     patientHistoryFragment.setArguments(bundle);
                     FragmentManager fragmentManager = ((AppCompatActivity)mContext).getSupportFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.fragmentHome_container, patientHistoryFragment).addToBackStack("name3").commit();

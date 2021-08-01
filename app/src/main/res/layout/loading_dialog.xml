@@ -28,7 +28,7 @@
             android:layout_toEndOf="@+id/update_progress"
             android:layout_toRightOf="@+id/update_progress"
             android:fontFamily="@font/rubik"
-            android:text="Updating Information"
+            android:text="Updating..."
             android:textSize="16sp"
             android:textStyle="bold" />
 

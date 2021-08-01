@@ -32,6 +32,8 @@ public class AppointmentService {
     private MutableLiveData<ArrayList<AppointmentData>> data_model;
     private Application app;
     private ArrayList<AppointmentData> appointmentData = new ArrayList<>();
+    private SharedPreferences prefs;
+    private boolean isDoc;
 
     public LiveData<ArrayList<AppointmentData>> getApmntData(Application app) {
         this.app = app;

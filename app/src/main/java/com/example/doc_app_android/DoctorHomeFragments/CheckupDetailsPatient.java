@@ -1,5 +1,7 @@
 package com.example.doc_app_android.DoctorHomeFragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.doc_app_android.ProfileEditFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.databinding.FragmentCheckupDetailsPatientBinding;
 import com.squareup.picasso.Picasso;
@@ -25,6 +28,8 @@ public class CheckupDetailsPatient extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -83,22 +88,62 @@ public class CheckupDetailsPatient extends Fragment {
         FragmentCheckupDetailsPatientBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_checkup_details_patient, container, false);
         binding.setLifecycleOwner(this);
 
-        assert getArguments() != null;
-        String name = getArguments().getString("name");
-        String image = getArguments().getString("image");
-        String age = getArguments().getString("age");
+        Bundle bundle = getArguments();
+        if (bundle != null) {
 
-        Picasso.get()
-                .load(image)
-                .placeholder(R.drawable.doctor_profile_image)
-                .into(binding.checkupDetailsProfileImage);
-        binding.checkupDetailsDoctorName.setText(name);
-        binding.checkupDetailsAge.setText(age);
+            String name = bundle.getString("name");
+            String image = bundle.getString("image");
+            String age = bundle.getString("age");
+
+            preferences = getContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+            editor = preferences.edit();
+            editor.putString("AddName", name);
+            editor.putString("AddAge", age);
+            editor.putString("AddImage", image);
+            editor.apply();
+
+            Picasso.get()
+                    .load(image)
+                    .placeholder(R.drawable.doctor_profile_image)
+                    .into(binding.checkupDetailsProfileImage);
+            binding.checkupDetailsDoctorName.setText(name);
+            binding.checkupDetailsAge.setText(age);
+        } else {
+
+            preferences = getContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+            String name = preferences.getString("patientInfoName", "");
+            String age = preferences.getString("patientInfoAge", "");
+            String image = preferences.getString("patientInfoImage", "");
+            binding.checkupDetailsDoctorName.setText(name);
+            binding.checkupDetailsAge.setText(age);
+            Picasso.get()
+                    .load(image)
+                    .placeholder(R.drawable.doctor_profile_image)
+                    .into(binding.checkupDetailsProfileImage);
+        }
+
+        binding.checkupDetailsShareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                requireActivity().getSupportFragmentManager().popBackStack();
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container, new ShareFragment()).addToBackStack("share").commit();
+            }
+        });
+
+        binding.checkupDetailsEditButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container, new ProfileEditFragment()).addToBackStack("editProf").commit();
+
+            }
+        });
 
         binding.checkupDetailsBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().remove(CheckupDetailsPatient.this).commit();
+                //requireActivity().getSupportFragmentManager().popBackStack();
+                requireActivity().getSupportFragmentManager().beginTransaction().remove(CheckupDetailsPatient.this).commit();
+
             }
         });
 
@@ -108,14 +153,13 @@ public class CheckupDetailsPatient extends Fragment {
                 binding.checkupDetailsChangeableTv.setText("ADD ABOUT CHECKUP");
                 binding.addAboutCheckup.setVisibility(View.GONE);
 
-                if(binding.checkupDetailsContainerXrayScan.getVisibility() == View.VISIBLE){
+                if (binding.checkupDetailsContainerXrayScan.getVisibility() == View.VISIBLE) {
                     binding.checkupDetailsContainerXrayScan.setVisibility(View.GONE);
                     binding.addXrayScan.setVisibility(View.VISIBLE);
                 }
                 binding.addAboutCheckupLabel.setVisibility(View.VISIBLE);
                 binding.checkupDetailsContainerAboutCheckup.setVisibility(View.VISIBLE);
                 binding.checkupDetailsSaveButton.setVisibility(View.VISIBLE);
-
 
 
             }
@@ -133,7 +177,6 @@ public class CheckupDetailsPatient extends Fragment {
                 binding.addXrayScan.setVisibility(View.VISIBLE);
 
 
-
             }
         });
 
@@ -141,12 +184,12 @@ public class CheckupDetailsPatient extends Fragment {
             @Override
             public void onClick(View v) {
                 binding.checkupDetailsChangeableTv.setText("ADD X-RAY/SCAN");
-                if(binding.checkupDetailsContainerAboutCheckup.getVisibility() == View.VISIBLE){
+                if (binding.checkupDetailsContainerAboutCheckup.getVisibility() == View.VISIBLE) {
                     binding.checkupDetailsContainerAboutCheckup.setVisibility(View.GONE);
                 }
                 binding.addXrayScan.setVisibility(View.GONE);
 
-                if(binding.checkupDetailsContainerAboutCheckup.getVisibility() == View.VISIBLE){
+                if (binding.checkupDetailsContainerAboutCheckup.getVisibility() == View.VISIBLE) {
                     binding.checkupDetailsContainerAboutCheckup.setVisibility(View.GONE);
                     binding.addAboutCheckup.setVisibility(View.VISIBLE);
                 }

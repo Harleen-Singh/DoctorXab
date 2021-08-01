@@ -5,8 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.transition.CircularPropagation;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -17,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
@@ -54,7 +54,9 @@ public class Home extends AppCompatActivity {
     private ImageButton search , draw_btn;
     private HomeViewModel model;
     private CircleImageView nav_profile;
-    private TextView nav_name, nav_speciality;
+    private TextView nav_name;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     protected void onResume() {
@@ -88,9 +90,11 @@ public class Home extends AppCompatActivity {
         binding.setLifecycleOwner(this);
         binding.filterRcv.setAdapter(filterAdapter);
         model = new ViewModelProvider(this).get(HomeViewModel.class);
-//        nav_profile = findViewById(R.id.nav_profile_image);
-//        nav_name = findViewById(R.id.nav_profile_name);
-//        nav_speciality = findViewById(R.id.nav_profile_specility);
+
+        preferences = getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+        editor = preferences.edit();
+        editor.putBoolean("hasProfileUpdate", false);
+        editor.apply();
 
         model.getFilters().observe(this, new Observer<ArrayList<FilterData>>() {
             @Override
@@ -100,19 +104,24 @@ public class Home extends AppCompatActivity {
             }
         });
 
-//        model.getHomeDrawerProfileDetails().observe(this, new Observer<ProfileData>() {
-//            @Override
-//            public void onChanged(ProfileData profileData) {
-//
-//                if(!TextUtils.isEmpty(profileData.getName()) && !TextUtils.isEmpty(profileData.getImage())) {
-//                    nav_name.setText(profileData.getName().toString());
-//                    Picasso.get()
-//                            .load(profileData.getImage())
-//                            .placeholder(R.drawable.doctor_profile_image)
-//                            .into(nav_profile);
-//                }
-//            }
-//        });
+        model.getHomeDrawerProfileDetails().observe(this, new Observer<ProfileData>() {
+            @Override
+            public void onChanged(ProfileData profileData) {
+                Log.d("HomeTesting", "Name: " + profileData.getName());
+                editor = preferences.edit();
+                editor.putBoolean("hasProfileUpdate", true);
+                editor.apply();
+                nav_name = findViewById(R.id.nav_profile_name);
+                nav_profile = findViewById(R.id.nav_profile_image);
+                nav_name.setText(profileData.getName());
+                Picasso.get()
+                        .load(profileData.getImage())
+                        .placeholder(R.drawable.doctor_profile_image)
+                        .into(nav_profile);
+            }
+        });
+
+
 
 
 
@@ -197,4 +206,3 @@ public class Home extends AppCompatActivity {
 
     }
 }
-

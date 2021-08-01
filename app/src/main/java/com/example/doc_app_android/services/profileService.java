@@ -54,9 +54,11 @@ public class profileService {
 
         final SharedPreferences sp = application.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
         boolean isDoc = sp.getBoolean("isDoc", false);
-        String dorP_id = sp.getString("id", "");
+        String dorP_id = sp.getString("doctor_id", "");
+        String patient_id = sp.getString("id", "");
+        boolean hasProfileUpdated = sp.getBoolean("hasProfileUpdate", false);
 
-        if (mutableProfileData == null) {
+        if (mutableProfileData == null || hasProfileUpdated) {
             mutableProfileData = new MutableLiveData<>();
             if (isDoc) {
                 //Log.d("Testing", "Url: " +Globals.profileDoctor + dorP_id )
@@ -64,7 +66,7 @@ public class profileService {
 
             } else {
                 dorP_id = "60";
-                getData(Globals.profilePatient + dorP_id, false);
+                getData(Globals.profilePatient + patient_id, false);
 
             }
         }
@@ -84,7 +86,7 @@ public class profileService {
 
 
                 try {
-                    Log.d("Testing", String.valueOf(response));
+                    Log.d("Testing", "Output From Profile Service: " + response);
                     if (isDoctor) {
                         JSONObject user = response.getJSONObject("user");
                         id = user.getInt("id");

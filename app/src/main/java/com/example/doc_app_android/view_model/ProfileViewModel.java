@@ -1,6 +1,7 @@
 package com.example.doc_app_android.view_model;
 
 import android.app.Application;
+import android.content.Context;
 import android.view.View;
 
 import androidx.annotation.NonNull;
@@ -45,8 +46,8 @@ public class ProfileViewModel extends AndroidViewModel {
         return profileService.getProfileDetails(application, getApplication().getApplicationContext());
     }
 
-    public LiveData<ProfileData> getEditedProfileDetails(){
-        return  profileEditService.getEditedProfileDetails();
+    public LiveData<ProfileData> getEditedProfileDetails(ProfileData profileData, Context context){
+        return  profileEditService.getEditedProfileDetails(application, context, profileData);
     }
 
 //    public void onClickBackButton(View view){

@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doc_app_android.Adapter.NotesRVAdapter;
+import com.example.doc_app_android.DoctorHomeFragments.PatientHistoryFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.AppointmentData;
 import com.example.doc_app_android.data_model.DocData;
@@ -73,6 +74,8 @@ public class AppointmentsFragment extends Fragment {
     private FragApmntViewModel viewModel;
     private DoctorListViewModel doctorListViewModel;
     private ArrayList<AppointmentData> appointmentData = new ArrayList<>();
+    private SharedPreferences preferences;
+    private boolean isDoc;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -89,6 +92,37 @@ public class AppointmentsFragment extends Fragment {
         binding.progressbar.setVisibility(View.VISIBLE);
         binding.setLifecycleOwner(this);
         Map<String, String> docNames = new HashMap<>();
+
+        preferences = getContext().getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+        isDoc = preferences.getBoolean("isDoc", false);
+
+        if(isDoc){
+            binding.calenderContainer.setVisibility(View.GONE);
+            binding.editCalendar.setVisibility(View.VISIBLE);
+        }
+
+//        binding.editCalendar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.patient_info_frame, new AppointmentsFragment()).addToBackStack("name5").commit();
+//                binding.editCalendar.setVisibility(View.GONE);
+//                binding.editSave.setVisibility(View.VISIBLE);
+//            }
+//        });
+//
+//        binding.editSave.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                getFragmentManager().beginTransaction().remove(AppointmentsFragment.this).commit();
+//
+//
+//            }
+//        });
+
+
+
+
+
 
         doctorListViewModel.getID_name_pair().observe(requireActivity(), new Observer<ArrayList<DocData>>() {
             @Override

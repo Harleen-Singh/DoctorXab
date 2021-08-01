@@ -3,21 +3,15 @@ package com.example.doc_app_android.data_model;
 import android.graphics.Bitmap;
 
 public class ProfileData {
-    private int id, count, department, doctor, problem, age;
+    private int pateint_Id, count, department, doctor_Id, problem, age;
     private String userName, email, name, phoneNumber, address, image, state, speciality;
     boolean isDoc, isPatient, isExpanded, isRowExpanded;
     private Bitmap bitmap;
 
-    public String getSpeciality() {
-        return speciality;
-    }
 
-    public Bitmap getBitmap() {
-        return bitmap;
-    }
 
-    public ProfileData(int id, String speciality, String email, String name, String phoneNumber, String image, Bitmap bitmap) {
-        this.id = id;
+    public ProfileData(int patient_id, String speciality, String email, String name, String phoneNumber, String image, Bitmap bitmap) {
+        this.pateint_Id = patient_id;
         this.speciality = speciality;
         this.email = email;
         this.name = name;
@@ -26,10 +20,10 @@ public class ProfileData {
         this.bitmap = bitmap;
     }
 
-    public ProfileData(int id, int count, int doctor, int problem, String userName, String email, String name, String phoneNumber, String image, boolean isDoc, boolean isPatient, int age, String state) {
-        this.id = id;
+    public ProfileData(int pateint_id, int count, int doctor_id, int problem, String userName, String email, String name, String phoneNumber, String image, boolean isDoc, boolean isPatient, int age, String state) {
+        this.pateint_Id = pateint_id;
         this.count = count;
-        this.doctor = doctor;
+        this.doctor_Id = doctor_id;
         this.problem = problem;
         this.userName = userName;
         this.email = email;
@@ -46,10 +40,10 @@ public class ProfileData {
 
 
 
-    public ProfileData(int id, int count, int doctor, int problem, String userName, String email, boolean isDoc, boolean isPatient) {
-        this.id = id;
+    public ProfileData(int patient_id, int count, int doctor_id, int problem, String userName, String email, boolean isDoc, boolean isPatient) {
+        this.pateint_Id = patient_id;
         this.count = count;
-        this.doctor = doctor;
+        this.doctor_Id = doctor_id;
         this.problem = problem;
         this.userName = userName;
         this.email = email;
@@ -57,8 +51,8 @@ public class ProfileData {
         this.isPatient = isPatient;
     }
 
-    public ProfileData(int id, String userName, String email, boolean isDoc, boolean isPatient, int department, String image, String name, String phoneNumber) {
-        this.id = id;
+    public ProfileData(int patient_id, String userName, String email, boolean isDoc, boolean isPatient, int department, String image, String name, String phoneNumber) {
+        this.pateint_Id = patient_id;
         this.userName = userName;
         this.email = email;
         this.isDoc = isDoc;
@@ -69,21 +63,21 @@ public class ProfileData {
         this.image = image;
     }
 
-    public ProfileData(int id, String userName, String email, boolean isDoc, boolean isPatient, int doctor, int problem, String image, String name, String phoneNumber ) {
-        this.id = id;
+    public ProfileData(int patient_id, String userName, String email, boolean isDoc, boolean isPatient, int doctor_id, int problem, String image, String name, String phoneNumber ) {
+        this.pateint_Id = patient_id;
         this.userName = userName;
         this.email = email;
         this.isDoc = isDoc;
         this.isPatient = isPatient;
-        this.doctor = doctor;
+        this.doctor_Id = doctor_id;
         this.problem = problem;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.image = image;
     }
 
-    public ProfileData(int id, String userName, String email, String phoneNumber, String address, String image, int age) {
-        this.id = id;
+    public ProfileData(int patient_id, String userName, String email, String phoneNumber, String address, String image, int age) {
+        this.pateint_Id = patient_id;
         this.userName = userName;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -128,9 +122,7 @@ public class ProfileData {
         return phoneNumber;
     }
 
-    public int getId() {
-        return id;
-    }
+
 
     public String getUserName() {
         return userName;
@@ -176,17 +168,13 @@ public class ProfileData {
         return department;
     }
 
-    public int getDoctor() {
-        return doctor;
-    }
+
 
     public int getProblem() {
         return problem;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+
 
     public void setUserName(String userName) {
         this.userName = userName;
@@ -212,9 +200,7 @@ public class ProfileData {
         this.department = department;
     }
 
-    public void setDoctor(int doctor) {
-        this.doctor = doctor;
-    }
+
 
     public void setProblem(int problem) {
         this.problem = problem;
@@ -236,5 +222,19 @@ public class ProfileData {
         this.age = age;
     }
 
+    public String getSpeciality() {
+        return speciality;
+    }
 
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public int getPateint_Id() {
+        return pateint_Id;
+    }
+
+    public int getDoctor_Id() {
+        return doctor_Id;
+    }
 }

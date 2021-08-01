@@ -1,5 +1,7 @@
 package com.example.doc_app_android.DoctorHomeFragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,11 +10,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.doc_app_android.Adapter.FilterRCVadapter;
+import com.example.doc_app_android.ProfileEditFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.FilterData;
 import com.example.doc_app_android.databinding.FragmentPatientCheckUpHistoryBinding;
@@ -21,6 +25,7 @@ import com.example.doc_app_android.view_model.PatientChechkUpHistoryModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +36,8 @@ public class PatientHistoryFragment extends Fragment {
 
     private FilterRCVadapter filterRCVadapter;
     private PatientChechkUpHistoryModel model;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -84,6 +91,7 @@ public class PatientHistoryFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        //((AppCompatActivity) getActivity()).getSupportActionBar().hide();
     }
 
     @Override
@@ -91,19 +99,43 @@ public class PatientHistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         FragmentPatientHistoryBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_patient_history, container, false);
         binding.setLifecycleOwner(this);
-        // Inflate the layout for this fragment
 
-        assert getArguments() != null;
-        String name = getArguments().getString("name");
-        String age = getArguments().getString("age");
-        String image = getArguments().getString("image");
+        Bundle bundle = getArguments();
 
-        binding.patientInfoNameTv.setText(name);
-        binding.patientInfoAgeLabel.setText(age);
-        Picasso.get()
-                .load(image)
-                .placeholder(R.drawable.doctor_profile_image)
-                .into(binding.patientInfoProfileImage);
+        if(bundle != null) {
+            if (!TextUtils.isEmpty(bundle.getString("name")) && !TextUtils.isEmpty(bundle.getString("age")) && !TextUtils.isEmpty(bundle.getString("image"))) {
+                String name = bundle.getString("name");
+                String age = bundle.getString("age");
+                String image = bundle.getString("image");
+
+                preferences = getContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+                editor = preferences.edit();
+                editor.putString("patientInfoName", name);
+                editor.putString("patientInfoAge", age);
+                editor.putString("patientInfoImage", image);
+                editor.apply();
+
+
+                binding.patientInfoNameTv.setText(name);
+                binding.patientInfoAgeLabel.setText(age);
+                Picasso.get()
+                        .load(image)
+                        .placeholder(R.drawable.doctor_profile_image)
+                        .into(binding.patientInfoProfileImage);
+            }
+        } else{
+            //((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+            preferences = getContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+            String name = preferences.getString("patientInfoName", "");
+            String age = preferences.getString("patientInfoAge", "");
+            String image = preferences.getString("patientInfoImage", "");
+            binding.patientInfoNameTv.setText(name);
+            binding.patientInfoAgeLabel.setText(age);
+            Picasso.get()
+                    .load(image)
+                    .placeholder(R.drawable.doctor_profile_image)
+                    .into(binding.patientInfoProfileImage);
+        }
 
         filterRCVadapter = new FilterRCVadapter(getContext(), true);
         binding.patientHistoryLabelsRcv.setAdapter(filterRCVadapter);
@@ -116,10 +148,32 @@ public class PatientHistoryFragment extends Fragment {
             }
         });
 
+        binding.patientInfoEditButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container, new ProfileEditFragment()).addToBackStack("editi").commit();
+                editor = preferences.edit();
+                editor.putBoolean("isFromPatientHistory", true);
+                editor.apply();
+
+            }
+        });
+
+        binding.patientInfoShareButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container, new ShareFragment()).addToBackStack("sharei").commit();
+                editor = preferences.edit();
+                editor.putBoolean("isFromPatientHistory", true);
+                editor.apply();
+            }
+        });
+
         binding.patientInfoBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().remove(PatientHistoryFragment.this).commit();
+                requireActivity().getSupportFragmentManager().popBackStack();
+                requireActivity().getSupportFragmentManager().beginTransaction().remove(PatientHistoryFragment.this).commit();
             }
         });
         return binding.getRoot();

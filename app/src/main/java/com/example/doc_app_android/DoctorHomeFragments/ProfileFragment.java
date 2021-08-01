@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -39,6 +40,7 @@ import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.databinding.FragmentProfileBinding;
 import com.example.doc_app_android.databinding.LoadingDialogBinding;
+import com.example.doc_app_android.databinding.NavHeaderBinding;
 import com.example.doc_app_android.databinding.ProfileDialogBinding;
 import com.example.doc_app_android.databinding.ValidationDialogBinding;
 import com.example.doc_app_android.services.ProfileEditService;
@@ -53,6 +55,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,6 +79,7 @@ public class ProfileFragment extends Fragment {
     private ProfileData sendProfileData;
     private ProfileEditService profileEditService = new ProfileEditService();
     private Dialog dialog;
+    private Dialog dialog2;
     public static final int PERMISSION_REQUEST_CODE = 100;
     public static final int CAMERA_CAPTURE_CODE = 101;
     public static final int GALLERY_IMAGE_CODE = 102;
@@ -86,6 +91,8 @@ public class ProfileFragment extends Fragment {
     private String email;
     private String phoneNumber;
     private String speciality;
+    private CircleImageView nav_profile;
+    private TextView nav_name;
 
 
     public ProfileFragment() {
@@ -140,6 +147,8 @@ public class ProfileFragment extends Fragment {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_profile, container, false);
         binding.setLifecycleOwner(this);
+
+        NavHeaderBinding navHeaderBinding = NavHeaderBinding.inflate(LayoutInflater.from(requireContext()));
 
 
         binding.doctorProfileEdit.setVisibility(View.GONE);
@@ -200,11 +209,11 @@ public class ProfileFragment extends Fragment {
                     profileDialogBinding = ProfileDialogBinding.inflate(LayoutInflater.from(getContext()));
 
 
-                    dialog = new Dialog(getActivity());
+                    dialog2 = new Dialog(getActivity());
                     //profileDialogBinding.getRoot().setBackgroundResource(android.R.color.transparent);
-                    dialog.setContentView(profileDialogBinding.getRoot());
-                    dialog.show();
-                    Window window = dialog.getWindow();
+                    dialog2.setContentView(profileDialogBinding.getRoot());
+                    dialog2.show();
+                    Window window = dialog2.getWindow();
                     window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
                     profileDialogBinding.openCamera.setOnClickListener(new View.OnClickListener() {
@@ -213,6 +222,7 @@ public class ProfileFragment extends Fragment {
                             Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             try {
                                 startActivityForResult(openCameraIntent, CAMERA_CAPTURE_CODE);
+                                dialog2.hide();
                                 ;
                             } catch (ActivityNotFoundException e) {
                                 // display error state to the user
@@ -229,6 +239,8 @@ public class ProfileFragment extends Fragment {
                         public void onClick(View v) {
                             Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             startActivityForResult(openGalleryIntent, GALLERY_IMAGE_CODE);
+                            dialog2.hide();
+
                         }
                     });
 
@@ -276,29 +288,37 @@ public class ProfileFragment extends Fragment {
                         });
                 dialog.setCancelable(false);
                 dialog.setContentView(binding1.getRoot());
+                Window window1 = dialog.getWindow();
+                window1.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
                 name = Objects.requireNonNull(binding.doctorName.getText()).toString();
                 email = Objects.requireNonNull(binding.doctorEmail.getText()).toString();
                 phoneNumber = Objects.requireNonNull(binding.doctorPhoneNumber.getText()).toString();
                 speciality = Objects.requireNonNull(binding.doctorSpeciality.getText()).toString();
 
-                Log.e("debugging", "Encoded Image String: " + encodedImageString);
 
                 if (TextUtils.isEmpty(name) && TextUtils.isEmpty(email) && TextUtils.isEmpty(phoneNumber)) {
                     binding1.messageTextview.setText("Please enter Name, Email and Phone Number");
                     dialog.show();
+
                 } else if (TextUtils.isEmpty(name) && TextUtils.isEmpty(email)) {
                     binding1.messageTextview.setText("Please enter Name and Email.");
                     dialog.show();
+
+
                 } else if (TextUtils.isEmpty(email) && TextUtils.isEmpty(phoneNumber)) {
                     binding1.messageTextview.setText("Please enter Email and Phone Number.");
                     dialog.show();
+
+
                 } else if (TextUtils.isEmpty(name) && TextUtils.isEmpty(phoneNumber)) {
                     binding1.messageTextview.setText("Please enter Name and Phone Number.");
                     dialog.show();
+
                 } else if (TextUtils.isEmpty(name)) {
                     binding1.messageTextview.setText("Please enter Name.");
                     dialog.show();
+
                 } else if (TextUtils.isEmpty(email)) {
                     binding1.messageTextview.setText("Please enter Email.");
                     dialog.show();
@@ -306,18 +326,25 @@ public class ProfileFragment extends Fragment {
                 } else if (TextUtils.isEmpty(phoneNumber)) {
                     binding1.messageTextview.setText("Please enter Phone Number.");
                     dialog.show();
+
                 } else if (picture == null) {
                     binding1.messageTextview.setText("Please Select an Image.");
                     dialog.show();
+
                 } else {
                     
                     encodedImageString = encodeBitmapImage(picture);
-                    sendProfileData = new ProfileData(receivedProfileData.getId(), speciality, email, name, phoneNumber, encodedImageString, picture);
-                    profileEditService.init(sendProfileData, requireContext());
+                    Log.e("debugging", "Encoded Image String: " + encodedImageString);
 
-                    profileViewModel.getEditedProfileDetails().observe(getViewLifecycleOwner(), new Observer<ProfileData>() {
+                    sendProfileData = new ProfileData(receivedProfileData.getDoctor_Id(), speciality, email, name, phoneNumber, encodedImageString, picture);
+                    //profileEditService.setProfileEditedObject(sendProfileData, requireContext());
+
+                    profileViewModel.getEditedProfileDetails(sendProfileData, requireContext()).observe(getViewLifecycleOwner(), new Observer<ProfileData>() {
                         @Override
                         public void onChanged(ProfileData profileData) {
+                            Log.d("Testing", "NavHeader getting updated");
+                            navHeaderBinding.navProfileName.setText(profileData.getName());
+                            Picasso.get().load(profileData.getImage()).placeholder(R.drawable.doctor_profile_image).into(navHeaderBinding.navProfileImage);
 
 
                         }
@@ -325,9 +352,9 @@ public class ProfileFragment extends Fragment {
 //
 //                    loadingDialogBinding.updateProgress.setVisibility(View.INVISIBLE);
 //                    dialog1.hide();
-//                    binding.doctorProfileEdit.setVisibility(View.GONE);
-//                    binding.doctorProfileSave.setVisibility(View.VISIBLE);
-                    getFragmentManager().beginTransaction().remove(ProfileFragment.this).commit();
+                    binding.doctorProfileEdit.setVisibility(View.GONE);
+                    binding.doctorProfileSave.setVisibility(View.VISIBLE);
+//                    getFragmentManager().beginTransaction().remove(ProfileFragment.this).commit();
 
 
 
@@ -362,7 +389,7 @@ public class ProfileFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        dialog.dismiss();
+        //dialog.dismiss();
 
 
         switch (requestCode) {

@@ -28,22 +28,40 @@ public class xray_service {
     private MutableLiveData<ArrayList<Xray_data>> data_model;
     private MutableLiveData<Xray_data> data;
     private Application app;
+    private SharedPreferences prefs;
+    private boolean isDoc;
 
     public LiveData<ArrayList<Xray_data>> getX_ray_data(Application app) {
+        prefs = app.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+        isDoc = prefs.getBoolean("isDoc", false);
         this.app = app;
-        if (data_model == null) {
+
+        if(isDoc){
             data_model = new MutableLiveData<>();
-            laodData();
+            loadData();
+        } else {
+            if (data_model == null) {
+                data_model = new MutableLiveData<>();
+                loadData();
+            }
         }
         return data_model;
     }
 
-    private void laodData() {
+    private void loadData() {
+        String url;
         dialogs dialog = new dialogs();
-        SharedPreferences prefs = app.getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+        prefs = app.getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+        isDoc = prefs.getBoolean("isDoc", false);
+        if(isDoc){
+            url = Globals.xray + prefs.getString("patient_id", "-1");
+            Log.d("Testing", "Url for Patient history from doctor patient list: " + url);
+        } else {
+            url = Globals.xray + prefs.getString("id", "-1");
+        }
         ArrayList<Xray_data> XrayData = new ArrayList<>();
         final RequestQueue requestQueue = Volley.newRequestQueue(app.getApplicationContext());
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, Globals.xray + prefs.getString("id", "-1"), null, new Response.Listener<JSONArray>() {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
             public void onResponse(JSONArray response) {
                 Log.e("TAG", "onResponse: " + response);

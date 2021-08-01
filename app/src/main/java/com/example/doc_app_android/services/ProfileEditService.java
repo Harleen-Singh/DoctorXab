@@ -1,5 +1,6 @@
 package com.example.doc_app_android.services;
 
+import android.app.Application;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -51,6 +52,9 @@ public class ProfileEditService {
     private Context context;
     private Dialog dialog1;
     private LoadingDialogBinding loadingDialogBinding;
+    private SharedPreferences.Editor editor;
+    private SharedPreferences sp;
+    private Application application;
 //    private ProgressDialog progressDialog;
 //    private com.example.doc_app_android.Dialogs.dialogs dialogs = new dialogs();
 
@@ -63,6 +67,18 @@ public class ProfileEditService {
     public void init(ProfileData profileData, Context context) {
         this.context = context;
         this.editedProfileData = profileData;
+
+
+
+
+        //progressDialog = new ProgressDialog(context, R.style.AlertDialog);
+
+    }
+
+    public LiveData<ProfileData> getEditedProfileDetails(Application mApplication, Context mContext, ProfileData editedProfileData) {
+        context = mContext;
+        application = mApplication;
+
         loadingDialogBinding = LoadingDialogBinding.inflate(LayoutInflater.from(context));
         loadingDialogBinding.getRoot().setBackgroundResource(android.R.color.transparent);
         dialog1 = new Dialog(context);
@@ -72,22 +88,15 @@ public class ProfileEditService {
         dialog1.show();
         Window window = dialog1.getWindow();
         window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        final SharedPreferences sp = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
-//        boolean isDoc = sp.getBoolean("isDoc", false);
-        id = Integer.parseInt(sp.getString("id", ""));
-        uploadImage(Globals.editGenDetails + id);
-        editData(Globals.editGenDetails + id, editedProfileData);
-
-
-
-        //progressDialog = new ProgressDialog(context, R.style.AlertDialog);
-
-    }
-
-    public LiveData<ProfileData> getEditedProfileDetails() {
+        sp = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+        id = Integer.parseInt(sp.getString("doctor_id", ""));
         if (mutableProfileData == null) {
             mutableProfileData = new MutableLiveData<>();
+            Log.d("TestingProfileEdit", "URL: " + Globals.editGenDetails + id);
+            uploadImage(Globals.editGenDetails + id, editedProfileData);
+            editData(Globals.editGenDetails + id, editedProfileData);
         }
+        //dialog1.hide();
         return mutableProfileData;
     }
 
@@ -111,7 +120,7 @@ public class ProfileEditService {
         JsonObjectRequest sendEditDetailsRequest = new JsonObjectRequest(Request.Method.PUT, Url, details, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("Testing", "Output: " + response.toString());
+                Log.d("Testing", "Output From Profile Edit Service: " + response.toString());
 
                 try {
                     id = response.getInt("id");
@@ -135,9 +144,12 @@ public class ProfileEditService {
                     mutableProfileData = new MutableLiveData<>();
                     mutableProfileData.setValue(editedProfileData);
 
-                    loadingDialogBinding.updateProgress.setVisibility(View.INVISIBLE);
+                    loadingDialogBinding.updateProgress.setVisibility(View.GONE);
                     dialog1.hide();
                     Toast.makeText(context, "Updated Successfully", Toast.LENGTH_SHORT).show();
+                    editor = sp.edit();
+                    editor.putBoolean("hasProfileUpdate", true);
+                    editor.apply();
 
                     //dialogs.dismissDialog(progressDialog);
 
@@ -200,16 +212,21 @@ public class ProfileEditService {
 
     }
 
-    public ProfileData getProfileEditedObject() {
-        return editedProfileData;
+    public void setProfileEditedObject(ProfileData profileData, Context context) {
+        editedProfileData = profileData;
+
+
+//        editor = sp.edit();
+//        editor.putBoolean("hasProfileEdited", true);
+//        editor.apply();
     }
 
-    public void uploadImage(String ROOT_URL){
+    public void uploadImage(String ROOT_URL, ProfileData editedProfileData){
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.PUT, ROOT_URL,
                 new Response.Listener<NetworkResponse>() {
                     @Override
                     public void onResponse(NetworkResponse response) {
-                       Toast.makeText(context, "Profile Updated Succesfull",Toast.LENGTH_SHORT).show();
+                       Toast.makeText(context, "Profile Updated Successfully",Toast.LENGTH_SHORT).show();
                     }
                 },
                 new Response.ErrorListener() {

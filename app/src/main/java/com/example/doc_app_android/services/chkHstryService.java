@@ -30,24 +30,43 @@ public class chkHstryService {
     private MutableLiveData<CkpHstryData> data;
     private CkpHstryData ckpHstryData;
     private Application app;
+    private SharedPreferences prefs;
+    private boolean isDoc;
 
     public LiveData<ArrayList<CkpHstryData>> getCkpHstryData(Application app) {
+
+        prefs = app.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+        isDoc = prefs.getBoolean("isDoc", false);
         this.app = app;
-        if (data_model == null) {
+
+        if(isDoc){
             data_model = new MutableLiveData<>();
             loadData();
+        } else {
+            if (data_model == null) {
+                data_model = new MutableLiveData<>();
+                loadData();
+            }
         }
         return data_model;
     }
 
     private void loadData() {
-
+            String url;
             dialogs dialog = new dialogs();
-            SharedPreferences prefs = app.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+            prefs = app.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+            isDoc = prefs.getBoolean("isDoc", false);
+
+            if(isDoc){
+                url = Globals.checkUpHistory + prefs.getString("patient_id", "-1");
+                Log.d("Testing", "Url for Patient history from doctor patient list: " + url);
+            } else {
+                url = Globals.checkUpHistory + prefs.getString("id", "-1");
+            }
             ArrayList<CkpHstryData> chkUpdata = new ArrayList<>();
         Log.e("TAG", "loadData: id "+prefs.getString("id", "-1") );
             final RequestQueue requestQueue = Volley.newRequestQueue(app.getApplicationContext());
-            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, Globals.checkUpHistory + prefs.getString("id", "-1"),null, new Response.Listener<JSONArray>() {
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url,null, new Response.Listener<JSONArray>() {
                 @Override
                 public void onResponse(JSONArray response) {
                     Log.e("TAG", "onResponse: "+ response );

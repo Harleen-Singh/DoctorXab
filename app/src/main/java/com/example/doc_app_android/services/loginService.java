@@ -129,6 +129,7 @@ public class loginService {
         SharedPreferences.Editor editor = mContext.getSharedPreferences("tokenFile", Context.MODE_PRIVATE).edit();
         editor.putBoolean("isDoc", isDoc);
         editor.putString("id", userID);
+        editor.putString("doctor_id", userID);
         editor.putString("username", userName);
         editor.putString("Email", email);
         editor.putString("pass" , pass);

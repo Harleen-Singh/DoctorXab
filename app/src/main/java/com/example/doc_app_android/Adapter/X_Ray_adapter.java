@@ -1,6 +1,7 @@
 package com.example.doc_app_android.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ public class X_Ray_adapter extends RecyclerView.Adapter<X_Ray_adapter.X_RayVH> {
     private ArrayList<Xray_data> data = new ArrayList<>();
     Fragment temp = null;
     private Context mContext;
+    private SharedPreferences preferences;
 
     public X_Ray_adapter(Context context) {
         this.mContext =context;
@@ -53,9 +55,19 @@ public class X_Ray_adapter extends RecyclerView.Adapter<X_Ray_adapter.X_RayVH> {
         holder.binding.btnViewXray.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                preferences = mContext.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
                 temp = FragmentXrayReport.newInstance(data.get(position));
-                AppCompatActivity appCompatActivity = (AppCompatActivity)mContext ;
-                appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container,temp).addToBackStack(null).commit();
+                boolean isDoc = preferences.getBoolean("isDoc", false);
+                if(isDoc) {
+                    AppCompatActivity appCompatActivity = (AppCompatActivity)mContext ;
+
+                    appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container,temp).addToBackStack("xray").commit();
+                } else {
+                    AppCompatActivity appCompatActivity = (AppCompatActivity)mContext ;
+                    appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container,temp).addToBackStack(null).commit();
+                }
+
+
             }
         });
 

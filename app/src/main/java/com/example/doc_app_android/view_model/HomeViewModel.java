@@ -30,7 +30,7 @@ public class HomeViewModel extends AndroidViewModel {
     }
 
     public LiveData<ProfileData> getHomeDrawerProfileDetails(){
-        return profileService.getProfileDetails(app, getApplication().getApplicationContext());
+        return profileService.getProfileDetails(app, app.getApplicationContext());
     }
 
 }

@@ -1,5 +1,7 @@
 package com.example.doc_app_android.PatentHomeFragments;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.doc_app_android.DoctorHomeFragments.PatientHistoryFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.Xray_data;
 import com.example.doc_app_android.databinding.FragmentXrayReportBinding;
@@ -25,6 +28,8 @@ public class FragmentXrayReport extends Fragment {
     private static final String REPORTDATA = "reportData";
     private static final String IMAGEURL = "imageURL";
     private static final String REPORTID = "reportData";
+    private SharedPreferences preferences;
+
     private Xray_data data;
     public FragmentXrayReport() {
         // Required empty public constructor
@@ -84,11 +89,24 @@ public class FragmentXrayReport extends Fragment {
         binding.setLifecycleOwner(this);
         Picasso.get().load(data.getImageUrl()).error(R.drawable.errorloadimg).placeholder(R.drawable.loading).into(binding.imgXray);
         binding.setXRayData(data);
+
+        preferences = getContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+        boolean isdoc = preferences.getBoolean("isDoc", false);
         binding.backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 assert getFragmentManager() != null;
-                getFragmentManager().beginTransaction().remove(FragmentXrayReport.this).commit();
+                if(isdoc) {
+                    requireActivity().getSupportFragmentManager().popBackStack();
+                    requireActivity().getSupportFragmentManager().beginTransaction().remove(FragmentXrayReport.this).commit();
+                    requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container, new PatientHistoryFragment()).commit();
+
+                } else{
+                    requireActivity().getSupportFragmentManager().beginTransaction().remove(FragmentXrayReport.this).commit();
+                }
+
+
             }
         });
         return binding.getRoot();
