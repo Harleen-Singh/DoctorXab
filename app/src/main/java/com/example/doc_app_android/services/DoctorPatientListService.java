@@ -147,7 +147,8 @@ public class DoctorPatientListService {
                 if (error instanceof NoConnectionError) {
                     Toast.makeText(context, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
                 } else if (error instanceof ServerError) {
-                    Toast.makeText(context, "ServiceError: " + error, Toast.LENGTH_SHORT).show();
+                    Log.d("", "ServiceError: " + error);
+
                 } else {
                     Log.d("", "error.networkRespose.toString()" + error.networkResponse.toString());
                 }

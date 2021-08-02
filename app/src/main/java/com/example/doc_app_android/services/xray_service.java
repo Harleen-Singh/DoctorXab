@@ -92,7 +92,7 @@ public class xray_service {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                dialog.displayDialog(error.getLocalizedMessage(), app.getApplicationContext());
+                Log.e("xray_service", "onErrorResponse: "+error.getLocalizedMessage());
             }
         });
         requestQueue.add(jsonArrayRequest);

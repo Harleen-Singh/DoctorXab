@@ -1,5 +1,6 @@
 package com.example.doc_app_android.Dialogs;
 
+import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.widget.ProgressBar;

@@ -154,7 +154,7 @@ public class profileService {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if (error instanceof NoConnectionError) {
-                    //dialogs.displayDialog("Not Connected to Internet", context);
+                    dialogs.displayDialog("Not Connected to Internet", context);
                 } else {
                     Log.d("", "error.networkRespose.toString()" + error.networkResponse.toString());
                 }

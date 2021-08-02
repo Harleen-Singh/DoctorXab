@@ -87,7 +87,7 @@ public class FragmentXrayReport extends Fragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_xray_report,null,false);
         binding.setLifecycleOwner(this);
-        Picasso.get().load(data.getImageUrl()).error(R.drawable.errorloadimg).placeholder(R.drawable.loading).into(binding.imgXray);
+        Picasso.get().load(data.getImageUrl()).error(R.drawable.errorimgload).placeholder(R.drawable.loading).into(binding.imgXray);
         binding.setXRayData(data);
 
         preferences = getContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);

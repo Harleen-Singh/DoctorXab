@@ -93,7 +93,7 @@ public class loginService {
             @Override
             public void onErrorResponse(VolleyError error) {
                 if(error instanceof NoConnectionError) {
-                    dialogs.displayDialog("Not Connected to Internet",mContext);
+                    Toast.makeText(mContext, "No Internet Connection!", Toast.LENGTH_SHORT).show();
                 }
                 else if(error instanceof ClientError){
                     dialogs.displayDialog("Invalid Credentials!",mContext);

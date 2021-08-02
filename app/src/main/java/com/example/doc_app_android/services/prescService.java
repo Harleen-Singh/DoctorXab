@@ -69,7 +69,7 @@ public class prescService {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                dialog.displayDialog(error.getLocalizedMessage(), app.getApplicationContext());
+                Log.e("prescService", "onErrorResponse: "+error.getLocalizedMessage());
             }
         });
         requestQueue.add(jsonArrayRequest);
