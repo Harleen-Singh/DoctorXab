@@ -50,7 +50,7 @@ public class X_Ray_adapter extends RecyclerView.Adapter<X_Ray_adapter.X_RayVH> {
     @Override
     public void onBindViewHolder(@NonNull @NotNull X_Ray_adapter.X_RayVH holder, int position) {
         holder.binding.setXRayData(data.get(position));
-        Picasso.get().load(data.get(position).getImageUrl()).error(R.drawable.errorloadimg).placeholder(R.drawable.loading).into(holder.binding.imgXray);
+        Picasso.get().load(data.get(position).getImageUrl()).error(R.drawable.errorimgload).placeholder(R.drawable.loading).into(holder.binding.imgXray);
         Log.e(" image url -->", "onBindViewHolder: "+data.get(position).getImageUrl() );
         holder.binding.btnViewXray.setOnClickListener(new View.OnClickListener() {
             @Override
