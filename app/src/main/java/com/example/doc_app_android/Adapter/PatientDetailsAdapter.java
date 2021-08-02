@@ -124,7 +124,7 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
                     bundle.putString("age", data.get(getAbsoluteAdapterPosition()).getAge());
                     checkupDetailsPatient.setArguments(bundle);
                     FragmentManager fragmentManager = ((AppCompatActivity)mContext).getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.fragmentHome_container, checkupDetailsPatient).addToBackStack("name1").commit();
+                    fragmentManager.beginTransaction().add(R.id.fragmentHome_container, checkupDetailsPatient).setReorderingAllowed(true).addToBackStack("name1").commit();
                 }
             });
 
@@ -145,7 +145,7 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
 
                     patientHistoryFragment.setArguments(bundle);
                     FragmentManager fragmentManager = ((AppCompatActivity)mContext).getSupportFragmentManager();
-                    fragmentManager.beginTransaction().replace(R.id.fragmentHome_container, patientHistoryFragment).addToBackStack("name3").commit();
+                    fragmentManager.beginTransaction().add(R.id.fragmentHome_container, patientHistoryFragment).setReorderingAllowed(true).addToBackStack("name3").commit();
                 }
             });
 

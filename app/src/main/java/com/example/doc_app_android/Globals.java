@@ -16,4 +16,5 @@ public class Globals {
     public static String prescription = serverURL + "prescriptions/";
     public static String appointment = serverURL + "getappointment";
     public static String docList = serverURL + "doctors";
+    public static String report = serverURL + "report/";
 }

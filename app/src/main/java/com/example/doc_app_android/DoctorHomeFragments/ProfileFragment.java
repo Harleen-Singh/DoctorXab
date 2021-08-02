@@ -3,8 +3,10 @@ package com.example.doc_app_android.DoctorHomeFragments;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -43,7 +45,7 @@ import com.example.doc_app_android.databinding.LoadingDialogBinding;
 import com.example.doc_app_android.databinding.NavHeaderBinding;
 import com.example.doc_app_android.databinding.ProfileDialogBinding;
 import com.example.doc_app_android.databinding.ValidationDialogBinding;
-import com.example.doc_app_android.services.ProfileEditService;
+
 import com.example.doc_app_android.view_model.ProfileViewModel;
 import com.squareup.picasso.Picasso;
 
@@ -77,7 +79,7 @@ public class ProfileFragment extends Fragment {
     private ProfileViewModel profileViewModel;
     private ProfileData receivedProfileData;
     private ProfileData sendProfileData;
-    private ProfileEditService profileEditService = new ProfileEditService();
+
     private Dialog dialog;
     private Dialog dialog2;
     public static final int PERMISSION_REQUEST_CODE = 100;
@@ -93,6 +95,7 @@ public class ProfileFragment extends Fragment {
     private String speciality;
     private CircleImageView nav_profile;
     private TextView nav_name;
+    private SharedPreferences preferences;
 
 
     public ProfileFragment() {
@@ -149,6 +152,7 @@ public class ProfileFragment extends Fragment {
         binding.setLifecycleOwner(this);
 
         NavHeaderBinding navHeaderBinding = NavHeaderBinding.inflate(LayoutInflater.from(requireContext()));
+        preferences = requireContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
 
 
         binding.doctorProfileEdit.setVisibility(View.GONE);
@@ -171,8 +175,13 @@ public class ProfileFragment extends Fragment {
                     binding.contactText.setText("9999999999");
                 }
 
+                if(!preferences.getBoolean("isDoc",false)){
+                    binding.speciality.setText("CASE OF: ORTHOLOGIST");
+                }
+                Log.d("Testing", "Received Image: " + "https://maivrikdoc.herokuapp.com/api" + profileData.getImage());
+
                 Picasso.get()
-                        .load(profileData.getImage())
+                        .load("https://maivrikdoc.herokuapp.com/api" + profileData.getImage())
                         .placeholder(R.drawable.doctor_profile_image)
                         .into(binding.doctorProfileImageSave);
 
@@ -339,21 +348,14 @@ public class ProfileFragment extends Fragment {
                     sendProfileData = new ProfileData(receivedProfileData.getDoctor_Id(), speciality, email, name, phoneNumber, encodedImageString, picture);
                     //profileEditService.setProfileEditedObject(sendProfileData, requireContext());
 
-                    profileViewModel.getEditedProfileDetails(sendProfileData, requireContext()).observe(getViewLifecycleOwner(), new Observer<ProfileData>() {
-                        @Override
-                        public void onChanged(ProfileData profileData) {
-                            Log.d("Testing", "NavHeader getting updated");
-                            navHeaderBinding.navProfileName.setText(profileData.getName());
-                            Picasso.get().load(profileData.getImage()).placeholder(R.drawable.doctor_profile_image).into(navHeaderBinding.navProfileImage);
+                    profileViewModel.getEditedProfileDetails(sendProfileData, requireContext());
+                    requireActivity().getSupportFragmentManager().popBackStack();
 
-
-                        }
-                    });
 //
 //                    loadingDialogBinding.updateProgress.setVisibility(View.INVISIBLE);
 //                    dialog1.hide();
-                    binding.doctorProfileEdit.setVisibility(View.GONE);
-                    binding.doctorProfileSave.setVisibility(View.VISIBLE);
+//                    binding.doctorProfileEdit.setVisibility(View.GONE);
+//                    binding.doctorProfileSave.setVisibility(View.VISIBLE);
 //                    getFragmentManager().beginTransaction().remove(ProfileFragment.this).commit();
 
 

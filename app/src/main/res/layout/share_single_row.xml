@@ -36,23 +36,26 @@
 
             <TextView
                 android:id="@+id/share_doc_name"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="70dp"
+                android:gravity="center"
                 android:layout_marginBottom="10dp"
                 android:layout_weight="8"
                 android:fontFamily="@font/rubik"
-
-                android:text="Roman Reign"
+                android:textStyle="bold"
+                android:text="Roman Reign Rovon"
                 android:textColor="@color/scnd_blue"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@id/share_profile_image"
+                app:layout_constraintEnd_toStartOf="@id/share_button"
                 app:layout_constraintStart_toStartOf="@id/share_profile_image"
-                app:layout_constraintTop_toBottomOf="@id/share_profile_image" />
+                app:layout_constraintTop_toBottomOf="@id/share_profile_image"
+                android:layout_marginRight="40dp" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/share_info_container"

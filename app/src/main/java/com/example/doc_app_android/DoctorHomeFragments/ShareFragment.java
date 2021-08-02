@@ -76,7 +76,13 @@ public class ShareFragment extends Fragment {
     public void onStop() {
         super.onStop();
         // This particular line will show the default toolbar of the Home Activity on Home Page when fragment gets closed.
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        //((AppCompatActivity) getActivity()).getSupportActionBar().show();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        //((AppCompatActivity) getActivity()).getSupportActionBar().show();
     }
 
     @Override
@@ -115,17 +121,7 @@ public class ShareFragment extends Fragment {
         binding.shareBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isFromPatientHistory){
-                    requireActivity().getSupportFragmentManager().popBackStack();
-                    //requireActivity().getSupportFragmentManager().popBackStack();
-                    requireActivity().getSupportFragmentManager().beginTransaction().remove(ShareFragment.this).commit();
-                    requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container, new PatientHistoryFragment()).commit();
-                } else {
-                    requireActivity().getSupportFragmentManager().popBackStack();
-                    //requireActivity().getSupportFragmentManager().popBackStack();
-                    requireActivity().getSupportFragmentManager().beginTransaction().remove(ShareFragment.this).commit();
-                    requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container, new CheckupDetailsPatient()).commit();
-                }
+                requireActivity().getSupportFragmentManager().popBackStack();
 
             }
         });

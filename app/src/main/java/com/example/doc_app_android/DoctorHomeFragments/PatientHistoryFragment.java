@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,6 +50,8 @@ public class PatientHistoryFragment extends Fragment {
 
     public PatientHistoryFragment() {
         // Required empty public constructor
+        Log.d("Fragment", "Constructor Called");
+
     }
 
     /**
@@ -65,16 +68,32 @@ public class PatientHistoryFragment extends Fragment {
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
+        Log.d("Fragment", "newInstance Called");
+
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).hide();
+        Log.d("Fragment", "onPause Called");
+
+
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
         // This particular line will hide the default toolbar of the Home Activity when fragment gets opened.
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).hide();
+        Log.d("Fragment", "onResume Called");
+
+
     }
+
 
 
     @Override
@@ -82,6 +101,7 @@ public class PatientHistoryFragment extends Fragment {
         super.onStop();
         // This particular line will show the default toolbar of the Home Activity on Home Page when fragment gets closed.
         ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        Log.d("Fragment", "onStop Called");
     }
 
     @Override
@@ -91,7 +111,7 @@ public class PatientHistoryFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        //((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
     }
 
     @Override
@@ -99,6 +119,10 @@ public class PatientHistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         FragmentPatientHistoryBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_patient_history, container, false);
         binding.setLifecycleOwner(this);
+
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).hide();
+
+
 
         Bundle bundle = getArguments();
 
@@ -123,19 +147,20 @@ public class PatientHistoryFragment extends Fragment {
                         .placeholder(R.drawable.doctor_profile_image)
                         .into(binding.patientInfoProfileImage);
             }
-        } else{
-            //((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-            preferences = getContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
-            String name = preferences.getString("patientInfoName", "");
-            String age = preferences.getString("patientInfoAge", "");
-            String image = preferences.getString("patientInfoImage", "");
-            binding.patientInfoNameTv.setText(name);
-            binding.patientInfoAgeLabel.setText(age);
-            Picasso.get()
-                    .load(image)
-                    .placeholder(R.drawable.doctor_profile_image)
-                    .into(binding.patientInfoProfileImage);
         }
+//        } else{
+//            //((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+//            preferences = getContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+//            String name = preferences.getString("patientInfoName", "");
+//            String age = preferences.getString("patientInfoAge", "");
+//            String image = preferences.getString("patientInfoImage", "");
+//            binding.patientInfoNameTv.setText(name);
+//            binding.patientInfoAgeLabel.setText(age);
+//            Picasso.get()
+//                    .load(image)
+//                    .placeholder(R.drawable.doctor_profile_image)
+//                    .into(binding.patientInfoProfileImage);
+//        }
 
         filterRCVadapter = new FilterRCVadapter(getContext(), true);
         binding.patientHistoryLabelsRcv.setAdapter(filterRCVadapter);
@@ -151,7 +176,7 @@ public class PatientHistoryFragment extends Fragment {
         binding.patientInfoEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container, new ProfileEditFragment()).addToBackStack("editi").commit();
+                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, new ProfileEditFragment()).addToBackStack("editi").commit();
                 editor = preferences.edit();
                 editor.putBoolean("isFromPatientHistory", true);
                 editor.apply();
@@ -162,7 +187,7 @@ public class PatientHistoryFragment extends Fragment {
         binding.patientInfoShareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container, new ShareFragment()).addToBackStack("sharei").commit();
+                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, new ShareFragment()).setReorderingAllowed(true).addToBackStack("sharei").commit();
                 editor = preferences.edit();
                 editor.putBoolean("isFromPatientHistory", true);
                 editor.apply();

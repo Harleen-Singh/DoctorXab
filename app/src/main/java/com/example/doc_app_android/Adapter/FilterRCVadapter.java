@@ -97,6 +97,10 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
                 break;
             case "APPOINTMENT":
                 temp = AppointmentsFragment.newInstance();
+                pref = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+                editor = pref.edit();
+                editor.putBoolean("patientInfoCalendar", true);
+                editor.apply();
                 break;
         }
         AppCompatActivity appCompatActivity = (AppCompatActivity) context;

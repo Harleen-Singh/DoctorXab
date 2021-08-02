@@ -91,10 +91,10 @@ public class Home extends AppCompatActivity {
         binding.filterRcv.setAdapter(filterAdapter);
         model = new ViewModelProvider(this).get(HomeViewModel.class);
 
-        preferences = getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
-        editor = preferences.edit();
-        editor.putBoolean("hasProfileUpdate", false);
-        editor.apply();
+//        preferences = getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+//        editor = preferences.edit();
+//        editor.putBoolean("hasProfileUpdate", false);
+//        editor.apply();
 
         model.getFilters().observe(this, new Observer<ArrayList<FilterData>>() {
             @Override
@@ -108,9 +108,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onChanged(ProfileData profileData) {
                 Log.d("HomeTesting", "Name: " + profileData.getName());
-                editor = preferences.edit();
-                editor.putBoolean("hasProfileUpdate", true);
-                editor.apply();
+
                 nav_name = findViewById(R.id.nav_profile_name);
                 nav_profile = findViewById(R.id.nav_profile_image);
                 nav_name.setText(profileData.getName());
@@ -167,6 +165,10 @@ public class Home extends AppCompatActivity {
                     case R.id.menu_appointments:
                         Toast.makeText(getApplicationContext(), "Appointments Pane is opened.", Toast.LENGTH_SHORT).show();
                         temp = new AppointmentsFragment();
+                        preferences = getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+                        editor = preferences.edit();
+                        editor.putBoolean("patientInfoCalendar", false);
+                        editor.apply();
                         break;
 
                     case R.id.menu_schedule:

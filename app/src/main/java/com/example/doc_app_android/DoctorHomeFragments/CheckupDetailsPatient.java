@@ -7,15 +7,26 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.doc_app_android.Adapter.ReportData;
+import com.example.doc_app_android.PatentHomeFragments.AppointmentsFragment;
 import com.example.doc_app_android.ProfileEditFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.databinding.FragmentCheckupDetailsPatientBinding;
+import com.example.doc_app_android.view_model.ProfileViewModel;
+import com.example.doc_app_android.view_model.ReportDataViewModel;
 import com.squareup.picasso.Picasso;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +41,9 @@ public class CheckupDetailsPatient extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    private ReportDataViewModel reportDataViewModel ;
+    private boolean isReportEdited = false;
+    private ReportData reportData;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -87,6 +101,45 @@ public class CheckupDetailsPatient extends Fragment {
         // Inflate the layout for this fragment
         FragmentCheckupDetailsPatientBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_checkup_details_patient, container, false);
         binding.setLifecycleOwner(this);
+        binding.addAboutCheckupTv.setEnabled(false);
+
+        reportDataViewModel = new ViewModelProvider(requireActivity()).get(ReportDataViewModel.class);
+
+        reportDataViewModel.getReportData().observe(getViewLifecycleOwner(), new Observer<ReportData>() {
+            @Override
+            public void onChanged(ReportData reportData) {
+                String date = "DATE: " + reportData.getDate();
+                String data = reportData.getData();
+                if (!TextUtils.isEmpty(date) && !TextUtils.isEmpty(data)) {
+                    binding.addAboutCheckupDate.setText(date);
+                    binding.addAboutCheckupTv.setText(data);
+                }
+
+            }
+        });
+
+        binding.addAboutCheckupTv.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                binding.ckscrollable.requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+
+
+        });
+
+
+
+        binding.addAboutCheckEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                binding.addAboutCheckupTv.setEnabled(true);
+                binding.addAboutCheckupTv.setScrollContainer(true);
+                isReportEdited = true;
+            }
+        });
 
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -122,18 +175,20 @@ public class CheckupDetailsPatient extends Fragment {
                     .into(binding.checkupDetailsProfileImage);
         }
 
+
+
         binding.checkupDetailsShareButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                requireActivity().getSupportFragmentManager().popBackStack();
-                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container, new ShareFragment()).addToBackStack("share").commit();
+                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, new ShareFragment()).setReorderingAllowed(true).addToBackStack("share").commit();
             }
         });
 
         binding.checkupDetailsEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container, new ProfileEditFragment()).addToBackStack("editProf").commit();
+                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, new ProfileEditFragment()).setReorderingAllowed(true).addToBackStack("editProf").commit();
 
             }
         });
@@ -141,8 +196,16 @@ public class CheckupDetailsPatient extends Fragment {
         binding.checkupDetailsBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //requireActivity().getSupportFragmentManager().popBackStack();
-                requireActivity().getSupportFragmentManager().beginTransaction().remove(CheckupDetailsPatient.this).commit();
+                requireActivity().getSupportFragmentManager().popBackStack();
+                //requireActivity().getSupportFragmentManager().beginTransaction().remove(CheckupDetailsPatient.this).commit();
+
+            }
+        });
+
+        binding.addAppointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               // requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, new AppointmentsFragment()).setReorderingAllowed(true).addToBackStack("appointment").commit();
 
             }
         });
@@ -175,6 +238,16 @@ public class CheckupDetailsPatient extends Fragment {
 
                 binding.addAboutCheckup.setVisibility(View.VISIBLE);
                 binding.addXrayScan.setVisibility(View.VISIBLE);
+                binding.addAboutCheckupTv.setEnabled(false);
+
+                if(isReportEdited){
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    String date = sdf.format(new Date());
+                    String data = binding.addAboutCheckupTv.getText().toString();
+                    reportData = new ReportData(date, data);
+
+                    reportDataViewModel.updateReportData(reportData);
+                }
 
 
             }

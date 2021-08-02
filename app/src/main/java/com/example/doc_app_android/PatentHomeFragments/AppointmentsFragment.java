@@ -23,7 +23,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doc_app_android.Adapter.NotesRVAdapter;
-import com.example.doc_app_android.DoctorHomeFragments.PatientHistoryFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.AppointmentData;
 import com.example.doc_app_android.data_model.DocData;
@@ -75,7 +74,7 @@ public class AppointmentsFragment extends Fragment {
     private DoctorListViewModel doctorListViewModel;
     private ArrayList<AppointmentData> appointmentData = new ArrayList<>();
     private SharedPreferences preferences;
-    private boolean isDoc;
+    private boolean isPatientCalender;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,9 +93,9 @@ public class AppointmentsFragment extends Fragment {
         Map<String, String> docNames = new HashMap<>();
 
         preferences = getContext().getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
-        isDoc = preferences.getBoolean("isDoc", false);
+        isPatientCalender = preferences.getBoolean("patientInfoCalendar", false);
 
-        if(isDoc){
+        if(isPatientCalender){
             binding.calenderContainer.setVisibility(View.GONE);
             binding.editCalendar.setVisibility(View.VISIBLE);
         }

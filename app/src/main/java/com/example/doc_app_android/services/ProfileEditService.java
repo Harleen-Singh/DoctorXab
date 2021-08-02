@@ -69,13 +69,11 @@ public class ProfileEditService {
         this.editedProfileData = profileData;
 
 
-
-
         //progressDialog = new ProgressDialog(context, R.style.AlertDialog);
 
     }
 
-    public LiveData<ProfileData> getEditedProfileDetails(Application mApplication, Context mContext, ProfileData editedProfileData) {
+    public void getEditedProfileDetails(Application mApplication, Context mContext, ProfileData editedProfileData) {
         context = mContext;
         application = mApplication;
 
@@ -90,14 +88,13 @@ public class ProfileEditService {
         window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         sp = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
         id = Integer.parseInt(sp.getString("doctor_id", ""));
-        if (mutableProfileData == null) {
-            mutableProfileData = new MutableLiveData<>();
-            Log.d("TestingProfileEdit", "URL: " + Globals.editGenDetails + id);
-            uploadImage(Globals.editGenDetails + id, editedProfileData);
-            editData(Globals.editGenDetails + id, editedProfileData);
-        }
+
+        Log.d("TestingProfileEdit", "URL: " + Globals.editGenDetails + id);
+        uploadImage(Globals.editGenDetails + id, editedProfileData);
+        editData(Globals.editGenDetails + id, editedProfileData);
+
         //dialog1.hide();
-        return mutableProfileData;
+
     }
 
 
@@ -221,12 +218,12 @@ public class ProfileEditService {
 //        editor.apply();
     }
 
-    public void uploadImage(String ROOT_URL, ProfileData editedProfileData){
+    public void uploadImage(String ROOT_URL, ProfileData editedProfileData) {
         VolleyMultipartRequest volleyMultipartRequest = new VolleyMultipartRequest(Request.Method.PUT, ROOT_URL,
                 new Response.Listener<NetworkResponse>() {
                     @Override
                     public void onResponse(NetworkResponse response) {
-                       Toast.makeText(context, "Profile Updated Successfully",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Profile Updated Successfully", Toast.LENGTH_SHORT).show();
                     }
                 },
                 new Response.ErrorListener() {
@@ -234,6 +231,7 @@ public class ProfileEditService {
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
                         Log.e("GotError", "" + error.getMessage());
+                        dialog1.hide();
                     }
                 }) {
 
