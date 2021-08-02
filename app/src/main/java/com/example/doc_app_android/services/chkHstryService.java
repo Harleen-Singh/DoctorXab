@@ -88,7 +88,7 @@ public class chkHstryService {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    dialog.displayDialog(error.getLocalizedMessage(), app.getApplicationContext());
+                    Log.e("chkHistry", "onErrorResponse: "+error.getLocalizedMessage());
                 }
             });
             requestQueue.add(jsonArrayRequest);
