@@ -209,7 +209,7 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        binding.doctorProfileEdit.setOnClickListener(new View.OnClickListener() {
+        binding.doctorProfileImageEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

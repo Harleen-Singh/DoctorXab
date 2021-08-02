@@ -118,6 +118,15 @@ public class CheckupDetailsPatient extends Fragment {
             }
         });
 
+        binding.takePictureVg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                requireActivity().getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).add(R.id.fragmentHome_container, new ReportFragment()).addToBackStack("report").commit();
+
+            }
+        });
+
         binding.addAboutCheckupTv.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
