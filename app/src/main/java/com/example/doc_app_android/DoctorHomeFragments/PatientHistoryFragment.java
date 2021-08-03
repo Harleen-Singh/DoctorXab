@@ -4,6 +4,7 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -179,17 +180,16 @@ public class PatientHistoryFragment extends Fragment {
         binding.patientInfoChatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_SEND);
-//                intent.addCategory(Intent.CATEGORY_APP_MESSAGING);
-                intent.setType("text/plain");
-                String title = getResources().getString(R.string.chooser_title);
-                Intent chooser = Intent.createChooser(intent, title);
-
-
+                assert getArguments() != null;
+                Uri phoneNumber = Uri.parse("smsto:" + getArguments().getString("mobile_number"));
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.putExtra(Intent.EXTRA_TEXT, phoneNumber);
+                intent.setData(phoneNumber);
                 try {
-                    startActivity(chooser);
+                    startActivity(intent);
                 } catch (ActivityNotFoundException e) {
-                    Toast.makeText(requireContext(), "No Application found in your device to handle the task.", Toast.LENGTH_LONG).show();;
+                    Toast.makeText(requireContext(), "No Application found in your device to handle the task.", Toast.LENGTH_LONG).show();
+                    ;
                 }
             }
         });

@@ -39,6 +39,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -61,6 +62,7 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d("ImplicitIntentTesting", "I am getting called 3");
 
         binding.toolbar.setVisibility(View.VISIBLE);
 
@@ -81,7 +83,15 @@ public class Home extends AppCompatActivity {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("ImplicitIntentTesting", "I am getting called 5");
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("ImplicitIntentTesting", "I am getting called 4");
+
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_home);
         regornot = getIntent().getBooleanExtra("reg", false);

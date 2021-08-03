@@ -14,6 +14,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,6 +30,8 @@ import com.example.doc_app_android.databinding.FragmentCheckupDetailsPatientBind
 import com.example.doc_app_android.view_model.ProfileViewModel;
 import com.example.doc_app_android.view_model.ReportDataViewModel;
 import com.squareup.picasso.Picasso;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -50,6 +53,7 @@ public class CheckupDetailsPatient extends Fragment {
     private boolean isReportEdited = false;
     private ReportData reportData;
     private String mobileNumber;
+    private FragmentCheckupDetailsPatientBinding binding;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -57,6 +61,7 @@ public class CheckupDetailsPatient extends Fragment {
 
     public CheckupDetailsPatient() {
         // Required empty public constructor
+        Log.d("ImplicitIntentTesting", "I am getting called 1");
     }
 
     /**
@@ -102,12 +107,11 @@ public class CheckupDetailsPatient extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        FragmentCheckupDetailsPatientBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_checkup_details_patient, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_checkup_details_patient, container, false);
         binding.setLifecycleOwner(this);
-        //binding.addAboutCheckupTv.setEnabled(false);
 
         reportDataViewModel = new ViewModelProvider(requireActivity()).get(ReportDataViewModel.class);
 
@@ -144,6 +148,15 @@ public class CheckupDetailsPatient extends Fragment {
             }
 
 
+        });
+
+        //add_about_check_delete
+
+        binding.addAboutCheckDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                binding.addAboutCheckupTv.setText("");
+            }
         });
 
 
@@ -211,19 +224,15 @@ public class CheckupDetailsPatient extends Fragment {
         binding.checkupDetailsChatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Uri phoneNumber = Uri.parse("tel:" + mobileNumber);
-                Intent intent = new Intent(Intent.ACTION_SEND);
-
-//                chooser.addCategory(Intent.CATEGORY_APP_MESSAGING);
-                intent.setType("text/plain");
-                String title = getResources().getString(R.string.chooser_title);
-                Intent chooser = Intent.createChooser(intent, title);
-
-
+                Uri phoneNumber = Uri.parse("smsto:" + mobileNumber);
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.putExtra(Intent.EXTRA_TEXT, phoneNumber);
+                intent.setData(phoneNumber);
                 try {
-                    startActivity(chooser);
+                    startActivity(intent);
                 } catch (ActivityNotFoundException e) {
-                    Toast.makeText(requireContext(), "No Application found in your device to handle the task.", Toast.LENGTH_LONG).show();;
+                    Toast.makeText(requireContext(), "No Application found in your device to handle the task.", Toast.LENGTH_LONG).show();
+                    ;
                 }
             }
         });
