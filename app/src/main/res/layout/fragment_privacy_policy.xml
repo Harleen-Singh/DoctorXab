@@ -38,7 +38,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PrivacyPolicy"
+        android:text="Yet to be done"
         android:textSize="30sp"
         android:textColor="#000"
         android:textStyle="bold"

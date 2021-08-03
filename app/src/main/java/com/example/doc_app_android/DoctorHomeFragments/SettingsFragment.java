@@ -2,6 +2,7 @@ package com.example.doc_app_android.DoctorHomeFragments;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -61,6 +62,21 @@ public class SettingsFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        // This particular line will hide the default toolbar of the Home Activity when fragment gets opened.
+        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        // This particular line will show the default toolbar of the Home Activity on Home Page when fragment gets closed.
+        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -70,7 +86,7 @@ public class SettingsFragment extends Fragment {
         back_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragmentManager().beginTransaction().remove(SettingsFragment.this).commit();
+                requireActivity().getSupportFragmentManager().popBackStack();
             }
         });
 

@@ -83,16 +83,16 @@ public class profileService {
         String dorP_id = sp.getString("doctor_id", "");
         String patient_id = sp.getString("id", "");
 
+        if (mutableProfileData == null) {
+            mutableProfileData = new MutableLiveData<>();
+            if (isDoc) {
+                //Log.d("Testing", "Url: " +Globals.profileDoctor + dorP_id )
+                getData(Globals.profileDoctor + dorP_id, true);
 
-        mutableProfileData = new MutableLiveData<>();
-        if (isDoc) {
-            //Log.d("Testing", "Url: " +Globals.profileDoctor + dorP_id )
-            getData(Globals.profileDoctor + dorP_id, true);
+            } else {
+                getData(Globals.profilePatient + patient_id, false);
 
-        } else {
-            dorP_id = "60";
-            getData(Globals.profilePatient + patient_id, false);
-
+            }
         }
 
 
@@ -246,7 +246,7 @@ public class profileService {
 
     public void editData(String Url, ProfileData data) {
 
-        NavHeaderBinding binding = NavHeaderBinding.inflate(LayoutInflater.from(context));
+//        NavHeaderBinding binding = NavHeaderBinding.inflate(LayoutInflater.from(context));
         JSONObject details = null;
 
         try {
@@ -270,12 +270,11 @@ public class profileService {
                 try {
                     id = response.getInt("id");
                     name = response.getString("name");
-
                     userName = response.getString("username");
                     phoneNumber = response.getString("phone_number");
                     address = response.getString("address");
                     email = response.getString("email");
-                    image = response.getString("image");
+                    image = "https://maivrikdoc.herokuapp.com/api" + response.getString("image");
                     age = response.getInt("age");
                     Log.d("TestingProfileEdit", "id: " + id);
                     Log.d("TestingProfileEdit", "name: " + name);
@@ -286,13 +285,11 @@ public class profileService {
                     Log.d("TestingProfileEdit", "id: " + age);
 
 
+//                    binding.navProfileName.setText(name);
+//                    Picasso.get().load(image).placeholder(R.drawable.doctor_profile_image).into(binding.navProfileImage);
 
-                    binding.navProfileName.setText(name);
-                    Picasso.get().load(image).placeholder(R.drawable.doctor_profile_image).into(binding.navProfileImage);
-
-
-                    editedProfileData = new ProfileData(id, userName, email, phoneNumber, address, image, age);
-                    mutableProfileData = new MutableLiveData<>();
+                    //int doctor_Id, int age, String userName, String email, String name, String phoneNumber, String address, String image
+                    editedProfileData = new ProfileData(id, age, userName, email, name, phoneNumber, address, image);
                     mutableProfileData.setValue(editedProfileData);
 
                     loadingDialogBinding.updateProgress.setVisibility(View.GONE);
