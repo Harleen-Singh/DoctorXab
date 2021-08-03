@@ -1,6 +1,8 @@
 package com.example.doc_app_android.DoctorHomeFragments;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
@@ -15,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.doc_app_android.Adapter.FilterRCVadapter;
 import com.example.doc_app_android.ProfileEditFragment;
@@ -170,6 +173,24 @@ public class PatientHistoryFragment extends Fragment {
             public void onChanged(ArrayList<FilterData> filterData) {
                 filterRCVadapter.setFilter(filterData);
                 filterRCVadapter.notifyDataSetChanged();
+            }
+        });
+
+        binding.patientInfoChatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+//                intent.addCategory(Intent.CATEGORY_APP_MESSAGING);
+                intent.setType("text/plain");
+                String title = getResources().getString(R.string.chooser_title);
+                Intent chooser = Intent.createChooser(intent, title);
+
+
+                try {
+                    startActivity(chooser);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(requireContext(), "No Application found in your device to handle the task.", Toast.LENGTH_LONG).show();;
+                }
             }
         });
 

@@ -43,6 +43,8 @@
     <string name="ok">Ok</string>
     <string name="Yes">Yes</string>
     <string name="No">No</string>
+    <string name="chooser_title">Message</string>
+
 
 
     <array name="patientFilters">

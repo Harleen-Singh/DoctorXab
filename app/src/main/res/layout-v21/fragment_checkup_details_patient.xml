@@ -199,6 +199,8 @@
                                     android:id="@+id/checkup_details_call_button"
                                     android:layout_width="36dp"
                                     android:layout_height="36dp"
+                                    android:clickable="true"
+                                    android:focusable="true"
                                     android:background="@drawable/callbg"
                                     android:gravity="center">
 
@@ -209,6 +211,8 @@
                                         android:layout_centerHorizontal="true"
                                         android:background="@color/scnd_light_blue"
                                         android:layout_gravity="center"
+                                        android:clickable="false"
+                                        android:focusable="false"
                                         android:src="@drawable/ic_call_db" />
                                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -235,7 +239,6 @@
                                 <androidx.appcompat.widget.LinearLayoutCompat
                                     android:id="@+id/checkup_details_share_button"
                                     android:clickable="true"
-
                                     android:layout_width="36dp"
                                     android:layout_height="36dp"
                                     android:background="@drawable/callbg"
@@ -282,11 +285,15 @@
                                     android:layout_width="36dp"
                                     android:layout_height="36dp"
                                     android:background="@drawable/callbg"
+                                    android:clickable="true"
+                                    android:focusable="true"
                                     android:gravity="center">
 
                                     <androidx.constraintlayout.utils.widget.ImageFilterButton
                                         android:layout_width="18dp"
                                         android:layout_height="18dp"
+                                        android:clickable="false"
+                                        android:focusable="false"
                                         android:layout_below="@+id/profile_toolbar"
                                         android:layout_centerHorizontal="true"
                                         android:layout_gravity="center"
@@ -376,37 +383,7 @@
                     android:background="@color/scnd_blue_white"
                     android:orientation="vertical">
 
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:orientation="vertical"
-                        android:visibility="gone">
 
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_marginLeft="55dp"
-                            android:layout_marginRight="55dp"
-                            android:background="@drawable/btn_theme_1">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_centerInParent="true"
-                                android:layout_marginLeft="20dp"
-                                android:layout_marginTop="15dp"
-                                android:fontFamily="@font/rubik"
-                                android:text="ADD ABOUT CHECKUP"
-                                android:textColor="@color/white"
-                                android:textSize="14sp"
-                                android:textStyle="bold" />
-
-
-                        </RelativeLayout>
-
-
-                    </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <RelativeLayout
                         android:id="@+id/add_about_checkup_label"
@@ -439,6 +416,7 @@
                         android:id="@+id/checkup_details_container_about_checkup"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
                         android:background="@color/white"
                         android:visibility="gone">
 
@@ -488,6 +466,31 @@
                             android:background="@color/white"
                             android:src="@drawable/ic_delete" />
 
+                        <TextView
+                            android:id="@+id/add_about_check_display"
+                            android:layout_width="match_parent"
+                            android:layout_height="150dp"
+                            android:layout_below="@id/add_about_checkup_date"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginRight="20dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/add_about_checkup_bg"
+                            android:fontFamily="@font/rubik"
+                            android:gravity="start"
+                            android:focusable="true"
+                            android:paddingStart="13dp"
+                            android:paddingLeft="13dp"
+                            android:paddingTop="6dp"
+                            android:scrollbars="vertical"
+                            android:isScrollContainer="true"
+                            android:paddingEnd="13dp"
+                            android:paddingBottom="6dp"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/scnd_blue"
+                            android:textSize="14sp"/>
+
                         <EditText
                             android:id="@+id/add_about_checkup_tv"
                             android:layout_width="match_parent"
@@ -511,6 +514,7 @@
                             android:paddingEnd="13dp"
                             android:paddingBottom="6dp"
                             android:hint="TYPE HERE"
+                            android:visibility="gone"
                             android:textAlignment="textStart"
                             android:textColor="@color/scnd_blue"
                             android:textSize="14sp" />
@@ -536,7 +540,7 @@
                             android:layout_centerHorizontal="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
+                            android:gravity="center"
                             android:orientation="horizontal">
 
                             <androidx.constraintlayout.utils.widget.ImageFilterButton
@@ -584,8 +588,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@id/or_tv"
+                            android:focusable="true"
+                            android:clickable="true"
                             android:layout_marginBottom="36dp"
-                            android:gravity="center_horizontal"
+                            android:gravity="center"
                             android:orientation="horizontal">
 
                             <androidx.constraintlayout.utils.widget.ImageFilterButton
@@ -595,6 +601,8 @@
                                 android:layout_alignParentTop="true"
                                 android:layout_centerInParent="true"
                                 android:layout_marginEnd="21dp"
+                                android:focusable="false"
+                                android:clickable="false"
                                 android:layout_marginRight="21dp"
                                 android:background="@color/white"
                                 android:src="@drawable/ic_take_picture" />
@@ -604,6 +612,8 @@
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/rubik"
                                 android:text="TAKE PHOTO"
+                                android:focusable="false"
+                                android:clickable="false"
                                 android:textColor="@color/scnd_blue"
                                 android:textSize="14sp"
                                 android:textStyle="bold" />

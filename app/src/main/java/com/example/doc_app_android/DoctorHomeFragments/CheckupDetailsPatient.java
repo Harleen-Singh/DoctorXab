@@ -1,7 +1,10 @@
 package com.example.doc_app_android.DoctorHomeFragments;
 
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +18,8 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Toast;
 
 import com.example.doc_app_android.Adapter.ReportData;
 import com.example.doc_app_android.PatentHomeFragments.AppointmentsFragment;
@@ -41,9 +46,10 @@ public class CheckupDetailsPatient extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
-    private ReportDataViewModel reportDataViewModel ;
+    private ReportDataViewModel reportDataViewModel;
     private boolean isReportEdited = false;
     private ReportData reportData;
+    private String mobileNumber;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -101,7 +107,7 @@ public class CheckupDetailsPatient extends Fragment {
         // Inflate the layout for this fragment
         FragmentCheckupDetailsPatientBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_checkup_details_patient, container, false);
         binding.setLifecycleOwner(this);
-        binding.addAboutCheckupTv.setEnabled(false);
+        //binding.addAboutCheckupTv.setEnabled(false);
 
         reportDataViewModel = new ViewModelProvider(requireActivity()).get(ReportDataViewModel.class);
 
@@ -112,7 +118,9 @@ public class CheckupDetailsPatient extends Fragment {
                 String data = reportData.getData();
                 if (!TextUtils.isEmpty(date) && !TextUtils.isEmpty(data)) {
                     binding.addAboutCheckupDate.setText(date);
+                    binding.addAboutCheckDisplay.setText(data);
                     binding.addAboutCheckupTv.setText(data);
+
                 }
 
             }
@@ -139,14 +147,21 @@ public class CheckupDetailsPatient extends Fragment {
         });
 
 
-
         binding.addAboutCheckEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                binding.addAboutCheckupTv.setEnabled(true);
+                binding.addAboutCheckDisplay.setVisibility(View.GONE);
+                binding.addAboutCheckupTv.setVisibility(View.VISIBLE);
                 binding.addAboutCheckupTv.setScrollContainer(true);
                 isReportEdited = true;
+                binding.checkupDetailsContainerAboutCheckup.setFocusable(true);
+                binding.addAboutCheckupTv.setSelection(binding.addAboutCheckupTv.getText().length());
+                binding.addAboutCheckupTv.requestFocus();
+
+                InputMethodManager imm = (InputMethodManager) requireContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.showSoftInput(binding.addAboutCheckupTv, InputMethodManager.SHOW_IMPLICIT);
+
+
             }
         });
 
@@ -156,7 +171,7 @@ public class CheckupDetailsPatient extends Fragment {
             String name = bundle.getString("name");
             String image = bundle.getString("image");
             String age = bundle.getString("age");
-
+            mobileNumber = bundle.getString("mobile_number");
             preferences = getContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
             editor = preferences.edit();
             editor.putString("AddName", name);
@@ -184,7 +199,34 @@ public class CheckupDetailsPatient extends Fragment {
                     .into(binding.checkupDetailsProfileImage);
         }
 
+        binding.checkupDetailsCallButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri phoneNumber = Uri.parse("tel:" + mobileNumber);
+                Intent intent = new Intent(Intent.ACTION_DIAL, phoneNumber);
+                startActivity(intent);
+            }
+        });
 
+        binding.checkupDetailsChatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Uri phoneNumber = Uri.parse("tel:" + mobileNumber);
+                Intent intent = new Intent(Intent.ACTION_SEND);
+
+//                chooser.addCategory(Intent.CATEGORY_APP_MESSAGING);
+                intent.setType("text/plain");
+                String title = getResources().getString(R.string.chooser_title);
+                Intent chooser = Intent.createChooser(intent, title);
+
+
+                try {
+                    startActivity(chooser);
+                } catch (ActivityNotFoundException e) {
+                    Toast.makeText(requireContext(), "No Application found in your device to handle the task.", Toast.LENGTH_LONG).show();;
+                }
+            }
+        });
 
         binding.checkupDetailsShareButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -214,7 +256,7 @@ public class CheckupDetailsPatient extends Fragment {
         binding.addAppointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, new AppointmentsFragment()).setReorderingAllowed(true).addToBackStack("appointment").commit();
+                // requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, new AppointmentsFragment()).setReorderingAllowed(true).addToBackStack("appointment").commit();
 
             }
         });
@@ -244,12 +286,14 @@ public class CheckupDetailsPatient extends Fragment {
                 binding.checkupDetailsContainerAboutCheckup.setVisibility(View.GONE);
                 binding.checkupDetailsSaveButton.setVisibility(View.GONE);
                 binding.checkupDetailsContainerXrayScan.setVisibility(View.GONE);
+                binding.addAboutCheckupTv.setVisibility(View.GONE);
+
+                binding.addAboutCheckDisplay.setVisibility(View.VISIBLE);
 
                 binding.addAboutCheckup.setVisibility(View.VISIBLE);
                 binding.addXrayScan.setVisibility(View.VISIBLE);
-                binding.addAboutCheckupTv.setEnabled(false);
 
-                if(isReportEdited){
+                if (isReportEdited) {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     String date = sdf.format(new Date());
                     String data = binding.addAboutCheckupTv.getText().toString();
@@ -266,6 +310,7 @@ public class CheckupDetailsPatient extends Fragment {
             @Override
             public void onClick(View v) {
                 binding.checkupDetailsChangeableTv.setText("ADD X-RAY/SCAN");
+                isReportEdited = false;
                 if (binding.checkupDetailsContainerAboutCheckup.getVisibility() == View.VISIBLE) {
                     binding.checkupDetailsContainerAboutCheckup.setVisibility(View.GONE);
                 }
