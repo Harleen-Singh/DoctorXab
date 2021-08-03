@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -19,6 +20,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import android.provider.MediaStore;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,14 +30,22 @@ import android.view.Window;
 import android.widget.Toast;
 
 import com.example.doc_app_android.R;
+import com.example.doc_app_android.data_model.ReportData;
 import com.example.doc_app_android.databinding.FragmentReportBinding;
 import com.example.doc_app_android.databinding.ProfileDialogBinding;
+import com.example.doc_app_android.databinding.ValidationDialogBinding;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Objects;
 
 /**
@@ -58,6 +68,10 @@ public class ReportFragment extends Fragment {
     private FragmentReportBinding binding;
     private ContentValues values;
     private Uri imageUri;
+    private String xray_id, xray_date, time, category, body_area, report;
+    private Dialog dialog;
+    private Uri resultUri;
+    private ReportData reportData;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -102,56 +116,110 @@ public class ReportFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NotNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_report, container, false);
         binding.setLifecycleOwner(this);
-        // Inflate the layout for this fragment
 
-        binding.takePictureRetakeButton.setOnClickListener(new View.OnClickListener() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM, yyyy");
+        String date = sdf.format(new Date());
+        date = "DATE: " + date;
+        binding.xrayCheckupDate.setText(date);
+
+        binding.xrayCheckDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                values = new ContentValues();
-                values.put(MediaStore.Images.Media.TITLE, "New Picture");
-                values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
-                imageUri = requireContext().getContentResolver().insert(
-                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                try {
-                    startActivityForResult(openCameraIntent, CAMERA_CAPTURE_CODE);
+                binding.xrayCheckupTv.setText("");
+            }
+        });
 
-                } catch (ActivityNotFoundException e) {
-                    // display error state to the user
-                    Toast.makeText(getContext(), "Unable to Click Image, please try again!",
-                            Toast.LENGTH_SHORT).show();
+        binding.xraySaveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                xray_id = binding.xrayIdEdittext.getText().toString();
+                xray_date = binding.xrayDateEdittext.getText().toString();
+                time = binding.xrayTimeEdittext.getText().toString();
+                category = binding.xrayCategoryEdittext.getText().toString();
+                body_area = binding.xrayBodyAreaEdittext.getText().toString();
+                report = binding.xrayCheckupTv.getText().toString();
+
+                dialog = new Dialog(getActivity());
+                ValidationDialogBinding binding1 = ValidationDialogBinding.inflate(LayoutInflater.from(getContext()));
+                binding1.getRoot().setBackgroundResource(android.R.color.transparent);
+                binding1.buttonOk
+                        .setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.hide();
+                            }
+                        });
+                dialog.setCancelable(false);
+                dialog.setContentView(binding1.getRoot());
+                Window window1 = dialog.getWindow();
+                window1.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+
+                if (TextUtils.isEmpty(xray_id) || TextUtils.isEmpty(xray_date) || TextUtils.isEmpty(time) || TextUtils.isEmpty(category) || TextUtils.isEmpty(body_area) || TextUtils.isEmpty(report)) {
+                    binding1.messageTextview.setText("Please enter all the details.");
+                    dialog.show();
+                } else if (resultUri == null) {
+                    binding1.messageTextview.setText("Please select an image.");
+                    dialog.show();
+                } else {
+                    Toast.makeText(requireContext(), "Filled SuccessFully", Toast.LENGTH_SHORT).show();
+
+                    reportData = new ReportData(xray_id, xray_date, time, category, body_area, report, resultUri);
+
 
                 }
-            }
-        });
 
-        binding.takePictureContinueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FinalReportFragment finalReportFragment = new FinalReportFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("image",encodeBitmapImage(picture));
-                finalReportFragment.setArguments(bundle);
-                requireActivity().getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).add(R.id.fragmentHome_container, finalReportFragment).addToBackStack("report").commit();
 
             }
         });
+        // Inflate the layout for this fragment
+
+//        binding.takePictureRetakeButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                values = new ContentValues();
+//                values.put(MediaStore.Images.Media.TITLE, "New Picture");
+//                values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
+//                imageUri = requireContext().getContentResolver().insert(
+//                        MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+//                Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+//                try {
+//                    startActivityForResult(openCameraIntent, CAMERA_CAPTURE_CODE);
+//
+//                } catch (ActivityNotFoundException e) {
+//                    // display error state to the user
+//                    Toast.makeText(getContext(), "Unable to Click Image, please try again!",
+//                            Toast.LENGTH_SHORT).show();
+//
+//                }
+//            }
+//        });
+
+//        binding.takePictureContinueButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FinalReportFragment finalReportFragment = new FinalReportFragment();
+//                Bundle bundle = new Bundle();
+//                bundle.putString("image",encodeBitmapImage(picture));
+//                finalReportFragment.setArguments(bundle);
+//                requireActivity().getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).add(R.id.fragmentHome_container, finalReportFragment).addToBackStack("report").commit();
+//
+//            }
+//        });
 
 
-
-        binding.takePhotoBackButton.setOnClickListener(new View.OnClickListener() {
+        binding.xrayBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 requireActivity().getSupportFragmentManager().popBackStack();
             }
         });
 
-        binding.takePhotoAddPicture.setOnClickListener(new View.OnClickListener() {
+        binding.xrayImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -205,23 +273,23 @@ public class ReportFragment extends Fragment {
             }
         });
 
-        binding.takePhotoAdjustment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
-        binding.takePhotoCrop.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-//                Bitmap cropped = binding.takePhotoImageView.getCroppedImage(500, 500);
-//                if (cropped != null)
-//                    binding.takePhotoImageView.setImageBitmap(cropped);
-
-            }
-        });
+//        binding.takePhotoAdjustment.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+//
+//        binding.takePhotoCrop.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+////                Bitmap cropped = binding.takePhotoImageView.getCroppedImage(500, 500);
+////                if (cropped != null)
+////                    binding.takePhotoImageView.setImageBitmap(cropped);
+//
+//            }
+//        });
 
 
         return binding.getRoot();
@@ -231,24 +299,25 @@ public class ReportFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        //dialog.dismiss();
+        Uri pictureUri;
 
 
         switch (requestCode) {
 
             case CAMERA_CAPTURE_CODE:
-                if (resultCode == -1 ) {
+                if (resultCode == -1) {
 
                     try {
                         picture = MediaStore.Images.Media.getBitmap(
                                 requireContext().getContentResolver(), imageUri);
+                        pictureUri = getImageUri(requireContext(), picture);
+                        startCrop(pictureUri);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
                     Log.d("debugging", "Bitmap value: " + picture);
                     Log.d("debugging", "" + picture.getHeight());
                     Log.d("debugging", "" + picture.getWidth());
-                    binding.takePhotoImageView.setImageBitmap(picture);
                 } else {
                     Toast.makeText(getContext(), "No Picture Clicked", Toast.LENGTH_SHORT).show();
                 }
@@ -258,21 +327,36 @@ public class ReportFragment extends Fragment {
             case GALLERY_IMAGE_CODE:
                 if (resultCode == -1 && data != null) {
                     Uri imageUri = data.getData();
-                    try {
-                        InputStream inputStream = requireContext().getContentResolver().openInputStream(imageUri);
-                        picture = BitmapFactory.decodeStream(inputStream);
-                        binding.takePhotoImageView.setImageBitmap(picture);
-                        Log.d("debugging", "Selected Picture");
-                        Log.d("debugging", "Bitmap value: " + picture);
-                        Log.d("debugging", "" + picture.getHeight());
-                        Log.d("debugging", "" + picture.getWidth());
-
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    startCrop(imageUri);
+//                    try {
+////                        InputStream inputStream = requireContext().getContentResolver().openInputStream(imageUri);
+////                        picture = BitmapFactory.decodeStream(inputStream);
+////                        binding.takePhotoImageView.setImageBitmap(picture);
+//
+//
+//                        Log.d("debugging", "Selected Picture");
+//                        Log.d("debugging", "Bitmap value: " + picture);
+//                        Log.d("debugging", "" + picture.getHeight());
+//                        Log.d("debugging", "" + picture.getWidth());
+//
+//                    } catch (FileNotFoundException e) {
+//                        e.printStackTrace();
+//                    }
 
                 } else {
                     Toast.makeText(getContext(), "No Picture Selected", Toast.LENGTH_SHORT).show();
+                }
+                break;
+
+            case CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE:
+                CropImage.ActivityResult result = CropImage.getActivityResult(data);
+                if (resultCode == -1) {
+                    assert result != null;
+                    resultUri = result.getUri();
+                    binding.xrayImageView.setImageURI(resultUri);
+                } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                    assert result != null;
+                    Exception error = result.getError();
                 }
                 break;
 
@@ -300,10 +384,25 @@ public class ReportFragment extends Fragment {
 
     }
 
-    private String encodeBitmapImage(Bitmap bitmap) {
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
-        byte[] bytesOfImage = byteArrayOutputStream.toByteArray();
-        return android.util.Base64.encodeToString(bytesOfImage, Base64.DEFAULT);
+//    private String encodeBitmapImage(Bitmap bitmap) {
+//        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+//        byte[] bytesOfImage = byteArrayOutputStream.toByteArray();
+//        return android.util.Base64.encodeToString(bytesOfImage, Base64.DEFAULT);
+//    }
+
+
+    private void startCrop(Uri imageUri) {
+        CropImage.activity(imageUri)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .setMultiTouchEnabled(true)
+                .start(requireContext(), this);
+    }
+
+    public Uri getImageUri(Context inContext, Bitmap inImage) {
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
+        return Uri.parse(path);
     }
 }
