@@ -13,7 +13,8 @@
             android:layout_height="wrap_content"
             android:paddingBottom="29dp"
             android:background="@color/scnd_blue_white"
-            tools:context=".PatentHomeFragments.AppointmentsFragment">
+            tools:context=".PatentHomeFragments.AppointmentsFragment"
+            android:animateLayoutChanges="true">
 
 
             <com.prolificinteractive.materialcalendarview.MaterialCalendarView

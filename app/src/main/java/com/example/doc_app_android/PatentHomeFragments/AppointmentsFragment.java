@@ -117,12 +117,6 @@ public class AppointmentsFragment extends Fragment {
 //
 //            }
 //        });
-
-
-
-
-
-
         doctorListViewModel.getID_name_pair().observe(requireActivity(), new Observer<ArrayList<DocData>>() {
             @Override
             public void onChanged(ArrayList<DocData> docData) {
@@ -130,21 +124,23 @@ public class AppointmentsFragment extends Fragment {
                 for (int i = 0; i < docData.size(); i++) {
                     docNames.put(docData.get(i).getDocID(), docData.get(i).getName());
                 }
-                viewModel.getApmntData().observe(getViewLifecycleOwner(), new Observer<ArrayList<AppointmentData>>() {
-                    @Override
-                    public void onChanged(ArrayList<AppointmentData> appointmentData) {
-                        try {
-                            Log.e(TAG, "onChanged: " + "GOT DATES");
-                            addSpanToCalender(appointmentData);
-                            changeDocName(appointmentData, docNames);
-                            binding.progressbar.setVisibility(View.GONE);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+
             }
         });
+        viewModel.getApmntData().observe(getViewLifecycleOwner(), new Observer<ArrayList<AppointmentData>>() {
+            @Override
+            public void onChanged(ArrayList<AppointmentData> appointmentData) {
+                try {
+                    Log.e(TAG, "onChanged: " + "GOT DATES");
+                    addSpanToCalender(appointmentData);
+                    changeDocName(appointmentData, docNames);
+                    binding.progressbar.setVisibility(View.GONE);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         binding.calendarView.setSelectedDate(LocalDate.now());
         spanAdder(new Date(), "1");
         binding.btnNote.setOnClickListener(new View.OnClickListener() {
