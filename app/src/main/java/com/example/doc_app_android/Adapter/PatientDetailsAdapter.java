@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -122,6 +123,17 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
                     bundle.putString("name", data.get(getAbsoluteAdapterPosition()).getName());
                     bundle.putString("image", data.get(getAbsoluteAdapterPosition()).getImage());
                     bundle.putString("age", data.get(getAbsoluteAdapterPosition()).getAge());
+                    bundle.putString("mobile_number", data.get(getAbsoluteAdapterPosition()).getPhoneNumber());
+
+
+                    preferences = mContext.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+                    editor = preferences.edit();
+
+                    editor.putString("patient_id",String.valueOf(data.get(getAbsoluteAdapterPosition()).getPateint_Id()));
+                    Log.d("Testing", "Patient id added is: " + data.get(getAbsoluteAdapterPosition()).getPateint_Id());
+                    editor.apply();
+
+                    Log.d("Testing", "Patient id added is: " + data.get(getAbsoluteAdapterPosition()).getPateint_Id());
                     checkupDetailsPatient.setArguments(bundle);
                     FragmentManager fragmentManager = ((AppCompatActivity)mContext).getSupportFragmentManager();
                     fragmentManager.beginTransaction().add(R.id.fragmentHome_container, checkupDetailsPatient).setReorderingAllowed(true).addToBackStack("name1").commit();
@@ -136,11 +148,13 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
                     bundle.putString("name", data.get(getAbsoluteAdapterPosition()).getName());
                     bundle.putString("image", data.get(getAbsoluteAdapterPosition()).getImage());
                     bundle.putString("age", data.get(getAbsoluteAdapterPosition()).getAge());
+                    bundle.putString("mobile_number", data.get(getAbsoluteAdapterPosition()).getPhoneNumber());
 
                     preferences = mContext.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
                     editor = preferences.edit();
 
                     editor.putString("patient_id",String.valueOf(data.get(getAbsoluteAdapterPosition()).getPateint_Id()));
+                    Log.d("Testing", "Patient id added is: " + data.get(getAbsoluteAdapterPosition()).getPateint_Id());
                     editor.apply();
 
                     patientHistoryFragment.setArguments(bundle);

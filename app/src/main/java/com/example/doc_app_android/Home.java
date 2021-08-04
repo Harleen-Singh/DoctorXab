@@ -35,16 +35,19 @@ import com.example.doc_app_android.DoctorHomeFragments.SettingsFragment;
 import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.databinding.ActivityHomeBinding;
 import com.example.doc_app_android.view_model.HomeViewModel;
+import com.example.doc_app_android.view_model.ProfileViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Home extends AppCompatActivity {
 
     private NavigationView nav;
+    private ProfileViewModel profileViewModel;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
     private boolean regornot = false;
@@ -61,6 +64,7 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        Log.d("ImplicitIntentTesting", "I am getting called 3");
 
         binding.toolbar.setVisibility(View.VISIBLE);
 
@@ -81,7 +85,29 @@ public class Home extends AppCompatActivity {
     }
 
     @Override
+    public void onPause() {
+        super.onPause();
+        Log.d("ImplicitIntentTesting", "I am getting called 5");
+//        profileViewModel.getProfileDetails().observe(this, new Observer<ProfileData>() {
+//            @Override
+//            public void onChanged(ProfileData profileData) {
+//                Log.d("HomeTesting", "Name: " + profileData.getName());
+//
+//                nav_name = findViewById(R.id.nav_profile_name);
+//                nav_profile = findViewById(R.id.nav_profile_image);
+//                nav_name.setText(profileData.getName());
+//                Picasso.get()
+//                        .load(profileData.getImage())
+//                        .placeholder(R.drawable.doctor_profile_image)
+//                        .into(nav_profile);
+//            }
+//        });
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("ImplicitIntentTesting", "I am getting called 4");
+
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this,R.layout.activity_home);
         regornot = getIntent().getBooleanExtra("reg", false);
@@ -90,6 +116,7 @@ public class Home extends AppCompatActivity {
         binding.setLifecycleOwner(this);
         binding.filterRcv.setAdapter(filterAdapter);
         model = new ViewModelProvider(this).get(HomeViewModel.class);
+        profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
 //        preferences = getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
 //        editor = preferences.edit();
@@ -104,7 +131,7 @@ public class Home extends AppCompatActivity {
             }
         });
 
-        model.getHomeDrawerProfileDetails().observe(this, new Observer<ProfileData>() {
+        profileViewModel.getProfileDetails().observe(this, new Observer<ProfileData>() {
             @Override
             public void onChanged(ProfileData profileData) {
                 Log.d("HomeTesting", "Name: " + profileData.getName());
@@ -197,7 +224,7 @@ public class Home extends AppCompatActivity {
                 }
 
                 if (temp != null)
-                    getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container, temp).addToBackStack("name").commit();
+                    getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, temp).addToBackStack("name").commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }

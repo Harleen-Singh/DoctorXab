@@ -22,18 +22,14 @@
                     android:id="@+id/xray_toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:background="@drawable/myrect"
+                    android:layout_marginLeft="26dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="26dp"
                     android:gravity="center"
                     android:orientation="horizontal"
-                    android:paddingLeft="26dp"
-                    android:paddingTop="24dp"
-                    android:paddingRight="26dp"
-                    android:paddingBottom="24dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
@@ -63,8 +59,7 @@
                     android:layout_marginTop="30dp"
                     android:layout_marginEnd="20dp"
                     android:layout_weight="1"
-                    android:contentDescription="@string/x_ray"
-                    android:src="@drawable/add_image"
+                    android:src="@color/black"
                     app:layout_constraintBottom_toTopOf="@id/xray_add_label"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -285,9 +280,9 @@
                     android:id="@+id/xray_container_about_checkup"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
                     android:background="@color/white"
                     android:visibility="visible"
+                    android:layout_marginTop="20dp"
                     app:layout_constraintBottom_toTopOf="@id/xray_save_button"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -308,14 +303,30 @@
                         android:textStyle="bold" />
 
                     <androidx.constraintlayout.utils.widget.ImageFilterButton
+                        android:id="@+id/xray_check_edit"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="-158dp"
+                        android:layout_marginLeft="-158dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="28dp"
+                        android:layout_marginRight="28dp"
+                        android:layout_marginBottom="11dp"
+                        android:layout_toStartOf="@id/xray_check_delete"
+                        android:layout_toLeftOf="@id/xray_check_delete"
+                        android:background="@color/white"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:src="@drawable/ic_edit" />
+
+                    <androidx.constraintlayout.utils.widget.ImageFilterButton
                         android:id="@+id/xray_check_delete"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
-                        android:layout_above="@id/xray_checkup_tv"
+                        android:layout_above="@id/add_about_checkup_tv"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentRight="true"
-                        android:focusable="true"
-                        android:clickable="true"
                         android:layout_marginTop="12dp"
                         android:layout_marginEnd="21dp"
                         android:layout_marginRight="21dp"
@@ -324,7 +335,7 @@
                         android:src="@drawable/ic_delete" />
 
                     <EditText
-                        android:id="@+id/xray_checkup_tv"
+                        android:id="@+id/add_about_checkup_tv"
                         android:layout_width="match_parent"
                         android:layout_height="150dp"
                         android:layout_below="@id/xray_checkup_date"
@@ -357,18 +368,18 @@
                     android:layout_height="48dp"
                     android:layout_gravity="center"
                     android:layout_marginTop="20dp"
-                    android:layout_marginBottom="60dp"
                     android:background="@drawable/btn_theme_1"
                     android:fontFamily="@font/rubik"
                     android:text="SAVE"
+                    android:layout_marginBottom="60dp"
                     android:textColor="@color/white"
                     android:textSize="14sp"
                     android:textStyle="bold"
                     android:visibility="visible"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/xray_container_about_checkup"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/xray_container_about_checkup" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

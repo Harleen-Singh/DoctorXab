@@ -3,7 +3,7 @@
     package="com.example.doc_app_android">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name=".splashScreen"
+        <activity
+            android:name=".splashScreen"
             android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,11 +25,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+
         <activity
             android:name=".Home"
-            android:theme="@style/NoActionBar"
+            android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation"/>
+            android:theme="@style/NoActionBar" />
         <activity
             android:name=".sign_as"
             android:theme="@style/NoActionBar" />
@@ -40,8 +47,7 @@
             android:theme="@style/NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:theme="@style/NoActionBar">
-        </activity>
+            android:theme="@style/NoActionBar" />
     </application>
 
 </manifest>
