@@ -52,7 +52,23 @@ public class prescListAdapter extends RecyclerView.Adapter<prescListAdapter.View
                     childAdapter.updateItemCount();
                 }
             });
+            holder.Binding.arrowdown.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    holder.Binding.arrow.setVisibility(View.GONE);
+                    holder.Binding.arrowUp.setVisibility(View.VISIBLE);
+                    childAdapter.updateItemCount();
+                }
+            });
             holder.Binding.arrowUp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    holder.Binding.arrow.setVisibility(View.VISIBLE);
+                    holder.Binding.arrowUp.setVisibility(View.GONE);
+                    childAdapter.setDefaultItemCount();
+                }
+            });
+             holder.Binding.arrowUpImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     holder.Binding.arrow.setVisibility(View.VISIBLE);
