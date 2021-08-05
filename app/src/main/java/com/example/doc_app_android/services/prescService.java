@@ -37,7 +37,7 @@ public class prescService {
         return data_model;
     }
 
-    private void loadData() {
+    public void loadData() {
         dialogs dialog = new dialogs();
         SharedPreferences prefs = app.getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
         ArrayList<PrescData> prescTemp = new ArrayList<>();

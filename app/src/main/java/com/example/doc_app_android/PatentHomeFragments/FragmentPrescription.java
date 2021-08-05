@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.doc_app_android.Adapter.prescListAdapter;
 import com.example.doc_app_android.R;
@@ -50,15 +51,22 @@ public class FragmentPrescription extends Fragment {
         ArrayList<PrescData> prescDatatemp = new ArrayList<>();
         adapter.setData(prescDatatemp);
         binding.progressbar.setVisibility(View.VISIBLE);
-        model.getPrescData().observe(getViewLifecycleOwner(), new Observer<ArrayList<PrescData>>() {
+        model.getPrescData().observeForever( new Observer<ArrayList<PrescData>>() {
             @Override
             public void onChanged(ArrayList<PrescData> prescData) {
                 adapter.setData(prescData);
                 adapter.notifyDataSetChanged();
                 binding.progressbar.setVisibility(View.GONE);
+                binding.swipe2refresh.setRefreshing(false);
             }
         });
-        
+
+        binding.swipe2refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                model.refresh();
+            }
+        });
         return binding.getRoot();
     }
 }
