@@ -6,7 +6,10 @@
     <data>
 
     </data>
-
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe2refreshXray"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <FrameLayout
         android:id="@+id/TopLayout"
         android:layout_width="match_parent"
@@ -18,10 +21,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:id="@+id/swipe2refresh"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
 
                 <ProgressBar
                     android:id="@+id/progressbar"
@@ -43,9 +42,9 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:listitem="@layout/single_list_xray" />
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </FrameLayout>
 
+    </FrameLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>

@@ -1,23 +1,21 @@
 package com.example.doc_app_android.PatentHomeFragments;
 
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.doc_app_android.Adapter.checkupHistoryAdapter;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.CkpHstryData;
-import com.example.doc_app_android.databinding.ChkUpHistoryBinding;
 import com.example.doc_app_android.databinding.FragmentPatientCheckUpHistoryBinding;
 import com.example.doc_app_android.view_model.FragmentChkHstryViewModel;
 
@@ -59,9 +57,19 @@ public class patientCheckUpHistory extends Fragment {
                 if (ckpHstryData.isEmpty()){
                     binding.background.setBackground(AppCompatResources.getDrawable(requireContext(),R.drawable.no_data));
                 }
+                binding.swipe2refresh.setRefreshing(false);
                 binding.progressbar.setVisibility(View.GONE);
+            }
+        });
+
+        binding.swipe2refresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                model.refresh();
             }
         });
         return binding.getRoot();
     }
+
+
 }

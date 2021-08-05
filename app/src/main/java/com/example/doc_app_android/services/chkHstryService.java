@@ -51,7 +51,7 @@ public class chkHstryService {
         return data_model;
     }
 
-    private void loadData() {
+    public void loadData() {
             String url;
             dialogs dialog = new dialogs();
             prefs = app.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
@@ -83,7 +83,7 @@ public class chkHstryService {
                         }
                     }
                     Log.d("TAG", "loadData: final"+ chkUpdata);
-                    data_model.setValue(chkUpdata);
+                    data_model.postValue(chkUpdata);
                 }
             }, new Response.ErrorListener() {
                 @Override

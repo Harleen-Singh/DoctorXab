@@ -7,7 +7,6 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.doc_app_android.data_model.CkpHstryData;
-import com.example.doc_app_android.data_model.Xray_data;
 import com.example.doc_app_android.services.chkHstryService;
 
 import org.jetbrains.annotations.NotNull;
@@ -27,5 +26,9 @@ public class FragmentChkHstryViewModel extends AndroidViewModel {
 
     public LiveData<CkpHstryData> get_XrayReport_desc() {
        return service.get_Xray_desc();
+    }
+
+    public void refresh() {
+        service.loadData();
     }
 }

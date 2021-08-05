@@ -48,7 +48,7 @@ public class xray_service {
         return data_model;
     }
 
-    private void loadData() {
+    public void loadData() {
         String url;
         dialogs dialog = new dialogs();
         prefs = app.getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
