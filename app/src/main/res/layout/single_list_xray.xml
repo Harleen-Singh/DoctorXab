@@ -48,7 +48,7 @@
 
                 <TextView
                     android:id="@+id/tv_head"
-                    android:layout_width="62dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="24dp"
                     android:fontFamily="@font/rubik_medium"
                     android:text="@string/x_ray"
@@ -56,6 +56,7 @@
                     android:textSize="20sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias=".3"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView

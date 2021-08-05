@@ -8,11 +8,13 @@
         <entry key="..\:/DoctorXab-Android/app/src/main/res/drawable/errorimgload.xml" value="0.2" />
         <entry key="..\:/DoctorXab-Android/app/src/main/res/drawable/text_area_bground.xml" value="0.2703125" />
         <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/chk_up_history.xml" value="0.19791666666666666" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/fragment_appointments.xml" value="0.24814814814814815" />
         <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/fragment_patient_history.xml" value="0.19791666666666666" />
         <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/fragment_prescription.xml" value="0.19791666666666666" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/fragment_x_ray_scan.xml" value="0.24814814814814815" />
         <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/fragment_xray_report.xml" value="0.2462962962962963" />
         <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/list_presc.xml" value="0.4" />
-        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/single_list_xray.xml" value="0.19791666666666666" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/single_list_xray.xml" value="0.4" />
         <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/layout/fragment_appointments.xml" value="0.22592592592592592" />
       </map>
     </option>
