@@ -19,9 +19,7 @@ import java.util.ArrayList;
 
 public class prescListAdapter extends RecyclerView.Adapter<prescListAdapter.ViewHolder> {
     private ArrayList<PrescData> data;
-
     public prescListAdapter() {
-        // required
     }
 
     public void setData(ArrayList<PrescData> d) {
@@ -48,17 +46,14 @@ public class prescListAdapter extends RecyclerView.Adapter<prescListAdapter.View
                 @Override
                 public void onClick(View view) {
                     LayoutTransition layoutTransition = holder.Binding.childClayout.getLayoutTransition();
-
-                        if(holder.Binding.arrowdown.getRotation()==180) {
-                            layoutTransition.enableTransitionType(LayoutTransition.APPEARING);
-                                holder.Binding.arrowdown.animate().setDuration(200).rotation(0);
-                            childAdapter.setDefaultItemCount();
-                              }
-                        else {
-                            layoutTransition.enableTransitionType(LayoutTransition.DISAPPEARING);
-                                holder.Binding.arrowdown.animate().setDuration(200).rotation(180);
-                            childAdapter.updateItemCount();
-                        }
+                    layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
+                    if (holder.Binding.arrowdown.getRotation() == 180) {
+                        holder.Binding.arrowdown.animate().setDuration(200).rotation(0);
+                        childAdapter.setDefaultItemCount();
+                    } else {
+                        holder.Binding.arrowdown.animate().setDuration(200).rotation(180);
+                        childAdapter.updateItemCount();
+                    }
                 }
             });
 //            holder.Binding.arrow.setVisibility(View.VISIBLE);
@@ -94,7 +89,7 @@ public class prescListAdapter extends RecyclerView.Adapter<prescListAdapter.View
 //                    childAdapter.setDefaultItemCount();
 //                }
 //            });
-        }else {
+        } else {
             holder.Binding.arrowdown.setVisibility(View.GONE);
         }
     }
