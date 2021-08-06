@@ -21,13 +21,13 @@
 
         <TextView
             android:id="@+id/Static_date"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:background="@color/white"
             android:fontFamily="@font/rubik_medium"
             android:layout_marginBottom="5dp"
-            android:text=""
+            android:text="@{chk_data.date}"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:layout_constraintBottom_toTopOf="@+id/textView"
@@ -35,18 +35,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/getDate"
-            android:layout_width="0dp"
-            android:layout_height="19dp"
-            android:fontFamily="@font/rubik_medium"
-            android:text="@{chk_data.date}"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/Static_date"
-            app:layout_constraintStart_toEndOf="@+id/Static_date"
-            app:layout_constraintTop_toTopOf="@id/Static_date"
-            app:layout_constraintVertical_bias="0.0" />
 
         <ImageButton
             android:id="@+id/editBtn"

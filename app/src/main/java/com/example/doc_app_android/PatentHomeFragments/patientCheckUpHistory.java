@@ -51,8 +51,9 @@ public class patientCheckUpHistory extends Fragment {
         model.getChkHstryData().observe(getViewLifecycleOwner(), new Observer<ArrayList<CkpHstryData>>() {
             @Override
             public void onChanged(ArrayList<CkpHstryData> ckpHstryData) {
-                Log.d("TAG", "onChanged: " + ckpHstryData);
+                Log.e("TAG", "onChanged: " + ckpHstryData);
                 adapter.setData(ckpHstryData);
+                Log.d("TAG", "onChanged: " + ckpHstryData);
                 adapter.notifyDataSetChanged();
                 if (ckpHstryData.isEmpty()){
                     binding.background.setBackground(AppCompatResources.getDrawable(requireContext(),R.drawable.no_data));

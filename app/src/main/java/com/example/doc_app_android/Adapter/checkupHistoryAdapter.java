@@ -1,9 +1,7 @@
 package com.example.doc_app_android.Adapter;
 
-import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -41,6 +39,8 @@ public class checkupHistoryAdapter extends RecyclerView.Adapter<checkupHistoryAd
     @Override
     public void onBindViewHolder(@NonNull @org.jetbrains.annotations.NotNull checkupHistoryAdapter.ViewHolder holder, int position) {
             holder.binding.setChkData(chkupdata.get(position));
+//            holder.binding.getDate.setText(chkupdata.get(position).getDate());
+            Log.d("TAG", " date " + chkupdata.get(position).getDate());
             holder.binding.executePendingBindings();
     }
 
