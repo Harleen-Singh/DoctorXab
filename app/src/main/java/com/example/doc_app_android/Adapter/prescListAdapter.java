@@ -45,8 +45,6 @@ public class prescListAdapter extends RecyclerView.Adapter<prescListAdapter.View
             holder.Binding.arrowdown.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    LayoutTransition layoutTransition = holder.Binding.childClayout.getLayoutTransition();
-                    layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
                     if (holder.Binding.arrowdown.getRotation() == 180) {
                         holder.Binding.arrowdown.animate().setDuration(200).rotation(0);
                         childAdapter.setDefaultItemCount();
