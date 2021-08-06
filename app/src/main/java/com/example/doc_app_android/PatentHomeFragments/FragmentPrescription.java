@@ -9,6 +9,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -52,6 +54,8 @@ public class FragmentPrescription extends Fragment {
         model = new ViewModelProvider(requireActivity()).get(FragmentPrescViewModel.class);
         ArrayList<PrescData> prescDatatemp = new ArrayList<>();
         adapter.setData(prescDatatemp);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        binding.parentRview.setLayoutManager(mLayoutManager);
         binding.progressbar.setVisibility(View.VISIBLE);
         model.getPrescData().observeForever( new Observer<ArrayList<PrescData>>() {
             @Override
@@ -60,6 +64,14 @@ public class FragmentPrescription extends Fragment {
                 adapter.notifyDataSetChanged();
                 binding.progressbar.setVisibility(View.GONE);
                 binding.swipe2refresh.setRefreshing(false);
+            }
+        });
+
+        binding.parentRview.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                binding.swipe2refresh.setEnabled(mLayoutManager.findFirstCompletelyVisibleItemPosition() == 0); // 0 is for first item position
             }
         });
 
