@@ -48,13 +48,14 @@ public class prescListAdapter extends RecyclerView.Adapter<prescListAdapter.View
                 @Override
                 public void onClick(View view) {
                     LayoutTransition layoutTransition = holder.Binding.childClayout.getLayoutTransition();
-                    layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
-                        if(holder.Binding.arrowdown.getRotation()==180) {
 
+                        if(holder.Binding.arrowdown.getRotation()==180) {
+                            layoutTransition.enableTransitionType(LayoutTransition.APPEARING);
                                 holder.Binding.arrowdown.animate().setDuration(200).rotation(0);
                             childAdapter.setDefaultItemCount();
                               }
                         else {
+                            layoutTransition.enableTransitionType(LayoutTransition.DISAPPEARING);
                                 holder.Binding.arrowdown.animate().setDuration(200).rotation(180);
                             childAdapter.updateItemCount();
                         }
