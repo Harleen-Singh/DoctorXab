@@ -1,6 +1,6 @@
 package com.example.doc_app_android.Adapter;
 
-import android.transition.TransitionManager;
+import android.animation.LayoutTransition;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +47,10 @@ public class prescListAdapter extends RecyclerView.Adapter<prescListAdapter.View
             holder.Binding.arrowdown.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    LayoutTransition layoutTransition = holder.Binding.childClayout.getLayoutTransition();
+                    layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
                         if(holder.Binding.arrowdown.getRotation()==180) {
+
                                 holder.Binding.arrowdown.animate().setDuration(200).rotation(0);
                             childAdapter.setDefaultItemCount();
                               }

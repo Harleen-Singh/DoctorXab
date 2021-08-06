@@ -54,7 +54,8 @@ public ArrayList<Pat_prescription> data;
 
     public void setDefaultItemCount() {
         itemCount = 4;
-        notifyItemRangeRemoved(4,data.size()-4);
+//        notifyItemRangeRemoved(4,data.size()-4);
+        notifyItemRangeChanged(getItemCount(), data.size());
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
