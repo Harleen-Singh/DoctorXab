@@ -1,5 +1,6 @@
 package com.example.doc_app_android.Adapter;
 
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,44 +42,56 @@ public class prescListAdapter extends RecyclerView.Adapter<prescListAdapter.View
         holder.Binding.setPrescData(data.get(position));
         prescListDataAdapter childAdapter = new prescListDataAdapter(data.get(position).getPrescText());
         holder.Binding.listRview.setAdapter(childAdapter);
-        childAdapter.notifyDataSetChanged();
+        childAdapter.notifyItemChanged(position);
         if (data.get(position).getPrescText().size() > 4) {
-            holder.Binding.arrow.setVisibility(View.VISIBLE);
-            holder.Binding.arrow.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    holder.Binding.arrow.setVisibility(View.GONE);
-                    holder.Binding.arrowUp.setVisibility(View.VISIBLE);
-                    childAdapter.updateItemCount();
-                }
-            });
             holder.Binding.arrowdown.setOnClickListener(new View.OnClickListener() {
                 @Override
-                public void onClick(View v) {
-                    holder.Binding.arrow.setVisibility(View.GONE);
-                    holder.Binding.arrowUp.setVisibility(View.VISIBLE);
-                    childAdapter.updateItemCount();
+                public void onClick(View view) {
+                        if(holder.Binding.arrowdown.getRotation()==180) {
+                                holder.Binding.arrowdown.animate().setDuration(200).rotation(0);
+                            childAdapter.setDefaultItemCount();
+                              }
+                        else {
+                                holder.Binding.arrowdown.animate().setDuration(200).rotation(180);
+                            childAdapter.updateItemCount();
+                        }
                 }
             });
-            holder.Binding.arrowUp.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    holder.Binding.arrow.setVisibility(View.VISIBLE);
-                    holder.Binding.arrowUp.setVisibility(View.GONE);
-                    childAdapter.setDefaultItemCount();
-                }
-            });
-             holder.Binding.arrowUpImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    holder.Binding.arrow.setVisibility(View.VISIBLE);
-                    holder.Binding.arrowUp.setVisibility(View.GONE);
-                    childAdapter.setDefaultItemCount();
-                }
-            });
+//            holder.Binding.arrow.setVisibility(View.VISIBLE);
+//            holder.Binding.arrow.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    holder.Binding.arrow.setVisibility(View.GONE);
+//                    holder.Binding.arrowUp.setVisibility(View.VISIBLE);
+//                    childAdapter.updateItemCount();
+//                }
+//            });
+//            holder.Binding.arrowdown.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    holder.Binding.arrow.setVisibility(View.GONE);
+//                    holder.Binding.arrowUp.setVisibility(View.VISIBLE);
+//                    childAdapter.updateItemCount();
+//                }
+//            });
+//            holder.Binding.arrowUp.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    holder.Binding.arrow.setVisibility(View.VISIBLE);
+//                    holder.Binding.arrowUp.setVisibility(View.GONE);
+//                    childAdapter.setDefaultItemCount();
+//                }
+//            });
+//             holder.Binding.arrowUpImage.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    holder.Binding.arrow.setVisibility(View.VISIBLE);
+//                    holder.Binding.arrowUp.setVisibility(View.GONE);
+//                    childAdapter.setDefaultItemCount();
+//                }
+//            });
         }else {
-            holder.Binding.arrowUp.setVisibility(View.GONE);
-            holder.Binding.arrow.setVisibility(View.GONE);
+            holder.Binding.arrowdown.setVisibility(View.GONE);
         }
     }
 

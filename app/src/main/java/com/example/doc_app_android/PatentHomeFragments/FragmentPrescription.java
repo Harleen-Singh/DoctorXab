@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.doc_app_android.Adapter.prescListAdapter;
@@ -47,6 +48,7 @@ public class FragmentPrescription extends Fragment {
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_prescription,null,false);
         prescListAdapter adapter = new prescListAdapter();
         binding.parentRview.setAdapter(adapter);
+        ((SimpleItemAnimator) binding.parentRview.getItemAnimator()).setSupportsChangeAnimations(false);
         model = new ViewModelProvider(requireActivity()).get(FragmentPrescViewModel.class);
         ArrayList<PrescData> prescDatatemp = new ArrayList<>();
         adapter.setData(prescDatatemp);
