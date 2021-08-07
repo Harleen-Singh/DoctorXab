@@ -22,7 +22,14 @@
         <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/list_presc.xml" value="0.264" />
         <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/single_list_presc.xml" value="0.264" />
         <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/single_list_xray.xml" value="0.176" />
+        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/layout/chk_up_history.xml" value="0.23229166666666667" />
         <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/layout/fragment_appointments.xml" value="0.22592592592592592" />
+        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/layout/fragment_patient_check_up_history.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/layout/fragment_prescription.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/layout/fragment_x_ray_scan.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/layout/fragment_xray_report.xml" value="0.10400000000000001" />
+        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/layout/list_presc.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/layout/single_list_xray.xml" value="0.23229166666666667" />
       </map>
     </option>
   </component>
@@ -35,7 +42,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.536" />
+        <option name="scale" value="0.10400000000000001" />
       </ProjectState>
     </option>
   </component>
