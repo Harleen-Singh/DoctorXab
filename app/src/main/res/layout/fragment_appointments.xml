@@ -5,15 +5,51 @@
 
     <ScrollView
         android:id="@+id/scrollView"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/appointment_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="29dp"
             android:background="@color/scnd_blue_white"
             tools:context=".PatentHomeFragments.AppointmentsFragment">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/appointment_fragment_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="26dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginRight="26dp"
+                android:orientation="horizontal"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/calendarView">
+
+                <ImageView
+                    android:id="@+id/appointment_back_button"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/app_back_button" />
+
+                <TextView
+                    android:id="@+id/appointment_label_save"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/rubik"
+                    android:gravity="center"
+                    android:text="APPOINTMENTS"
+                    android:textColor="@color/black"
+                    android:textSize="24sp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
 
             <com.prolificinteractive.materialcalendarview.MaterialCalendarView
@@ -22,7 +58,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/appointment_fragment_toolbar"
+                app:layout_constraintBottom_toTopOf="@id/calender_container"
                 app:mcv_selectionColor="@color/theme"
                 app:mcv_showOtherDates="all" />
 
@@ -43,7 +80,8 @@
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/calendarView">
+                app:layout_constraintTop_toBottomOf="@id/calendarView"
+                app:layout_constraintBottom_toBottomOf="parent">
 
 
                 <View
@@ -283,9 +321,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"/>
 
+
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+
     </ScrollView>
+
+
 
 </layout>
 

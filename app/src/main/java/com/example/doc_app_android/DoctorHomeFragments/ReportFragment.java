@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -34,6 +35,8 @@ import com.example.doc_app_android.data_model.ReportData;
 import com.example.doc_app_android.databinding.FragmentReportBinding;
 import com.example.doc_app_android.databinding.ProfileDialogBinding;
 import com.example.doc_app_android.databinding.ValidationDialogBinding;
+import com.example.doc_app_android.view_model.ProfileViewModel;
+import com.example.doc_app_android.view_model.ReportDataViewModel;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -72,6 +75,8 @@ public class ReportFragment extends Fragment {
     private Dialog dialog;
     private Uri resultUri;
     private ReportData reportData;
+    private ReportDataViewModel reportDataViewModel;
+    private int patientId;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -121,6 +126,9 @@ public class ReportFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_report, container, false);
         binding.setLifecycleOwner(this);
 
+        assert getArguments() != null;
+        patientId = getArguments().getInt("patientId");
+        reportDataViewModel = new ViewModelProvider(requireActivity()).get(ReportDataViewModel.class);
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM, yyyy");
         String date = sdf.format(new Date());
         date = "DATE: " + date;
@@ -167,7 +175,10 @@ public class ReportFragment extends Fragment {
                 } else {
                     Toast.makeText(requireContext(), "Filled SuccessFully", Toast.LENGTH_SHORT).show();
 
-                    reportData = new ReportData(xray_id, xray_date, time, category, body_area, report, resultUri);
+                    reportData = new ReportData(patientId, xray_id, xray_date, time, category, body_area, report, resultUri);
+//                    reportDataViewModel.addPatientReport(reportData);
+
+                    requireActivity().getSupportFragmentManager().popBackStack();
 
 
                 }
@@ -253,6 +264,7 @@ public class ReportFragment extends Fragment {
                                 // display error state to the user
                                 Toast.makeText(getContext(), "Unable to Click Image, please try again!",
                                         Toast.LENGTH_SHORT).show();
+                                dialog2.hide();
 
                             }
 

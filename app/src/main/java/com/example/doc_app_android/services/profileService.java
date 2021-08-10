@@ -214,6 +214,7 @@ public class profileService {
                 new Response.Listener<NetworkResponse>() {
                     @Override
                     public void onResponse(NetworkResponse response) {
+                        Log.d("Testing", "Upload Image response" + response);
                         Toast.makeText(context, "Profile Updated Successfully", Toast.LENGTH_SHORT).show();
                     }
                 },

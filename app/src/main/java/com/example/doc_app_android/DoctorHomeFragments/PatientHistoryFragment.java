@@ -21,9 +21,11 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.doc_app_android.Adapter.FilterRCVadapter;
+import com.example.doc_app_android.PatentHomeFragments.AppointmentsFragment;
 import com.example.doc_app_android.ProfileEditFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.FilterData;
+import com.example.doc_app_android.databinding.FragmentAppointmentsBinding;
 import com.example.doc_app_android.databinding.FragmentPatientCheckUpHistoryBinding;
 import com.example.doc_app_android.databinding.FragmentPatientHistoryBinding;
 import com.example.doc_app_android.view_model.PatientChechkUpHistoryModel;
@@ -123,6 +125,15 @@ public class PatientHistoryFragment extends Fragment {
                              Bundle savedInstanceState) {
         FragmentPatientHistoryBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_patient_history, container, false);
         binding.setLifecycleOwner(this);
+
+//        FragmentAppointmentsBinding appointmentsBinding = FragmentAppointmentsBinding.inflate(LayoutInflater.from(requireContext()));
+//
+//        appointmentsBinding.editCalendar.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, new AppointmentsFragment()).setReorderingAllowed(true).addToBackStack("sharei").commit();
+//            }
+//        });
 
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).hide();
 

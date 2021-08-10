@@ -28,4 +28,8 @@ public class ReportDataViewModel extends AndroidViewModel {
     public void updateReportData(ReportData reportData){
         reportService.updateReportData(application, reportData);
     }
+
+    public void addPatientReport(com.example.doc_app_android.data_model.ReportData reportData){
+        reportService.addPatientReport(application, application.getApplicationContext(), reportData);
+    }
 }

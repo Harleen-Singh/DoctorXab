@@ -6,9 +6,19 @@ public class ReportData {
 
     private String xray_id, date, time, category, body_area, report;
     private Uri uri;
+    private int patientId;
 
-    public ReportData(String xray_id, String date, String time, String category, String body_area, String report, Uri uri) {
+    public int getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(int patientId) {
+        this.patientId = patientId;
+    }
+
+    public ReportData(int patientId, String xray_id, String date, String time, String category, String body_area, String report, Uri uri) {
         this.xray_id = xray_id;
+        this.patientId = patientId;
         this.date = date;
         this.time = time;
         this.category = category;

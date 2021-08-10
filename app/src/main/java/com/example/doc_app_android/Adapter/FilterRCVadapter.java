@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,7 +40,7 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
     public FilterRCVadapter(Context context, boolean ispatientHistoryfragment) {
         this.context = context;
         this.ispatientHistoryfragment = ispatientHistoryfragment;
-        if(ispatientHistoryfragment){
+        if (ispatientHistoryfragment) {
             temp = patientCheckUpHistory.newInstance();
             AppCompatActivity appCompatActivity = (AppCompatActivity) context;
             appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.patient_info_frame, temp).commit();
@@ -86,7 +87,7 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
         }
     }
 
-    private void callPatientCheckupFragments(String data, int position, FilterData problem_id){
+    private void callPatientCheckupFragments(String data, int position, FilterData problem_id) {
 
         switch (data.trim()) {
             case "CHECKUP HISTORY":
@@ -96,11 +97,12 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
                 temp = FragmentXRayScan.newInstance();
                 break;
             case "APPOINTMENT":
-                temp = AppointmentsFragment.newInstance();
-                pref = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
-                editor = pref.edit();
-                editor.putBoolean("patientInfoCalendar", true);
-                editor.apply();
+                Toast.makeText(context, "Nothing to Show.", Toast.LENGTH_SHORT).show();
+//                temp = AppointmentsFragment.newInstance();
+//                pref = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+//                editor = pref.edit();
+//                editor.putBoolean("patientInfoCalendar", true);
+//                editor.apply();
                 break;
         }
         AppCompatActivity appCompatActivity = (AppCompatActivity) context;
@@ -111,29 +113,29 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
     private void callFragments(String filterData, int position, FilterData problem_id) {
         Log.e("TestingRecyclerAdapter", "FilterData For Doctor: " + filterData);
 
-            if (pref.getBoolean("isDoc", false)) {
-                // This part of code controls the opening of different screens through Patient home dynamic buttons.
-                temp = DataLoaderFragment.newInstance(problem_id.getId());
-            } else {
-                // This part of code controls the opening of different screens through Patient home dynamic buttons.
-                Log.d("TAG", "callFragments: " + filterData);
-                switch (filterData.trim()) {
-                    case "CHECKUP HISTORY":
-                        temp = patientCheckUpHistory.newInstance();
-                        break;
-                    case "X-RAY/SCAN":
-                        temp = FragmentXRayScan.newInstance();
-                        break;
-                    case "PRESCRIPTION":
-                        temp = FragmentPrescription.newInstance();
-                        break;
-                    case "APPOINTMENT":
-                        temp = AppointmentsFragment.newInstance();
-                        break;
-                }
+        if (pref.getBoolean("isDoc", false)) {
+            // This part of code controls the opening of different screens through Patient home dynamic buttons.
+            temp = DataLoaderFragment.newInstance(problem_id.getId());
+        } else {
+            // This part of code controls the opening of different screens through Patient home dynamic buttons.
+            Log.d("TAG", "callFragments: " + filterData);
+            switch (filterData.trim()) {
+                case "CHECKUP HISTORY":
+                    temp = patientCheckUpHistory.newInstance();
+                    break;
+                case "X-RAY/SCAN":
+                    temp = FragmentXRayScan.newInstance();
+                    break;
+                case "PRESCRIPTION":
+                    temp = FragmentPrescription.newInstance();
+                    break;
+                case "APPOINTMENT":
+                    temp = AppointmentsFragment.newInstance();
+                    break;
             }
-            AppCompatActivity appCompatActivity = (AppCompatActivity) context;
-            appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.Home_frameLayout, temp).commit();
+        }
+        AppCompatActivity appCompatActivity = (AppCompatActivity) context;
+        appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.Home_frameLayout, temp).commit();
 
 
     }
@@ -160,7 +162,7 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
             Log.e("TAG", "onClick: next:" + getAdapterPosition());
 
             notifyItemChanged(preSelectionPos);
-            if(ispatientHistoryfragment){
+            if (ispatientHistoryfragment) {
                 callPatientCheckupFragments(binding.buttonDynamic.getText().toString(), preSelectionPos, data.get(preSelectionPos));
             } else {
                 callFragments(binding.buttonDynamic.getText().toString(), preSelectionPos, data.get(preSelectionPos));
