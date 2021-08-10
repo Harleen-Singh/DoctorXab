@@ -24,4 +24,8 @@ public class FragmentXrayScanViewModel extends AndroidViewModel {
     public LiveData<ArrayList<Xray_data>> get_Xray_data(){
         return service.getX_ray_data(app);
     }
+
+    public void refresh() {
+        service.loadData();
+    }
 }

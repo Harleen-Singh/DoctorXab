@@ -15,8 +15,10 @@
         android:layout_marginTop="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/child_clayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true">
 
             <TextView
                 android:id="@+id/Static_date"
@@ -48,28 +50,51 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:listitem="@layout/single_list_presc" />
 
-            <ImageButton
+            <RelativeLayout
                 android:id="@+id/arrow"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="match_parent"
                 android:layout_margin="8dp"
-                android:src="@drawable/down_arrow"
+                android:layout_height="20dp"
+                android:clickable="true"
+                android:focusable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/list_rview" />
+                app:layout_constraintTop_toBottomOf="@+id/list_rview">
 
-            <ImageButton
+                <ImageButton
+                    android:id="@+id/arrowdown"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="15dp"
+                    android:layout_centerInParent="true"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/down_arrow" />
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
                 android:id="@+id/arrow_up"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:layout_width="match_parent"
                 android:layout_margin="8dp"
-                android:src="@drawable/arrow_up"
+                android:layout_height="20dp"
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/list_rview" />
+                app:layout_constraintTop_toBottomOf="@+id/list_rview">
+
+                <ImageButton
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:id="@+id/arrowUpImage"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/arrow_up"/>
+            </RelativeLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

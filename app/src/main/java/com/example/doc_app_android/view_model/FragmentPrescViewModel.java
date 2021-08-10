@@ -23,4 +23,8 @@ public class FragmentPrescViewModel extends AndroidViewModel {
     public LiveData<ArrayList<PrescData>> getPrescData(){
         return service.getPrescData(app);
     }
+
+    public void refresh(){
+        service.loadData();
+    }
 }

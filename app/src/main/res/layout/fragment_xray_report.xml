@@ -19,198 +19,202 @@
         android:focusable="true"
         tools:context=".PatentHomeFragments.FragmentXrayReport">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <ScrollView
+            android:id="@+id/scrollView_report"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-            <TextView
-                android:id="@+id/tv_heading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:fontFamily="@font/rubik_medium"
-                android:text="@string/x_ray"
-                android:textColor="@color/black"
-                android:textSize="24sp"
-                app:layout_constraintEnd_toEndOf="@+id/img_xray"
-                app:layout_constraintStart_toStartOf="@+id/img_xray"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/back_button"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:attr/actionBarItemBackground"
-                android:src="@drawable/app_back_button"
-                app:layout_constraintBottom_toBottomOf="@+id/tv_heading"
-                app:layout_constraintEnd_toStartOf="@+id/tv_heading"
-                app:layout_constraintHorizontal_bias="0.213"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/tv_heading"
-                app:layout_constraintVertical_bias="0.0" />
-
-            <ImageView
-                android:id="@+id/img_xray"
-                android:layout_width="match_parent"
-                android:layout_height="305dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/scnd_blue_white"
-                android:src="@drawable/x_ray_sample"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_heading" />
+            android:layout_height="wrap_content">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/data_cnt"
-                android:layout_width="224dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.082"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_xray">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
 
                 <TextView
-                    android:id="@+id/tv_head"
-                    android:layout_width="62dp"
-                    android:layout_height="24dp"
-                    android:layout_marginTop="4dp"
+                    android:id="@+id/tv_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
                     android:fontFamily="@font/rubik_medium"
                     android:text="@string/x_ray"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
-                    app:layout_constraintEnd_toStartOf="@+id/guideline6"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:textSize="24sp"
+                    app:layout_constraintBottom_toTopOf="@id/img_xray"
+                    app:layout_constraintEnd_toEndOf="@+id/img_xray"
+                    app:layout_constraintStart_toStartOf="@+id/img_xray"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/tv_xray_id"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:fontFamily="@font/rubik_medium"
-                    android:text="X-RAY ID:"
-                    android:textColor="@color/theme"
-                    android:textSize="16sp"
+                <ImageView
+                    android:id="@+id/back_button"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/actionBarItemBackground"
+                    android:src="@drawable/app_back_button"
+                    app:layout_constraintBottom_toBottomOf="@+id/tv_heading"
+                    app:layout_constraintEnd_toStartOf="@+id/tv_heading"
+                    app:layout_constraintHorizontal_bias="0.213"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/tv_heading"
+                    app:layout_constraintVertical_bias="0.0"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+                <ImageView
+                    android:id="@+id/img_xray"
+                    android:layout_height="310dp"
+                    android:layout_width="match_parent"
+                    android:padding="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/scnd_blue_white"
+                    android:src="@drawable/x_ray_sample"
+                    app:layout_constraintBottom_toTopOf="@id/data_cnt"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_head" />
-
-                <TextView
-                    android:id="@+id/tv_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:fontFamily="@font/rubik_medium"
-                    android:text="DATE:"
-                    android:textColor="@color/theme"
-                    android:textSize="16sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_xray_id" />
-
-                <TextView
-                    android:id="@+id/tv_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:fontFamily="@font/rubik_medium"
-                    android:text="TIME:"
-                    android:textColor="@color/theme"
-                    android:textSize="16sp"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_date" />
-
-                <TextView
-                    android:id="@+id/tv_category"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:fontFamily="@font/rubik_medium"
-                    android:text="CATEGORY:"
-                    android:textColor="@color/theme"
-                    android:textSize="16sp"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_time" />
-
-                <TextView
-                    android:id="@+id/tv_xrayID_value"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/rubik"
-                    android:text="@{X_ray_data.xray_ID}"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_xray_id"
-                    app:layout_constraintStart_toEndOf="@id/guideline6"
-                    app:layout_constraintTop_toTopOf="@+id/tv_xray_id" />
-
-                <TextView
-                    android:id="@+id/tv_date_val"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/rubik"
-                    android:text="@{X_ray_data.date}"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_date"
-                    app:layout_constraintStart_toEndOf="@+id/guideline6"
-                    app:layout_constraintTop_toTopOf="@+id/tv_date"
-                    app:layout_constraintVertical_bias="1.0" />
-
-                <TextView
-                    android:id="@+id/tv_time_val"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/rubik"
-                    android:text="@{X_ray_data.time}"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_time"
-                    app:layout_constraintStart_toEndOf="@+id/guideline6"
-                    app:layout_constraintTop_toTopOf="@+id/tv_time" />
-
-
-                <TextView
-                    android:id="@+id/tv_category_val"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/rubik"
-                    android:text="@{X_ray_data.category}"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/tv_category"
-                    app:layout_constraintStart_toEndOf="@+id/guideline6"
-                    app:layout_constraintTop_toTopOf="@+id/tv_category" />
-
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintGuide_begin="99dp" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/data_cnt">
+                    app:layout_constraintTop_toBottomOf="@+id/tv_heading" />
 
                 <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/data_cnt"
+                    android:layout_width="224dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.082"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/desc_layout"
+                    app:layout_constraintTop_toBottomOf="@+id/img_xray">
+
+                    <TextView
+                        android:id="@+id/tv_head"
+                        android:layout_width="62dp"
+                        android:layout_height="24dp"
+                        android:layout_marginTop="4dp"
+                        android:fontFamily="@font/rubik_medium"
+                        android:text="@string/x_ray"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_xray_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:fontFamily="@font/rubik_medium"
+                        android:text="X-RAY ID:"
+                        android:textColor="@color/theme"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_head" />
+
+                    <TextView
+                        android:id="@+id/tv_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:fontFamily="@font/rubik_medium"
+                        android:text="DATE:"
+                        android:textColor="@color/theme"
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_xray_id" />
+
+                    <TextView
+                        android:id="@+id/tv_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:fontFamily="@font/rubik_medium"
+                        android:text="TIME:"
+                        android:textColor="@color/theme"
+                        android:textSize="16sp"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_date" />
+
+                    <TextView
+                        android:id="@+id/tv_category"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:fontFamily="@font/rubik_medium"
+                        android:text="CATEGORY:"
+                        android:textColor="@color/theme"
+                        android:textSize="16sp"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_time" />
+
+                    <TextView
+                        android:id="@+id/tv_xrayID_value"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik"
+                        android:text="@{X_ray_data.xray_ID}"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_xray_id"
+                        app:layout_constraintStart_toEndOf="@id/guideline6"
+                        app:layout_constraintTop_toTopOf="@+id/tv_xray_id" />
+
+                    <TextView
+                        android:id="@+id/tv_date_val"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik"
+                        android:text="@{X_ray_data.date}"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_date"
+                        app:layout_constraintStart_toEndOf="@+id/guideline6"
+                        app:layout_constraintTop_toTopOf="@+id/tv_date"
+                        app:layout_constraintVertical_bias="1.0" />
+
+                    <TextView
+                        android:id="@+id/tv_time_val"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik"
+                        android:text="@{X_ray_data.time}"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_time"
+                        app:layout_constraintStart_toEndOf="@+id/guideline6"
+                        app:layout_constraintTop_toTopOf="@+id/tv_time" />
+
+
+                    <TextView
+                        android:id="@+id/tv_category_val"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik"
+                        android:text="@{X_ray_data.category}"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintBottom_toBottomOf="@+id/tv_category"
+                        app:layout_constraintStart_toEndOf="@+id/guideline6"
+                        app:layout_constraintTop_toTopOf="@+id/tv_category" />
+
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintGuide_begin="99dp" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/desc_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="50dp"
                     android:layout_marginTop="20dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
@@ -218,12 +222,12 @@
 
                     <TextView
                         android:id="@+id/Static_date"
-                        android:layout_width="50dp"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
                         android:background="@color/white"
                         android:fontFamily="@font/rubik_medium"
-                        android:text="DATE:"
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         app:layout_constraintBottom_toTopOf="@+id/textView_desc"
@@ -253,6 +257,7 @@
                         android:paddingTop="12dp"
                         android:paddingEnd="12dp"
                         android:paddingBottom="12dp"
+                        android:layout_marginBottom="10dp"
                         android:text="@{X_ray_data.reportData}"
                         android:textColor="@color/black"
                         android:textSize="14sp"
@@ -262,9 +267,8 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-            </ScrollView>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
     </FrameLayout>
 
 </layout>
