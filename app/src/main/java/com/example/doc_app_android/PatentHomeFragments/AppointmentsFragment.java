@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,6 +24,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doc_app_android.Adapter.NotesRVAdapter;
+import com.example.doc_app_android.Dialogs.docListFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.AppointmentData;
 import com.example.doc_app_android.data_model.DocData;
@@ -75,7 +77,7 @@ public class AppointmentsFragment extends Fragment {
     private ArrayList<AppointmentData> appointmentData = new ArrayList<>();
     private SharedPreferences preferences;
     private boolean isPatientCalender;
-
+    CharSequence SelectedDate = LocalDate.now().toString();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -235,28 +237,55 @@ public class AppointmentsFragment extends Fragment {
                 }
             }
         });
-
+        handleAppointment();
         return binding.getRoot();
     }
 
+    private void handleAppointment() {
+        binding.btnApmnt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+            }
+        });
+    }
+
+    void openDialog(){
+        {
+            docListFragment docDialog = new docListFragment(SelectedDate);
+            docDialog.setDialog(docDialog);
+            docDialog.setStyle(DialogFragment.STYLE_NO_FRAME,R.style.AlertDialog);
+            docDialog.show(getChildFragmentManager(), "docList");
+        }
+    }
     private void changeDocName(ArrayList<AppointmentData> appointmentData, Map<String, String> docNames) {
         binding.calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
             public void onDateSelected(@NonNull @NotNull MaterialCalendarView widget, @NonNull @NotNull CalendarDay date, boolean selected) {
+                if(date.isBefore(CalendarDay.today())){
+                    binding.btnApmnt.setEnabled(false);
+                    binding.btnApmnt.setClickable(false);
+                }else{
+                    binding.btnApmnt.setEnabled(true);
+                    binding.btnApmnt.setClickable(true);
+                }
                 DecimalFormat formatter = new DecimalFormat("00");
                 String selectedDay = formatter.format(date.getDay());
                 String selectedMon = formatter.format(date.getMonth());
                 String selectedYear = formatter.format(date.getYear());
 
                 String selectedDate = selectedYear + "-" + selectedMon + "-" + selectedDay;
+                SelectedDate  = selectedDay +"/" +selectedMon + "/" +selectedYear ;
                 for (int i = 0; i < appointmentData.size(); i++) {
                     Log.e(TAG, "onDateSelected: " + selectedDate);
                     Log.e(TAG, "onDateSelected: " + appointmentData.get(i).getDate());
                     if (appointmentData.get(i).getDate().equals(selectedDate)) {
                         binding.tvDoc.setText(docNames.get(appointmentData.get(i).getDoctor_id()));
+                        binding.btnCancel.setVisibility(View.VISIBLE);
 //                        binding.tvDoc.setText(appointmentData.get(i).getDoctor_id());
                         break;
                     } else {
+                        binding.btnCancel.setVisibility(View.INVISIBLE);
                         binding.tvDoc.setText("NO APPOINTMENT TODAY");
                     }
                 }
