@@ -39,6 +39,7 @@ import com.example.doc_app_android.databinding.FragmentProfileEditBinding;
 import com.example.doc_app_android.databinding.ProfileDialogBinding;
 import com.example.doc_app_android.databinding.ValidationDialogBinding;
 import com.example.doc_app_android.view_model.ProfileViewModel;
+import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
@@ -74,7 +75,7 @@ public class ProfileEditFragment extends Fragment {
     private String id;
     private ProfileViewModel profileViewModel;
     private ProfileData sendProfileData;
-//    private ProfileData re
+    //    private ProfileData re
     private String encodedImageString;
     private ProfileData receivedProfileData;
     // TODO: Rename and change types of parameters
@@ -137,8 +138,21 @@ public class ProfileEditFragment extends Fragment {
         id = preferences.getString("id", "");
 
 
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            binding.profileName.setText(bundle.getString("PROFILE-FRAGMENT-NAME"));
+            binding.profileEmail.setText(bundle.getString("PROFILE-FRAGMENT-EMAIL"));
+            binding.profilePhoneNumber.setText(bundle.getString("PROFILE-FRAGMENT-PHONE-NUMBER"));
+            binding.profileSpeciality.setText(bundle.getString("PROFILE-FRAGMENT-SPECIALITY"));
+            String image = bundle.getString("PROFILE-FRAGMENT-PROFILE-IMAGE");
 
-                profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
+            Picasso.get()
+                    .load("https://maivrikdoc.herokuapp.com/api" + image)
+                    .placeholder(R.drawable.doctor_profile_image)
+                    .into(binding.profileImageEdit);
+        }
+
+        profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
 
         binding.btnEditSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -150,7 +164,7 @@ public class ProfileEditFragment extends Fragment {
                         .setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                dialog.hide();
+                                dialog.dismiss();
                             }
                         });
                 dialog.setCancelable(false);
@@ -219,8 +233,6 @@ public class ProfileEditFragment extends Fragment {
 //                    getFragmentManager().beginTransaction().remove(ProfileFragment.this).commit();
 
 
-
-
                 }
             }
         });
@@ -248,12 +260,13 @@ public class ProfileEditFragment extends Fragment {
                             Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                             try {
                                 startActivityForResult(openCameraIntent, CAMERA_CAPTURE_CODE);
-                                dialog2.hide();
+                                dialog2.dismiss();
                                 ;
                             } catch (ActivityNotFoundException e) {
                                 // display error state to the user
                                 Toast.makeText(getContext(), "Unable to Click Image, please try again!",
                                         Toast.LENGTH_SHORT).show();
+                                dialog2.dismiss();
 
                             }
 
@@ -265,7 +278,7 @@ public class ProfileEditFragment extends Fragment {
                         public void onClick(View v) {
                             Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             startActivityForResult(openGalleryIntent, GALLERY_IMAGE_CODE);
-                            dialog2.hide();
+                            dialog2.dismiss();
 
                         }
                     });
@@ -316,7 +329,6 @@ public class ProfileEditFragment extends Fragment {
 
 
     }
-
 
 
     @Override

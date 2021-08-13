@@ -53,7 +53,7 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
 
     @Override
     public void onBindViewHolder(@NonNull PatientDetailsAdapter.PatientDetailsHolder holder, int position) {
-        if(!TextUtils.isEmpty(data.get(position).getName()) && !TextUtils.isEmpty(data.get(position).getName()) && !TextUtils.isEmpty(data.get(position).getAge()) && !TextUtils.isEmpty(data.get(position).getState()) && !TextUtils.isEmpty(data.get(position).getImage())){
+        if (!TextUtils.isEmpty(data.get(position).getName()) && !TextUtils.isEmpty(data.get(position).getName()) && !TextUtils.isEmpty(data.get(position).getAge()) && !TextUtils.isEmpty(data.get(position).getState()) && !TextUtils.isEmpty(data.get(position).getImage())) {
             holder.binding.patientName.setText(data.get(position).getName());
             holder.binding.expandablePatientName.setText(data.get(position).getName());
             holder.binding.expandablePatientLastcheckup.setText("Last Checkup: " + "16-07-2021");
@@ -74,9 +74,8 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
         boolean isExpandedPatientRow = data.get(position).isRowExpanded();
 
 
-        holder.binding.patientRow.setVisibility(isExpandedPatientRow? View.VISIBLE : View.GONE);
-        holder.binding.expandableLayout.setVisibility(isExpandedLayout? View.VISIBLE : View.GONE);
-
+        holder.binding.patientRow.setVisibility(isExpandedPatientRow ? View.VISIBLE : View.GONE);
+        holder.binding.expandableLayout.setVisibility(isExpandedLayout ? View.VISIBLE : View.GONE);
 
 
     }
@@ -124,18 +123,20 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
                     bundle.putString("image", data.get(getAbsoluteAdapterPosition()).getImage());
                     bundle.putString("age", data.get(getAbsoluteAdapterPosition()).getAge());
                     bundle.putString("mobile_number", data.get(getAbsoluteAdapterPosition()).getPhoneNumber());
+                    bundle.putInt("patientId", data.get(getAbsoluteAdapterPosition()).getPateint_Id());
+
 
 
                     preferences = mContext.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
                     editor = preferences.edit();
 
-                    editor.putString("patient_id",String.valueOf(data.get(getAbsoluteAdapterPosition()).getPateint_Id()));
+                    editor.putString("patient_id", String.valueOf(data.get(getAbsoluteAdapterPosition()).getPateint_Id()));
                     Log.d("Testing", "Patient id added is: " + data.get(getAbsoluteAdapterPosition()).getPateint_Id());
                     editor.apply();
 
                     Log.d("Testing", "Patient id added is: " + data.get(getAbsoluteAdapterPosition()).getPateint_Id());
                     checkupDetailsPatient.setArguments(bundle);
-                    FragmentManager fragmentManager = ((AppCompatActivity)mContext).getSupportFragmentManager();
+                    FragmentManager fragmentManager = ((AppCompatActivity) mContext).getSupportFragmentManager();
                     fragmentManager.beginTransaction().add(R.id.fragmentHome_container, checkupDetailsPatient).setReorderingAllowed(true).addToBackStack("name1").commit();
                 }
             });
@@ -149,24 +150,20 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
                     bundle.putString("image", data.get(getAbsoluteAdapterPosition()).getImage());
                     bundle.putString("age", data.get(getAbsoluteAdapterPosition()).getAge());
                     bundle.putString("mobile_number", data.get(getAbsoluteAdapterPosition()).getPhoneNumber());
-
                     preferences = mContext.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
                     editor = preferences.edit();
 
-                    editor.putString("patient_id",String.valueOf(data.get(getAbsoluteAdapterPosition()).getPateint_Id()));
+                    editor.putString("patient_id", String.valueOf(data.get(getAbsoluteAdapterPosition()).getPateint_Id()));
                     Log.d("Testing", "Patient id added is: " + data.get(getAbsoluteAdapterPosition()).getPateint_Id());
                     editor.apply();
 
                     patientHistoryFragment.setArguments(bundle);
-                    FragmentManager fragmentManager = ((AppCompatActivity)mContext).getSupportFragmentManager();
+                    FragmentManager fragmentManager = ((AppCompatActivity) mContext).getSupportFragmentManager();
                     fragmentManager.beginTransaction().add(R.id.fragmentHome_container, patientHistoryFragment).setReorderingAllowed(true).addToBackStack("name3").commit();
                 }
             });
 
         }
-
-
-
 
 
     }

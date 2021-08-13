@@ -54,6 +54,7 @@ public class CheckupDetailsPatient extends Fragment {
     private ReportData reportData;
     private String mobileNumber;
     private FragmentCheckupDetailsPatientBinding binding;
+    private int patientId;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -134,7 +135,12 @@ public class CheckupDetailsPatient extends Fragment {
             @Override
             public void onClick(View v) {
 
-                requireActivity().getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).add(R.id.fragmentHome_container, new ReportFragment()).addToBackStack("report").commit();
+                Bundle data = new Bundle();
+                data.putInt("patientId", patientId);
+                ReportFragment reportFragment  = new ReportFragment();
+                reportFragment.setArguments(data);
+
+                requireActivity().getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).add(R.id.fragmentHome_container, reportFragment).addToBackStack("report").commit();
 
             }
         });
@@ -185,6 +191,7 @@ public class CheckupDetailsPatient extends Fragment {
             String image = bundle.getString("image");
             String age = bundle.getString("age");
             mobileNumber = bundle.getString("mobile_number");
+            patientId = bundle.getInt("patientId");
             preferences = getContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
             editor = preferences.edit();
             editor.putString("AddName", name);
@@ -241,6 +248,7 @@ public class CheckupDetailsPatient extends Fragment {
             @Override
             public void onClick(View v) {
 //                requireActivity().getSupportFragmentManager().popBackStack();
+
                 requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, new ShareFragment()).setReorderingAllowed(true).addToBackStack("share").commit();
             }
         });
@@ -265,7 +273,12 @@ public class CheckupDetailsPatient extends Fragment {
         binding.addAppointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, new AppointmentsFragment()).setReorderingAllowed(true).addToBackStack("appointment").commit();
+                Toast.makeText(requireContext(), "Nothing to Show.", Toast.LENGTH_SHORT).show();
+//                editor = preferences.edit();
+//                editor.putBoolean("addAppointmentCalendar", true);
+//                editor.apply();
+//                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, new AppointmentsFragment()).setReorderingAllowed(true).addToBackStack("appointment").commit();
+
 
             }
         });

@@ -11,10 +11,10 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="29dp"
+            android:animateLayoutChanges="true"
             android:background="@color/scnd_blue_white"
-            tools:context=".PatentHomeFragments.AppointmentsFragment"
-            android:animateLayoutChanges="true">
+            android:paddingBottom="29dp"
+            tools:context=".PatentHomeFragments.AppointmentsFragment">
 
 
             <com.prolificinteractive.materialcalendarview.MaterialCalendarView
@@ -254,24 +254,23 @@
 
             <Button
                 android:id="@+id/edit_calendar"
-                android:visibility="gone"
                 android:layout_width="110dp"
                 android:layout_height="48dp"
-                android:layout_marginTop="26dp"
                 android:layout_marginLeft="49dp"
+                android:layout_marginTop="26dp"
                 android:background="@drawable/btn_theme_1"
                 android:clickable="true"
                 android:focusable="true"
                 android:text="Edit"
                 android:textColor="@color/app.compat.light"
                 android:textSize="14sp"
-                app:layout_constraintTop_toBottomOf="@id/calender_container"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/calender_container" />
 
             <Button
                 android:id="@+id/edit_save"
-                android:visibility="gone"
                 android:layout_width="110dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="26dp"
@@ -281,10 +280,11 @@
                 android:text="save"
                 android:textColor="@color/app.compat.light"
                 android:textSize="14sp"
-                app:layout_constraintTop_toBottomOf="@id/calender_container"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"/>
+                app:layout_constraintTop_toBottomOf="@id/calender_container" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

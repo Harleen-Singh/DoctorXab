@@ -38,6 +38,7 @@ public class ShareFragment extends Fragment {
     private DoctorShareViewModel model;
     private SharedPreferences preferences;
     private boolean isFromPatientHistory;
+    private int patientId;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -99,6 +100,7 @@ public class ShareFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_share, container, false);
         binding.setLifecycleOwner(this);
+
 
         preferences = requireContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
         isFromPatientHistory = preferences.getBoolean("isFromPatientHistory", false);

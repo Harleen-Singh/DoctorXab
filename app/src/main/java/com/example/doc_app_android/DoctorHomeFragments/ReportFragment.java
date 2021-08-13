@@ -6,6 +6,7 @@ import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,6 +19,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.provider.MediaStore;
 import android.text.TextUtils;
@@ -34,6 +36,8 @@ import com.example.doc_app_android.data_model.ReportData;
 import com.example.doc_app_android.databinding.FragmentReportBinding;
 import com.example.doc_app_android.databinding.ProfileDialogBinding;
 import com.example.doc_app_android.databinding.ValidationDialogBinding;
+import com.example.doc_app_android.view_model.ProfileViewModel;
+import com.example.doc_app_android.view_model.ReportDataViewModel;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -72,6 +76,11 @@ public class ReportFragment extends Fragment {
     private Dialog dialog;
     private Uri resultUri;
     private ReportData reportData;
+    private com.example.doc_app_android.Adapter.ReportData written_data;
+    private ReportDataViewModel reportDataViewModel;
+    private int patientId;
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -121,9 +130,28 @@ public class ReportFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_report, container, false);
         binding.setLifecycleOwner(this);
 
+        assert getArguments() != null;
+        patientId = getArguments().getInt("patientId");
+        reportDataViewModel = new ViewModelProvider(requireActivity()).get(ReportDataViewModel.class);
         SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM, yyyy");
         String date = sdf.format(new Date());
+        String finalDate = date;
         date = "DATE: " + date;
+
+
+        preferences = requireContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+        binding.xrayIdEdittext.setText(preferences.getString("X-RAY-ID-Report",""));
+        binding.xrayDateEdittext.setText(preferences.getString("X-RAY-DATE-REPORT", ""));
+        binding.xrayTimeEdittext.setText(preferences.getString("X-RAY-TIME-REPORT", ""));
+        binding.xrayCategoryEdittext.setText(preferences.getString("X-RAY-CATEGORY-REPORT", ""));
+        binding.xrayBodyAreaEdittext.setText(preferences.getString("X-RAY-BODYAREA-REPORT", ""));
+        binding.xrayCheckupTv.setText(preferences.getString("X-RAY-REPORT-REPORT", ""));
+        String savedUri = preferences.getString("X-RAY-IMAGE-REPORT", "");
+        if(!TextUtils.isEmpty(savedUri)){
+            binding.xrayImageView.setImageURI(Uri.parse(savedUri));
+        }
+
+
         binding.xrayCheckupDate.setText(date);
 
         binding.xrayCheckDelete.setOnClickListener(new View.OnClickListener() {
@@ -143,6 +171,19 @@ public class ReportFragment extends Fragment {
                 body_area = binding.xrayBodyAreaEdittext.getText().toString();
                 report = binding.xrayCheckupTv.getText().toString();
 
+                preferences = requireContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+                editor = preferences.edit();
+                editor.putString("X-RAY-ID-Report",xray_id);
+                editor.putString("X-RAY-DATE-REPORT", xray_date);
+                editor.putString("X-RAY-TIME-REPORT", time);
+                editor.putString("X-RAY-CATEGORY-REPORT", category);
+                editor.putString("X-RAY-BODYAREA-REPORT", body_area);
+                editor.putString("X-RAY-REPORT-REPORT", report);
+                editor.putString("X-RAY-IMAGE-REPORT", String.valueOf(resultUri));
+                editor.apply();
+
+
+
                 dialog = new Dialog(getActivity());
                 ValidationDialogBinding binding1 = ValidationDialogBinding.inflate(LayoutInflater.from(getContext()));
                 binding1.getRoot().setBackgroundResource(android.R.color.transparent);
@@ -150,7 +191,7 @@ public class ReportFragment extends Fragment {
                         .setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
-                                dialog.hide();
+                                dialog.dismiss();
                             }
                         });
                 dialog.setCancelable(false);
@@ -167,7 +208,11 @@ public class ReportFragment extends Fragment {
                 } else {
                     Toast.makeText(requireContext(), "Filled SuccessFully", Toast.LENGTH_SHORT).show();
 
-                    reportData = new ReportData(xray_id, xray_date, time, category, body_area, report, resultUri);
+                    written_data = new com.example.doc_app_android.Adapter.ReportData(finalDate, report);
+                    reportData = new ReportData(patientId, xray_id, xray_date, time, category, body_area, 2, resultUri);
+                    reportDataViewModel.addPatientReport(reportData, written_data, requireContext());
+
+                    requireActivity().getSupportFragmentManager().popBackStack();
 
 
                 }
@@ -247,12 +292,13 @@ public class ReportFragment extends Fragment {
                             openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                             try {
                                 startActivityForResult(openCameraIntent, CAMERA_CAPTURE_CODE);
-                                dialog2.hide();
+                                dialog2.dismiss();
                                 ;
                             } catch (ActivityNotFoundException e) {
                                 // display error state to the user
                                 Toast.makeText(getContext(), "Unable to Click Image, please try again!",
                                         Toast.LENGTH_SHORT).show();
+                                dialog2.dismiss();
 
                             }
 
@@ -264,7 +310,7 @@ public class ReportFragment extends Fragment {
                         public void onClick(View v) {
                             Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                             startActivityForResult(openGalleryIntent, GALLERY_IMAGE_CODE);
-                            dialog2.hide();
+                            dialog2.dismiss();
 
                         }
                     });
@@ -378,8 +424,9 @@ public class ReportFragment extends Fragment {
             String[] permissions = Permission.toArray(new String[0]);
             ActivityCompat.requestPermissions(requireActivity(), permissions, PERMISSION_REQUEST_CODE);
             return false;
-        } else
+        } else {
             return true;
+        }
 
 
     }

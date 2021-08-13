@@ -61,6 +61,7 @@ public class Home extends AppCompatActivity {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
 
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -102,6 +103,7 @@ public class Home extends AppCompatActivity {
 //                        .into(nav_profile);
 //            }
 //        });
+
     }
 
     @Override
@@ -190,12 +192,13 @@ public class Home extends AppCompatActivity {
                         break;
 
                     case R.id.menu_appointments:
-                        Toast.makeText(getApplicationContext(), "Appointments Pane is opened.", Toast.LENGTH_SHORT).show();
-                        temp = new AppointmentsFragment();
-                        preferences = getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
-                        editor = preferences.edit();
-                        editor.putBoolean("patientInfoCalendar", false);
-                        editor.apply();
+                        Toast.makeText(getApplicationContext(), "Nothing to open", Toast.LENGTH_SHORT).show();
+//                        temp = new AppointmentsFragment();
+//                        preferences = getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+//                        editor = preferences.edit();
+//                        editor.putBoolean("patientInfoCalendar", false);
+//                        editor.putBoolean("doctorAppointmentScreen", true);
+//                        editor.apply();
                         break;
 
                     case R.id.menu_schedule:
@@ -224,7 +227,7 @@ public class Home extends AppCompatActivity {
                 }
 
                 if (temp != null)
-                    getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, temp).addToBackStack("name").commit();
+                    getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, temp).setReorderingAllowed(true).addToBackStack("name").commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;
             }
