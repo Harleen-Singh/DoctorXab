@@ -19,8 +19,8 @@
                 android:id="@+id/patient_info_container_edge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:elevation="3dp"
                 android:background="@drawable/myrect"
+                android:elevation="3dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
@@ -52,15 +52,53 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/patient_row"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/patient_info_label">
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_image"
+                        android:layout_width="54dp"
+                        android:layout_height="54dp"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="21dp"
+                        android:layout_marginTop="9dp"
+                        android:layout_marginBottom="9dp"
+                        android:src="@drawable/home_profile"
+                        app:civ_border_color="@android:color/black"
+                        app:civ_border_width="2dp" />
+
+                    <TextView
+                        android:id="@+id/patient_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="19dp"
+                        android:layout_weight="8"
+                        android:fontFamily="@font/rubik_medium"
+                        android:text="Roman Reign"
+                        android:textColor="@color/scnd_blue"
+                        android:textSize="20sp" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/patient_info_profile_image"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:layout_marginTop="30dp"
                     android:src="@drawable/doctor_profile_image"
-                    app:layout_constraintEnd_toEndOf="@id/patient_info_label"
-                    app:layout_constraintStart_toStartOf="@id/patient_info_label"
-                    app:layout_constraintTop_toBottomOf="@id/patient_info_label" />
+                    app:layout_constraintEnd_toEndOf="@id/patient_row"
+                    app:layout_constraintStart_toStartOf="@id/patient_row"
+                    app:layout_constraintTop_toBottomOf="@id/patient_row" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:id="@+id/patient_info_share_button"
@@ -69,9 +107,9 @@
                     android:layout_marginTop="84dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp"
+                    android:background="@drawable/callbg"
                     android:clickable="true"
                     android:focusable="true"
-                    android:background="@drawable/callbg"
                     android:gravity="center"
                     app:layout_constraintBottom_toTopOf="@id/patient_info_edit_button"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -80,12 +118,12 @@
                     <androidx.constraintlayout.utils.widget.ImageFilterButton
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:focusable="false"
-                        android:clickable="false"
                         android:layout_below="@+id/profile_toolbar"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
                         android:background="@color/scnd_light_blue"
+                        android:clickable="false"
+                        android:focusable="false"
                         android:src="@drawable/ic_sharedb" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -109,12 +147,12 @@
                     <androidx.constraintlayout.utils.widget.ImageFilterButton
                         android:layout_width="18dp"
                         android:layout_height="18dp"
-                        android:clickable="false"
-                        android:focusable="false"
                         android:layout_below="@+id/profile_toolbar"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
                         android:background="@color/scnd_light_blue"
+                        android:clickable="false"
+                        android:focusable="false"
                         android:src="@drawable/ic_editdb" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -126,10 +164,10 @@
                     android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp"
                     android:background="@drawable/callbg"
+                    android:clickable="true"
+                    android:focusable="true"
                     android:gravity="center"
                     app:layout_constraintBottom_toTopOf="@id/patient_info_add_button"
-                    android:focusable="true"
-                    android:clickable="true"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/patient_info_edit_button">
 
@@ -139,9 +177,9 @@
                         android:layout_below="@+id/profile_toolbar"
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center"
-                        android:focusable="false"
-                        android:clickable="false"
                         android:background="@color/scnd_light_blue"
+                        android:clickable="false"
+                        android:focusable="false"
                         android:src="@drawable/ic_messagedb" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -310,8 +348,8 @@
                 android:id="@+id/patient_info_frame"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:background="@color/white"
                 android:layout_marginTop="29dp"
+                android:background="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/patient_info_container_edge"
                 app:layout_constraintStart_toStartOf="@+id/patient_info_container_edge"
