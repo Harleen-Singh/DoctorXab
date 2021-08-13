@@ -56,6 +56,12 @@
         <item>APPOINTMENT</item>
     </array>
 
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+
     <array name="patientInfoFilters">
         <item>CHECKUP HISTORY</item>
         <item>X-RAY/SCAN</item>
