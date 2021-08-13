@@ -20,7 +20,7 @@ public class sign_next extends AppCompatActivity {
     private signUpService signUpService;
 
     @Override
-    public void onBackPressed() {
+    public void onBackPressed() {   //do it prperly
         if (register_view_model.frameLayout.getValue() == View.VISIBLE)
             register_view_model.frameLayout.setValue(View.GONE);
         else
