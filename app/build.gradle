@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'com.google.gms.google-services'
 }
 
 android {
@@ -54,8 +55,7 @@ repositories {
 
         // Image Crop Library
         implementation 'com.github.alirezaafkar:Android-Image-Cropper:2.3.3'
-
-
+        implementation 'com.google.firebase:firebase-messaging:22.0.0'
         //implementation 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
 
 //        // CameraX core library using the camera2 implementation

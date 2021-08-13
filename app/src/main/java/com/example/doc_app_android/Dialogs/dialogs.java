@@ -1,11 +1,12 @@
 package com.example.doc_app_android.Dialogs;
 
-import android.app.Application;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.widget.ProgressBar;
+import android.util.Log;
 
 import com.example.doc_app_android.R;
+import com.example.doc_app_android.data_model.DocData;
+import com.example.doc_app_android.services.getAppointmentService;
 
 public class dialogs {
 
@@ -26,4 +27,27 @@ public class dialogs {
         alertDialog.show();
         alertDialog.getWindow().getWindowStyle();
     }
+
+    public final void displayConfirmationDialog(String title, String str, Context context, DocData docData, CharSequence date, docListFragment docDialog) {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(context, R.style.AlertDialog);
+        builder.setMessage(str);
+        builder.setTitle(title);
+        builder.setPositiveButton("Confirm" ,(dialog, which) -> {
+            getAppointmentService service = new getAppointmentService();
+            ProgressDialog dialog1 = new ProgressDialog(context, R.style.AlertDialog);
+            alertDialogLogin(dialog1,"Processing");
+            service.getAppointment(docData,date,context,dialog1);
+            docDialog.dismiss();
+            Log.e("TAG", "displayConfirmationDialog: confirmed" );
+
+        });
+        builder.setNegativeButton("Dismiss" , (dialog, which) -> {
+            Log.e("TAG", "displayConfirmationDialog: Canceled" );
+        });
+        androidx.appcompat.app.AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        alertDialog.getWindow().getWindowStyle();
+    }
+
+
 }

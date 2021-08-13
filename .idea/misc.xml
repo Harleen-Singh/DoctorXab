@@ -3,17 +3,40 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Projects/DocApp/app/src/main/res/drawable-v24/appointment_span.xml" value="0.2703125" />
-        <entry key="..\:/Projects/DocApp/app/src/main/res/drawable-v24/appointment_today_span.xml" value="0.2703125" />
-        <entry key="..\:/Projects/DocApp/app/src/main/res/layout/fragment_appointments.xml" value="0.16" />
-        <entry key="..\:/Projects/DocApp/app/src/main/res/layout/fragment_checkup_details_patient.xml" value="0.12360688956433637" />
-        <entry key="..\:/Projects/DocApp/app/src/main/res/layout/fragment_profile.xml" value="0.12360688956433637" />
-        <entry key="..\:/Projects/DocApp/app/src/main/res/layout/fragment_profile_edit.xml" value="0.264" />
-        <entry key="..\:/Projects/DocApp/app/src/main/res/layout/fragment_report.xml" value="0.264" />
-        <entry key="..\:/Projects/DocApp/app/src/main/res/layout/loading_dialog.xml" value="0.12360688956433637" />
-        <entry key="..\:/Projects/DocApp/app/src/main/res/layout/profile_dialog.xml" value="0.13496376811594202" />
-        <entry key="..\:/Projects/DocApp/app/src/main/res/layout/single_list_notes.xml" value="0.2427536231884058" />
-        <entry key="..\:/Projects/DocApp/app/src/main/res/layout/validation_dialog.xml" value="0.12360688956433637" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/drawable/arrow_down.xml" value="0.2140625" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/drawable/btn_bg_changer_2.xml" value="0.2703125" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/drawable/btn_theme_1.xml" value="0.2703125" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/drawable/down_arrow.xml" value="0.2140625" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/drawable/errorimgload.xml" value="0.2" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/drawable/gradient_background.xml" value="0.26615384615384613" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/drawable/prescription_bg.xml" value="0.26615384615384613" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/drawable/text_area_bground.xml" value="0.2703125" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout-v21/fragment_x_ray_scan.xml" value="0.2351851851851852" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/activity_home.xml" value="0.2" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/chk_up_history.xml" value="0.2" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/doc_list.xml" value="0.176" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/doclist_single.xml" value="0.264" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/fragment_appointments.xml" value="0.4" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/fragment_checkup_details_patient.xml" value="0.23854166666666668" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/fragment_patient_check_up_history.xml" value="0.25416666666666665" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/fragment_patient_history.xml" value="0.19791666666666666" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/fragment_prescription.xml" value="0.2" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/fragment_x_ray_scan.xml" value="0.24814814814814815" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/fragment_xray_report.xml" value="0.2462962962962963" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/list_presc.xml" value="0.264" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/sign_as.xml" value="0.25416666666666665" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/sign_in.xml" value="0.23487179487179488" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/sign_next.xml" value="0.23981481481481481" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/single_list_presc.xml" value="0.264" />
+        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/single_list_xray.xml" value="0.176" />
+        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/layout/chk_up_history.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/layout/fragment_appointments.xml" value="0.22592592592592592" />
+        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/layout/fragment_patient_check_up_history.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/layout/fragment_prescription.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/layout/fragment_x_ray_scan.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/layout/fragment_xray_report.xml" value="0.10400000000000001" />
+        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/layout/list_presc.xml" value="0.23229166666666667" />
+        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/layout/single_list_xray.xml" value="0.23229166666666667" />
       </map>
     </option>
   </component>
@@ -26,7 +49,7 @@
   <component name="VisualizationToolProject">
     <option name="state">
       <ProjectState>
-        <option name="scale" value="0.264" />
+        <option name="scale" value="0.10400000000000001" />
       </ProjectState>
     </option>
   </component>
