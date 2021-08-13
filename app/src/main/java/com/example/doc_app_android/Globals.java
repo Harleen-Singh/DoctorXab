@@ -19,4 +19,6 @@ public class Globals {
     public static String report = serverURL + "report/";
     public static String updateUserData = serverURL + "user/";
     public static String askAppointment = serverURL + "askappointment";
+    public static String addNewReport = serverURL + "report/add";
+    public static String addNewXray = serverURL + "xray/add";
 }
