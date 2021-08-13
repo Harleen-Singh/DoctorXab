@@ -215,8 +215,16 @@ public class ProfileFragment extends Fragment {
         binding.savedEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                ProfileEditFragment profileEditFragment = new ProfileEditFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("PROFILE-FRAGMENT-NAME", (String) binding.doctorNameText.getText());
+                bundle.putString("PROFILE-FRAGMENT-EMAIL", (String) binding.emailAddressText.getText());
+                bundle.putString("PROFILE-FRAGMENT-PHONE-NUMBER", (String) binding.contactText.getText());
+                bundle.putString("PROFILE-FRAGMENT-SPECIALITY", (String) binding.speciality.getText());
+                bundle.putString("PROFILE-FRAGMENT-PROFILE-IMAGE", receivedProfileData.getImage());
+                profileEditFragment.setArguments(bundle);
 
-                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, new ProfileEditFragment()).setReorderingAllowed(true).addToBackStack("profileedit").commit();
+                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, profileEditFragment).setReorderingAllowed(true).addToBackStack("profileedit").commit();
 
             }
         });

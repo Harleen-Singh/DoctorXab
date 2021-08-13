@@ -14,9 +14,6 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -54,7 +51,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Objects;
 
 
 public class AppointmentsFragment extends Fragment {
@@ -78,8 +74,7 @@ public class AppointmentsFragment extends Fragment {
     private DoctorListViewModel doctorListViewModel;
     private ArrayList<AppointmentData> appointmentData = new ArrayList<>();
     private SharedPreferences preferences;
-    private boolean isPatientCalender, isDoctorAppointmentCalendar, isCheckUpDetailsCalendar;
-    private SharedPreferences.Editor editor;
+    private boolean isPatientCalender;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,54 +85,20 @@ public class AppointmentsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_appointments, null, false);
-        binding.setLifecycleOwner(this);
 
         viewModel = new ViewModelProvider(requireActivity()).get(FragApmntViewModel.class);
         doctorListViewModel = new ViewModelProvider(requireActivity()).get(DoctorListViewModel.class);
         binding.progressbar.setVisibility(View.VISIBLE);
-
+        binding.setLifecycleOwner(this);
         Map<String, String> docNames = new HashMap<>();
 
         preferences = getContext().getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
-//        isPatientCalender = preferences.getBoolean("patientInfoCalendar", false);
-//        isDoctorAppointmentCalendar = preferences.getBoolean("doctorAppointmentScreen", false);
-//        isCheckUpDetailsCalendar = preferences.getBoolean("addAppointmentCalendar", false);
+        isPatientCalender = preferences.getBoolean("patientInfoCalendar", false);
 
-//        if (isPatientCalender) {
-//            binding.calenderContainer.setVisibility(View.GONE);
-//            binding.appointmentContainer.setBackgroundColor(getResources().getColor(R.color.white));
-//            binding.editCalendar.setVisibility(View.VISIBLE);
-//        }
-//
-//        if (isDoctorAppointmentCalendar) {
-//
-//            binding.appointmentContainer.setBackgroundColor(getResources().getColor(R.color.white));
-//            Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).hide();
-//            binding.btnApmnt.setVisibility(View.GONE);
-//            binding.btnNote.setVisibility(View.GONE);
-//            binding.btnRemain.setVisibility(View.GONE);
-//            binding.appointmentFragmentToolbar.setVisibility(View.VISIBLE);
-//            editor = preferences.edit();
-//            editor.putBoolean("doctorAppointmentScreen", false);
-//            editor.apply();
-//
-//        }
-//        if (isCheckUpDetailsCalendar){
-//            binding.appointmentContainer.setBackgroundColor(getResources().getColor(R.color.white));
-//            Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).hide();
-//            binding.appointmentFragmentToolbar.setVisibility(View.VISIBLE);
-//            editor = preferences.edit();
-//            editor.putBoolean("addAppointmentCalendar", false);
-//            editor.apply();
-//        }
-
-//        binding.appointmentBackButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
-//                requireActivity().getSupportFragmentManager().popBackStack();
-//            }
-//        });
+        if(isPatientCalender){
+            binding.calenderContainer.setVisibility(View.GONE);
+            binding.editCalendar.setVisibility(View.VISIBLE);
+        }
 
 //        binding.editCalendar.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -156,8 +117,6 @@ public class AppointmentsFragment extends Fragment {
 //
 //            }
 //        });
-
-
         doctorListViewModel.getID_name_pair().observe(requireActivity(), new Observer<ArrayList<DocData>>() {
             @Override
             public void onChanged(ArrayList<DocData> docData) {
@@ -165,21 +124,23 @@ public class AppointmentsFragment extends Fragment {
                 for (int i = 0; i < docData.size(); i++) {
                     docNames.put(docData.get(i).getDocID(), docData.get(i).getName());
                 }
-                viewModel.getApmntData().observe(getViewLifecycleOwner(), new Observer<ArrayList<AppointmentData>>() {
-                    @Override
-                    public void onChanged(ArrayList<AppointmentData> appointmentData) {
-                        try {
-                            Log.e(TAG, "onChanged: " + "GOT DATES");
-                            addSpanToCalender(appointmentData);
-                            changeDocName(appointmentData, docNames);
-                            binding.progressbar.setVisibility(View.GONE);
-                        } catch (ParseException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+
             }
         });
+        viewModel.getApmntData().observe(getViewLifecycleOwner(), new Observer<ArrayList<AppointmentData>>() {
+            @Override
+            public void onChanged(ArrayList<AppointmentData> appointmentData) {
+                try {
+                    Log.e(TAG, "onChanged: " + "GOT DATES");
+                    addSpanToCalender(appointmentData);
+                    changeDocName(appointmentData, docNames);
+                    binding.progressbar.setVisibility(View.GONE);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
         binding.calendarView.setSelectedDate(LocalDate.now());
         spanAdder(new Date(), "1");
         binding.btnNote.setOnClickListener(new View.OnClickListener() {

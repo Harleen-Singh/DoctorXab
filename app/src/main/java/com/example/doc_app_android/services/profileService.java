@@ -223,7 +223,7 @@ public class profileService {
                     public void onErrorResponse(VolleyError error) {
                         Toast.makeText(context, error.getMessage(), Toast.LENGTH_LONG).show();
                         Log.e("GotError", "" + error.getMessage());
-                        dialog1.hide();
+                        dialog1.dismiss();
                     }
                 }) {
 
@@ -294,7 +294,7 @@ public class profileService {
                     mutableProfileData.setValue(editedProfileData);
 
                     loadingDialogBinding.updateProgress.setVisibility(View.GONE);
-                    dialog1.hide();
+                    dialog1.dismiss();
                     Toast.makeText(context, "Updated Successfully", Toast.LENGTH_SHORT).show();
 
 
@@ -302,13 +302,14 @@ public class profileService {
 
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    dialog1.dismiss();
                 }
 
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                dialog1.hide();
+                dialog1.dismiss();;
 
                 if (error instanceof NoConnectionError) {
                     //dialogs.displayDialog("Not Connected to Internet", context);

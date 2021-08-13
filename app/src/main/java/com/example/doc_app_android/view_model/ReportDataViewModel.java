@@ -1,6 +1,7 @@
 package com.example.doc_app_android.view_model;
 
 import android.app.Application;
+import android.content.Context;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -29,7 +30,7 @@ public class ReportDataViewModel extends AndroidViewModel {
         reportService.updateReportData(application, reportData);
     }
 
-    public void addPatientReport(com.example.doc_app_android.data_model.ReportData reportData){
-        reportService.addPatientReport(application, application.getApplicationContext(), reportData);
+    public void addPatientReport(com.example.doc_app_android.data_model.ReportData reportData, ReportData reportData1, Context context){
+        reportService.addPatientReport(application, context, reportData, reportData1);
     }
 }
