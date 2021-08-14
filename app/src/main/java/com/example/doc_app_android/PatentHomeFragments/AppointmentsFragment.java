@@ -76,7 +76,7 @@ public class AppointmentsFragment extends Fragment {
     private DoctorListViewModel doctorListViewModel;
     private ArrayList<AppointmentData> appointmentData = new ArrayList<>();
     private SharedPreferences preferences;
-    private boolean isPatientCalender;
+    private boolean isDoctorAppointmentsFragment;
     CharSequence SelectedDate = LocalDate.now().toString();
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -94,13 +94,21 @@ public class AppointmentsFragment extends Fragment {
         binding.setLifecycleOwner(this);
         Map<String, String> docNames = new HashMap<>();
 
-        preferences = getContext().getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
-        isPatientCalender = preferences.getBoolean("patientInfoCalendar", false);
+        Bundle bundle = getArguments();
+        if(bundle != null){
 
-        if(isPatientCalender){
-            binding.calenderContainer.setVisibility(View.GONE);
-            binding.editCalendar.setVisibility(View.VISIBLE);
+            isDoctorAppointmentsFragment = bundle.getBoolean("isDoctorAppointmentsFragment");
         }
+
+        if(isDoctorAppointmentsFragment){
+            binding.btnApmnt.setVisibility(View.GONE);
+            binding.btnRemain.setVisibility(View.GONE);
+            binding.btnNote.setVisibility(View.GONE);
+        }
+
+
+
+
 
 //        binding.editCalendar.setOnClickListener(new View.OnClickListener() {
 //            @Override

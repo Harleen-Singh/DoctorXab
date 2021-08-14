@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/scnd_blue_white"
-        tools:context=".DoctorHomeFragments.ScheduleFragment">
+        tools:context=".DoctorHomeFragments.DoctorAppointmentsFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -16,7 +16,7 @@
 
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/schedule_toolbar"
+                android:id="@+id/doctor_appointments_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -26,31 +26,31 @@
                 android:layout_marginTop="36dp"
                 android:layout_marginRight="26dp"
                 android:orientation="horizontal"
-                app:layout_constraintBottom_toTopOf="@id/scheduleLayoutContainer"
+                app:layout_constraintBottom_toTopOf="@id/appointmentsLayoutContainer"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
                 <ImageView
-                    android:id="@+id/schedule_back_button"
+                    android:id="@+id/doctor_appointment_back_button"
                     android:layout_width="24dp"
                     android:layout_height="24dp"
                     android:src="@drawable/app_back_button" />
 
                 <TextView
-                    android:id="@+id/schedule_label"
+                    android:id="@+id/doctor_appointment_label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/rubik"
                     android:gravity="center"
-                    android:text="SCHEDULE"
+                    android:text="APPOINTMENTS"
                     android:textColor="@color/black"
                     android:textSize="24sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
 
             <FrameLayout
-                android:id="@+id/scheduleLayoutContainer"
+                android:id="@+id/appointmentsLayoutContainer"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginStart="4dp"
@@ -59,7 +59,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/schedule_toolbar" />
+                app:layout_constraintTop_toBottomOf="@id/doctor_appointments_toolbar" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

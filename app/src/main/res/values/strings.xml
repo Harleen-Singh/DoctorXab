@@ -46,7 +46,6 @@
     <string name="chooser_title">Message</string>
 
 
-
     <array name="patientFilters">
         <item>CHECKUP HISTORY</item>
         <item>X-RAY/SCAN</item>

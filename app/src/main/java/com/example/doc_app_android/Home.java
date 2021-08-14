@@ -26,6 +26,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.doc_app_android.Adapter.FilterRCVadapter;
+import com.example.doc_app_android.DoctorHomeFragments.DoctorAppointmentsFragment;
 import com.example.doc_app_android.data_model.FilterData;
 import com.example.doc_app_android.PatentHomeFragments.AppointmentsFragment;
 import com.example.doc_app_android.DoctorHomeFragments.PrivacyPolicyFragment;
@@ -193,7 +194,7 @@ public class Home extends AppCompatActivity {
 
                     case R.id.menu_appointments:
                         Toast.makeText(getApplicationContext(), "Nothing to open", Toast.LENGTH_SHORT).show();
-//                        temp = new AppointmentsFragment();
+                        temp = new DoctorAppointmentsFragment();
 //                        preferences = getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
 //                        editor = preferences.edit();
 //                        editor.putBoolean("patientInfoCalendar", false);
