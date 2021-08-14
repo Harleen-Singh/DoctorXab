@@ -2,6 +2,7 @@ package com.example.doc_app_android;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +19,7 @@ public class sign_next extends AppCompatActivity {
 
     private Register_view_model register_view_model;
     private signUpService signUpService;
+    private static final String [] genderChoice = new String[]{"Male","Female","Other"};
 
     @Override
     public void onBackPressed() {   //do it prperly
@@ -36,7 +38,8 @@ public class sign_next extends AppCompatActivity {
         register_view_model = new ViewModelProvider(this).get(Register_view_model.class);
         signNextBinding.setLifecycleOwner(this);
         signNextBinding.setRegisterViewModel(register_view_model);
-
+        ArrayAdapter<String> genAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,genderChoice);
+        signNextBinding.genderActv.setAdapter(genAdapter);
 
         register_view_model.isDoc.setValue(getIntent().getBooleanExtra("catcher", false));
         if (getIntent().getBooleanExtra("catcher", false)) {

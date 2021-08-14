@@ -1,5 +1,6 @@
 package com.example.doc_app_android.DoctorHomeFragments;
 
+import android.app.Dialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ import com.example.doc_app_android.PatentHomeFragments.AppointmentsFragment;
 import com.example.doc_app_android.ProfileEditFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.databinding.FragmentCheckupDetailsPatientBinding;
+import com.example.doc_app_android.databinding.ValidationDialogBinding;
 import com.example.doc_app_android.view_model.ProfileViewModel;
 import com.example.doc_app_android.view_model.ReportDataViewModel;
 import com.squareup.picasso.Picasso;
@@ -55,6 +58,7 @@ public class CheckupDetailsPatient extends Fragment {
     private String mobileNumber;
     private FragmentCheckupDetailsPatientBinding binding;
     private int patientId;
+    private Dialog dialog;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -137,7 +141,7 @@ public class CheckupDetailsPatient extends Fragment {
 
                 Bundle data = new Bundle();
                 data.putInt("patientId", patientId);
-                ReportFragment reportFragment  = new ReportFragment();
+                ReportFragment reportFragment = new ReportFragment();
                 reportFragment.setArguments(data);
 
                 requireActivity().getSupportFragmentManager().beginTransaction().setReorderingAllowed(true).add(R.id.fragmentHome_container, reportFragment).addToBackStack("report").commit();
@@ -316,12 +320,13 @@ public class CheckupDetailsPatient extends Fragment {
                 binding.addXrayScan.setVisibility(View.VISIBLE);
 
                 if (isReportEdited) {
+
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     String date = sdf.format(new Date());
                     String data = binding.addAboutCheckupTv.getText().toString();
                     reportData = new ReportData(date, data);
-
                     reportDataViewModel.updateReportData(reportData);
+                    
                 }
 
 

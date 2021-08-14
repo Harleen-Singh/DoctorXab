@@ -2,15 +2,42 @@ package com.example.doc_app_android.data_model;
 
 public class Register_data {
 
-    private String username , contact , email , specialistof , conslt , cpass , cfpass ;
+    private String username ,name, contact , email , specialistof , conslt , cpass , cfpass , age , gender;
     private Boolean isDoc ;
 
 
-    public Register_data(String username, String contact, String email , Boolean is_Doc) {
+    public Register_data(String username,String name, String contact, String email , String age , String gender , Boolean is_Doc) {
         this.username = username;
+        this.name = name;
         this.contact = contact;
         this.email = email;
+        this.age = age;
+        this.gender = gender;
         this.isDoc = is_Doc;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAge() {
+        return age;
+    }
+
+    public void setAge(String age) {
+        this.age = age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getUsername() {

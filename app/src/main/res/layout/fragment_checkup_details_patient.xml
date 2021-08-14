@@ -418,7 +418,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="20dp"
                         android:background="@color/white"
-                        android:visibility="gone">
+                        android:visibility="visible">
 
                         <TextView
                             android:id="@+id/add_about_checkup_date"
@@ -479,19 +479,19 @@
                             android:layout_marginRight="20dp"
                             android:layout_marginBottom="10dp"
                             android:background="@drawable/add_about_checkup_bg"
+                            android:focusable="true"
                             android:fontFamily="@font/rubik"
                             android:gravity="start"
-                            android:focusable="true"
+                            android:isScrollContainer="true"
                             android:paddingStart="13dp"
                             android:paddingLeft="13dp"
                             android:paddingTop="6dp"
-                            android:scrollbars="vertical"
-                            android:isScrollContainer="true"
                             android:paddingEnd="13dp"
                             android:paddingBottom="6dp"
+                            android:scrollbars="vertical"
                             android:textAlignment="textStart"
                             android:textColor="@color/scnd_blue"
-                            android:textSize="14sp"/>
+                            android:textSize="14sp" />
 
                         <EditText
                             android:id="@+id/add_about_checkup_tv"
