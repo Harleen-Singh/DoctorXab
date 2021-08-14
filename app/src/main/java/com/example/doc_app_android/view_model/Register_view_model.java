@@ -20,10 +20,12 @@ public class Register_view_model extends ViewModel {
     public MutableLiveData<String> username = new MutableLiveData<>();
     public MutableLiveData<String> email = new MutableLiveData<>();
     public MutableLiveData<String> contact = new MutableLiveData<>();
+    public MutableLiveData<String> name = new MutableLiveData<>();
     public MutableLiveData<String> specialistof = new MutableLiveData<>();
     public MutableLiveData<String> createpass = new MutableLiveData<>();
     public MutableLiveData<String> cfmpass = new MutableLiveData<>();
-
+    public MutableLiveData<String> age = new MutableLiveData<>();
+    public MutableLiveData<String> gender = new MutableLiveData<>();
     public MutableLiveData<Boolean> isDoc = new MutableLiveData<>();
 
 
@@ -38,7 +40,7 @@ public class Register_view_model extends ViewModel {
     }
 
     public void onNextClick(View view) {
-        register_data = new Register_data(username.getValue(), contact.getValue(), email.getValue(), isDoc.getValue());
+        register_data = new Register_data(username.getValue(), name.getValue(), contact.getValue(), email.getValue(), age.getValue(), gender.getValue(),isDoc.getValue());
         if (!(username.getValue() == null && contact.getValue() == null && email.getValue() == null))
             if (!(username.getValue().isEmpty() && contact.getValue().isEmpty() && email.getValue().isEmpty()))
                 frameLayout.setValue(View.VISIBLE);
@@ -58,6 +60,8 @@ public class Register_view_model extends ViewModel {
     public void onClickSignUp(View view) {
         register_data.setCfpass(cfmpass.getValue());
         register_data.setCpass(createpass.getValue());
+        register_data.setAge(age.getValue());
+        register_data.setGender(gender.getValue());
         register_data.setSpecialistof(specialistof.getValue());
         userMutableLiveData.setValue(register_data);
     }
