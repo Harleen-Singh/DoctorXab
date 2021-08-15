@@ -219,20 +219,7 @@ public class ReportService {
         dialog1.show();
         Window window = dialog1.getWindow();
         window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//        sp = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
-//        id = Integer.parseInt(sp.getString("doctor_id", ""));
         addNewReport(context,reportData1,reportData);
-
-
-//        try {
-//            uploaddatatodb(reportData);
-//        } catch (IOException e){
-//            Log.d("Testing", e.toString());
-//        }
-
-
-       // addXrayImage("hjs", reportData, mContext);
-//        addReport("hsj", context);
 
     }
     private String encodeBitmapImage(Bitmap bitmap) {
@@ -242,46 +229,7 @@ public class ReportService {
         return android.util.Base64.encodeToString(bytesOfImage, Base64.DEFAULT);
     }
 
-    private void uploaddatatodb(com.example.doc_app_android.data_model.ReportData reportData) throws IOException {
 
-        Bitmap bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), reportData.getUri());
-        String encodedImage =  encodeBitmapImage(bitmap);
-        StringRequest request=new StringRequest(Request.Method.POST, Globals.addNewXray, new Response.Listener<String>() {
-            @Override
-            public void onResponse(String response)
-            {
-                Log.d("Testing", "Output From Add X-ray API Service: " + response.toString());
-                dialog1.dismiss();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("Testing", "Error From Add X-ray API Service: " + error.toString());
-                Toast.makeText(context,error.toString(),Toast.LENGTH_LONG).show();
-                dialog1.dismiss();
-            }
-        })
-        {
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError
-            {
-                Map<String,String> params=new HashMap<String, String>();
-                params.put("pic_id", reportData.getXray_id());
-//                params.put("time", reportData.getTime());
-//                params.put("date", reportData.getDate());
-                params.put("report", String.valueOf(report_id));
-                params.put("patient",  String.valueOf(reportData.getPatientId()));
-                params.put("category", reportData.getCategory());
-                Log.d("Testing", "Image Being sent: " + encodedImage);
-               // params.put("image", encodedImage);
-                return params;
-            }
-        };
-
-
-        RequestQueue queue= Volley.newRequestQueue(context);
-        queue.add(request);
-    }
 
 
     public void uploadImage(com.example.doc_app_android.data_model.ReportData reportData) {
@@ -349,102 +297,6 @@ public class ReportService {
         Volley.newRequestQueue(context).add(volleyMultipartRequest);
     }
 
-//    public void editData(com.example.doc_app_android.data_model.ReportData data) {
-//
-////        NavHeaderBinding binding = NavHeaderBinding.inflate(LayoutInflater.from(context));
-//        JSONObject details = null;
-//
-//        try {
-//            details = new JSONObject();
-//            details.put("pic_id", data.getXray_id());
-////            details.put("time", data.getTime());
-////            details.put("date", data.getDate());
-//            details.put("report", String.valueOf(report_id));
-//            Log.d("Testing", "Report Id: " + report_id);
-//            details.put("patient",  String.valueOf(data.getPatientId()));
-//            details.put("category", data.getCategory());
-//            //details.put("image", data.getImage());
-//
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//
-//        final RequestQueue detailsRequestQueue = Volley.newRequestQueue(context);
-//
-//        JsonObjectRequest sendEditDetailsRequest = new JsonObjectRequest(Request.Method.POST, Globals.addNewXray, details, new Response.Listener<JSONObject>() {
-//            @Override
-//            public void onResponse(JSONObject response) {
-//                Log.d("Testing", "Output From Report Add Service: " + response.toString());
-//
-//
-////                    binding.navProfileName.setText(name);
-////                    Picasso.get().load(image).placeholder(R.drawable.doctor_profile_image).into(binding.navProfileImage);
-//
-//                //int doctor_Id, int age, String userName, String email, String name, String phoneNumber, String address, String image
-//                loadingDialogBinding.updateProgress.setVisibility(View.GONE);
-//                dialog1.dismiss();
-//                Toast.makeText(context, "UploadedSuccessfully", Toast.LENGTH_SHORT).show();
-//                Log.d("Testing", "Uploading X-ray data Successful");
-//
-//
-//                //dialogs.dismissDialog(progressDialog);
-//
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                dialog1.dismiss();
-//                Log.d("Testing", "Uploading x-ray data error");
-//
-//                if (error instanceof NoConnectionError) {
-//                    //dialogs.displayDialog("Not Connected to Internet", context);
-//
-//                }
-//                if (error instanceof ServerError) {
-//                    Toast.makeText(context, "ServiceError: " + error, Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Log.d("", "error.networkRespose.toString()" + error.networkResponse.toString());
-//                }
-//
-//                //dialogs.dismissDialog(progressDialog);
-//                //dialogs.dismissDialog(progressDialog);
-//
-//            }
-//        });
-////        {
-////            @Nullable
-////            @org.jetbrains.annotations.Nullable
-////            @Override
-////            protected Map<String, String> getParams() throws AuthFailureError {
-////
-////                Map<String, String> map = new HashMap<>();
-////                map.put("image", editedProfileData.getImage());
-////                return map;
-////            }
-////        };
-//
-//
-//        detailsRequestQueue.add(sendEditDetailsRequest);
-//
-//        sendEditDetailsRequest.setRetryPolicy(new RetryPolicy() {
-//            @Override
-//            public int getCurrentTimeout() {
-//                return 50000;
-//            }
-//
-//            @Override
-//            public int getCurrentRetryCount() {
-//                return 50000;
-//            }
-//
-//            @Override
-//            public void retry(VolleyError error) throws VolleyError {
-//
-//            }
-//        });
-//
-//
-//    }
 
 
     public void addNewReport(Context context, ReportData reportData1, com.example.doc_app_android.data_model.ReportData reportData) {

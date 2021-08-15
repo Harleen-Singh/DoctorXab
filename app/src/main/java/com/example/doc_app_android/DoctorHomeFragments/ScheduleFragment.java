@@ -87,9 +87,13 @@ public class ScheduleFragment extends Fragment {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_schedule, container, false);
         binding.setLifecycleOwner(this);
+        binding.scheduleProgress.setVisibility(View.VISIBLE);
 
         AppointmentsFragment appointmentsFragment = new AppointmentsFragment();
         requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.scheduleLayoutContainer, appointmentsFragment).setReorderingAllowed(true).commit();
+
+        binding.scheduleProgress.setVisibility(View.GONE);
+
 
         binding.scheduleBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,6 +101,7 @@ public class ScheduleFragment extends Fragment {
                 requireActivity().getSupportFragmentManager().popBackStack();
             }
         });
+
 
 
 

@@ -193,7 +193,6 @@ public class Home extends AppCompatActivity {
                         break;
 
                     case R.id.menu_appointments:
-                        Toast.makeText(getApplicationContext(), "Nothing to open", Toast.LENGTH_SHORT).show();
                         temp = new DoctorAppointmentsFragment();
 //                        preferences = getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
 //                        editor = preferences.edit();
@@ -203,17 +202,14 @@ public class Home extends AppCompatActivity {
                         break;
 
                     case R.id.menu_schedule:
-                        Toast.makeText(getApplicationContext(), "Schedule Pane is opened.", Toast.LENGTH_SHORT).show();
                         temp = new ScheduleFragment();
                         break;
 
                     case R.id.menu_settings:
-                        Toast.makeText(getApplicationContext(), "Settings Pane is opened.", Toast.LENGTH_SHORT).show();
                         temp = new SettingsFragment();
                         break;
 
                     case R.id.menu_privacyplicy:
-                        Toast.makeText(getApplicationContext(), "Privacy Policy Pane is opened.", Toast.LENGTH_SHORT).show();
                         temp = new PrivacyPolicyFragment();
                         break;
 

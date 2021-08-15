@@ -357,6 +357,8 @@ public class CheckupDetailsPatient extends Fragment {
         });
 
 
+
+
         return binding.getRoot();
     }
 }

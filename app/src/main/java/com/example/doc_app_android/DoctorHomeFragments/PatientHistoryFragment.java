@@ -18,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 import com.example.doc_app_android.Adapter.FilterRCVadapter;
@@ -29,6 +30,7 @@ import com.example.doc_app_android.databinding.FragmentAppointmentsBinding;
 import com.example.doc_app_android.databinding.FragmentPatientCheckUpHistoryBinding;
 import com.example.doc_app_android.databinding.FragmentPatientHistoryBinding;
 import com.example.doc_app_android.view_model.PatientChechkUpHistoryModel;
+
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -87,7 +89,6 @@ public class PatientHistoryFragment extends Fragment {
         Log.d("Fragment", "onPause Called");
 
 
-
     }
 
     @Override
@@ -99,7 +100,6 @@ public class PatientHistoryFragment extends Fragment {
 
 
     }
-
 
 
     @Override
@@ -138,10 +138,9 @@ public class PatientHistoryFragment extends Fragment {
         Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).hide();
 
 
-
         Bundle bundle = getArguments();
 
-        if(bundle != null) {
+        if (bundle != null) {
             if (!TextUtils.isEmpty(bundle.getString("name")) && !TextUtils.isEmpty(bundle.getString("age")) && !TextUtils.isEmpty(bundle.getString("image"))) {
                 String name = bundle.getString("name");
                 String age = bundle.getString("age");
@@ -233,6 +232,8 @@ public class PatientHistoryFragment extends Fragment {
                 requireActivity().getSupportFragmentManager().beginTransaction().remove(PatientHistoryFragment.this).commit();
             }
         });
+
+
         return binding.getRoot();
     }
 }

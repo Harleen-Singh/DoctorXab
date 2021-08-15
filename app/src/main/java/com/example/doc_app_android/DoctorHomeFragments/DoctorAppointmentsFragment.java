@@ -89,6 +89,8 @@ public class DoctorAppointmentsFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_doctor_appointments, container, false);
         binding.setLifecycleOwner(this);
 
+        binding.doctorAppointmentProgress.setVisibility(View.VISIBLE);
+
         Bundle bundle1 = getArguments();
         if(bundle1!=null){
             isPatientInfoAppointment = bundle1.getBoolean("isPatientInfoAppointment", false);
@@ -108,6 +110,9 @@ public class DoctorAppointmentsFragment extends Fragment {
            appointmentsFragment.setArguments(bundle);
            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.appointmentsLayoutContainer, appointmentsFragment).setReorderingAllowed(true).commit();
        }
+
+        binding.doctorAppointmentProgress.setVisibility(View.GONE);
+
 
         binding.doctorAppointmentBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
