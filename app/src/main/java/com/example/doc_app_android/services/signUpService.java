@@ -55,6 +55,9 @@ public class signUpService {
             postparams.put("password",data.getCpass() );
             postparams.put("email",data.getEmail() );
             postparams.put("contact",data.getContact() );
+            postparams.put("name",data.getName() );
+            postparams.put("gender",data.getGender());
+            postparams.put("age",Integer.parseInt(data.getAge()) );
             if(!isDoc)
                 postparams.put("department",Integer.parseInt("1"));
 //                postparams.put("department",Integer.parseInt(data.getSpecialistof()) );
@@ -63,10 +66,14 @@ public class signUpService {
 //            postparams.put("password", pass);
 
             Log.e("TAG", "getData: " + data.getUsername()  );
+            Log.e("TAG", "getData: " + data.getName()  );
+            Log.e("TAG", "getData: " + data.getAge()  );
+            Log.e("TAG", "getData: " + data.getGender()  );
             Log.e("TAG", "getData: " + data.getCpass()  );
             Log.e("TAG", "getData: " + data.getEmail()  );
             Log.e("TAG", "getData: " + data.getContact()  );
             Log.e("TAG", "getData: " + data.getSpecialistof()  );
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
