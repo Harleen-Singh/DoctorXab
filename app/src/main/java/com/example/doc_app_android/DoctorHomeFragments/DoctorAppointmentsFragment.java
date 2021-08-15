@@ -24,6 +24,7 @@ import com.example.doc_app_android.databinding.FragmentDoctorAppointmentsBinding
 public class DoctorAppointmentsFragment extends Fragment {
 
     private FragmentDoctorAppointmentsBinding binding;
+    private Boolean isPatientInfoAppointment = false;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -68,7 +69,9 @@ public class DoctorAppointmentsFragment extends Fragment {
     public void onStop() {
         super.onStop();
         // This particular line will show the default toolbar of the Home Activity on Home Page when fragment gets closed.
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        if(!isPatientInfoAppointment) {
+            ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        }
     }
 
     @Override
@@ -85,11 +88,26 @@ public class DoctorAppointmentsFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_doctor_appointments, container, false);
         binding.setLifecycleOwner(this);
+
+        Bundle bundle1 = getArguments();
+        if(bundle1!=null){
+            isPatientInfoAppointment = bundle1.getBoolean("isPatientInfoAppointment", false);
+        }
         Bundle bundle = new Bundle();
-        bundle.putBoolean("isDoctorAppointmentsFragment", true);
-        AppointmentsFragment appointmentsFragment = new AppointmentsFragment();
-        appointmentsFragment.setArguments(bundle);
-        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.appointmentsLayoutContainer, appointmentsFragment).setReorderingAllowed(true).commit();
+
+       if(isPatientInfoAppointment){
+
+           bundle.putBoolean("isPatientInfoAppointment1", true);
+           AppointmentsFragment appointmentsFragment = new AppointmentsFragment();
+           appointmentsFragment.setArguments(bundle);
+           requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.appointmentsLayoutContainer, appointmentsFragment).setReorderingAllowed(true).commit();
+
+       } else{
+           bundle.putBoolean("isDoctorAppointmentsFragment", true);
+           AppointmentsFragment appointmentsFragment = new AppointmentsFragment();
+           appointmentsFragment.setArguments(bundle);
+           requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.appointmentsLayoutContainer, appointmentsFragment).setReorderingAllowed(true).commit();
+       }
 
         binding.doctorAppointmentBackButton.setOnClickListener(new View.OnClickListener() {
             @Override

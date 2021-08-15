@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doc_app_android.Adapter.NotesRVAdapter;
 import com.example.doc_app_android.Dialogs.docListFragment;
+import com.example.doc_app_android.DoctorHomeFragments.DoctorAppointmentsFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.AppointmentData;
 import com.example.doc_app_android.data_model.DocData;
@@ -77,6 +78,7 @@ public class AppointmentsFragment extends Fragment {
     private ArrayList<AppointmentData> appointmentData = new ArrayList<>();
     private SharedPreferences preferences;
     private boolean isDoctorAppointmentsFragment;
+    private boolean isPatientDetailsAdapterAppointment, isPatientInfoAppointment, isPatientInfoAppointment1;
     CharSequence SelectedDate = LocalDate.now().toString();
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -97,36 +99,62 @@ public class AppointmentsFragment extends Fragment {
         Bundle bundle = getArguments();
         if(bundle != null){
 
-            isDoctorAppointmentsFragment = bundle.getBoolean("isDoctorAppointmentsFragment");
+            isDoctorAppointmentsFragment = bundle.getBoolean("isDoctorAppointmentsFragment",false);
+            isPatientDetailsAdapterAppointment = bundle.getBoolean("isPatientDetailsAdapterAppointment", false);
+            isPatientInfoAppointment = bundle.getBoolean("isPatientInfoAppointment", false);
+            isPatientInfoAppointment1 = bundle.getBoolean("isPatientInfoAppointment1", false);
         }
 
         if(isDoctorAppointmentsFragment){
+
+            binding.btnApmnt.setVisibility(View.GONE);
+            binding.btnRemain.setVisibility(View.GONE);
+            binding.btnNote.setVisibility(View.GONE);
+
+        }
+
+        if(isPatientDetailsAdapterAppointment){
             binding.btnApmnt.setVisibility(View.GONE);
             binding.btnRemain.setVisibility(View.GONE);
             binding.btnNote.setVisibility(View.GONE);
         }
 
+        if(isPatientInfoAppointment){
+            binding.calenderContainer.setVisibility(View.GONE);
+            binding.editCalendar.setVisibility(View.VISIBLE);
+
+        }
+
+        if(isPatientInfoAppointment1){
+            binding.editSave.setVisibility(View.VISIBLE);
+        }
 
 
 
 
-//        binding.editCalendar.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.patient_info_frame, new AppointmentsFragment()).addToBackStack("name5").commit();
-//                binding.editCalendar.setVisibility(View.GONE);
-//                binding.editSave.setVisibility(View.VISIBLE);
-//            }
-//        });
-//
-//        binding.editSave.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                getFragmentManager().beginTransaction().remove(AppointmentsFragment.this).commit();
-//
-//
-//            }
-//        });
+
+        binding.editCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle bundle1 = new Bundle();
+                bundle1.putBoolean("isPatientInfoAppointment",isPatientInfoAppointment);
+                DoctorAppointmentsFragment doctorAppointmentsFragment = new DoctorAppointmentsFragment();
+                doctorAppointmentsFragment.setArguments(bundle1);
+                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, doctorAppointmentsFragment).addToBackStack("name9").commit();
+
+            }
+        });
+
+        binding.editSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requireActivity().getSupportFragmentManager().popBackStack();
+
+
+            }
+        });
+
+
         doctorListViewModel.getID_name_pair().observe(requireActivity(), new Observer<ArrayList<DocData>>() {
             @Override
             public void onChanged(ArrayList<DocData> docData) {

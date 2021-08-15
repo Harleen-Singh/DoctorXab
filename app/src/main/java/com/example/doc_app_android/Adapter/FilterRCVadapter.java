@@ -2,6 +2,7 @@ package com.example.doc_app_android.Adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doc_app_android.DoctorHomeFragments.DataLoaderFragment;
+import com.example.doc_app_android.DoctorHomeFragments.PatientInfoAppointmentFragment;
 import com.example.doc_app_android.PatentHomeFragments.AppointmentsFragment;
 import com.example.doc_app_android.PatentHomeFragments.FragmentPrescription;
 import com.example.doc_app_android.PatentHomeFragments.FragmentXRayScan;
@@ -90,19 +92,17 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
     private void callPatientCheckupFragments(String data, int position, FilterData problem_id) {
 
         switch (data.trim()) {
+
             case "CHECKUP HISTORY":
                 temp = patientCheckUpHistory.newInstance();
                 break;
+
             case "X-RAY/SCAN":
                 temp = FragmentXRayScan.newInstance();
                 break;
+
             case "APPOINTMENT":
-                Toast.makeText(context, "Nothing to Show.", Toast.LENGTH_SHORT).show();
-//                temp = AppointmentsFragment.newInstance();
-//                pref = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
-//                editor = pref.edit();
-//                editor.putBoolean("patientInfoCalendar", true);
-//                editor.apply();
+                temp = PatientInfoAppointmentFragment.newInstance();
                 break;
         }
         AppCompatActivity appCompatActivity = (AppCompatActivity) context;

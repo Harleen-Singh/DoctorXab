@@ -277,12 +277,11 @@ public class CheckupDetailsPatient extends Fragment {
         binding.addAppointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(requireContext(), "Nothing to Show.", Toast.LENGTH_SHORT).show();
-//                editor = preferences.edit();
-//                editor.putBoolean("addAppointmentCalendar", true);
-//                editor.apply();
-//                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, new AppointmentsFragment()).setReorderingAllowed(true).addToBackStack("appointment").commit();
-
+                Bundle bundle1 = new Bundle();
+                bundle1.putBoolean("isPatientInfoAppointment",true);
+                DoctorAppointmentsFragment doctorAppointmentsFragment = new DoctorAppointmentsFragment();
+                doctorAppointmentsFragment.setArguments(bundle1);
+                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, doctorAppointmentsFragment).addToBackStack("name9").commit();
 
             }
         });
