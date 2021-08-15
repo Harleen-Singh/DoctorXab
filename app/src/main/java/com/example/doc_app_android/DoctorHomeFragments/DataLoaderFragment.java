@@ -2,12 +2,15 @@ package com.example.doc_app_android.DoctorHomeFragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,12 +27,13 @@ import java.util.ArrayList;
 
 public class DataLoaderFragment extends Fragment {
 
-    private RecyclerView rcv ;
+    private RecyclerView rcv;
     private ArrayList<PatientDetails> data1;
     private static String id;
     private DataLoaderViewModel dataLoaderViewModel;
     private PatientDetailsAdapter patientDetailsAdapter;
     private DataLoaderFragment fragment;
+    private FragmentDataLoaderBinding binding;
 
 
     public DataLoaderFragment() {
@@ -50,9 +54,10 @@ public class DataLoaderFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        FragmentDataLoaderBinding binding = DataBindingUtil.inflate(inflater, R.layout.fragment_data_loader, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_data_loader, container, false);
+        binding.setLifecycleOwner(this);
         patientDetailsAdapter = new PatientDetailsAdapter(getContext());
         binding.detailsRcv.setAdapter(patientDetailsAdapter);
         binding.dataLoadingProgressBar.setVisibility(View.VISIBLE);
@@ -63,6 +68,12 @@ public class DataLoaderFragment extends Fragment {
                 patientDetailsAdapter.setdata(profileData);
                 patientDetailsAdapter.notifyDataSetChanged();
                 binding.dataLoadingProgressBar.setVisibility(View.GONE);
+                if (profileData.isEmpty()) {
+                    if (binding.dataFragmentContainer != null) {
+                        binding.dataFragmentContainer.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.no_data));
+                    } else {
+                        Log.d("Testing", "binding.dataFragmentContainer is null");                    }
+                }
             }
         });
 

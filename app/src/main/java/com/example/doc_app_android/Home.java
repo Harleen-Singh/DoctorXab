@@ -66,7 +66,6 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("ImplicitIntentTesting", "I am getting called 3");
 
         binding.toolbar.setVisibility(View.VISIBLE);
 
@@ -89,7 +88,6 @@ public class Home extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        Log.d("ImplicitIntentTesting", "I am getting called 5");
 //        profileViewModel.getProfileDetails().observe(this, new Observer<ProfileData>() {
 //            @Override
 //            public void onChanged(ProfileData profileData) {
@@ -130,6 +128,7 @@ public class Home extends AppCompatActivity {
             @Override
             public void onChanged(ArrayList<FilterData> filterData) {
                 filterAdapter.setFilter(filterData);
+
                 filterAdapter.notifyDataSetChanged();
             }
         });

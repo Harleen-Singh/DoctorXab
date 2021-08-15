@@ -1,29 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <FrameLayout
+        android:id="@+id/dlaFrame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".DoctorHomeFragments.DataLoaderFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/details_rcv"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/data_fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/home_single_patient_row" />
+            android:layout_height="match_parent">
 
-        <ProgressBar
-            android:id="@+id/data_loading_progress_bar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:indeterminateTint="@color/theme"
-            android:visibility="gone"
-            android:layout_gravity="center"
-             />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/details_rcv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:listitem="@layout/home_single_patient_row" />
+
+            <ProgressBar
+                android:id="@+id/data_loading_progress_bar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/theme"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>
 

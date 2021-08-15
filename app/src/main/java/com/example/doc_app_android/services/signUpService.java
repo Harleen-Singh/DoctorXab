@@ -123,6 +123,7 @@ public class signUpService {
     private void saveToPreferences() {
         SharedPreferences.Editor editor = mContext.getSharedPreferences("tokenFile", Context.MODE_PRIVATE).edit();
         editor.putBoolean("isDoc", isDoctor);
+        editor.putString("doctor_id", id);
         editor.putString("id", id);
         editor.putString("username", usernameResp);
         editor.putString("Email", email);

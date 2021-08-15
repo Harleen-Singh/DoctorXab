@@ -86,10 +86,11 @@ public class profileService {
         if (mutableProfileData == null) {
             mutableProfileData = new MutableLiveData<>();
             if (isDoc) {
-                //Log.d("Testing", "Url: " +Globals.profileDoctor + dorP_id )
+                Log.d("Testing", "Url: " +Globals.profileDoctor + dorP_id );
                 getData(Globals.profileDoctor + dorP_id, true);
 
             } else {
+                Log.d("Testing", "Url: " +Globals.profileDoctor + patient_id );
                 getData(Globals.profilePatient + patient_id, false);
 
             }
