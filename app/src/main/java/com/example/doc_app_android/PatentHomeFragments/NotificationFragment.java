@@ -1,6 +1,9 @@
 package com.example.doc_app_android.PatentHomeFragments;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
@@ -9,10 +12,6 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.doc_app_android.Adapter.notificationAdapter;
 import com.example.doc_app_android.R;
@@ -60,7 +59,7 @@ public class NotificationFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_notification,null,false);
-        notificationAdapter adapter = new notificationAdapter();
+        notificationAdapter adapter = new notificationAdapter(requireContext());
         binding.rView.setAdapter(adapter);
         model = new ViewModelProvider(requireActivity()).get(FragmentNotificationViewModel.class);
         binding.progressbar.setVisibility(View.VISIBLE);
