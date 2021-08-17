@@ -3,67 +3,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+
+    <data>
+        <variable
+            name="noti_data"
+            type="com.example.doc_app_android.data_model.NotiData" />
+    </data>
+
 
         <androidx.cardview.widget.CardView
-            android:layout_width="335dp"
-            android:layout_height="114dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:backgroundTint="@color/scnd_blue_white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="27dp"
-                    android:layout_height="27dp"
-                    android:layout_marginLeft="21.25dp"
-                    android:layout_marginTop="23.75dp"
-                    android:background="@drawable/download"
+                <TextView
+                    android:id="@+id/tv_noti_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fontFamily="@font/rubik"
+                    android:padding="10dp"
+                    android:text="@{noti_data.data}"
+                    android:textColor="@color/theme"
+                    android:textSize="16sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/tv_noti_desc"
-                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
-                <TextView
-                    android:id="@+id/tv_noti_desc"
-                    android:layout_width="256dp"
-                    android:layout_height="75dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="19dp"
-                    android:layout_marginRight="19dp"
-                    android:fontFamily="@font/rubik"
-                    android:textColor="@color/scnd_blue"
-                    android:textSize="16sp"
-                    android:text="getting info......"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/rubik"
-                    android:text="time"
-                    android:textColor="@color/scnd_blue"
-                    android:textSize="12sp"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_noti_desc"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="@+id/tv_noti_desc"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_noti_desc" />
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
