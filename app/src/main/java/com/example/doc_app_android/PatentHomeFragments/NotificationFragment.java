@@ -83,6 +83,12 @@ public class NotificationFragment extends Fragment {
             }
         });
 
+        binding.backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requireActivity().getSupportFragmentManager().popBackStack();
+            }
+        });
 
 
         return binding.getRoot();
