@@ -22,4 +22,5 @@ public class Globals {
     public static String addNewReport = serverURL + "report/add";
     public static String addNewXray = serverURL + "xray/add";
     public static String notifications = serverURL + "notifications";
+    public static String newNotifications = serverURL + "getappointment";
 }

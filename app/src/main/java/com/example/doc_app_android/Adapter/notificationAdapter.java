@@ -1,20 +1,27 @@
 package com.example.doc_app_android.Adapter;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.NotiData;
 import com.example.doc_app_android.databinding.SingleListNotiBinding;
+import com.example.doc_app_android.services.notiService;
+
 import java.util.ArrayList;
 
 public class notificationAdapter extends RecyclerView.Adapter<notificationAdapter.ViewHolder> {
     private ArrayList<NotiData> notiData;
 
-
-    public notificationAdapter() {
+    public Context mContext;
+    notiService service = new notiService();
+    public notificationAdapter(Context xontext) {
+        mContext = xontext;
         notiData = new ArrayList<>();
     }
 
@@ -33,6 +40,9 @@ public class notificationAdapter extends RecyclerView.Adapter<notificationAdapte
     public void onBindViewHolder(@NonNull notificationAdapter.ViewHolder holder, int position) {
         holder.binding.setNotiData(notiData.get(position));
         holder.binding.executePendingBindings();
+        holder.binding.clickableArea.setOnClickListener(v -> {
+            displayConfirmationDialog(notiData.get(position));
+        });
     }
 
     @Override
@@ -46,5 +56,20 @@ public class notificationAdapter extends RecyclerView.Adapter<notificationAdapte
             super(binding.getRoot());
             this.binding = binding;
         }
+    }
+
+    public final void displayConfirmationDialog(NotiData NotificationData) {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(mContext, R.style.AlertDialog);
+        builder.setMessage(NotificationData.getData());
+        builder.setTitle("Confirmation");
+        builder.setPositiveButton("Accept Appointment" ,(dialog, which) -> {
+            service.acceptReq(NotificationData,mContext);
+        });
+        builder.setNegativeButton("Reject Appointment" , (dialog, which) -> {
+//            service.rejectRequest(NotificationData,mContext);
+        });
+        androidx.appcompat.app.AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        alertDialog.getWindow().getWindowStyle();
     }
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -88,6 +89,79 @@ public class notiService {
             }
         })
         {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                SharedPreferences pref = app.getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+                Map<String, String> params = new HashMap<>();
+                String creds = String.format("%s:%s",pref.getString("username", ""),pref.getString("pass", ""));
+                String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
+                params.put("Authorization", auth);
+                return params;
+            }
+        };
+        requestQueue.add(jsonObjectRequest);
+    }
+    
+    public void acceptReq(NotiData notificationData , Context context){
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JSONObject param = new JSONObject();
+        int lenght = notificationData.getData().length();
+        try {
+            param.put("date",notificationData.getData().substring(lenght-10));
+            param.put("patient",notificationData.getSender());
+            Toast.makeText(context, notificationData.getData().substring(lenght-10), Toast.LENGTH_SHORT).show();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+//        param.put("date",);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Globals.newNotifications, param, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                SharedPreferences pref = app.getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+                Map<String, String> params = new HashMap<>();
+                String creds = String.format("%s:%s",pref.getString("username", ""),pref.getString("pass", ""));
+                String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
+                params.put("Authorization", auth);
+                return params;
+            }
+        };
+        requestQueue.add(jsonObjectRequest);
+    }
+
+    public void rejectRequest(NotiData notificationData , Context context) {
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JSONObject param = new JSONObject();
+        int lenght = notificationData.getData().length();
+        try {
+            param.put("date",notificationData.getData().substring(lenght-10));
+            param.put("patient",notificationData.getSender());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+//        param.put("date",);
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Globals.newNotifications, param, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+            }
+        }){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
                 SharedPreferences pref = app.getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
