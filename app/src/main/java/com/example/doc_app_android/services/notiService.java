@@ -55,16 +55,9 @@ public class notiService {
             @Override
             public void onResponse(JSONObject response) {
                 try {
-                    JSONObject rootObject = new JSONObject(String.valueOf(response));
-
-                    nextURL = rootObject.getString("next");
-
-                    counter = rootObject.getString("count");
-
-                    JSONArray resultArray = rootObject.getJSONArray("results");
+                    JSONArray resultArray = new JSONArray();
 
                     for (int i = 0; i < resultArray.length(); i++) {
-                        try {
                             String id, data, sender, receiver;
                             JSONObject singleObject = resultArray.getJSONObject(i);
                             id = singleObject.getString("id");
@@ -72,9 +65,6 @@ public class notiService {
                             sender = singleObject.getString("sender");
                             receiver = singleObject.getString("reciever");
                             notiDataArrayList.add(new NotiData(id, data, sender, receiver));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
                     }
                     data_model.setValue(notiDataArrayList);
 
