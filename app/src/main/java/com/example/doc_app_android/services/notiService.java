@@ -15,6 +15,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.doc_app_android.Globals;
@@ -51,15 +52,13 @@ public class notiService {
         prefs = app.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
         final RequestQueue requestQueue = Volley.newRequestQueue(app.getApplicationContext());
 
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, new Response.Listener<JSONArray>() {
             @Override
-            public void onResponse(JSONObject response) {
+            public void onResponse(JSONArray response) {
                 try {
-                    JSONArray resultArray = new JSONArray();
-
-                    for (int i = 0; i < resultArray.length(); i++) {
+                    for (int i = 0; i < response.length(); i++) {
                             String id, data, sender, receiver;
-                            JSONObject singleObject = resultArray.getJSONObject(i);
+                            JSONObject singleObject = response.getJSONObject(i);
                             id = singleObject.getString("id");
                             data = singleObject.getString("data");
                             sender = singleObject.getString("sender");
@@ -89,7 +88,7 @@ public class notiService {
                 return params;
             }
         };
-        requestQueue.add(jsonObjectRequest);
+        requestQueue.add(jsonArrayRequest);
     }
     
     public void acceptReq(NotiData notificationData , Context context){
