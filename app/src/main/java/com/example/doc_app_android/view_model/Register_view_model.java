@@ -40,9 +40,9 @@ public class Register_view_model extends ViewModel {
         return userMutableLiveData;
     }
 
-    public void onNextClick(View view) {
+    public void onClickSignUp(View view) {
         flag = true;
-        if (!(username.getValue() == null && email.getValue() == null && createpass.getValue() == null && cfmpass.getValue()==null)) {
+        if (username.getValue() != null && email.getValue() != null && createpass.getValue() != null && cfmpass.getValue() != null) {
             register_data = new Register_data(username.getValue(), email.getValue(), createpass.getValue(), cfmpass.getValue());
             if(register_data.getCfpass().equals(register_data.getCpass())) {
                 register_data = new Register_data(username.getValue(), email.getValue(), createpass.getValue(), cfmpass.getValue());
@@ -61,12 +61,15 @@ public class Register_view_model extends ViewModel {
         view.getContext().startActivity(intent);
     }
 
-    public void onClickSignUp(View view) {
+    public void onClickContinue(View view) {
        flag = false;
-        if (!(name.getValue() == null && contact.getValue() == null && age.getValue() == null && gender.getValue()==null)) {
-            register_data = new Register_data(name.getValue(),contact.getValue(),age.getValue(),gender.getValue(),isDoc.getValue());
-            System.out.println("--->>>"+gender.getValue());
-            userMutableLiveData.setValue(register_data);
+        if (specialistof.getValue()!=null && name.getValue() != null && contact.getValue() != null && age.getValue() != null && gender.getValue() != null) {
+            if(contact.getValue().length()==10 && (Integer.parseInt(age.getValue())>=1 && Integer.parseInt(age.getValue())<=110)){
+                register_data = new Register_data(name.getValue(),contact.getValue(),age.getValue(),gender.getValue(),isDoc.getValue());
+                userMutableLiveData.setValue(register_data);
+            }
+            else
+                Toast.makeText(view.getContext(), "Invalid Age (1-110) or Phone Number (10-Digits)", Toast.LENGTH_SHORT).show();
         }
         else
             Toast.makeText(view.getContext(), "Please Enter Your Details Properly", Toast.LENGTH_SHORT).show();

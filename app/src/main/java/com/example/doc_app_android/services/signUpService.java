@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.android.volley.ClientError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
@@ -29,6 +31,7 @@ public class signUpService {
     private Activity mContext;
     private ProgressDialog progressDialog;
     private boolean isDoc;
+    public MutableLiveData<Boolean> flag = new MutableLiveData<>() ;
     public String url,url2;
     String id , usernameResp , email , name , age , gender , contact , state ;
     private boolean isDoctor;
@@ -141,6 +144,7 @@ public class signUpService {
             Log.e("TAG", "getData: " + data.getEmail()  );
 
 
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -149,6 +153,7 @@ public class signUpService {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, postparams, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                flag.setValue(true);
                 Log.d("TAG", "onResponse: we are processing");
                 Log.e("TAG", "onResponse: "+response );
                 dialogs.dismissDialog(progressDialog);
@@ -179,7 +184,7 @@ public class signUpService {
                 else {
                     Log.d("", "error.networkRespose.toString()-->>>" + error.networkResponse.toString());
                     dialogs.displayDialog("Username Already Taken",mContext);
-
+                    flag.setValue(false);
                 }
                 dialogs.dismissDialog(progressDialog);
                 Log.d("TAG", "onErrorResponse: " + error.getLocalizedMessage());
