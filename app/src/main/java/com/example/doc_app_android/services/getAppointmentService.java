@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Base64;
+import android.util.Log;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -83,6 +84,7 @@ public class getAppointmentService {
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
+                    Log.e("TAG", "onErrorResponse: "+ error );
                     dialog1.dismiss();
                     dialog.displayDialog("Error in Sending Request ", context);
                 }
