@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,6 +41,11 @@ public class notificationAdapter extends RecyclerView.Adapter<notificationAdapte
     public void onBindViewHolder(@NonNull notificationAdapter.ViewHolder holder, int position) {
         holder.binding.setNotiData(notiData.get(position));
         holder.binding.executePendingBindings();
+
+        if(Integer.parseInt(notiData.get(position).getIcon())==1){
+            holder.binding.imageView2.setBackground(AppCompatResources.getDrawable(mContext,R.drawable.download));
+        }
+
         holder.binding.clickableArea.setOnClickListener(v -> {
             if(!notiData.get(position).getStatus().equals("1"))
                 displayConfirmationDialog(notiData.get(position),position);
