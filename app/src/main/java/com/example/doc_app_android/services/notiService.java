@@ -57,13 +57,15 @@ public class notiService {
             public void onResponse(JSONArray response) {
                 try {
                     for (int i = 0; i < response.length(); i++) {
-                            String id, data, sender, receiver;
+                            String id, data, sender, receiver , status,icon;
                             JSONObject singleObject = response.getJSONObject(i);
                             id = singleObject.getString("id");
                             data = singleObject.getString("data");
                             sender = singleObject.getString("sender");
                             receiver = singleObject.getString("reciever");
-                            notiDataArrayList.add(new NotiData(id, data, sender, receiver));
+                            status = singleObject.getString("status");
+                            icon = singleObject.getString("icon");
+                            notiDataArrayList.add(new NotiData(id, data, sender, receiver,icon,status));
                     }
                     data_model.setValue(notiDataArrayList);
 

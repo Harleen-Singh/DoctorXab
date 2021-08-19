@@ -41,7 +41,10 @@ public class notificationAdapter extends RecyclerView.Adapter<notificationAdapte
         holder.binding.setNotiData(notiData.get(position));
         holder.binding.executePendingBindings();
         holder.binding.clickableArea.setOnClickListener(v -> {
-            displayConfirmationDialog(notiData.get(position));
+            if(!notiData.get(position).getStatus().equals("1"))
+                displayConfirmationDialog(notiData.get(position),position);
+            else
+                holder.binding.clickableArea.setBackgroundColor( mContext.getResources().getColor(R.color.white));
         });
     }
 
@@ -58,15 +61,17 @@ public class notificationAdapter extends RecyclerView.Adapter<notificationAdapte
         }
     }
 
-    public final void displayConfirmationDialog(NotiData NotificationData) {
+    public final void displayConfirmationDialog(NotiData NotificationData, int position) {
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(mContext, R.style.AlertDialog);
         builder.setMessage(NotificationData.getData());
         builder.setTitle("Confirmation");
         builder.setPositiveButton("Accept Appointment" ,(dialog, which) -> {
             service.acceptReq(NotificationData,mContext);
+            notiData.get(position).setStatus("1");
         });
         builder.setNegativeButton("Reject Appointment" , (dialog, which) -> {
             service.rejectRequest(NotificationData,mContext);
+            notiData.get(position).setStatus("1");
         });
         androidx.appcompat.app.AlertDialog alertDialog = builder.create();
         alertDialog.show();

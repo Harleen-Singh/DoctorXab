@@ -1,13 +1,15 @@
 package com.example.doc_app_android.data_model;
 
 public class NotiData {
-    String id , data , sender , receiver ;
+    String id , data , sender , receiver , icon , status ;
 
-    public NotiData(String id, String data, String sender, String receiver) {
+    public NotiData(String id, String data, String sender, String receiver, String icon, String status) {
         this.id = id;
         this.data = data;
         this.sender = sender;
         this.receiver = receiver;
+        this.icon = icon;
+        this.status = status;
     }
 
     public String getId() {
@@ -40,5 +42,21 @@ public class NotiData {
 
     public void setReceiver(String receiver) {
         this.receiver = receiver;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
