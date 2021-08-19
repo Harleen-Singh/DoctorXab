@@ -8,8 +8,11 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.doc_app_android.Dialogs.docListFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.DocData;
 import com.example.doc_app_android.databinding.ShareSingleRowBinding;
@@ -23,10 +26,10 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.ShareViewHol
 
     private ArrayList<DocData> doctorList = new ArrayList<>();
     private Context context;
-
-
-    public ShareAdapter(Context context) {
+    private FragmentManager manager;
+    public ShareAdapter(Context context, FragmentManager childFragmentManager) {
         this.context = context;
+        manager = childFragmentManager;
     }
 
     public void setData(ArrayList<DocData> doctorList){
@@ -52,8 +55,21 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.ShareViewHol
                     .placeholder(R.drawable.doctor_profile_image)
                     .into(holder.binding.shareProfileImage);
             holder.binding.shareAge.setText(doctorList.get(position).getAge());
+            holder.binding.shareButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showDocFragment();
+                }
+            });
         }
 
+    }
+
+    private void showDocFragment() {
+        docListFragment docDialog = new docListFragment();
+        docDialog.setDialog(docDialog);
+        docDialog.setStyle(DialogFragment.STYLE_NO_FRAME,R.style.AlertDialog);
+        docDialog.show(manager, "docList");
     }
 
     @Override

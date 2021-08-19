@@ -3,6 +3,9 @@ package com.example.doc_app_android.DoctorHomeFragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -10,15 +13,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import com.example.doc_app_android.Adapter.ShareAdapter;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.DocData;
 import com.example.doc_app_android.databinding.FragmentShareBinding;
-import com.example.doc_app_android.view_model.DataLoaderViewModel;
 import com.example.doc_app_android.view_model.DoctorShareViewModel;
 
 import java.util.ArrayList;
@@ -105,7 +103,7 @@ public class ShareFragment extends Fragment {
         preferences = requireContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
         isFromPatientHistory = preferences.getBoolean("isFromPatientHistory", false);
 
-        ShareAdapter shareAdapter = new ShareAdapter(requireContext());
+        ShareAdapter shareAdapter = new ShareAdapter(requireContext(),getChildFragmentManager());
         binding.shareAdapter.setAdapter(shareAdapter);
 
         model = new ViewModelProvider(requireActivity()).get(DoctorShareViewModel.class);

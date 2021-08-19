@@ -63,4 +63,43 @@ public class getAppointmentService {
             e.printStackTrace();
         }
     }
+
+
+    public void shareReport(Context context, ProgressDialog dialog1, DocData docData) {
+        SharedPreferences pref = context.getSharedPreferences("tokenFile",Context.MODE_PRIVATE);
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("doctor",Integer.valueOf(docData.getDocID()));
+
+            final RequestQueue requestQueue = Volley.newRequestQueue(context);
+            dialogs dialog = new dialogs();
+
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Globals.shareReport, obj, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    dialog1.dismiss();
+                    dialog.displayDialog("Request Sent Sucessfully", context);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    dialog1.dismiss();
+                    dialog.displayDialog("Error in Sending Request ", context);
+                }
+            }){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    String creds = String.format("%s:%s",pref.getString("username", ""),pref.getString("pass", ""));
+                    String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
+                    params.put("Authorization", auth);
+                    return params;
+                }
+            };
+            requestQueue.add(jsonObjectRequest);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 }
