@@ -66,7 +66,7 @@ public class notificationAdapter extends RecyclerView.Adapter<notificationAdapte
             service.acceptReq(NotificationData,mContext);
         });
         builder.setNegativeButton("Reject Appointment" , (dialog, which) -> {
-//            service.rejectRequest(NotificationData,mContext);
+            service.rejectRequest(NotificationData,mContext);
         });
         androidx.appcompat.app.AlertDialog alertDialog = builder.create();
         alertDialog.show();

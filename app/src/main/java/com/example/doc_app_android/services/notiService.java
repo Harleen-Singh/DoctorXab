@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Base64;
 import android.util.Log;
-import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -18,6 +17,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.doc_app_android.Dialogs.dialogs;
 import com.example.doc_app_android.Globals;
 import com.example.doc_app_android.data_model.NotiData;
 
@@ -90,7 +90,7 @@ public class notiService {
         };
         requestQueue.add(jsonArrayRequest);
     }
-    
+    dialogs dialog = new dialogs();
     public void acceptReq(NotiData notificationData , Context context){
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONObject param = new JSONObject();
@@ -98,26 +98,26 @@ public class notiService {
         try {
             param.put("date",notificationData.getData().substring(lenght-10));
             param.put("patient",notificationData.getSender());
-            Toast.makeText(context, notificationData.getData().substring(lenght-10), Toast.LENGTH_SHORT).show();
         } catch (JSONException e) {
             e.printStackTrace();
         }
 //        param.put("date",);
 
+
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Globals.newNotifications, param, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
+                dialog.displayDialog("Sucessfully Accepted",context);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                dialog.displayDialog(error.getLocalizedMessage() + " !",context);
             }
         }){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                SharedPreferences pref = app.getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+                SharedPreferences pref = context.getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
                 Map<String, String> params = new HashMap<>();
                 String creds = String.format("%s:%s",pref.getString("username", ""),pref.getString("pass", ""));
                 String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
@@ -131,29 +131,25 @@ public class notiService {
     public void rejectRequest(NotiData notificationData , Context context) {
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONObject param = new JSONObject();
-        int lenght = notificationData.getData().length();
         try {
-            param.put("date",notificationData.getData().substring(lenght-10));
             param.put("patient",notificationData.getSender());
         } catch (JSONException e) {
             e.printStackTrace();
         }
-//        param.put("date",);
-
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Globals.newNotifications, param, new Response.Listener<JSONObject>() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Globals.denyAppointment, param, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-
+                dialog.displayDialog("Sucessfull Rejected",context);
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-
+                dialog.displayDialog(error.getLocalizedMessage() + " !",context);
             }
         }){
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-                SharedPreferences pref = app.getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+                SharedPreferences pref = context.getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
                 Map<String, String> params = new HashMap<>();
                 String creds = String.format("%s:%s",pref.getString("username", ""),pref.getString("pass", ""));
                 String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
