@@ -29,11 +29,11 @@ public class signUpService {
     private Activity mContext;
     private ProgressDialog progressDialog;
     private boolean isDoc;
-    public String url;
-    String id , usernameResp , email ;
+    public String url,url2;
+    String id , usernameResp , email , name , age , gender , contact , state ;
     private boolean isDoctor;
     private com.example.doc_app_android.Dialogs.dialogs dialogs = new dialogs();
-    public signUpService(Register_data data, Activity activity , boolean isDoc) {
+    public signUpService(Register_data data, Activity activity , boolean isDoc , boolean flagCheck) {
         this.data = data;
         this.mContext = activity;
         this.isDoc = isDoc;
@@ -42,11 +42,84 @@ public class signUpService {
         else
             url = Globals.patientRegister;
         progressDialog = new ProgressDialog(mContext, R.style.AlertDialog);
-        getData();
+
+        url2 = Globals.addUserData;
+
+        if(flagCheck)
+            getSignUpData();
+        else
+            getContinueData();
+
+
     }
 
-    public void getData(){
-        Log.d("TAG", "getData: we are in getData");
+    private void getContinueData() {
+        Log.d("TAG", "getData: we are in getContinueData");
+        dialogs.alertDialogLogin(progressDialog,"Loading.....");
+        JSONObject postparams = null;
+        try {
+            postparams = new JSONObject();
+            postparams.put("name",data.getName() );
+            postparams.put("phone_number",data.getContact() );
+            postparams.put("gender",data.getGender());
+            postparams.put("age",data.getAge() );
+            if(!isDoc)
+                postparams.put("department",Integer.parseInt("1"));
+//                postparams.put("department",Integer.parseInt(data.getSpecialistof()) );
+            else
+//            postparams.put("password", pass);
+            Log.e("TAG", "getData: " + data.getName()  );
+            Log.e("TAG", "getData: " + data.getAge()  );
+            Log.e("TAG", "getData: " + data.getGender()  );
+            Log.e("TAG", "getData: " + data.getContact()  );
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d("TAG", "getContinueData: obj " + postparams);
+        final RequestQueue MyRequestQueue = Volley.newRequestQueue(mContext);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url2, postparams, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("TAG", "onResponse: we are processing");
+                Log.e("TAG", "onResponse: "+response );
+                dialogs.dismissDialog(progressDialog);
+                try{
+                    JSONObject root = new JSONObject(String.valueOf(response));
+                    name = root.getString("name");
+                    age = root.getString("age");
+                    gender = root.getString("gender");
+                    contact = root.getString("phone_number");
+                    state =  root.getString("state");
+//                    saveToPreferences();
+
+                    Intent intent = new Intent(mContext, Home.class);
+                    mContext.startActivity(intent);
+                    mContext.finish();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if(error instanceof NoConnectionError) {
+                    dialogs.displayDialog("Not Connected to Internet",mContext);
+                }
+                else if(error instanceof ClientError){
+                    dialogs.displayDialog("Invalid Credentials!",mContext);
+                }
+                else {
+                    Log.d("", "error.networkRespose.toString()-->>>" + error.networkResponse.toString());
+                }
+                dialogs.dismissDialog(progressDialog);
+                Log.d("TAG", "onErrorResponse: " + error.getLocalizedMessage());
+            }
+        });
+        MyRequestQueue.add(jsonObjectRequest);
+    }
+
+    public void getSignUpData(){
+        Log.d("TAG", "getData: we are in getSignUpData");
         dialogs.alertDialogLogin(progressDialog,"Signing Up....");
         JSONObject postparams = null;
         try {
@@ -54,10 +127,7 @@ public class signUpService {
             postparams.put("username",data.getUsername() );
             postparams.put("password",data.getCpass() );
             postparams.put("email",data.getEmail() );
-            postparams.put("contact",data.getContact() );
-            postparams.put("name",data.getName() );
-            postparams.put("gender",data.getGender());
-            postparams.put("age",Integer.parseInt(data.getAge()) );
+
             if(!isDoc)
                 postparams.put("department",Integer.parseInt("1"));
 //                postparams.put("department",Integer.parseInt(data.getSpecialistof()) );
@@ -66,13 +136,10 @@ public class signUpService {
 //            postparams.put("password", pass);
 
             Log.e("TAG", "getData: " + data.getUsername()  );
-            Log.e("TAG", "getData: " + data.getName()  );
-            Log.e("TAG", "getData: " + data.getAge()  );
-            Log.e("TAG", "getData: " + data.getGender()  );
+
             Log.e("TAG", "getData: " + data.getCpass()  );
             Log.e("TAG", "getData: " + data.getEmail()  );
-            Log.e("TAG", "getData: " + data.getContact()  );
-            Log.e("TAG", "getData: " + data.getSpecialistof()  );
+
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -92,9 +159,10 @@ public class signUpService {
                     usernameResp = root.getString("username");
                     isDoctor = root.getBoolean("is_doctor");
                     saveToPreferences();
-                    Intent intent = new Intent(mContext, Home.class);
-                    mContext.startActivity(intent);
-                    mContext.finish();
+
+//                    Intent intent = new Intent(mContext, Home.class);
+//                    mContext.startActivity(intent);
+//                    mContext.finish();
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -109,7 +177,9 @@ public class signUpService {
                     dialogs.displayDialog("Invalid Credentials!",mContext);
                 }
                 else {
-                    Log.d("", "error.networkRespose.toString()" + error.networkResponse.toString());
+                    Log.d("", "error.networkRespose.toString()-->>>" + error.networkResponse.toString());
+                    dialogs.displayDialog("Username Already Taken",mContext);
+
                 }
                 dialogs.dismissDialog(progressDialog);
                 Log.d("TAG", "onErrorResponse: " + error.getLocalizedMessage());
@@ -128,6 +198,13 @@ public class signUpService {
         editor.putString("username", usernameResp);
         editor.putString("Email", email);
         editor.putString("pass" , data.getCpass());
+
+//        editor.putString("name", name);
+//        editor.putString("age", age);
+//        editor.putString("gender", gender);
+//        editor.putString("phone_number", contact);
+//        editor.putString("state" , state);
+
         editor.apply();
     }
 

@@ -27,6 +27,7 @@ public class Register_view_model extends ViewModel {
     public MutableLiveData<String> age = new MutableLiveData<>();
     public MutableLiveData<String> gender = new MutableLiveData<>();
     public MutableLiveData<Boolean> isDoc = new MutableLiveData<>();
+    public Boolean flag;
 
 
     public MutableLiveData<Register_data> getUser() {
@@ -40,16 +41,19 @@ public class Register_view_model extends ViewModel {
     }
 
     public void onNextClick(View view) {
-        register_data = new Register_data(username.getValue(), name.getValue(), contact.getValue(), email.getValue(), age.getValue(), gender.getValue(),isDoc.getValue());
-        if (!(username.getValue() == null && contact.getValue() == null && email.getValue() == null))
-            if (!(username.getValue().isEmpty() && contact.getValue().isEmpty() && email.getValue().isEmpty()))
-                frameLayout.setValue(View.VISIBLE);
-            else
-                Toast.makeText(view.getContext(), "Please Enter Your Details Properly", Toast.LENGTH_SHORT).show();
-            else
+        flag = true;
+        if (!(username.getValue() == null && email.getValue() == null && createpass.getValue() == null && cfmpass.getValue()==null)) {
+            register_data = new Register_data(username.getValue(), email.getValue(), createpass.getValue(), cfmpass.getValue());
+            if(register_data.getCfpass().equals(register_data.getCpass())) {
+                register_data = new Register_data(username.getValue(), email.getValue(), createpass.getValue(), cfmpass.getValue());
+                userMutableLiveData.setValue(register_data);
+            }
+            else{
+                Toast.makeText(view.getContext(), "Passwords Don't Match", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else
             Toast.makeText(view.getContext(), "Please Enter Your Details Properly", Toast.LENGTH_SHORT).show();
-
-
     }
 
     public void onClickSignIn(View view) {
@@ -58,17 +62,20 @@ public class Register_view_model extends ViewModel {
     }
 
     public void onClickSignUp(View view) {
-        register_data.setCfpass(cfmpass.getValue());
-        register_data.setCpass(createpass.getValue());
-        register_data.setAge(age.getValue());
-        register_data.setGender(gender.getValue());
-        register_data.setSpecialistof(specialistof.getValue());
-        userMutableLiveData.setValue(register_data);
+       flag = false;
+        if (!(name.getValue() == null && contact.getValue() == null && age.getValue() == null && gender.getValue()==null)) {
+            register_data = new Register_data(name.getValue(),contact.getValue(),age.getValue(),gender.getValue(),isDoc.getValue());
+            System.out.println("--->>>"+gender.getValue());
+            userMutableLiveData.setValue(register_data);
+        }
+        else
+            Toast.makeText(view.getContext(), "Please Enter Your Details Properly", Toast.LENGTH_SHORT).show();
     }
 
-    public void onClickBack(View v) {
-        if (frameLayout.getValue() == View.VISIBLE)
-            frameLayout.setValue(View.GONE);   // is done only when second frag is visible so if condition is also not required
     }
 
-}
+//    public void onClickBack(View v) {
+//        if (frameLayout.getValue() == View.VISIBLE)
+//            frameLayout.setValue(View.GONE);   // is done only when second frag is visible so if condition is also not required
+//    }
+
