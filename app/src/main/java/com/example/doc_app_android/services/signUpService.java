@@ -5,10 +5,12 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.util.Base64;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.ClientError;
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
@@ -25,6 +27,9 @@ import com.example.doc_app_android.R;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class signUpService {
     private Register_data data;
@@ -80,7 +85,10 @@ public class signUpService {
         }
         Log.d("TAG", "getContinueData: obj " + postparams);
         final RequestQueue MyRequestQueue = Volley.newRequestQueue(mContext);
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url2, postparams, new Response.Listener<JSONObject>() {
+        SharedPreferences pref = mContext.getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+        Log.e("TAG", "getContinueData: "+ "password in prefs "+ pref.getString("pass", "") + " usename " + pref.getString("username", "") );
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, url2+pref.getString("id", ""), postparams, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("TAG", "onResponse: we are processing");
@@ -117,7 +125,17 @@ public class signUpService {
                 dialogs.dismissDialog(progressDialog);
                 Log.d("TAG", "onErrorResponse: " + error.getLocalizedMessage());
             }
-        });
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                SharedPreferences pref = mContext.getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+                Map<String, String> params = new HashMap<>();
+                String creds = String.format("%s:%s",pref.getString("username", ""),pref.getString("pass", ""));
+                String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
+                params.put("Authorization", auth);
+                return params;
+            }
+        };
         MyRequestQueue.add(jsonObjectRequest);
     }
 
