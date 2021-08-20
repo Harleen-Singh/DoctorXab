@@ -39,8 +39,9 @@
 
                 <TextView
                     android:id="@+id/tv_noti_desc"
-                    android:layout_width="330dp"
-                    android:layout_height="41dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
                     android:fontFamily="@font/rubik"
                     android:padding="10dp"
                     android:text="@{noti_data.data}"
