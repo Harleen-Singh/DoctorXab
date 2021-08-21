@@ -68,7 +68,7 @@ public class filterService {
         },new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(app, error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(app, String.valueOf(error.getLocalizedMessage()), Toast.LENGTH_SHORT).show();
             }
         }){
             @Override

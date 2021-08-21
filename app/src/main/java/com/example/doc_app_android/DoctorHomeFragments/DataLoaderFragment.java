@@ -10,15 +10,18 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
-import com.example.doc_app_android.Adapter.PatientDetails;
 import com.example.doc_app_android.Adapter.PatientDetailsAdapter;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.ProfileData;
+import com.example.doc_app_android.databinding.ActivityHomeBinding;
 import com.example.doc_app_android.databinding.FragmentDataLoaderBinding;
 import com.example.doc_app_android.view_model.DataLoaderViewModel;
 
@@ -28,12 +31,14 @@ import java.util.ArrayList;
 public class DataLoaderFragment extends Fragment {
 
     private RecyclerView rcv;
-    private ArrayList<PatientDetails> data1;
+    private ArrayList<ProfileData> data1 = new ArrayList<>();
     private static String id;
     private DataLoaderViewModel dataLoaderViewModel;
     private PatientDetailsAdapter patientDetailsAdapter;
     private DataLoaderFragment fragment;
     private FragmentDataLoaderBinding binding;
+    private ActivityHomeBinding activityHomeBinding;
+    public String query_text = "";
 
 
     public DataLoaderFragment() {
@@ -67,18 +72,44 @@ public class DataLoaderFragment extends Fragment {
             public void onChanged(ArrayList<ProfileData> profileData) {
                 patientDetailsAdapter.setdata(profileData);
                 patientDetailsAdapter.notifyDataSetChanged();
+                data1 = profileData;
                 binding.dataLoadingProgressBar.setVisibility(View.GONE);
                 if (profileData.isEmpty()) {
                     if (binding.dataFragmentContainer != null) {
                         binding.dataFragmentContainer.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.no_data));
                     } else {
-                        Log.d("Testing", "binding.dataFragmentContainer is null");                    }
+                        Log.d("Testing", "binding.dataFragmentContainer is null");
+                    }
                 }
             }
         });
 
+        EditText view = requireActivity().findViewById(R.id.edit_search);
+        view.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Log.d("TextWatcher", "Entered Text:"  + s.toString());
+                patientDetailsAdapter.getFilter().filter(s.toString());
+
+            }
+        });
+
+
+
         // Inflate the layout for this fragment
         return binding.getRoot();
     }
+
+
 
 }

@@ -50,6 +50,11 @@ public class DoctorPatientListService {
 
 
     public LiveData<ArrayList<ProfileData>> getPatientListForDoctorHome(String problemId, Context context) {
+        preferences = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE );
+//        editor = preferences.edit();
+//        editor.putString("body_component_id", problemId);
+//        editor.apply();
+
         if (problemId.equals("1")) {
             if (mutableLiveElbowData == null) {
                 mutableLiveElbowData = new MutableLiveData<>();
@@ -189,5 +194,10 @@ public class DoctorPatientListService {
             }
         });
     }
+
+
+
+
+
 
 }

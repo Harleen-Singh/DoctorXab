@@ -11,12 +11,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
@@ -26,22 +24,22 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.doc_app_android.Adapter.FilterRCVadapter;
+import com.example.doc_app_android.DoctorHomeFragments.DataLoaderFragment;
 import com.example.doc_app_android.DoctorHomeFragments.DoctorAppointmentsFragment;
 import com.example.doc_app_android.data_model.FilterData;
-import com.example.doc_app_android.PatentHomeFragments.AppointmentsFragment;
 import com.example.doc_app_android.DoctorHomeFragments.PrivacyPolicyFragment;
 import com.example.doc_app_android.DoctorHomeFragments.ProfileFragment;
 import com.example.doc_app_android.DoctorHomeFragments.ScheduleFragment;
 import com.example.doc_app_android.DoctorHomeFragments.SettingsFragment;
 import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.databinding.ActivityHomeBinding;
+import com.example.doc_app_android.services.DoctorPatientListService;
 import com.example.doc_app_android.view_model.HomeViewModel;
 import com.example.doc_app_android.view_model.ProfileViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -55,12 +53,12 @@ public class Home extends AppCompatActivity {
     private FilterRCVadapter filterAdapter;
     ActivityHomeBinding binding;
     private EditText search_field;
-    private ImageButton search , draw_btn;
+    private ImageButton search, draw_btn;
     private HomeViewModel model;
     private CircleImageView nav_profile;
     private TextView nav_name;
-    private SharedPreferences preferences;
-    private SharedPreferences.Editor editor;
+    private final DoctorPatientListService doctorPatientListService = new DoctorPatientListService();
+    private DataLoaderFragment dataLoaderFragment = new DataLoaderFragment();
 
 
     @Override
@@ -110,19 +108,17 @@ public class Home extends AppCompatActivity {
         Log.d("ImplicitIntentTesting", "I am getting called 4");
 
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_home);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
         regornot = getIntent().getBooleanExtra("reg", false);
         search = findViewById(R.id.search_btn);
+//        rcv = findViewById(R.id.details_rcv);
         filterAdapter = new FilterRCVadapter(this);
+
         binding.setLifecycleOwner(this);
         binding.filterRcv.setAdapter(filterAdapter);
         model = new ViewModelProvider(this).get(HomeViewModel.class);
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
-//        preferences = getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
-//        editor = preferences.edit();
-//        editor.putBoolean("hasProfileUpdate", false);
-//        editor.apply();
 
         model.getFilters().observe(this, new Observer<ArrayList<FilterData>>() {
             @Override
@@ -149,21 +145,19 @@ public class Home extends AppCompatActivity {
         });
 
 
-
-
-
         search_field = findViewById(R.id.edit_search);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LayoutTransition layoutTransition = binding.homeLayoutContainer.getLayoutTransition();
                 layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
-                if(search_field.getVisibility()==View.GONE)
+                if (search_field.getVisibility() == View.GONE)
                     search_field.setVisibility(View.VISIBLE);
                 else
                     search_field.setVisibility(View.GONE);
             }
         });
+
 
         setSupportActionBar((Toolbar) binding.toolbar);
         nav = findViewById(R.id.nav_menu);
@@ -183,6 +177,7 @@ public class Home extends AppCompatActivity {
         nav.setCheckedItem(R.id.menu_profile);
         nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             Fragment temp;
+
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
@@ -228,8 +223,6 @@ public class Home extends AppCompatActivity {
                 return true;
             }
         });
-
-
 
 
     }

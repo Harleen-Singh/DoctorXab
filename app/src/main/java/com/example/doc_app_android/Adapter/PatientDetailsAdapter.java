@@ -8,6 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,17 +22,22 @@ import com.example.doc_app_android.DoctorHomeFragments.PatientHistoryFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.databinding.HomeSinglePatientRowBinding;
+import com.example.doc_app_android.services.DoctorPatientListService;
 import com.squareup.picasso.Picasso;
 
 
 import java.util.ArrayList;
 
-public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAdapter.PatientDetailsHolder> {
+public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAdapter.PatientDetailsHolder> implements Filterable {
+
+
 
     private ArrayList<ProfileData> data = new ArrayList<>();
+    private ArrayList<ProfileData> backup;
     private Context mContext;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    private DoctorPatientListService doctorPatientListService = new DoctorPatientListService();
 
     public PatientDetailsAdapter(Context mContext) {
 
@@ -39,8 +46,9 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
 
     public void setdata(ArrayList<ProfileData> data) {
         this.data = data;
-
+        this.backup = new ArrayList<>(data);
     }
+
 
 
     @NonNull
@@ -84,6 +92,58 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
     public int getItemCount() {
         return data.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            Log.d("TextWatcher", "performingFiltering: " + constraint );
+
+
+            ArrayList<ProfileData> filteredData = new ArrayList<>();
+
+            if(constraint.toString().isEmpty()){
+                filteredData.addAll(backup);
+                Log.d("TextWatcher", "Size of Backup Data: " + backup.size());
+                Log.d("TextWatcher", "Size of Backup Data(Empty): " + backup.size());
+                Log.d("TextWatcher", "Size of Backup Data(Empty): " + filteredData.size());
+
+
+
+            } else {
+                Log.d("TextWatcher", "Size of Backup Data: " + backup.size());
+
+                for(ProfileData obj: backup){
+                    if(obj.getName().toString().toLowerCase().contains(constraint.toString().toLowerCase())){
+                        filteredData.add(obj);
+                    }
+                }
+            }
+
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = filteredData;
+            Log.d("TextWatcher", "Size of Filtered Data: " + filteredData.size());
+            Log.d("TextWatcher", "performingFiltering: I am working" );
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            data.clear();
+            Log.d("TextWatcher", "Size of Published Data: " +((ArrayList<ProfileData>)results.values).size());
+            data.addAll((ArrayList<ProfileData>) results.values);
+            notifyDataSetChanged();
+            Log.d("TextWatcher", "publishResults: I am working" );
+
+        }
+    };
+
+
 
     class PatientDetailsHolder extends RecyclerView.ViewHolder {
 

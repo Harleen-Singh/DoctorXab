@@ -51,6 +51,7 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
 
     public FilterRCVadapter(Context context) {
         pref = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+
         this.context = context;
         if (!pref.getBoolean("isDoc", false)) { // patient initial fragment for checkUp history
             temp = patientCheckUpHistory.newInstance();
@@ -114,6 +115,7 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
         Log.e("TestingRecyclerAdapter", "FilterData For Doctor: " + filterData);
 
         if (pref.getBoolean("isDoc", false)) {
+
             // This part of code controls the opening of different screens through Patient home dynamic buttons.
             temp = DataLoaderFragment.newInstance(problem_id.getId());
         } else {
@@ -160,6 +162,7 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
             notifyItemChanged(preSelectionPos);
             preSelectionPos = getAdapterPosition();
             Log.e("TAG", "onClick: next:" + getAdapterPosition());
+
 
             notifyItemChanged(preSelectionPos);
             if (ispatientHistoryfragment) {
