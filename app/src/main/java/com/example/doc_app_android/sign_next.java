@@ -49,14 +49,21 @@ public class sign_next extends AppCompatActivity {
         }
         register_view_model.frameLayout.setValue(View.GONE);
 
+
+
         register_view_model.getUser().observe(this, new Observer<Register_data>() {
             @Override
             public void onChanged(Register_data register_data) {
-                if (register_data.getCfpass() != null && register_data.getCpass() != null)
-                    if (register_data.getCfpass().equals(register_data.getCpass()))
-                        signUpService = new signUpService(register_data, sign_next.this, getIntent().getBooleanExtra("catcher", false));
-                    else
-                        Toast.makeText(sign_next.this, "enter same pass", Toast.LENGTH_SHORT).show();
+                        signUpService = new signUpService(register_data, sign_next.this, getIntent().getBooleanExtra("catcher", false), register_view_model.flag);
+                signUpService.flag.observeForever(new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(Boolean aBoolean) {
+                        if(aBoolean)
+                            register_view_model.frameLayout.setValue(View.VISIBLE);
+                        else
+                            register_view_model.frameLayout.setValue(View.GONE);
+                    }
+                });
             }
         });
     }

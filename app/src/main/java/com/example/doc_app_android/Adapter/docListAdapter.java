@@ -24,6 +24,7 @@ public class docListAdapter extends RecyclerView.Adapter<docListAdapter.viewHold
     public ArrayList<DocData> data;
     docListFragment docDialog;
     private CharSequence date;
+
     public docListAdapter(ArrayList<DocData> arr, CharSequence date, docListFragment docDialog) {
         data = arr;
         this.date = date;
@@ -40,19 +41,27 @@ public class docListAdapter extends RecyclerView.Adapter<docListAdapter.viewHold
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         Picasso.get().load(data.get(position).getImage()).error(R.drawable.errorimgload).placeholder(R.drawable.loading).into(holder.image);
-//        Picasso.get().load(data.get(position).getImage()).error(R.drawable.errorimgload).into(holder.image);
         holder.name.setText(data.get(position).getName());
         Log.e("TAG", "onBindViewHolder: "+ data.get(position).getName() );
         String docName = data.get(position).getName().toUpperCase();
-        DocData newData= data.get(position);
+        DocData newData = data.get(position);
+
         holder.click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialogs dialog = new dialogs();
-                dialog.displayConfirmationDialog("CONFIRM","Do You Want To Book Appointment With Doc " + docName , v.getContext() , newData , date , docDialog );
+                manageClicks(v,docName,newData);
             }
         });
 
+    }
+
+    private void manageClicks(View v, String docName, DocData newData) {
+        dialogs dialog = new dialogs();
+        if(date==null){
+            dialog.displayConfirmationDialog("CONFIRM","Do You Want To Share Report With Doc " + docName, v.getContext() , newData, date , docDialog );
+        }else{
+            dialog.displayConfirmationDialog("CONFIRM","Do You Want To Book Appointment With Doc " + docName, v.getContext() , newData, date , docDialog );
+        }
     }
 
     @Override

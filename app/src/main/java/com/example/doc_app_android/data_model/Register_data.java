@@ -6,15 +6,20 @@ public class Register_data {
     private Boolean isDoc ;
 
 
-    public Register_data(String username,String name, String contact, String email , String age , String gender , Boolean is_Doc) {
+    public Register_data(String username,String email , String cpass , String cfpass) {
         this.username = username;
+        this.email = email;
+        this.cpass = cpass;
+        this.cfpass = cfpass;
+    }
+    public Register_data(String name, String contact, String age , String gender , Boolean isDoc) {
         this.name = name;
         this.contact = contact;
-        this.email = email;
         this.age = age;
         this.gender = gender;
-        this.isDoc = is_Doc;
+        this.isDoc = isDoc;
     }
+
 
     public String getName() {
         return name;

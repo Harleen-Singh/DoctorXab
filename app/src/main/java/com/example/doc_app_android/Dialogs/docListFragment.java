@@ -21,15 +21,19 @@ import java.util.ArrayList;
 
 public class docListFragment extends DialogFragment {
     docListFragment docDialog;
-    private CharSequence date;
+    private CharSequence date = null;
+
     public docListFragment(CharSequence selectedDate) {
         date = selectedDate;
+    }
+
+    public docListFragment() {
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.doc_list,container,false);
+        View view = inflater.inflate(R.layout.doc_list, container, false);
         DoctorListService service = new DoctorListService();
         RecyclerView rcv = view.findViewById(R.id.docList);
         ProgressBar progressBar = view.findViewById(R.id.progressBar);
@@ -37,7 +41,7 @@ public class docListFragment extends DialogFragment {
         service.getDocList(getContext()).observeForever(new Observer<ArrayList<DocData>>() {
             @Override
             public void onChanged(ArrayList<DocData> docData) {
-                docListAdapter adapter = new docListAdapter(docData,date ,docDialog);
+                docListAdapter adapter = new docListAdapter(docData, date, docDialog);
                 rcv.setAdapter(adapter);
                 progressBar.setVisibility(View.GONE);
             }

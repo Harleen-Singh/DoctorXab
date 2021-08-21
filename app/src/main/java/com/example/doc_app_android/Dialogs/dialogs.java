@@ -36,7 +36,11 @@ public class dialogs {
             getAppointmentService service = new getAppointmentService();
             ProgressDialog dialog1 = new ProgressDialog(context, R.style.AlertDialog);
             alertDialogLogin(dialog1,"Processing");
-            service.getAppointment(docData,date,context,dialog1);
+            if(date!=null){
+                service.getAppointment(docData, date, context, dialog1);
+            }else{
+                service.shareReport(context,dialog1,docData);
+            }
             docDialog.dismiss();
             Log.e("TAG", "displayConfirmationDialog: confirmed" );
 
@@ -48,6 +52,5 @@ public class dialogs {
         alertDialog.show();
         alertDialog.getWindow().getWindowStyle();
     }
-
 
 }
