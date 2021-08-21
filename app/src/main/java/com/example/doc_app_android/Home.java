@@ -119,10 +119,12 @@ public class Home extends AppCompatActivity {
         model = new ViewModelProvider(this).get(HomeViewModel.class);
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
 
-//        preferences = getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
-//        editor = preferences.edit();
-//        editor.putBoolean("hasProfileUpdate", false);
-//        editor.apply();
+        preferences = getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+
+        if(!preferences.getBoolean("isDoc", false)){
+            search.setVisibility(View.GONE);
+
+        }
 
         model.getFilters().observe(this, new Observer<ArrayList<FilterData>>() {
             @Override
