@@ -27,6 +27,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.doc_app_android.Adapter.FilterRCVadapter;
 import com.example.doc_app_android.DoctorHomeFragments.DoctorAppointmentsFragment;
+import com.example.doc_app_android.PatentHomeFragments.NotificationFragment;
 import com.example.doc_app_android.data_model.FilterData;
 import com.example.doc_app_android.PatentHomeFragments.AppointmentsFragment;
 import com.example.doc_app_android.DoctorHomeFragments.PrivacyPolicyFragment;
@@ -55,12 +56,13 @@ public class Home extends AppCompatActivity {
     private FilterRCVadapter filterAdapter;
     ActivityHomeBinding binding;
     private EditText search_field;
-    private ImageButton search , draw_btn;
+    private ImageButton search , draw_btn , noti_btn;
     private HomeViewModel model;
     private CircleImageView nav_profile;
     private TextView nav_name;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    Fragment temp;
 
 
     @Override
@@ -113,6 +115,7 @@ public class Home extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_home);
         regornot = getIntent().getBooleanExtra("reg", false);
         search = findViewById(R.id.search_btn);
+        noti_btn = findViewById(R.id.noti_btn);
         filterAdapter = new FilterRCVadapter(this);
         binding.setLifecycleOwner(this);
         binding.filterRcv.setAdapter(filterAdapter);
@@ -167,6 +170,17 @@ public class Home extends AppCompatActivity {
             }
         });
 
+        noti_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                temp = new NotificationFragment();
+                getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, temp).setReorderingAllowed(true).addToBackStack(null).commit();
+
+            }
+        });
+
+
+
         setSupportActionBar((Toolbar) binding.toolbar);
         nav = findViewById(R.id.nav_menu);
         drawerLayout = binding.drawer;
@@ -184,7 +198,7 @@ public class Home extends AppCompatActivity {
         toggle.syncState();
         nav.setCheckedItem(R.id.menu_profile);
         nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            Fragment temp;
+
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
