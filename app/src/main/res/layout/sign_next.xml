@@ -365,7 +365,7 @@
                     android:textSize="16sp"
                     app:layout_constraintTop_toBottomOf="@id/tv_logo1" />
 
-                <androidx.appcompat.widget.AppCompatEditText
+                <Button
                     android:id="@+id/edit_status_doctor"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
@@ -374,12 +374,12 @@
                     android:layout_marginRight="55dp"
                     android:background="@drawable/text_field_1"
                     android:hint="@{registerViewModel.hintChange}"
-                    android:inputType="text"
-                    android:paddingStart="20dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
                     android:singleLine="true"
                     android:text="@={registerViewModel.specialistof}"
+                    android:gravity="center"
+                    android:clickable="true"
+                    android:onClick="@{(v) -> registerViewModel.selectDialog(v)}"
+                    android:focusable="true"
                     android:textColor="#8B91AB"
                     android:textColorHint="#8B91AB"
                     android:textSize="14sp"

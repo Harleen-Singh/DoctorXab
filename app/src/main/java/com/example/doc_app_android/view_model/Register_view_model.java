@@ -1,14 +1,20 @@
 package com.example.doc_app_android.view_model;
 
+import android.app.Application;
+import android.app.Dialog;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.doc_app_android.Dialogs.docListFragment;
+import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.Register_data;
 import com.example.doc_app_android.MainActivity;
 
@@ -29,6 +35,7 @@ public class Register_view_model extends ViewModel {
     public MutableLiveData<String> age = new MutableLiveData<>();
     public MutableLiveData<Integer> gender = new MutableLiveData<>();
     public MutableLiveData<Boolean> isDoc = new MutableLiveData<>();
+    public MutableLiveData<Boolean> docFragFlag = new MutableLiveData<>();
     public Boolean flag;
 
 
@@ -63,6 +70,10 @@ public class Register_view_model extends ViewModel {
     public void onClickSignIn(View view) {
         Intent intent = new Intent(view.getContext(), MainActivity.class);
         view.getContext().startActivity(intent);
+    }
+
+    public void selectDialog(View v) {
+        docFragFlag.setValue(true);
     }
 
     public void onClickContinue(View view) {
