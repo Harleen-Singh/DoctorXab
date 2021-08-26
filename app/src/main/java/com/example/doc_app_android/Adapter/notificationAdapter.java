@@ -1,6 +1,7 @@
 package com.example.doc_app_android.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -21,37 +22,42 @@ public class notificationAdapter extends RecyclerView.Adapter<notificationAdapte
 
     public Context mContext;
     notiService service = new notiService();
+    SharedPreferences preferences;
+
     public notificationAdapter(Context xontext) {
         mContext = xontext;
         notiData = new ArrayList<>();
+        preferences = mContext.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
     }
 
-    public void setData(ArrayList<NotiData> d){
+    public void setData(ArrayList<NotiData> d) {
         this.notiData = d;
     }
 
     @NonNull
     @Override
     public notificationAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        SingleListNotiBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.single_list_noti,parent,false);
+        SingleListNotiBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.single_list_noti, parent, false);
         return new ViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull notificationAdapter.ViewHolder holder, int position) {
-        holder.binding.setNotiData(notiData.get(position));
+        NotiData data = notiData.get(position);
+        holder.binding.setNotiData(data);
         holder.binding.executePendingBindings();
 
-        if(Integer.parseInt(notiData.get(position).getIcon())==1){
-            holder.binding.imageView2.setBackground(AppCompatResources.getDrawable(mContext,R.drawable.download));
+        if (preferences.getBoolean("isDoc", false)) {
+            if (Integer.parseInt(data.getIcon()) == 1) {
+                holder.binding.clickableArea.setOnClickListener(v -> {
+                    if (!data.getStatus().equals("1"))
+                        displayConfirmationDialog(data, position);
+                    else
+                        holder.binding.clickableArea.setBackgroundColor(mContext.getResources().getColor(R.color.white));
+                });
+                holder.binding.imageView2.setBackground(AppCompatResources.getDrawable(mContext, R.drawable.download));
+            }
         }
-
-        holder.binding.clickableArea.setOnClickListener(v -> {
-            if(!notiData.get(position).getStatus().equals("1"))
-                displayConfirmationDialog(notiData.get(position),position);
-            else
-                holder.binding.clickableArea.setBackgroundColor( mContext.getResources().getColor(R.color.white));
-        });
     }
 
     @Override
@@ -59,28 +65,30 @@ public class notificationAdapter extends RecyclerView.Adapter<notificationAdapte
         return notiData.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        SingleListNotiBinding binding;
-        public ViewHolder(@NonNull SingleListNotiBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
-        }
-    }
-
     public final void displayConfirmationDialog(NotiData NotificationData, int position) {
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(mContext, R.style.AlertDialog);
         builder.setMessage(NotificationData.getData());
         builder.setTitle("Confirmation");
-        builder.setPositiveButton("Accept Appointment" ,(dialog, which) -> {
-            service.acceptReq(NotificationData,mContext);
-            notiData.get(position).setStatus("1");
+        builder.setPositiveButton("Accept Appointment", (dialog, which) -> {
+            service.acceptReq(NotificationData, mContext);
+            notiData.get(position).setStatus("1"); // for settting status to seen
+                                                   // need to add api in future
         });
-        builder.setNegativeButton("Reject Appointment" , (dialog, which) -> {
-            service.rejectRequest(NotificationData,mContext);
+        builder.setNegativeButton("Reject Appointment", (dialog, which) -> {
+            service.rejectRequest(NotificationData, mContext);
             notiData.get(position).setStatus("1");
         });
         androidx.appcompat.app.AlertDialog alertDialog = builder.create();
         alertDialog.show();
         alertDialog.getWindow().getWindowStyle();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        SingleListNotiBinding binding;
+
+        public ViewHolder(@NonNull SingleListNotiBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
     }
 }
