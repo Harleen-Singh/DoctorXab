@@ -79,14 +79,14 @@ public class getAppointmentService {
                 @Override
                 public void onResponse(JSONObject response) {
                     dialog1.dismiss();
-                    dialog.displayDialog("Request Sent Sucessfully", context);
+                    dialog.displayDialog("Report Shared Sucessfully", context);
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.e("TAG", "onErrorResponse: "+ error );
                     dialog1.dismiss();
-                    dialog.displayDialog("Error in Sending Request ", context);
+                    dialog.displayDialog("Error in Sending Report ", context);
                 }
             }){
                 @Override

@@ -23,7 +23,7 @@ public class Globals {
     public static String addNewXray = serverURL + "xray/add";
     public static String notifications = serverURL + "notifications";
     public static String newNotifications = serverURL + "getappointment";
-    public static String shareReport = serverURL + "share";
+    public static String shareReport = serverURL + "shareReport";
     public static String denyAppointment = serverURL + "denyrequest";
     public static String addUserData = serverURL + "user/";
 }
