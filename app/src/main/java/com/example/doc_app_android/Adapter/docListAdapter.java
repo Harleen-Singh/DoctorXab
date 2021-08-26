@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doc_app_android.Dialogs.dialogs;
@@ -24,11 +25,14 @@ public class docListAdapter extends RecyclerView.Adapter<docListAdapter.viewHold
     public ArrayList<DocData> data;
     docListFragment docDialog;
     private CharSequence date;
-
-    public docListAdapter(ArrayList<DocData> arr, CharSequence date, docListFragment docDialog) {
+    public MutableLiveData<String> docId = new MutableLiveData<>();
+    public MutableLiveData<String> docName = new MutableLiveData<>();
+    private boolean duringRegisteration;
+    public docListAdapter(ArrayList<DocData> arr, CharSequence date, docListFragment docDialog, boolean duringRegisteration) {
         data = arr;
         this.date = date;
         this.docDialog = docDialog;
+        this.duringRegisteration = duringRegisteration;
     }
 
     @NonNull
@@ -45,14 +49,26 @@ public class docListAdapter extends RecyclerView.Adapter<docListAdapter.viewHold
         Log.e("TAG", "onBindViewHolder: "+ data.get(position).getName() );
         String docName = data.get(position).getName().toUpperCase();
         DocData newData = data.get(position);
+        String docID = data.get(position).getDocID();
 
         holder.click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                manageClicks(v,docName,newData);
+                if(!duringRegisteration)
+                    manageClicks(v,docName,newData);
+                else {
+                    giveDataToModel(docName, docID);
+                    Log.e("TAG", "onClick: " + docName + docID );
+                }
             }
         });
 
+    }
+
+    private void giveDataToModel(String docName, String docID) {
+        docId.setValue(docID);
+        this.docName.setValue(docName);
+        docDialog.dismiss();
     }
 
     private void manageClicks(View v, String docName, DocData newData) {

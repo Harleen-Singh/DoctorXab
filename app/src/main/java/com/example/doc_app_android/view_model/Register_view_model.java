@@ -1,22 +1,15 @@
 package com.example.doc_app_android.view_model;
 
-import android.app.Application;
-import android.app.Dialog;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.doc_app_android.Dialogs.docListFragment;
-import com.example.doc_app_android.R;
-import com.example.doc_app_android.data_model.Register_data;
 import com.example.doc_app_android.MainActivity;
+import com.example.doc_app_android.data_model.Register_data;
 
 public class Register_view_model extends ViewModel {
 
@@ -37,8 +30,7 @@ public class Register_view_model extends ViewModel {
     public MutableLiveData<Boolean> isDoc = new MutableLiveData<>();
     public MutableLiveData<Boolean> docFragFlag = new MutableLiveData<>();
     public Boolean flag;
-
-
+    public MutableLiveData<String> docId = new MutableLiveData<>();
     public MutableLiveData<Register_data> getUser() {
 
         if (userMutableLiveData == null) {
@@ -78,7 +70,7 @@ public class Register_view_model extends ViewModel {
 
     public void onClickContinue(View view) {
        flag = false;
-        Log.e("TAG", "gender----->>: "+gender.getValue());
+        Log.e("TAG", "doc name----->>: "+specialistof.getValue());
         if (specialistof.getValue()!=null && name.getValue() != null && contact.getValue() != null && age.getValue() != null && gender.getValue() != null) {
             if(contact.getValue().length()==10 && (Integer.parseInt(age.getValue())>=1 && Integer.parseInt(age.getValue())<=110)){
                 String gen="Male";

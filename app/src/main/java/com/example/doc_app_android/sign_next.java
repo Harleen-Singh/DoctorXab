@@ -3,7 +3,6 @@ package com.example.doc_app_android;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -52,7 +51,7 @@ public class sign_next extends AppCompatActivity {
                 public void onChanged(Boolean aBoolean) {
                     if(aBoolean){
                         register_view_model.docFragFlag.setValue(false);
-                        docListFragment = new docListFragment();
+                        docListFragment = new docListFragment(true);
                         docListFragment.setDialog(docListFragment);
                         docListFragment.setStyle(DialogFragment.STYLE_NO_FRAME,R.style.AlertDialog);
                         docListFragment.show(getSupportFragmentManager(), "List");
