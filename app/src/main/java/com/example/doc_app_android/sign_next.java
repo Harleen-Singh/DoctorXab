@@ -47,23 +47,22 @@ public class sign_next extends AppCompatActivity {
         register_view_model.isDoc.setValue(getIntent().getBooleanExtra("catcher", false));
         if (getIntent().getBooleanExtra("catcher", false)) {
             register_view_model.hintChange.setValue(R.string.consult_to);
+            register_view_model.docFragFlag.observeForever(new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean aBoolean) {
+                    if(aBoolean){
+                        register_view_model.docFragFlag.setValue(false);
+                        docListFragment = new docListFragment();
+                        docListFragment.setDialog(docListFragment);
+                        docListFragment.setStyle(DialogFragment.STYLE_NO_FRAME,R.style.AlertDialog);
+                        docListFragment.show(getSupportFragmentManager(), "List");
+                    }
+                }
+            });
         } else {
             register_view_model.hintChange.setValue(R.string.specialist_of);
         }
         register_view_model.frameLayout.setValue(View.GONE);
-
-               register_view_model.docFragFlag.observeForever(new Observer<Boolean>() {
-                   @Override
-                   public void onChanged(Boolean aBoolean) {
-                       if(aBoolean){
-                           register_view_model.docFragFlag.setValue(false);
-                           docListFragment = new docListFragment();
-                           docListFragment.setDialog(docListFragment);
-                           docListFragment.setStyle(DialogFragment.STYLE_NO_FRAME,R.style.AlertDialog);
-                           docListFragment.show(getSupportFragmentManager(), "List");
-                       }
-                   }
-               });
 
         register_view_model.getUser().observe(this, new Observer<Register_data>() {
             @Override
