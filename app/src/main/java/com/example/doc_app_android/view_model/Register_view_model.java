@@ -1,7 +1,9 @@
 package com.example.doc_app_android.view_model;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import androidx.lifecycle.MutableLiveData;
@@ -25,7 +27,7 @@ public class Register_view_model extends ViewModel {
     public MutableLiveData<String> createpass = new MutableLiveData<>();
     public MutableLiveData<String> cfmpass = new MutableLiveData<>();
     public MutableLiveData<String> age = new MutableLiveData<>();
-    public MutableLiveData<String> gender = new MutableLiveData<>();
+    public MutableLiveData<Integer> gender = new MutableLiveData<>();
     public MutableLiveData<Boolean> isDoc = new MutableLiveData<>();
     public Boolean flag;
 
@@ -40,8 +42,10 @@ public class Register_view_model extends ViewModel {
         return userMutableLiveData;
     }
 
+
     public void onClickSignUp(View view) {
         flag = true;
+
         if (username.getValue() != null && email.getValue() != null && createpass.getValue() != null && cfmpass.getValue() != null) {
             register_data = new Register_data(username.getValue(), email.getValue(), createpass.getValue(), cfmpass.getValue());
             if(register_data.getCfpass().equals(register_data.getCpass())) {
@@ -63,9 +67,23 @@ public class Register_view_model extends ViewModel {
 
     public void onClickContinue(View view) {
        flag = false;
+        Log.e("TAG", "gender----->>: "+gender.getValue());
         if (specialistof.getValue()!=null && name.getValue() != null && contact.getValue() != null && age.getValue() != null && gender.getValue() != null) {
             if(contact.getValue().length()==10 && (Integer.parseInt(age.getValue())>=1 && Integer.parseInt(age.getValue())<=110)){
-                register_data = new Register_data(name.getValue(),contact.getValue(),age.getValue(),gender.getValue(),isDoc.getValue());
+                String gen="Male";
+                switch (gender.getValue()){
+                    case 0:
+                        gen = "Male";
+                        break;
+                    case 1:
+                        gen = "Female";
+                        break;
+                    case 2:
+                        gen = "Other";
+                        break;
+                }
+
+                register_data = new Register_data(name.getValue(),contact.getValue(),age.getValue(),gen,isDoc.getValue());
                 userMutableLiveData.setValue(register_data);
             }
             else

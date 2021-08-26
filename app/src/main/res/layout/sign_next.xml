@@ -317,7 +317,7 @@
             android:layout_height="match_parent"
             android:background="@color/app.compat.light"
             android:elevation="100dp"
-            android:visibility="@{registerViewModel.frameLayout , default=gone}"
+            android:visibility="@{registerViewModel.frameLayout , default=visible}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
@@ -468,24 +468,41 @@
                         tools:ignore="RtlSymmetry" />
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <AutoCompleteTextView
-                    android:id="@+id/gender_actv"
+<!--                <AutoCompleteTextView-->
+<!--                    android:id="@+id/gender_actv"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:background="@drawable/text_field_1"-->
+<!--                    android:hint="@string/gender"-->
+<!--                    android:text="@={registerViewModel.gender}"-->
+<!--                    android:textColor="#8B91AB"-->
+<!--                    android:paddingStart="20dp"-->
+<!--                    android:paddingLeft="20dp"-->
+<!--                    android:paddingEnd="20dp"-->
+<!--                    android:paddingRight="20dp"-->
+<!--                    android:textSize="14sp"-->
+<!--                    android:theme="@style/EditTextTheme"-->
+<!--                    app:layout_constraintBottom_toTopOf="@id/btn_sign_up"-->
+<!--                    app:layout_constraintEnd_toEndOf="@+id/btn_sign_up"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/edit_contact"-->
+<!--                    />-->
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/gender_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
+                    android:textAlignment="center"
+                    android:layout_column="1"
+                    android:layout_margin="6dp"
                     android:background="@drawable/text_field_1"
-                    android:hint="@string/gender"
-                    android:text="@={registerViewModel.gender}"
+                    android:entries="@array/gender"
+                    android:selectedItemPosition="@={registerViewModel.gender}"
+                    android:spinnerMode="dropdown"
                     android:textColor="#8B91AB"
-                    android:paddingStart="20dp"
-                    android:paddingLeft="20dp"
-                    android:paddingEnd="20dp"
-                    android:paddingRight="20dp"
                     android:textSize="14sp"
-                    android:theme="@style/EditTextTheme"
                     app:layout_constraintBottom_toTopOf="@id/btn_sign_up"
                     app:layout_constraintEnd_toEndOf="@+id/btn_sign_up"
                     app:layout_constraintTop_toBottomOf="@+id/edit_contact"
-                    />
+                    android:gravity="center_horizontal" />
 
 
                 <Button
@@ -507,139 +524,139 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/patient_age" /> <!--> Sign UP BTN <!-->
 
-                <TextView
-                    android:id="@+id/tv_or1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
-                    android:fontFamily="@font/rubik"
-                    android:gravity="center"
-                    android:padding="15dp"
-                    android:text="@string/or_sign_in_with"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/btn_sign_up" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_or1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="30dp"-->
+<!--                    android:fontFamily="@font/rubik"-->
+<!--                    android:gravity="center"-->
+<!--                    android:padding="15dp"-->
+<!--                    android:text="@string/or_sign_in_with"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="14sp"-->
+<!--                    app:layout_constraintEnd_toEndOf="parent"-->
+<!--                    app:layout_constraintStart_toStartOf="parent"-->
+<!--                    app:layout_constraintTop_toBottomOf="@id/btn_sign_up" />-->
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/btn_parent_layout1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    app:layout_constraintEnd_toEndOf="@+id/tv_or1"
-                    app:layout_constraintStart_toStartOf="@+id/tv_or1"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_or1">
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:id="@+id/btn_parent_layout1"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    app:layout_constraintEnd_toEndOf="@+id/tv_or1"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/tv_or1"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/tv_or1">-->
 
-                    <LinearLayout
-                        android:id="@+id/layout_google1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingRight="10dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/layout_facebook1"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/layout_google1"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:paddingRight="10dp"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toStartOf="@id/layout_facebook1"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent">-->
 
-                        <ImageButton
-                            android:id="@+id/btn_google1"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/google"
-                            android:clickable="true"
-                            android:focusable="true" />
+<!--                        <ImageButton-->
+<!--                            android:id="@+id/btn_google1"-->
+<!--                            android:layout_width="30dp"-->
+<!--                            android:layout_height="30dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:background="@drawable/google"-->
+<!--                            android:clickable="true"-->
+<!--                            android:focusable="true" />-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:fontFamily="@font/rubik"
-                            android:text="@string/google" />
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:id="@+id/layout_facebook1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:paddingLeft="10dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@id/layout_google1"
-                        app:layout_constraintTop_toTopOf="parent">
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:fontFamily="@font/rubik"-->
+<!--                            android:text="@string/google" />-->
+<!--                    </LinearLayout>-->
 
 
-                        <ImageButton
-                            android:id="@+id/btn_facebook1"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center"
-                            android:background="@drawable/facebook"
-                            android:clickable="true"
-                            android:focusable="true"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintTop_toBottomOf="@+id/tv_or" />
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/layout_facebook1"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:paddingLeft="10dp"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toEndOf="@id/layout_google1"-->
+<!--                        app:layout_constraintTop_toTopOf="parent">-->
 
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:fontFamily="@font/rubik"
-                            android:text="@string/facebook" />
+<!--                        <ImageButton-->
+<!--                            android:id="@+id/btn_facebook1"-->
+<!--                            android:layout_width="30dp"-->
+<!--                            android:layout_height="30dp"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:background="@drawable/facebook"-->
+<!--                            android:clickable="true"-->
+<!--                            android:focusable="true"-->
+<!--                            app:layout_constraintEnd_toEndOf="parent"-->
+<!--                            app:layout_constraintTop_toBottomOf="@+id/tv_or" />-->
 
 
-                    </LinearLayout>
+<!--                        <TextView-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_gravity="center"-->
+<!--                            android:fontFamily="@font/rubik"-->
+<!--                            android:text="@string/facebook" />-->
 
 
-                </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                    </LinearLayout>-->
 
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    app:layout_constraintEnd_toEndOf="@+id/btn_parent_layout1"
-                    app:layout_constraintStart_toStartOf="@+id/btn_parent_layout1"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_parent_layout1">
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
-                    <TextView
-                        android:id="@+id/tv_end1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/rubik"
-                        android:gravity="center"
-                        android:paddingTop="15dp"
-                        android:text="@string/already_have_an_account"
-                        android:textColor="@color/black"
-                        android:textSize="14sp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@id/tv_sign_in1"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/tv_sign_in1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:focusable="true"
-                        android:fontFamily="@font/rubik"
-                        android:gravity="center"
-                        android:onClick="@{(v) -> registerViewModel.onClickSignIn(v)}"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="15dp"
-                        android:text="@string/sign_in"
-                        android:textColor="@color/theme"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toEndOf="@+id/tv_end1"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:ignore="RtlSymmetry" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+<!--                <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    app:layout_constraintEnd_toEndOf="@+id/btn_parent_layout1"-->
+<!--                    app:layout_constraintStart_toStartOf="@+id/btn_parent_layout1"-->
+<!--                    app:layout_constraintTop_toBottomOf="@+id/btn_parent_layout1">-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_end1"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:fontFamily="@font/rubik"-->
+<!--                        android:gravity="center"-->
+<!--                        android:paddingTop="15dp"-->
+<!--                        android:text="@string/already_have_an_account"-->
+<!--                        android:textColor="@color/black"-->
+<!--                        android:textSize="14sp"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toStartOf="@id/tv_sign_in1"-->
+<!--                        app:layout_constraintStart_toStartOf="parent"-->
+<!--                        app:layout_constraintTop_toTopOf="parent" />-->
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/tv_sign_in1"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:clickable="true"-->
+<!--                        android:focusable="true"-->
+<!--                        android:fontFamily="@font/rubik"-->
+<!--                        android:gravity="center"-->
+<!--                        android:onClick="@{(v) -> registerViewModel.onClickSignIn(v)}"-->
+<!--                        android:paddingLeft="10dp"-->
+<!--                        android:paddingTop="15dp"-->
+<!--                        android:text="@string/sign_in"-->
+<!--                        android:textColor="@color/theme"-->
+<!--                        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintStart_toEndOf="@+id/tv_end1"-->
+<!--                        app:layout_constraintTop_toTopOf="parent"-->
+<!--                        tools:ignore="RtlSymmetry" />-->
+<!--                </androidx.constraintlayout.widget.ConstraintLayout>-->
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

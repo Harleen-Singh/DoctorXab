@@ -105,7 +105,7 @@ public class signUpService {
 
                     Intent intent = new Intent(mContext, Home.class);
                     mContext.startActivity(intent);
-                    mContext.finish();
+                    mContext.finishAffinity();
                 }catch (Exception e){
                     e.printStackTrace();
                 }

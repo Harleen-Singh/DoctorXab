@@ -39,7 +39,7 @@ public class sign_next extends AppCompatActivity {
         signNextBinding.setLifecycleOwner(this);
         signNextBinding.setRegisterViewModel(register_view_model);
         ArrayAdapter<String> genAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,genderChoice);
-        signNextBinding.genderActv.setAdapter(genAdapter);
+        signNextBinding.genderSpinner.setAdapter(genAdapter);
 
         register_view_model.isDoc.setValue(getIntent().getBooleanExtra("catcher", false));
         if (getIntent().getBooleanExtra("catcher", false)) {
