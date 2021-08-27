@@ -18,7 +18,6 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -309,7 +308,8 @@ public class AppointmentsFragment extends Fragment {
                 String selectedYear = formatter.format(date.getYear());
 
                 String selectedDate = selectedYear + "-" + selectedMon + "-" + selectedDay;
-                SelectedDate  = selectedDay +"/" +selectedMon + "/" +selectedYear ;
+                SelectedDate = selectedYear + "-" + selectedMon + "-" + selectedDay;
+//                SelectedDate  = selectedDay +"-" +selectedMon + "-" +selectedYear ;
                 for (int i = 0; i < appointmentData.size(); i++) {
                     Log.e(TAG, "onDateSelected: " + selectedDate);
                     Log.e(TAG, "onDateSelected: " + appointmentData.get(i).getDate());
