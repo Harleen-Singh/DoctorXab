@@ -99,14 +99,13 @@ public class notiService {
         int lenght = notificationData.getData().length();
         try {
             String date = notificationData.getData().substring(lenght-10);
-//            Log.e("TAG", "acceptReq: rawDate"+ date );
-//            DateFormat formatedDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+//            DateFormat formatedDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
 //            Date tempDate = formatedDate.parse(date);
 //            DateFormat reqFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
 //
-//            String reqDate =  reqFormat.format(tempDate);
-//
-//            Log.e("TAG", "acceptReq: new Date "+ reqDate );
+//            String reqDate =  revqFormat.format(tempDate);
+
+            Log.e("TAG", "acceptReq: new Date "+ date );
             param.put("date",date);
             param.put("patient",notificationData.getSender());
         } catch (JSONException e) {
