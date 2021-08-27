@@ -317,7 +317,7 @@
             android:layout_height="match_parent"
             android:background="@color/app.compat.light"
             android:elevation="100dp"
-            android:visibility="@{registerViewModel.frameLayout , default=visible}"
+            android:visibility="@{registerViewModel.frameLayout , default=gone}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
