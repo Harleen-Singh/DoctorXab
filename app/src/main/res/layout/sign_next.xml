@@ -73,7 +73,7 @@
             android:layout_marginRight="55dp"
             android:background="@drawable/text_field_1"
             android:hint="@string/email"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:paddingStart="20dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
