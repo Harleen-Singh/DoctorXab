@@ -11,12 +11,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.databinding.DataBindingUtil;
@@ -27,13 +25,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.doc_app_android.Adapter.FilterRCVadapter;
 import com.example.doc_app_android.DoctorHomeFragments.DoctorAppointmentsFragment;
-import com.example.doc_app_android.PatentHomeFragments.NotificationFragment;
-import com.example.doc_app_android.data_model.FilterData;
-import com.example.doc_app_android.PatentHomeFragments.AppointmentsFragment;
 import com.example.doc_app_android.DoctorHomeFragments.PrivacyPolicyFragment;
 import com.example.doc_app_android.DoctorHomeFragments.ProfileFragment;
 import com.example.doc_app_android.DoctorHomeFragments.ScheduleFragment;
 import com.example.doc_app_android.DoctorHomeFragments.SettingsFragment;
+import com.example.doc_app_android.PatentHomeFragments.NotificationFragment;
+import com.example.doc_app_android.data_model.FilterData;
 import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.databinding.ActivityHomeBinding;
 import com.example.doc_app_android.view_model.HomeViewModel;
@@ -42,7 +39,6 @@ import com.google.android.material.navigation.NavigationView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -56,7 +52,7 @@ public class Home extends AppCompatActivity {
     private FilterRCVadapter filterAdapter;
     ActivityHomeBinding binding;
     private EditText search_field;
-    private ImageButton search , draw_btn , noti_btn;
+    private ImageButton search, draw_btn, noti_btn;
     private HomeViewModel model;
     private CircleImageView nav_profile;
     private TextView nav_name;
@@ -65,12 +61,21 @@ public class Home extends AppCompatActivity {
     Fragment temp;
 
 
+
     @Override
     protected void onResume() {
         super.onResume();
 
         binding.toolbar.setVisibility(View.VISIBLE);
-
+        try {
+            boolean b = getIntent().getExtras().getBoolean("notification");
+            if(b) {
+                temp = new NotificationFragment();
+                getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, temp).setReorderingAllowed(true).addToBackStack(null).commit();
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -86,6 +91,7 @@ public class Home extends AppCompatActivity {
         }
 
     }
+
 
     @Override
     public void onPause() {
@@ -112,7 +118,7 @@ public class Home extends AppCompatActivity {
         Log.d("ImplicitIntentTesting", "I am getting called 4");
 
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_home);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_home);
         regornot = getIntent().getBooleanExtra("reg", false);
         search = findViewById(R.id.search_btn);
         noti_btn = findViewById(R.id.noti_btn);
@@ -124,7 +130,7 @@ public class Home extends AppCompatActivity {
 
         preferences = getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
 
-        if(!preferences.getBoolean("isDoc", false)){
+        if (!preferences.getBoolean("isDoc", false)) {
             search.setVisibility(View.GONE);
 
         }
@@ -154,16 +160,13 @@ public class Home extends AppCompatActivity {
         });
 
 
-
-
-
         search_field = findViewById(R.id.edit_search);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LayoutTransition layoutTransition = binding.homeLayoutContainer.getLayoutTransition();
                 layoutTransition.enableTransitionType(LayoutTransition.CHANGING);
-                if(search_field.getVisibility()==View.GONE)
+                if (search_field.getVisibility() == View.GONE)
                     search_field.setVisibility(View.VISIBLE);
                 else
                     search_field.setVisibility(View.GONE);
@@ -178,7 +181,6 @@ public class Home extends AppCompatActivity {
 
             }
         });
-
 
 
         setSupportActionBar((Toolbar) binding.toolbar);
@@ -239,8 +241,6 @@ public class Home extends AppCompatActivity {
                 return true;
             }
         });
-
-
 
 
     }
