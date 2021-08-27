@@ -27,6 +27,12 @@
         <item name="android:textAlignment" tools:ignore="NewApi">center</item>
         <item name="android:backgroundDimEnabled">true</item>
     </style>
+    <style name="AlertDialogLowRadius" parent="ThemeOverlay.AppCompat.Dialog">
+        <item name="android:windowBackground">@drawable/btn_theme_low_radius</item>
+        <item name="colorAccent">@color/theme</item>
+        <item name="android:textAlignment" tools:ignore="NewApi">center</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
 
 
     <style name="NoActionBar" parent="Theme.AppCompat.DayNight.NoActionBar" >

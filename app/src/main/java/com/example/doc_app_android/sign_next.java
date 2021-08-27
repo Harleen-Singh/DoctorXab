@@ -3,13 +3,14 @@ package com.example.doc_app_android;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.doc_app_android.Dialogs.docListFragment;
 import com.example.doc_app_android.data_model.Register_data;
 import com.example.doc_app_android.databinding.SignNextBinding;
 import com.example.doc_app_android.services.signUpService;
@@ -20,6 +21,7 @@ public class sign_next extends AppCompatActivity {
     private Register_view_model register_view_model;
     private signUpService signUpService;
     private static final String [] genderChoice = new String[]{"Male","Female","Other"};
+    public docListFragment docListFragment;
 
     @Override
     public void onBackPressed() {   //do it prperly
@@ -39,17 +41,27 @@ public class sign_next extends AppCompatActivity {
         signNextBinding.setLifecycleOwner(this);
         signNextBinding.setRegisterViewModel(register_view_model);
         ArrayAdapter<String> genAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,genderChoice);
-        signNextBinding.genderActv.setAdapter(genAdapter);
+        signNextBinding.genderSpinner.setAdapter(genAdapter);
 
         register_view_model.isDoc.setValue(getIntent().getBooleanExtra("catcher", false));
         if (getIntent().getBooleanExtra("catcher", false)) {
             register_view_model.hintChange.setValue(R.string.consult_to);
+            register_view_model.docFragFlag.observeForever(new Observer<Boolean>() {
+                @Override
+                public void onChanged(Boolean aBoolean) {
+                    if(aBoolean){
+                        register_view_model.docFragFlag.setValue(false);
+                        docListFragment = new docListFragment(true);
+                        docListFragment.setDialog(docListFragment);
+                        docListFragment.setStyle(DialogFragment.STYLE_NO_FRAME,R.style.AlertDialog);
+                        docListFragment.show(getSupportFragmentManager(), "List");
+                    }
+                }
+            });
         } else {
             register_view_model.hintChange.setValue(R.string.specialist_of);
         }
         register_view_model.frameLayout.setValue(View.GONE);
-
-
 
         register_view_model.getUser().observe(this, new Observer<Register_data>() {
             @Override

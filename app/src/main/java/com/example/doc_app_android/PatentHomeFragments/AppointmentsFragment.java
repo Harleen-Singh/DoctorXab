@@ -283,7 +283,7 @@ public class AppointmentsFragment extends Fragment {
         {
             docListFragment docDialog = new docListFragment(SelectedDate);
             docDialog.setDialog(docDialog);
-            docDialog.setStyle(DialogFragment.STYLE_NO_FRAME,R.style.AlertDialog);
+            docDialog.setStyle(DialogFragment.STYLE_NO_FRAME,R.style.AlertDialogLowRadius);
             docDialog.show(getChildFragmentManager(), "docList");
         }
     }

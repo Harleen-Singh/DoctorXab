@@ -29,7 +29,7 @@ public class dialogs {
     }
 
     public final void displayConfirmationDialog(String title, String str, Context context, DocData docData, CharSequence date, docListFragment docDialog) {
-        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(context, R.style.AlertDialog);
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(context, R.style.AlertDialogLowRadius);
         builder.setMessage(str);
         builder.setTitle(title);
         builder.setPositiveButton("Confirm" ,(dialog, which) -> {
