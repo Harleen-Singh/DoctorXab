@@ -15,6 +15,8 @@ import com.example.doc_app_android.PatentHomeFragments.AppointmentsFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.databinding.FragmentScheduleBinding;
 
+import java.util.Objects;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link ScheduleFragment#newInstance} factory method to
@@ -61,7 +63,7 @@ public class ScheduleFragment extends Fragment {
     public void onResume() {
         super.onResume();
         // This particular line will hide the default toolbar of the Home Activity when fragment gets opened.
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).hide();
     }
 
 
@@ -69,7 +71,7 @@ public class ScheduleFragment extends Fragment {
     public void onStop() {
         super.onStop();
         // This particular line will show the default toolbar of the Home Activity on Home Page when fragment gets closed.
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
     }
 
     @Override

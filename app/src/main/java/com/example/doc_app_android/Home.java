@@ -209,11 +209,6 @@ public class Home extends AppCompatActivity {
 
                     case R.id.menu_appointments:
                         temp = new DoctorAppointmentsFragment();
-//                        preferences = getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
-//                        editor = preferences.edit();
-//                        editor.putBoolean("patientInfoCalendar", false);
-//                        editor.putBoolean("doctorAppointmentScreen", true);
-//                        editor.apply();
                         break;
 
                     case R.id.menu_schedule:

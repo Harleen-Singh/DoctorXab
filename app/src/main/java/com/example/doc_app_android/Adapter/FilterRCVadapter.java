@@ -103,11 +103,20 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
                 break;
 
             case "APPOINTMENT":
-                temp = PatientInfoAppointmentFragment.newInstance();
+
+
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("isPatientInfoAppointment", true);
+
+                AppointmentsFragment appointmentsFragment = new AppointmentsFragment();
+                appointmentsFragment.setArguments(bundle);
+                //requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.patient_calendar_fragment_container, appointmentsFragment).setReorderingAllowed(true).commit();
+
+                temp = appointmentsFragment;
                 break;
         }
         AppCompatActivity appCompatActivity = (AppCompatActivity) context;
-        appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.patient_info_frame, temp).commit();
+        appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.patient_info_frame, temp).setReorderingAllowed(true).commit();
 
     }
 
@@ -160,8 +169,8 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
         public void onClick(View v) {
             Log.e("TAG", "onClick: previous: " + preSelectionPos);
             notifyItemChanged(preSelectionPos);
-            preSelectionPos = getAdapterPosition();
-            Log.e("TAG", "onClick: next:" + getAdapterPosition());
+            preSelectionPos = getAbsoluteAdapterPosition();
+            Log.e("TAG", "onClick: next:" + getAbsoluteAdapterPosition());
 
 
             notifyItemChanged(preSelectionPos);

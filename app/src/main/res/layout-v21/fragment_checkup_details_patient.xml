@@ -16,6 +16,7 @@
         <ScrollView
             android:id="@+id/ckscrollable"
             android:layout_width="match_parent"
+            android:background="@color/scnd_blue_white"
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -379,7 +380,7 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingBottom="174dp"
+
                     android:background="@color/scnd_blue_white"
                     android:orientation="vertical">
 

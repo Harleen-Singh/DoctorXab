@@ -16,6 +16,8 @@ import com.example.doc_app_android.R;
 import com.example.doc_app_android.databinding.FragmentAppointmentsBinding;
 import com.example.doc_app_android.databinding.FragmentDoctorAppointmentsBinding;
 
+import java.util.Objects;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link DoctorAppointmentsFragment#newInstance} factory method to
@@ -61,7 +63,7 @@ public class DoctorAppointmentsFragment extends Fragment {
     public void onResume() {
         super.onResume();
         // This particular line will hide the default toolbar of the Home Activity when fragment gets opened.
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).hide();
     }
 
 
@@ -70,7 +72,7 @@ public class DoctorAppointmentsFragment extends Fragment {
         super.onStop();
         // This particular line will show the default toolbar of the Home Activity on Home Page when fragment gets closed.
         if(!isPatientInfoAppointment) {
-            ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+            Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
         }
     }
 

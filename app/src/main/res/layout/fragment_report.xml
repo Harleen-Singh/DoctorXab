@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -28,6 +29,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/myrect"
+                    android:elevation="5dp"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:paddingLeft="26dp"
@@ -60,15 +62,31 @@
                     android:layout_width="match_parent"
                     android:layout_height="305dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginEnd="20dp"
                     android:layout_weight="1"
                     android:contentDescription="@string/x_ray"
-                    android:src="@drawable/picture"
+                    android:scaleType="center"
+                    android:src="@drawable/image"
                     app:layout_constraintBottom_toTopOf="@id/xray_add_label"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/xray_toolbar" />
+
+
+                <androidx.constraintlayout.utils.widget.ImageFilterButton
+                    android:id="@+id/open_camera_Add_image"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center"
+                    android:background="@drawable/pd_bg"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/camera_alt"
+                    app:layout_constraintBottom_toBottomOf="@id/xray_ImageView"
+                    app:layout_constraintEnd_toEndOf="@id/xray_ImageView" />
 
 
                 <TextView
@@ -159,10 +177,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:hint="e.g. YYYY-MM-DD"
                         android:backgroundTint="@color/scnd_light_blue"
                         android:fontFamily="@font/rubik"
                         android:gravity="start"
+                        android:hint="e.g. YYYY-MM-DD"
                         android:inputType="date"
                         android:textColor="@color/scnd_blue" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -316,13 +334,13 @@
                         android:layout_above="@id/xray_checkup_tv"
                         android:layout_alignParentTop="true"
                         android:layout_alignParentRight="true"
-                        android:focusable="true"
-                        android:clickable="true"
                         android:layout_marginTop="12dp"
                         android:layout_marginEnd="21dp"
                         android:layout_marginRight="21dp"
                         android:layout_marginBottom="11dp"
                         android:background="@color/white"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:src="@drawable/ic_delete" />
 
                     <EditText

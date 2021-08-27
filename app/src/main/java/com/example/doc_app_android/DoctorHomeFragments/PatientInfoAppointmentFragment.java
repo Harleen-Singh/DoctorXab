@@ -1,6 +1,5 @@
 package com.example.doc_app_android.DoctorHomeFragments;
 
-import android.os.Binder;
 import android.os.Bundle;
 
 import androidx.databinding.DataBindingUtil;
@@ -57,15 +56,22 @@ public class PatientInfoAppointmentFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_patient_info_appointment, container, false);
-        binding.setLifecycleOwner(this);
+        binding.setLifecycleOwner(getActivity());
+
+        binding.pdProgress.setVisibility(View.VISIBLE);
 
 
-        Bundle bundle = new Bundle();
-        bundle.putBoolean("isPatientInfoAppointment", true);
 
-        AppointmentsFragment appointmentsFragment = new AppointmentsFragment();
-        appointmentsFragment.setArguments(bundle);
-        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.patient_calendar_fragment_container, appointmentsFragment).setReorderingAllowed(true).commit();
+        binding.pdProgress.setVisibility(View.GONE);
+
+
+        binding.editCalendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
 
 
         // Inflate the layout for this fragment

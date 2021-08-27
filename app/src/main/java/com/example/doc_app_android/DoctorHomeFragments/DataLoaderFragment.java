@@ -63,7 +63,7 @@ public class DataLoaderFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_data_loader, container, false);
         binding.setLifecycleOwner(this);
-        patientDetailsAdapter = new PatientDetailsAdapter(getContext());
+        patientDetailsAdapter = new PatientDetailsAdapter(getContext(), binding.dataFragmentContainer);
         binding.detailsRcv.setAdapter(patientDetailsAdapter);
         binding.dataLoadingProgressBar.setVisibility(View.VISIBLE);
         dataLoaderViewModel = new ViewModelProvider(requireActivity()).get(DataLoaderViewModel.class);

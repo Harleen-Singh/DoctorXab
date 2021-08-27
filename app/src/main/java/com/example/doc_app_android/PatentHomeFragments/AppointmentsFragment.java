@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -93,7 +94,6 @@ public class AppointmentsFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(FragApmntViewModel.class);
         doctorListViewModel = new ViewModelProvider(requireActivity()).get(DoctorListViewModel.class);
         binding.progressbar.setVisibility(View.VISIBLE);
-        binding.setLifecycleOwner(this);
         Map<String, String> docNames = new HashMap<>();
 
         Bundle bundle = getArguments();
@@ -106,11 +106,9 @@ public class AppointmentsFragment extends Fragment {
         }
 
         if(isDoctorAppointmentsFragment){
-
-            binding.btnApmnt.setVisibility(View.GONE);
+            //binding.btnApmnt.setVisibility(View.GONE);
             binding.btnRemain.setVisibility(View.GONE);
             binding.btnNote.setVisibility(View.GONE);
-
         }
 
         if(isPatientDetailsAdapterAppointment){
