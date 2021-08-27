@@ -3,7 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/DoctorXab-Android/app/src/main/res/layout/sign_next.xml" value="0.25025641025641027" />
         <entry key="..\:/Projects/DocApp/app/src/main/res/drawable-v24/appointment_span.xml" value="0.2703125" />
         <entry key="..\:/Projects/DocApp/app/src/main/res/drawable-v24/appointment_today_span.xml" value="0.2703125" />
         <entry key="..\:/Projects/DocApp/app/src/main/res/drawable/add_about_checkup_bg.xml" value="0.23055555555555557" />
@@ -27,7 +26,7 @@
         <entry key="..\:/Projects/DocApp/app/src/main/res/layout/fragment_patient_info_appointment.xml" value="0.2210144927536232" />
         <entry key="..\:/Projects/DocApp/app/src/main/res/layout/fragment_profile.xml" value="0.264" />
         <entry key="..\:/Projects/DocApp/app/src/main/res/layout/fragment_profile_edit.xml" value="0.2" />
-        <entry key="..\:/Projects/DocApp/app/src/main/res/layout/fragment_report.xml" value="0.264" />
+        <entry key="..\:/Projects/DocApp/app/src/main/res/layout/fragment_report.xml" value="0.2" />
         <entry key="..\:/Projects/DocApp/app/src/main/res/layout/fragment_schedule.xml" value="0.264" />
         <entry key="..\:/Projects/DocApp/app/src/main/res/layout/fragment_xray_report.xml" value="0.22010869565217392" />
         <entry key="..\:/Projects/DocApp/app/src/main/res/layout/home_single_patient_row.xml" value="0.12360688956433637" />
@@ -38,14 +37,6 @@
         <entry key="..\:/Projects/DocApp/app/src/main/res/layout/single_list_notes.xml" value="0.2427536231884058" />
         <entry key="..\:/Projects/DocApp/app/src/main/res/layout/single_list_xray.xml" value="0.22010869565217392" />
         <entry key="..\:/Projects/DocApp/app/src/main/res/layout/validation_dialog.xml" value="0.12360688956433637" />
-        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/drawable-v24/btn_theme_2.xml" value="0.20833333333333334" />
-        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/drawable/btn_theme_2.xml" value="0.20833333333333334" />
-        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/drawable/btn_theme_low_radius.xml" value="0.20833333333333334" />
-        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/layout/app_toolbar.xml" value="0.23645833333333333" />
-        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/layout/doc_list.xml" value="0.1675925925925926" />
-        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/layout/doclist_single.xml" value="0.16574074074074074" />
-        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/layout/fragment_appointments.xml" value="0.16296296296296298" />
-        <entry key="..\:/Users/Rishabh Raj Dhiman/Desktop/DOC App/DoctorXab-Android/DoctorXab-Android/app/src/main/res/layout/sign_next.xml" value="0.23645833333333333" />
       </map>
     </option>
   </component>

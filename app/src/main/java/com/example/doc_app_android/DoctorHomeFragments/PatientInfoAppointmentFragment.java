@@ -56,28 +56,18 @@ public class PatientInfoAppointmentFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_patient_info_appointment, container, false);
-        binding.setLifecycleOwner(this);
+        binding.setLifecycleOwner(getActivity());
 
         binding.pdProgress.setVisibility(View.VISIBLE);
 
 
-        Bundle bundle = new Bundle();
-        bundle.putBoolean("isPatientInfoAppointment", true);
 
-        AppointmentsFragment appointmentsFragment = new AppointmentsFragment();
-        appointmentsFragment.setArguments(bundle);
-        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.patient_calendar_fragment_container, appointmentsFragment).setReorderingAllowed(true).commit();
         binding.pdProgress.setVisibility(View.GONE);
 
 
         binding.editCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle1 = new Bundle();
-                bundle1.putBoolean("isPatientInfoAppointment",true);
-                DoctorAppointmentsFragment doctorAppointmentsFragment = new DoctorAppointmentsFragment();
-                doctorAppointmentsFragment.setArguments(bundle1);
-                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, doctorAppointmentsFragment).addToBackStack("name9").commit();
 
             }
         });

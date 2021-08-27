@@ -104,7 +104,15 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
 
             case "APPOINTMENT":
 
-                temp = new PatientInfoAppointmentFragment();
+
+                Bundle bundle = new Bundle();
+                bundle.putBoolean("isPatientInfoAppointment", true);
+
+                AppointmentsFragment appointmentsFragment = new AppointmentsFragment();
+                appointmentsFragment.setArguments(bundle);
+                //requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.patient_calendar_fragment_container, appointmentsFragment).setReorderingAllowed(true).commit();
+
+                temp = appointmentsFragment;
                 break;
         }
         AppCompatActivity appCompatActivity = (AppCompatActivity) context;

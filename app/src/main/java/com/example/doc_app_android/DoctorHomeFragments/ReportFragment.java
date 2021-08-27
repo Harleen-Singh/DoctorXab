@@ -267,7 +267,7 @@ public class ReportFragment extends Fragment {
             }
         });
 
-        binding.profileImageEditor.setOnClickListener(new View.OnClickListener() {
+        binding.openCameraAddImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 

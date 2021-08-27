@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -93,7 +94,6 @@ public class AppointmentsFragment extends Fragment {
         viewModel = new ViewModelProvider(requireActivity()).get(FragApmntViewModel.class);
         doctorListViewModel = new ViewModelProvider(requireActivity()).get(DoctorListViewModel.class);
         binding.progressbar.setVisibility(View.VISIBLE);
-        binding.setLifecycleOwner(this);
         Map<String, String> docNames = new HashMap<>();
 
         Bundle bundle = getArguments();
@@ -119,7 +119,7 @@ public class AppointmentsFragment extends Fragment {
 
         if(isPatientInfoAppointment){
             binding.calenderContainer.setVisibility(View.GONE);
-            //binding.editCalendar.setVisibility(View.VISIBLE);
+            binding.editCalendar.setVisibility(View.VISIBLE);
 
         }
 
@@ -134,6 +134,11 @@ public class AppointmentsFragment extends Fragment {
         binding.editCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Bundle bundle1 = new Bundle();
+                bundle1.putBoolean("isPatientInfoAppointment",isPatientInfoAppointment);
+                DoctorAppointmentsFragment doctorAppointmentsFragment = new DoctorAppointmentsFragment();
+                doctorAppointmentsFragment.setArguments(bundle1);
+                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, doctorAppointmentsFragment).addToBackStack("name9").commit();
 
             }
         });

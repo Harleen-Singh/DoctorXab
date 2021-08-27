@@ -177,6 +177,7 @@ public class ProfileFragment extends Fragment {
 
                 if(!preferences.getBoolean("isDoc",false)){
                     binding.speciality.setText("CASE OF: ORTHOLOGIST");
+                    speciality = "ORTHOLOGIST";
                 }
                 Log.d("Testing", "Received Image: " + "https://maivrikdoc.herokuapp.com/api" + profileData.getImage());
 
@@ -220,7 +221,11 @@ public class ProfileFragment extends Fragment {
                 bundle.putString("PROFILE-FRAGMENT-NAME", (String) binding.doctorNameText.getText());
                 bundle.putString("PROFILE-FRAGMENT-EMAIL", (String) binding.emailAddressText.getText());
                 bundle.putString("PROFILE-FRAGMENT-PHONE-NUMBER", (String) binding.contactText.getText());
-                bundle.putString("PROFILE-FRAGMENT-SPECIALITY", (String) binding.speciality.getText());
+                if(!preferences.getBoolean("isDoc",false)){
+                    bundle.putString("PROFILE-FRAGMENT-SPECIALITY", speciality);
+                } else{
+                    bundle.putString("PROFILE-FRAGMENT-SPECIALITY", (String) binding.speciality.getText());
+                }
                 bundle.putString("PROFILE-FRAGMENT-PROFILE-IMAGE", receivedProfileData.getImage());
                 profileEditFragment.setArguments(bundle);
 
