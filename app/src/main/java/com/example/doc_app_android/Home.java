@@ -231,9 +231,9 @@ public class Home extends AppCompatActivity {
                         SharedPreferences.Editor editor = getSharedPreferences("tokenFile", Context.MODE_PRIVATE).edit();
                         editor.clear();
                         editor.apply();
+                        finishAffinity();
                         Intent intent = new Intent(Home.this, MainActivity.class);
                         startActivity(intent);
-                        finish();
                         break;
                 }
 

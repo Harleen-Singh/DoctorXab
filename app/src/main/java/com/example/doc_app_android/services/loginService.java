@@ -157,7 +157,7 @@ public class loginService {
                 } else {
                     i = new Intent(mContext, Home.class);
                     mContext.startActivity(i);
-                    mContext.finish();
+                    mContext.finishAffinity();
                     Toast.makeText(mContext, "Hello patient " + userName, Toast.LENGTH_SHORT).show();
                 }
                 saveToPreferences();
