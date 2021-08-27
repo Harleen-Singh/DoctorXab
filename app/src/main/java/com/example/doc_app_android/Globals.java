@@ -26,4 +26,5 @@ public class Globals {
     public static String shareReport = serverURL + "shareReport";
     public static String denyAppointment = serverURL + "denyrequest";
     public static String addUserData = serverURL + "user/";
+    public static String addSpecialistList = serverURL + "registerp";
 }

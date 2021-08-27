@@ -2,7 +2,7 @@ package com.example.doc_app_android.data_model;
 
 public class Register_data {
 
-    private String username ,name, contact , email , specialistof , conslt , cpass , cfpass , age , gender;
+    private String username ,name, contact , email , specialistof , conslt , cpass , cfpass , age , gender ;
     private Boolean isDoc ;
 
 

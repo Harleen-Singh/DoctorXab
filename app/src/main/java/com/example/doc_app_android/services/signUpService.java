@@ -9,6 +9,7 @@ import android.util.Base64;
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.ClientError;
@@ -19,11 +20,14 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.doc_app_android.Adapter.docListAdapter;
+import com.example.doc_app_android.data_model.DocData;
 import com.example.doc_app_android.data_model.Register_data;
 import com.example.doc_app_android.Dialogs.dialogs;
 import com.example.doc_app_android.Globals;
 import com.example.doc_app_android.Home;
 import com.example.doc_app_android.R;
+import com.example.doc_app_android.view_model.Register_view_model;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,12 +37,14 @@ import java.util.Map;
 
 public class signUpService {
     private Register_data data;
+    public Register_view_model register_view_model;
     private Activity mContext;
     private ProgressDialog progressDialog;
+    public DocData docData ;
     private boolean isDoc;
     public MutableLiveData<Boolean> flag = new MutableLiveData<>() ;
-    public String url,url2;
-    String id , usernameResp , email , name , age , gender , contact , state ;
+    public String url,url2,url3;
+    String id , usernameResp , email , name , age , gender , contact , state , docid ;
     private boolean isDoctor;
     private com.example.doc_app_android.Dialogs.dialogs dialogs = new dialogs();
     public signUpService(Register_data data, Activity activity , boolean isDoc , boolean flagCheck) {
@@ -52,16 +58,77 @@ public class signUpService {
         progressDialog = new ProgressDialog(mContext, R.style.AlertDialog);
 
         url2 = Globals.addUserData;
-
+        url3 = Globals.addSpecialistList;
         if(flagCheck)
             getSignUpData();
         else
             getContinueData();
+    }
+
+    private void postSpecialist() {
+        Log.d("TAG", "getData: we are in postSpecialist");
+        SharedPreferences pref = mContext.getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+        JSONObject postparams = null;
+        try {
+            postparams = new JSONObject();
+            postparams.put("user",Integer.parseInt(pref.getString("id","")));
+            postparams.put("doctor",Integer.parseInt(data.getSpecialistof()));
+
+//            if(!isDoc)
+//                postparams.put("department",Integer.parseInt("1"));
+////                postparams.put("department",Integer.parseInt(data.getSpecialistof()) );
+//            else
+//                postparams.put("doctor",data.getSpecialistof() );
+////            postparams.put("password", pass);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d("TAG", "getData: obj " + postparams);
+        final RequestQueue MyRequestQueue = Volley.newRequestQueue(mContext);
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url3, postparams, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("TAG", "onResponse: we are processing");
+                Log.e("TAG", "onResponse: "+response );
+                dialogs.dismissDialog(progressDialog);
+                try{
+                    JSONObject root = new JSONObject(String.valueOf(response));
+                  docid = root.getString("doctor");
+                    saveToPreferences();
+
+//                    Intent intent = new Intent(mContext, Home.class);
+//                    mContext.startActivity(intent);
+//                    mContext.finish();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if(error instanceof NoConnectionError) {
+                    dialogs.displayDialog("Not Connected to Internet",mContext);
+                }
+                else if(error instanceof ClientError){
+                    dialogs.displayDialog("Invalid Credentials!",mContext);
+                }
+                else {
+                    Log.d("", "error.networkRespose.toString()-->>>" + error.networkResponse.toString());
+                    dialogs.displayDialog("Username Already Taken",mContext);
+                    flag.setValue(false);
+                }
+                dialogs.dismissDialog(progressDialog);
+                Log.d("TAG", "onErrorResponse: " + error.getLocalizedMessage());
+            }
+        });
+        MyRequestQueue.add(jsonObjectRequest);
 
 
     }
 
     private void getContinueData() {
+        postSpecialist();
         Log.d("TAG", "getData: we are in getContinueData");
         dialogs.alertDialogLogin(progressDialog,"Loading.....");
         JSONObject postparams = null;
