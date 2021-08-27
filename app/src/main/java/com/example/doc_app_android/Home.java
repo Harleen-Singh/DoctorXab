@@ -67,14 +67,16 @@ public class Home extends AppCompatActivity {
         super.onResume();
 
         binding.toolbar.setVisibility(View.VISIBLE);
-        try {
-            boolean b = getIntent().getExtras().getBoolean("notification");
-            if(b) {
-                temp = new NotificationFragment();
-                getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, temp).setReorderingAllowed(true).addToBackStack(null).commit();
+        if(getIntent().getExtras()!=null) {
+            try {
+                boolean b = getIntent().getExtras().getBoolean("notification");
+                if (b) {
+                    temp = new NotificationFragment();
+                    getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, temp).setReorderingAllowed(true).addToBackStack(null).commit();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        }catch (Exception e){
-            e.printStackTrace();
         }
     }
 
