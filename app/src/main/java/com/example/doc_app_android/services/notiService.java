@@ -25,13 +25,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
 public class notiService {
@@ -104,16 +99,17 @@ public class notiService {
         int lenght = notificationData.getData().length();
         try {
             String date = notificationData.getData().substring(lenght-10);
-            DateFormat formatedDate = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-            Date tempDate = formatedDate.parse(date);
-            DateFormat reqFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
-
-            String reqDate =  reqFormat.format(tempDate);
-
-            Log.e("TAG", "acceptReq: new Date "+ reqDate );
-            param.put("date",reqDate);
+//            Log.e("TAG", "acceptReq: rawDate"+ date );
+//            DateFormat formatedDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
+//            Date tempDate = formatedDate.parse(date);
+//            DateFormat reqFormat = new SimpleDateFormat("yyyy-MM-dd",Locale.getDefault());
+//
+//            String reqDate =  reqFormat.format(tempDate);
+//
+//            Log.e("TAG", "acceptReq: new Date "+ reqDate );
+            param.put("date",date);
             param.put("patient",notificationData.getSender());
-        } catch (JSONException | ParseException e) {
+        } catch (JSONException e) {
             e.printStackTrace();
         }
 //        param.put("date",);
