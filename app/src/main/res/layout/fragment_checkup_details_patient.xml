@@ -16,6 +16,7 @@
         <ScrollView
             android:id="@+id/ckscrollable"
             android:layout_width="match_parent"
+            android:background="@color/scnd_blue_white"
             android:layout_height="match_parent">
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -379,7 +380,7 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingBottom="174dp"
+
                     android:background="@color/scnd_blue_white"
                     android:orientation="vertical">
 
@@ -461,8 +462,6 @@
                             android:layout_alignParentRight="true"
                             android:layout_marginTop="12dp"
                             android:layout_marginEnd="21dp"
-                            android:focusable="true"
-                            android:clickable="true"
                             android:layout_marginRight="21dp"
                             android:layout_marginBottom="11dp"
                             android:background="@color/white"
@@ -479,19 +478,19 @@
                             android:layout_marginRight="20dp"
                             android:layout_marginBottom="10dp"
                             android:background="@drawable/add_about_checkup_bg"
-                            android:focusable="true"
                             android:fontFamily="@font/rubik"
                             android:gravity="start"
-                            android:isScrollContainer="true"
+                            android:focusable="true"
                             android:paddingStart="13dp"
                             android:paddingLeft="13dp"
                             android:paddingTop="6dp"
+                            android:scrollbars="vertical"
+                            android:isScrollContainer="true"
                             android:paddingEnd="13dp"
                             android:paddingBottom="6dp"
-                            android:scrollbars="vertical"
                             android:textAlignment="textStart"
                             android:textColor="@color/scnd_blue"
-                            android:textSize="14sp" />
+                            android:textSize="14sp"/>
 
                         <EditText
                             android:id="@+id/add_about_checkup_tv"
@@ -504,22 +503,22 @@
                             android:layout_marginRight="20dp"
                             android:layout_marginBottom="10dp"
                             android:background="@drawable/add_about_checkup_bg"
-                            android:focusable="true"
                             android:fontFamily="@font/rubik"
                             android:gravity="start"
-                            android:hint="TYPE HERE"
-                            android:inputType="textMultiLine"
-                            android:isScrollContainer="true"
+                            android:focusable="true"
                             android:paddingStart="13dp"
                             android:paddingLeft="13dp"
                             android:paddingTop="6dp"
+                            android:scrollbars="vertical"
+                            android:isScrollContainer="true"
+                            android:inputType="textMultiLine"
                             android:paddingEnd="13dp"
                             android:paddingBottom="6dp"
-                            android:scrollbars="vertical"
+                            android:hint="TYPE HERE"
+                            android:visibility="gone"
                             android:textAlignment="textStart"
                             android:textColor="@color/scnd_blue"
-                            android:textSize="14sp"
-                            android:visibility="gone" />
+                            android:textSize="14sp" />
 
 
                     </RelativeLayout>

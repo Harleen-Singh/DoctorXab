@@ -250,7 +250,6 @@ public class ReportService {
                         editor.putString("X-RAY-CATEGORY-REPORT", "");
                         editor.putString("X-RAY-BODYAREA-REPORT", "");
                         editor.putString("X-RAY-REPORT-REPORT", "");
-                        editor.putString("X-RAY-IMAGE-REPORT", "");
                         editor.apply();
                         dialog1.dismiss();
 

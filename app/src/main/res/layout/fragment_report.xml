@@ -27,6 +27,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
+                    android:elevation="5dp"
                     android:background="@drawable/myrect"
                     android:gravity="center"
                     android:orientation="horizontal"
@@ -60,15 +61,59 @@
                     android:layout_width="match_parent"
                     android:layout_height="305dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginEnd="20dp"
                     android:layout_weight="1"
+                    android:scaleType="center"
                     android:contentDescription="@string/x_ray"
-                    android:src="@drawable/picture"
+                    android:src="@drawable/image"
                     app:layout_constraintBottom_toTopOf="@id/xray_add_label"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/xray_toolbar" />
+
+
+
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/profile_image_Editor"
+                    android:layout_width="wrap_content"
+                    android:paddingEnd="20dp"
+                    android:paddingStart="20dp"
+                    android:layout_height="45dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:gravity="center"
+                    android:background="@drawable/pd_bg"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintBottom_toTopOf="@id/xray_add_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/xray_ImageView">
+
+                    <androidx.constraintlayout.utils.widget.ImageFilterButton
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:background="@color/theme"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/camera_alt" />
+
+                    <TextView
+                        android:id="@+id/speciality"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginLeft="10dp"
+                        android:fontFamily="@font/rubik"
+                        android:text="ADD X-RAY IMAGE"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
 
 
                 <TextView
@@ -85,7 +130,7 @@
                     app:layout_constraintBottom_toTopOf="@id/xray_id_container"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/xray_ImageView" />
+                    app:layout_constraintTop_toBottomOf="@id/profile_image_Editor" />
 
 
                 <androidx.appcompat.widget.LinearLayoutCompat

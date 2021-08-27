@@ -59,6 +59,7 @@ public class CheckupDetailsPatient extends Fragment {
     private FragmentCheckupDetailsPatientBinding binding;
     private int patientId;
     private Dialog dialog;
+    private int report_size;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -177,6 +178,7 @@ public class CheckupDetailsPatient extends Fragment {
                 binding.addAboutCheckupTv.setVisibility(View.VISIBLE);
                 binding.addAboutCheckupTv.setScrollContainer(true);
                 isReportEdited = true;
+                report_size = binding.addAboutCheckupTv.getText().toString().length();
                 binding.checkupDetailsContainerAboutCheckup.setFocusable(true);
                 binding.addAboutCheckupTv.setSelection(binding.addAboutCheckupTv.getText().length());
                 binding.addAboutCheckupTv.requestFocus();
@@ -323,8 +325,10 @@ public class CheckupDetailsPatient extends Fragment {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                     String date = sdf.format(new Date());
                     String data = binding.addAboutCheckupTv.getText().toString();
-                    reportData = new ReportData(date, data);
-                    reportDataViewModel.updateReportData(reportData);
+                    if(data.length() != report_size) {
+                        reportData = new ReportData(date, data);
+                        reportDataViewModel.updateReportData(reportData);
+                    }
                     
                 }
 

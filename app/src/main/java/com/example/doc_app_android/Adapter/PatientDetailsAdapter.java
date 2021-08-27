@@ -2,6 +2,10 @@ package com.example.doc_app_android.Adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,6 +17,8 @@ import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -38,9 +44,10 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     private DoctorPatientListService doctorPatientListService = new DoctorPatientListService();
+    private ConstraintLayout dataFragCont;
 
-    public PatientDetailsAdapter(Context mContext) {
-
+    public PatientDetailsAdapter(Context mContext, ConstraintLayout dataFragmentContainer) {
+        this.dataFragCont = dataFragmentContainer;
         this.mContext = mContext;
     }
 
@@ -102,22 +109,11 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
 
-            Log.d("TextWatcher", "performingFiltering: " + constraint );
-
-
             ArrayList<ProfileData> filteredData = new ArrayList<>();
 
             if(constraint.toString().isEmpty()){
                 filteredData.addAll(backup);
-                Log.d("TextWatcher", "Size of Backup Data: " + backup.size());
-                Log.d("TextWatcher", "Size of Backup Data(Empty): " + backup.size());
-                Log.d("TextWatcher", "Size of Backup Data(Empty): " + filteredData.size());
-
-
-
             } else {
-                Log.d("TextWatcher", "Size of Backup Data: " + backup.size());
-
                 for(ProfileData obj: backup){
                     if(obj.getName().toString().toLowerCase().contains(constraint.toString().toLowerCase())){
                         filteredData.add(obj);
@@ -127,8 +123,6 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
 
             FilterResults filterResults = new FilterResults();
             filterResults.values = filteredData;
-            Log.d("TextWatcher", "Size of Filtered Data: " + filteredData.size());
-            Log.d("TextWatcher", "performingFiltering: I am working" );
             return filterResults;
         }
 
@@ -136,7 +130,16 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
         protected void publishResults(CharSequence constraint, FilterResults results) {
             data.clear();
             Log.d("TextWatcher", "Size of Published Data: " +((ArrayList<ProfileData>)results.values).size());
-            data.addAll((ArrayList<ProfileData>) results.values);
+            if(((ArrayList<ProfileData>)results.values).size()>0) {
+                data.addAll((ArrayList<ProfileData>) results.values);
+
+                dataFragCont.setBackground(AppCompatResources.getDrawable(mContext, R.color.scnd_blue_white));
+
+            } else {
+                setBackground(mContext, dataFragCont,R.drawable.not_found);
+
+               // dataFragCont.setBackground(AppCompatResources.getDrawable(mContext, R.drawable.audit));
+            }
             notifyDataSetChanged();
             Log.d("TextWatcher", "publishResults: I am working" );
 
@@ -153,7 +156,7 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
             super(binding.getRoot());
             this.binding = binding;
 
-            binding.openButton.setOnClickListener(new View.OnClickListener() {
+            binding.patientRow.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ProfileData profileData = data.get(getAbsoluteAdapterPosition());
@@ -226,5 +229,15 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
         }
 
 
+    }
+
+    public void setBackground(Context context, View view, int drawableId){
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
+                drawableId);
+        bitmap = Bitmap.createScaledBitmap(bitmap, Resources.getSystem().getDisplayMetrics()
+                        .widthPixels, Resources.getSystem().getDisplayMetrics().heightPixels,
+                true);
+        BitmapDrawable bitmapDrawable = new BitmapDrawable(context.getResources(), bitmap);
+        view.setBackground(bitmapDrawable);
     }
 }

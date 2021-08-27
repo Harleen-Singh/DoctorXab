@@ -106,11 +106,9 @@ public class AppointmentsFragment extends Fragment {
         }
 
         if(isDoctorAppointmentsFragment){
-
-            binding.btnApmnt.setVisibility(View.GONE);
+            //binding.btnApmnt.setVisibility(View.GONE);
             binding.btnRemain.setVisibility(View.GONE);
             binding.btnNote.setVisibility(View.GONE);
-
         }
 
         if(isPatientDetailsAdapterAppointment){
@@ -121,7 +119,7 @@ public class AppointmentsFragment extends Fragment {
 
         if(isPatientInfoAppointment){
             binding.calenderContainer.setVisibility(View.GONE);
-            binding.editCalendar.setVisibility(View.VISIBLE);
+            //binding.editCalendar.setVisibility(View.VISIBLE);
 
         }
 
@@ -136,11 +134,6 @@ public class AppointmentsFragment extends Fragment {
         binding.editCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle1 = new Bundle();
-                bundle1.putBoolean("isPatientInfoAppointment",isPatientInfoAppointment);
-                DoctorAppointmentsFragment doctorAppointmentsFragment = new DoctorAppointmentsFragment();
-                doctorAppointmentsFragment.setArguments(bundle1);
-                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, doctorAppointmentsFragment).addToBackStack("name9").commit();
 
             }
         });

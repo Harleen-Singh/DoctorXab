@@ -130,18 +130,21 @@
 
                             <TextView
                                 android:id="@+id/email_label"
-                                android:layout_width="wrap_content"
+                                android:layout_width="78dp"
+                                android:gravity="center"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/rubik"
                                 android:text="EMAIL:"
+                                android:paddingStart="2dp"
                                 android:textColor="#454545"
-                                android:textSize="16sp" />
+                                android:textSize="16sp"
+                                android:paddingLeft="2dp" />
 
                             <TextView
                                 android:id="@+id/email_address_text"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="20dp"
+
                                 android:fontFamily="@font/rubik"
 
                                 android:textColor="@color/scnd_blue"
@@ -170,7 +173,7 @@
 
                             <TextView
                                 android:id="@+id/contact_label"
-                                android:layout_width="wrap_content"
+                                android:layout_width="78dp"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/rubik"
                                 android:text="CONTACT:"

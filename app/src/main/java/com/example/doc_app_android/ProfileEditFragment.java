@@ -39,11 +39,21 @@ import com.example.doc_app_android.databinding.FragmentProfileEditBinding;
 import com.example.doc_app_android.databinding.ProfileDialogBinding;
 import com.example.doc_app_android.databinding.ValidationDialogBinding;
 import com.example.doc_app_android.view_model.ProfileViewModel;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -78,6 +88,9 @@ public class ProfileEditFragment extends Fragment {
     //    private ProfileData re
     private String encodedImageString;
     private ProfileData receivedProfileData;
+    private int permission_count = 0;
+    private String image;
+    private Bitmap exim1;
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
@@ -144,7 +157,7 @@ public class ProfileEditFragment extends Fragment {
             binding.profileEmail.setText(bundle.getString("PROFILE-FRAGMENT-EMAIL"));
             binding.profilePhoneNumber.setText(bundle.getString("PROFILE-FRAGMENT-PHONE-NUMBER"));
             binding.profileSpeciality.setText(bundle.getString("PROFILE-FRAGMENT-SPECIALITY"));
-            String image = bundle.getString("PROFILE-FRAGMENT-PROFILE-IMAGE");
+            image = bundle.getString("PROFILE-FRAGMENT-PROFILE-IMAGE");
 
             Picasso.get()
                     .load("https://maivrikdoc.herokuapp.com/api" + image)
@@ -208,13 +221,16 @@ public class ProfileEditFragment extends Fragment {
                     binding1.messageTextview.setText("Please enter Phone Number.");
                     dialog.show();
 
-                } else if (picture == null) {
-                    binding1.messageTextview.setText("Please Select an Image.");
+                } else if (phoneNumber.length()>10) {
+                    binding1.messageTextview.setText("Please enter a valid Phone Number");
                     dialog.show();
-
                 } else {
 
-                    encodedImageString = encodeBitmapImage(picture);
+                    if (picture != null) {
+                        encodedImageString = encodeBitmapImage(picture);
+                    } else {
+                        encodedImageString = "";
+                    }
                     Log.e("debugging", "Encoded Image String: " + encodedImageString);
 
                     sendProfileData = new ProfileData(Integer.parseInt(id), speciality, email, name, phoneNumber, encodedImageString, picture);
@@ -238,55 +254,73 @@ public class ProfileEditFragment extends Fragment {
         });
 
 
-        binding.profileImageEdit.setOnClickListener(new View.OnClickListener() {
+        binding.profileImageEditor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (checkForPermission()) {
+                Dexter.withContext(getContext())
+                        .withPermission(Manifest.permission.CAMERA)
+                        .withListener(new PermissionListener() {
+                            @Override
+                            public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
+                                profileDialogBinding = ProfileDialogBinding.inflate(LayoutInflater.from(getContext()));
 
-                    profileDialogBinding = ProfileDialogBinding.inflate(LayoutInflater.from(getContext()));
 
+                                dialog2 = new Dialog(getActivity());
+                                //profileDialogBinding.getRoot().setBackgroundResource(android.R.color.transparent);
+                                dialog2.setContentView(profileDialogBinding.getRoot());
+                                dialog2.show();
+                                Window window = dialog2.getWindow();
+                                window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-                    dialog2 = new Dialog(getActivity());
-                    //profileDialogBinding.getRoot().setBackgroundResource(android.R.color.transparent);
-                    dialog2.setContentView(profileDialogBinding.getRoot());
-                    dialog2.show();
-                    Window window = dialog2.getWindow();
-                    window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                profileDialogBinding.openCamera.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                        try {
+                                            startActivityForResult(openCameraIntent, CAMERA_CAPTURE_CODE);
+                                            dialog2.dismiss();
+                                            ;
+                                        } catch (ActivityNotFoundException e) {
+                                            // display error state to the user
+                                            Toast.makeText(getContext(), "Unable to Click Image, please try again!",
+                                                    Toast.LENGTH_SHORT).show();
+                                            dialog2.dismiss();
 
-                    profileDialogBinding.openCamera.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            try {
-                                startActivityForResult(openCameraIntent, CAMERA_CAPTURE_CODE);
-                                dialog2.dismiss();
-                                ;
-                            } catch (ActivityNotFoundException e) {
-                                // display error state to the user
-                                Toast.makeText(getContext(), "Unable to Click Image, please try again!",
-                                        Toast.LENGTH_SHORT).show();
-                                dialog2.dismiss();
+                                        }
 
+                                    }
+                                });
+
+                                profileDialogBinding.openGallery.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                        startActivityForResult(openGalleryIntent, GALLERY_IMAGE_CODE);
+                                        dialog2.dismiss();
+
+                                    }
+                                });
                             }
 
-                        }
-                    });
+                            @Override
+                            public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+                                permission_count = permission_count + 1;
+                                if(permission_count<2) {
+                                    Log.d("PC", "permission count: " + permission_count);
+                                    Toast.makeText(getContext(), "Permission Denied",
+                                            Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getContext(), "Permission Denied, Allow Permissions Manually to use the Feature.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
 
-                    profileDialogBinding.openGallery.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                            startActivityForResult(openGalleryIntent, GALLERY_IMAGE_CODE);
-                            dialog2.dismiss();
-
-                        }
-                    });
-
-
-                } else {
-                    Toast.makeText(getContext(), "Permissions Denied", Toast.LENGTH_SHORT).show();
-                }
+                            @Override
+                            public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+                                permissionToken.continuePermissionRequest();
+                            }
+                        }).check();
 
             }
         });
@@ -313,22 +347,22 @@ public class ProfileEditFragment extends Fragment {
         return binding.getRoot();
     }
 
-    private boolean checkForPermission() {
-
-        ArrayList<String> Permission = new ArrayList<>();
-        if (ContextCompat.checkSelfPermission(this.requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            Permission.add(Manifest.permission.CAMERA);
-        }
-
-        if (!Permission.isEmpty()) {
-            String[] permissions = Permission.toArray(new String[0]);
-            ActivityCompat.requestPermissions(requireActivity(), permissions, PERMISSION_REQUEST_CODE);
-            return false;
-        } else
-            return true;
-
-
-    }
+//    private boolean checkForPermission() {
+//
+//        ArrayList<String> Permission = new ArrayList<>();
+//        if (ContextCompat.checkSelfPermission(this.requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//            Permission.add(Manifest.permission.CAMERA);
+//        }
+//
+//        if (!Permission.isEmpty()) {
+//            String[] permissions = Permission.toArray(new String[0]);
+//            ActivityCompat.requestPermissions(requireActivity(), permissions, PERMISSION_REQUEST_CODE);
+//            return false;
+//        } else
+//            return true;
+//
+//
+//    }
 
 
     @Override
@@ -388,5 +422,21 @@ public class ProfileEditFragment extends Fragment {
         byte[] bytesOfImage = byteArrayOutputStream.toByteArray();
         encodedImageString = android.util.Base64.encodeToString(bytesOfImage, Base64.DEFAULT);
         return encodedImageString;
+    }
+
+
+    public static Bitmap getBitmapFromURL(String src) {
+        try {
+            URL url = new URL(src);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setDoInput(true);
+            connection.connect();
+            InputStream input = connection.getInputStream();
+            Bitmap myBitmap = BitmapFactory.decodeStream(input);
+            return myBitmap;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

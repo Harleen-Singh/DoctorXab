@@ -38,6 +38,12 @@ import com.example.doc_app_android.databinding.ProfileDialogBinding;
 import com.example.doc_app_android.databinding.ValidationDialogBinding;
 import com.example.doc_app_android.view_model.ProfileViewModel;
 import com.example.doc_app_android.view_model.ReportDataViewModel;
+import com.karumi.dexter.Dexter;
+import com.karumi.dexter.PermissionToken;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
+import com.karumi.dexter.listener.PermissionRequest;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
@@ -60,7 +66,6 @@ import java.util.Objects;
 public class ReportFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     public static final int PERMISSION_REQUEST_CODE = 100;
@@ -81,6 +86,7 @@ public class ReportFragment extends Fragment {
     private int patientId;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    private int permission_count = 0;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -140,16 +146,16 @@ public class ReportFragment extends Fragment {
 
 
         preferences = requireContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
-        binding.xrayIdEdittext.setText(preferences.getString("X-RAY-ID-Report",""));
+        binding.xrayIdEdittext.setText(preferences.getString("X-RAY-ID-Report", ""));
         binding.xrayDateEdittext.setText(preferences.getString("X-RAY-DATE-REPORT", ""));
         binding.xrayTimeEdittext.setText(preferences.getString("X-RAY-TIME-REPORT", ""));
         binding.xrayCategoryEdittext.setText(preferences.getString("X-RAY-CATEGORY-REPORT", ""));
         binding.xrayBodyAreaEdittext.setText(preferences.getString("X-RAY-BODYAREA-REPORT", ""));
         binding.xrayCheckupTv.setText(preferences.getString("X-RAY-REPORT-REPORT", ""));
-        String savedUri = preferences.getString("X-RAY-IMAGE-REPORT", "");
-        if(!TextUtils.isEmpty(savedUri)){
-            binding.xrayImageView.setImageURI(Uri.parse(savedUri));
-        }
+        //String savedUri = preferences.getString("X-RAY-IMAGE-REPORT", "");
+//        if(!TextUtils.isEmpty(savedUri)){
+//            binding.xrayImageView.setImageURI(Uri.parse(savedUri));
+//        }
 
 
         binding.xrayCheckupDate.setText(date);
@@ -173,15 +179,14 @@ public class ReportFragment extends Fragment {
 
                 preferences = requireContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
                 editor = preferences.edit();
-                editor.putString("X-RAY-ID-Report",xray_id);
+                editor.putString("X-RAY-ID-Report", xray_id);
                 editor.putString("X-RAY-DATE-REPORT", xray_date);
                 editor.putString("X-RAY-TIME-REPORT", time);
                 editor.putString("X-RAY-CATEGORY-REPORT", category);
                 editor.putString("X-RAY-BODYAREA-REPORT", body_area);
                 editor.putString("X-RAY-REPORT-REPORT", report);
-                editor.putString("X-RAY-IMAGE-REPORT", String.valueOf(resultUri));
+                //editor.putString("X-RAY-IMAGE-REPORT", String.valueOf(resultUri));
                 editor.apply();
-
 
 
                 dialog = new Dialog(getActivity());
@@ -213,8 +218,6 @@ public class ReportFragment extends Fragment {
                     reportDataViewModel.addPatientReport(reportData, written_data, requireContext());
 
                     requireActivity().getSupportFragmentManager().popBackStack();
-
-
                 }
 
 
@@ -264,58 +267,86 @@ public class ReportFragment extends Fragment {
             }
         });
 
-        binding.xrayImageView.setOnClickListener(new View.OnClickListener() {
+        binding.profileImageEditor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if (checkForPermission()) {
+                Dexter.withContext(getContext())
+                        .withPermission(Manifest.permission.CAMERA)
+                        .withListener(new PermissionListener() {
+                            @Override
+                            public void onPermissionGranted(PermissionGrantedResponse permissionGrantedResponse) {
 
-                    profileDialogBinding = ProfileDialogBinding.inflate(LayoutInflater.from(getContext()));
+                                profileDialogBinding = ProfileDialogBinding.inflate(LayoutInflater.from(getContext()));
 
 
-                    dialog2 = new Dialog(getActivity());
-                    //profileDialogBinding.getRoot().setBackgroundResource(android.R.color.transparent);
-                    dialog2.setContentView(profileDialogBinding.getRoot());
-                    dialog2.show();
-                    Window window = dialog2.getWindow();
-                    window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                                dialog2 = new Dialog(getActivity());
+                                //profileDialogBinding.getRoot().setBackgroundResource(android.R.color.transparent);
+                                dialog2.setContentView(profileDialogBinding.getRoot());
+                                dialog2.show();
+                                Window window = dialog2.getWindow();
+                                window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-                    profileDialogBinding.openCamera.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            values = new ContentValues();
-                            values.put(MediaStore.Images.Media.TITLE, "New Picture");
-                            values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
-                            imageUri = requireContext().getContentResolver().insert(
-                                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
-                            Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                            openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                            try {
-                                startActivityForResult(openCameraIntent, CAMERA_CAPTURE_CODE);
-                                dialog2.dismiss();
-                                ;
-                            } catch (ActivityNotFoundException e) {
-                                // display error state to the user
-                                Toast.makeText(getContext(), "Unable to Click Image, please try again!",
-                                        Toast.LENGTH_SHORT).show();
-                                dialog2.dismiss();
+                                profileDialogBinding.openCamera.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        values = new ContentValues();
+                                        values.put(MediaStore.Images.Media.TITLE, "New Picture");
+                                        values.put(MediaStore.Images.Media.DESCRIPTION, "From your Camera");
+                                        imageUri = requireContext().getContentResolver().insert(
+                                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+                                        Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                                        openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+                                        try {
+                                            startActivityForResult(openCameraIntent, CAMERA_CAPTURE_CODE);
+                                            dialog2.dismiss();
+                                            ;
+                                        } catch (ActivityNotFoundException e) {
+                                            // display error state to the user
+                                            Toast.makeText(getContext(), "Unable to Click Image, please try again!",
+                                                    Toast.LENGTH_SHORT).show();
+                                            dialog2.dismiss();
+
+                                        }
+
+                                    }
+                                });
+
+                                profileDialogBinding.openGallery.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                                        startActivityForResult(openGalleryIntent, GALLERY_IMAGE_CODE);
+                                        dialog2.dismiss();
+
+                                    }
+                                });
 
                             }
 
-                        }
-                    });
+                            @Override
+                            public void onPermissionDenied(PermissionDeniedResponse permissionDeniedResponse) {
+                                permission_count = permission_count + 1;
+                                if(permission_count<2) {
+                                    Log.d("PC", "permission count: " + permission_count);
+                                    Toast.makeText(getContext(), "Permission Denied",
+                                            Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getContext(), "Permission Denied, Allow Permissions Manually to use the Feature.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
 
-                    profileDialogBinding.openGallery.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent openGalleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                            startActivityForResult(openGalleryIntent, GALLERY_IMAGE_CODE);
-                            dialog2.dismiss();
 
-                        }
-                    });
+                            }
 
-                }
+                            @Override
+                            public void onPermissionRationaleShouldBeShown(PermissionRequest permissionRequest, PermissionToken permissionToken) {
+                                permissionToken.continuePermissionRequest();
+
+                            }
+                        }).check();
+
+
             }
         });
 
@@ -413,23 +444,23 @@ public class ReportFragment extends Fragment {
 
     }
 
-    private boolean checkForPermission() {
-
-        ArrayList<String> Permission = new ArrayList<>();
-        if (ContextCompat.checkSelfPermission(this.requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            Permission.add(Manifest.permission.CAMERA);
-        }
-
-        if (!Permission.isEmpty()) {
-            String[] permissions = Permission.toArray(new String[0]);
-            ActivityCompat.requestPermissions(requireActivity(), permissions, PERMISSION_REQUEST_CODE);
-            return false;
-        } else {
-            return true;
-        }
-
-
-    }
+//    private boolean checkForPermission() {
+//
+//        ArrayList<String> Permission = new ArrayList<>();
+//        if (ContextCompat.checkSelfPermission(this.requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+//            Permission.add(Manifest.permission.CAMERA);
+//        }
+//
+//        if (!Permission.isEmpty()) {
+//            String[] permissions = Permission.toArray(new String[0]);
+//            Log.d("PERMISSIONS", String.valueOf(permissions));
+//            Log.d("PERMISSIONS", "Size: " + permissions.length);
+//            ActivityCompat.requestPermissions(requireActivity(), permissions, PERMISSION_REQUEST_CODE);
+//            return false;
+//        } else
+//            return true;
+//
+//    }
 
 //    private String encodeBitmapImage(Bitmap bitmap) {
 //        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

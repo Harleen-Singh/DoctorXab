@@ -203,7 +203,9 @@ public class profileService {
         id = Integer.parseInt(sp.getString("doctor_id", ""));
 
         Log.d("TestingProfileEdit", "URL: " + Globals.editGenDetails + id);
-        uploadImage(Globals.editGenDetails + id, editedProfileData);
+        if(editedProfileData.getBitmap() != null) {
+            uploadImage(Globals.editGenDetails + id, editedProfileData);
+        }
         editData(Globals.editGenDetails + id, editedProfileData);
 
 
