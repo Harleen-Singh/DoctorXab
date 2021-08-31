@@ -9,6 +9,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.doc_app_android.MainActivity;
+import com.example.doc_app_android.data_model.DocData;
 import com.example.doc_app_android.data_model.Register_data;
 
 public class Register_view_model extends ViewModel {
@@ -87,6 +88,7 @@ public class Register_view_model extends ViewModel {
                 }
 
                 register_data = new Register_data(name.getValue(),contact.getValue(),age.getValue(),gen,isDoc.getValue());
+                register_data.setSpecialistof(docId.getValue());
                 userMutableLiveData.setValue(register_data);
             }
             else

@@ -10,7 +10,7 @@
             type="com.example.doc_app_android.view_model.Register_view_model" />
     </data>
 
-
+<ScrollView android:layout_height="wrap_content" android:layout_width="match_parent">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -73,7 +73,7 @@
             android:layout_marginRight="55dp"
             android:background="@drawable/text_field_1"
             android:hint="@string/email"
-            android:inputType="text"
+            android:inputType="textEmailAddress"
             android:paddingStart="20dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
@@ -271,6 +271,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="40dp"
             app:layout_constraintEnd_toEndOf="@+id/btn_parent_layout"
             app:layout_constraintStart_toStartOf="@+id/btn_parent_layout"
             app:layout_constraintTop_toBottomOf="@+id/btn_parent_layout">
@@ -665,5 +667,5 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+</ScrollView>
 </layout>

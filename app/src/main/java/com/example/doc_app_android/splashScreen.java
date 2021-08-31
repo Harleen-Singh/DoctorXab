@@ -23,13 +23,13 @@ public class splashScreen extends AppCompatActivity {
                 if (sp.contains("id")) {
                     Intent intent = new Intent(splashScreen.this, Home.class);
                     startActivity(intent);
-                    finish();
+                    finishAffinity();
                 } else {
                     Intent i;
                     i = new Intent(splashScreen.this, MainActivity.class);
                     startActivity(i);
                 }
-                finish();
+                finishAffinity();
             }
         }, 2000);
     }

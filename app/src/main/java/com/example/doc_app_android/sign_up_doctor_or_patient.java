@@ -7,9 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class sign_up_doctor_or_patient extends AppCompatActivity {
@@ -43,6 +41,7 @@ public class sign_up_doctor_or_patient extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(sign_up_doctor_or_patient.this, Home.class);
                 startActivity(intent);
+                finishAffinity();
             }
         });
 
@@ -51,7 +50,7 @@ public class sign_up_doctor_or_patient extends AppCompatActivity {
             public void onClick(View view) {
                 intent = new Intent(sign_up_doctor_or_patient.this, MainActivity.class);
                 startActivity(intent);
-                finish();
+                finishAffinity();
             }
         });
 
