@@ -56,7 +56,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -229,15 +232,21 @@ public class ProfileFragment extends Fragment {
                 bundle.putString("PROFILE-FRAGMENT-PROFILE-IMAGE", receivedProfileData.getImage());
                 profileEditFragment.setArguments(bundle);
 
+
+
                 requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, profileEditFragment).setReorderingAllowed(true).addToBackStack("profileedit").commit();
 
             }
         });
 
+        
+
 
 
         return binding.getRoot();
     }
+
+
 
 
 
