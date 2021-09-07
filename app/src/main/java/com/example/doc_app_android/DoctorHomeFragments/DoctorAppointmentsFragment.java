@@ -1,19 +1,17 @@
 package com.example.doc_app_android.DoctorHomeFragments;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import com.example.doc_app_android.PatentHomeFragments.AppointmentsFragment;
+import com.example.doc_app_android.AppointmentV2;
 import com.example.doc_app_android.R;
-import com.example.doc_app_android.databinding.FragmentAppointmentsBinding;
 import com.example.doc_app_android.databinding.FragmentDoctorAppointmentsBinding;
 
 import java.util.Objects;
@@ -26,7 +24,8 @@ import java.util.Objects;
 public class DoctorAppointmentsFragment extends Fragment {
 
     private FragmentDoctorAppointmentsBinding binding;
-    private Boolean isPatientInfoAppointment = false;
+    private Boolean fromCheckupDetailsAppointment = false;
+    private AppointmentV2 appointmentV2;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -71,7 +70,7 @@ public class DoctorAppointmentsFragment extends Fragment {
     public void onStop() {
         super.onStop();
         // This particular line will show the default toolbar of the Home Activity on Home Page when fragment gets closed.
-        if(!isPatientInfoAppointment) {
+        if (!fromCheckupDetailsAppointment) {
             Objects.requireNonNull(((AppCompatActivity) requireActivity()).getSupportActionBar()).show();
         }
     }
@@ -94,24 +93,27 @@ public class DoctorAppointmentsFragment extends Fragment {
         binding.doctorAppointmentProgress.setVisibility(View.VISIBLE);
 
         Bundle bundle1 = getArguments();
-        if(bundle1!=null){
-            isPatientInfoAppointment = bundle1.getBoolean("isPatientInfoAppointment", false);
+        if (bundle1 != null) {
+            fromCheckupDetailsAppointment = bundle1.getBoolean("fromCheckupDetailsAppointment", false);
         }
         Bundle bundle = new Bundle();
 
-       if(isPatientInfoAppointment){
+        appointmentV2 = new AppointmentV2();
 
-           bundle.putBoolean("isPatientInfoAppointment1", true);
-           AppointmentsFragment appointmentsFragment = new AppointmentsFragment();
-           appointmentsFragment.setArguments(bundle);
-           requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.appointmentsLayoutContainer, appointmentsFragment).setReorderingAllowed(true).commit();
 
-       } else{
-           bundle.putBoolean("isDoctorAppointmentsFragment", true);
-           AppointmentsFragment appointmentsFragment = new AppointmentsFragment();
-           appointmentsFragment.setArguments(bundle);
-           requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.appointmentsLayoutContainer, appointmentsFragment).setReorderingAllowed(true).commit();
-       }
+        if (fromCheckupDetailsAppointment) {
+
+            bundle.putBoolean("fromDrawerAppointment", false);
+            appointmentV2.setArguments(bundle);
+            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.appointmentsLayoutContainer, appointmentV2).setReorderingAllowed(true).commit();
+
+
+        } else {
+            bundle.putBoolean("fromDrawerAppointment", true);
+            appointmentV2.setArguments(bundle);
+            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.appointmentsLayoutContainer, appointmentV2).setReorderingAllowed(true).commit();
+
+        }
 
         binding.doctorAppointmentProgress.setVisibility(View.GONE);
 
@@ -122,9 +124,6 @@ public class DoctorAppointmentsFragment extends Fragment {
                 requireActivity().getSupportFragmentManager().popBackStack();
             }
         });
-
-
-
 
 
         return binding.getRoot();

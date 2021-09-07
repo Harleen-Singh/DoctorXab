@@ -1,13 +1,35 @@
 package com.example.doc_app_android.data_model;
 
 public class AppointmentData {
-    private String id, date, patient_id , doctor_id ;
+    private String id, date, patient_id, doctor_id, dayInMonth;
+
+    public AppointmentData(String dayInMonth) {
+        this.dayInMonth = dayInMonth;
+    }
+
+    private boolean isOldDate;
+
+    public AppointmentData(String id, String date, String patient_id, String doctor_id, boolean isOldDate) {
+        this.id = id;
+        this.date = date;
+        this.patient_id = patient_id;
+        this.doctor_id = doctor_id;
+        this.isOldDate = isOldDate;
+    }
 
     public AppointmentData(String id, String date, String patient_id, String doctor_id) {
         this.id = id;
         this.date = date;
         this.patient_id = patient_id;
         this.doctor_id = doctor_id;
+    }
+
+    public boolean isOldDate() {
+        return isOldDate;
+    }
+
+    public void setOldDate(boolean oldDate) {
+        isOldDate = oldDate;
     }
 
     public String getId() {

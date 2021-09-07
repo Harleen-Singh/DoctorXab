@@ -54,6 +54,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 
 public class AppointmentsFragment extends Fragment {
@@ -75,7 +76,7 @@ public class AppointmentsFragment extends Fragment {
     private ArrayList<String> message;
     private FragApmntViewModel viewModel;
     private DoctorListViewModel doctorListViewModel;
-    private ArrayList<AppointmentData> appointmentData = new ArrayList<>();
+    private final ArrayList<AppointmentData> appointmentData = new ArrayList<>();
     private SharedPreferences preferences;
     private boolean isDoctorAppointmentsFragment;
     private boolean isPatientDetailsAdapterAppointment, isPatientInfoAppointment, isPatientInfoAppointment1;
@@ -88,7 +89,8 @@ public class AppointmentsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_appointments, null, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_appointments, container, false);
+        binding.setLifecycleOwner(this);
 
         viewModel = new ViewModelProvider(requireActivity()).get(FragApmntViewModel.class);
         doctorListViewModel = new ViewModelProvider(requireActivity()).get(DoctorListViewModel.class);
@@ -141,18 +143,18 @@ public class AppointmentsFragment extends Fragment {
 
             }
         });
+//
+//        binding.editSave.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                requireActivity().getSupportFragmentManager().popBackStack();
+//
+//
+//            }
+//        });
 
-        binding.editSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requireActivity().getSupportFragmentManager().popBackStack();
 
-
-            }
-        });
-
-
-        doctorListViewModel.getID_name_pair().observe(requireActivity(), new Observer<ArrayList<DocData>>() {
+        doctorListViewModel.getID_name_pair().observe(getViewLifecycleOwner(), new Observer<ArrayList<DocData>>() {
             @Override
             public void onChanged(ArrayList<DocData> docData) {
                 Log.e(TAG, "onChanged: " + "GOT DOC LIST");
@@ -271,6 +273,7 @@ public class AppointmentsFragment extends Fragment {
             }
         });
         handleAppointment();
+        binding.progressbar.setVisibility(View.GONE);
         return binding.getRoot();
     }
 
@@ -370,17 +373,17 @@ public class AppointmentsFragment extends Fragment {
             @Override
             public void decorate(DayViewFacade view) {
                 if (flag.equals("0")) {
-                    view.setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.appointment_span));
+                    view.setBackgroundDrawable(Objects.requireNonNull(ContextCompat.getDrawable(requireContext(), R.drawable.appointment_span)));
                 }
                 if (flag.equals("1")) {
-                    view.setBackgroundDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.appointment_today_span));
+                    view.setBackgroundDrawable(Objects.requireNonNull(ContextCompat.getDrawable(requireContext(), R.drawable.appointment_today_span)));
                 }
             }
         });
     }
 
     private void saveData() {
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         Gson gson = new Gson();
         String json = gson.toJson(message);
@@ -389,7 +392,7 @@ public class AppointmentsFragment extends Fragment {
     }
 
     private void loadData() {
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("SHARED_PREFS", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String json = sharedPreferences.getString("msg", null);
         Type type = new TypeToken<ArrayList<String>>() {

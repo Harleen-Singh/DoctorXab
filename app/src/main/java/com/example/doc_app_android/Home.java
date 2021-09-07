@@ -98,21 +98,6 @@ public class Home extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-//        profileViewModel.getProfileDetails().observe(this, new Observer<ProfileData>() {
-//            @Override
-//            public void onChanged(ProfileData profileData) {
-//                Log.d("HomeTesting", "Name: " + profileData.getName());
-//
-//                nav_name = findViewById(R.id.nav_profile_name);
-//                nav_profile = findViewById(R.id.nav_profile_image);
-//                nav_name.setText(profileData.getName());
-//                Picasso.get()
-//                        .load(profileData.getImage())
-//                        .placeholder(R.drawable.doctor_profile_image)
-//                        .into(nav_profile);
-//            }
-//        });
-
     }
 
     @Override
@@ -141,7 +126,6 @@ public class Home extends AppCompatActivity {
             @Override
             public void onChanged(ArrayList<FilterData> filterData) {
                 filterAdapter.setFilter(filterData);
-
                 filterAdapter.notifyDataSetChanged();
             }
         });

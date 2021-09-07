@@ -2,12 +2,10 @@ package com.example.doc_app_android.Adapter;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +13,7 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.doc_app_android.AppointmentV2;
 import com.example.doc_app_android.DoctorHomeFragments.DataLoaderFragment;
 import com.example.doc_app_android.DoctorHomeFragments.PatientInfoAppointmentFragment;
 import com.example.doc_app_android.PatentHomeFragments.AppointmentsFragment;
@@ -103,16 +102,7 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
                 break;
 
             case "APPOINTMENT":
-
-
-                Bundle bundle = new Bundle();
-                bundle.putBoolean("isPatientInfoAppointment", true);
-
-                AppointmentsFragment appointmentsFragment = new AppointmentsFragment();
-                appointmentsFragment.setArguments(bundle);
-                //requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.patient_calendar_fragment_container, appointmentsFragment).setReorderingAllowed(true).commit();
-
-                temp = appointmentsFragment;
+                temp = PatientInfoAppointmentFragment.newInstance();
                 break;
         }
         AppCompatActivity appCompatActivity = (AppCompatActivity) context;
@@ -141,7 +131,7 @@ public class FilterRCVadapter extends RecyclerView.Adapter<FilterRCVadapter.Filt
                     temp = FragmentPrescription.newInstance();
                     break;
                 case "APPOINTMENT":
-                    temp = AppointmentsFragment.newInstance();
+                    temp = AppointmentV2.newInstance();
                     break;
             }
         }

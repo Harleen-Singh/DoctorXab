@@ -6,16 +6,16 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        android:background="@color/scnd_blue_white"
+        tools:context=".AppointmentV2">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/appointmentsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:animateLayoutChanges="true"
-            android:background="@color/scnd_blue_white"
-            android:paddingBottom="29dp"
-            tools:context=".PatentHomeFragments.AppointmentsFragment">
+            android:paddingBottom="29dp">
 
 
             <com.prolificinteractive.materialcalendarview.MaterialCalendarView
@@ -33,6 +33,7 @@
                 android:id="@+id/progressbar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:indeterminateTint="@color/theme"
                 app:layout_constraintBottom_toBottomOf="@id/calendarView"
                 app:layout_constraintEnd_toEndOf="parent"

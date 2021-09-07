@@ -1,15 +1,14 @@
 package com.example.doc_app_android.DoctorHomeFragments;
 
 import android.os.Bundle;
-
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.doc_app_android.PatentHomeFragments.AppointmentsFragment;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+
+import com.example.doc_app_android.AppointmentV2;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.databinding.FragmentPatientInfoAppointmentBinding;
 
@@ -59,7 +58,12 @@ public class PatientInfoAppointmentFragment extends Fragment {
         binding.setLifecycleOwner(getActivity());
 
         binding.pdProgress.setVisibility(View.VISIBLE);
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("fromPatientInfoAppointment", true);
+        AppointmentV2 appointmentV2 = new AppointmentV2();
+        appointmentV2.setArguments(bundle);
 
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.patient_calendar_fragment_container, appointmentV2).setReorderingAllowed(true).commit();
 
 
         binding.pdProgress.setVisibility(View.GONE);
@@ -68,10 +72,14 @@ public class PatientInfoAppointmentFragment extends Fragment {
         binding.editCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.patient_calendar_fragment_container, appointmentV2).setReorderingAllowed(true).commit();
+                Bundle bundle1 = new Bundle();
+                bundle1.putBoolean("fromCheckupDetailsAppointment", true);
+                DoctorAppointmentsFragment doctorAppointmentsFragment = new DoctorAppointmentsFragment();
+                doctorAppointmentsFragment.setArguments(bundle1);
+                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, doctorAppointmentsFragment).addToBackStack("name9").commit();
             }
         });
-
 
 
         // Inflate the layout for this fragment

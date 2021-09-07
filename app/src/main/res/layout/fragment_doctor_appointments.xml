@@ -7,7 +7,7 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/scnd_blue_white"
+        android:background="@color/white"
         tools:context=".DoctorHomeFragments.DoctorAppointmentsFragment">
 
         <androidx.constraintlayout.widget.ConstraintLayout

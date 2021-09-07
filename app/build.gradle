@@ -53,6 +53,9 @@ repositories {
         implementation 'androidx.lifecycle:lifecycle-livedata:2.3.1'
         implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
 
+        implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
+
+
         // Image Crop Library
         implementation 'com.github.alirezaafkar:Android-Image-Cropper:2.3.3'
         implementation 'com.google.firebase:firebase-messaging:22.0.0'

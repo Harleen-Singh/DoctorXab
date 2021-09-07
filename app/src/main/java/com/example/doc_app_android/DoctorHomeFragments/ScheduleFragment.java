@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.example.doc_app_android.AppointmentV2;
 import com.example.doc_app_android.PatentHomeFragments.AppointmentsFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.databinding.FragmentScheduleBinding;
@@ -91,8 +92,8 @@ public class ScheduleFragment extends Fragment {
         binding.setLifecycleOwner(this);
         binding.scheduleProgress.setVisibility(View.VISIBLE);
 
-        AppointmentsFragment appointmentsFragment = new AppointmentsFragment();
-        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.scheduleLayoutContainer, appointmentsFragment).setReorderingAllowed(true).commit();
+        AppointmentV2 appointmentV2 = new AppointmentV2();
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.scheduleLayoutContainer, appointmentV2).setReorderingAllowed(true).commit();
 
         binding.scheduleProgress.setVisibility(View.GONE);
 

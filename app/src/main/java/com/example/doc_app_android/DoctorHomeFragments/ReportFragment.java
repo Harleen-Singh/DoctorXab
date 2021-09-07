@@ -56,6 +56,7 @@ import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -139,7 +140,8 @@ public class ReportFragment extends Fragment {
         assert getArguments() != null;
         patientId = getArguments().getInt("patientId");
         reportDataViewModel = new ViewModelProvider(requireActivity()).get(ReportDataViewModel.class);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM, yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd MMMM, yyyy", Locale.US);
+
         String date = sdf.format(new Date());
         String finalDate = date;
         date = "DATE: " + date;
@@ -170,9 +172,17 @@ public class ReportFragment extends Fragment {
         binding.xraySaveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                SimpleDateFormat date1 = new SimpleDateFormat("yyyy-MM-dd", Locale.US);
+                SimpleDateFormat time1 = new SimpleDateFormat("hh:mm:ss", Locale.US);
+
+
+
                 xray_id = binding.xrayIdEdittext.getText().toString();
-                xray_date = binding.xrayDateEdittext.getText().toString();
-                time = binding.xrayTimeEdittext.getText().toString();
+                xray_date = date1.format(new Date());
+                time = time1.format(new Date());
+                Log.d("TD", "DATE: " + xray_date);
+                Log.d("TD", "TIME: " + time);
                 category = binding.xrayCategoryEdittext.getText().toString();
                 body_area = binding.xrayBodyAreaEdittext.getText().toString();
                 report = binding.xrayCheckupTv.getText().toString();

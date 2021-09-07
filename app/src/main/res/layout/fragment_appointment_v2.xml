@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/scnd_blue"
+        tools:context=".AppointmentV2">
+
+        <ScrollView
+            android:id="@+id/appointment_scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/scnd_blue_white">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/g_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/edgy_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/myrect"
+                    android:elevation="3dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:id="@+id/btn_month_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginBottom="30dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toTopOf="@id/compact_calendar_view"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/monthYearTV"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:gravity="center_horizontal"
+                            android:text="Feb-2021"
+                            android:textAlignment="center"
+                            android:textColor="#172578"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+
+                        <ImageButton
+                            android:id="@+id/prev_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/white"
+                            android:src="@drawable/ic_baseline_chevron_left_24"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+
+                        <ImageButton
+                            android:id="@+id/next_button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="48dp"
+                            android:layout_marginRight="48dp"
+                            android:background="@color/white"
+                            android:src="@drawable/ic_baseline_chevron_right_24"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+                    <com.github.sundeepk.compactcalendarview.CompactCalendarView
+                        android:id="@+id/compact_calendar_view"
+                        android:layout_width="fill_parent"
+                        android:layout_height="250dp"
+                        android:layout_marginStart="48dp"
+                        android:layout_marginTop="38dp"
+                        android:layout_marginEnd="48dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        app:compactCalendarBackgroundColor="@color/white"
+                        app:compactCalendarCurrentDayBackgroundColor="#172578"
+                        app:compactCalendarCurrentDayTextColor="@color/white"
+                        app:compactCalendarCurrentSelectedDayBackgroundColor="#172578"
+                        app:compactCalendarCurrentSelectedDayTextColor="@color/white"
+                        app:compactCalendarMultiEventIndicatorColor="#fff"
+                        app:compactCalendarTargetHeight="250dp"
+                        app:compactCalendarTextColor="@color/black"
+                        app:compactCalendarTextSize="16sp"
+                        app:layout_constraintEnd_toEndOf="@id/btn_month_container"
+                        app:layout_constraintStart_toStartOf="@id/btn_month_container"
+                        app:layout_constraintTop_toBottomOf="@id/btn_month_container" />
+
+
+                    <View
+                        android:id="@+id/separator1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="2dp"
+                        android:background="#DCE1F9"
+                        app:layout_constraintBottom_toTopOf="@id/appointment_list"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/compact_calendar_view" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/appointment_list"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/separator1"
+                        tools:listitem="@layout/appointment_row" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/ask_for_appointment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/appt_button_theme"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/edgy_container">
+
+                    <TextView
+                        android:id="@+id/add_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="@font/rubik"
+                        android:text="ASK FOR APPOINTMENT"
+                        android:textColor="@color/theme"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/add_reminder"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/appt_button_theme"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ask_for_appointment">
+
+                    <TextView
+                        android:id="@+id/add_reminder_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="@font/rubik"
+                        android:text="ADD REMINDER"
+                        android:textColor="@color/theme"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/add_a_note"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/appt_button_theme"
+                    android:visibility="visible"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/add_reminder">
+
+                    <TextView
+                        android:id="@+id/add_note_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="@font/rubik"
+                        android:text="ADD A NOTE"
+                        android:textColor="@color/theme"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/hidden_note_save_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:elevation="3dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toTopOf="@id/appointment_save_button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/add_a_note">
+
+
+                    <RelativeLayout
+                        android:id="@+id/add_a_noteA"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/btn_theme_1"
+                        android:visibility="visible"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/add_a_noteA_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginStart="40dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginEnd="40dp"
+                            android:layout_marginBottom="15dp"
+                            android:fontFamily="@font/rubik"
+                            android:text="ADD A NOTE"
+                            android:textColor="@color/white"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+
+                    </RelativeLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/create_note"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="15dp"
+                        app:hintEnabled="false"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/add_a_noteA"
+                        app:passwordToggleEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/edit_note"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@drawable/text_field_1"
+                            android:fontFamily="@font/rubik"
+                            android:hint="ADD TEXT"
+                            android:paddingStart="20dp"
+                            android:paddingLeft="20dp"
+                            android:singleLine="true"
+                            android:textColor="#8B91AB"
+                            android:textSize="14sp"
+                            android:theme="@style/EditTextTheme"
+                            tools:ignore="RtlSymmetry" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <Button
+                    android:id="@+id/appointment_save_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@drawable/btn_theme_1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:paddingStart="28dp"
+                    android:paddingTop="16dp"
+                    android:paddingEnd="28dp"
+                    android:paddingBottom="16dp"
+                    android:text="Save"
+                    android:textColor="@color/app.compat.light"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/hidden_note_save_container" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

@@ -128,20 +128,22 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            data.clear();
-            Log.d("TextWatcher", "Size of Published Data: " +((ArrayList<ProfileData>)results.values).size());
-            if(((ArrayList<ProfileData>)results.values).size()>0) {
-                data.addAll((ArrayList<ProfileData>) results.values);
+            if(results != null) {
+                data.clear();
+                Log.d("TextWatcher", "Size of Published Data: " + ((ArrayList<ProfileData>) results.values).size());
+                if (((ArrayList<ProfileData>) results.values).size() > 0) {
+                    data.addAll((ArrayList<ProfileData>) results.values);
 
-                dataFragCont.setBackground(AppCompatResources.getDrawable(mContext, R.color.scnd_blue_white));
+                    dataFragCont.setBackground(AppCompatResources.getDrawable(mContext, R.color.scnd_blue_white));
 
-            } else {
-                setBackground(mContext, dataFragCont,R.drawable.not_found);
+                } else {
+                    setBackground(mContext, dataFragCont, R.drawable.not_found);
 
-               // dataFragCont.setBackground(AppCompatResources.getDrawable(mContext, R.drawable.audit));
+                    // dataFragCont.setBackground(AppCompatResources.getDrawable(mContext, R.drawable.audit));
+                }
+                notifyDataSetChanged();
+                Log.d("TextWatcher", "publishResults: I am working");
             }
-            notifyDataSetChanged();
-            Log.d("TextWatcher", "publishResults: I am working" );
 
         }
     };

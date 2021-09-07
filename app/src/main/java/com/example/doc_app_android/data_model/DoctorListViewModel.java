@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class DoctorListViewModel extends AndroidViewModel {
     DoctorListService doctorListService = new DoctorListService();
     Application app;
-    public DoctorListViewModel( Application application) {
+    public DoctorListViewModel(Application application) {
         super(application);
         app = application;
     }
