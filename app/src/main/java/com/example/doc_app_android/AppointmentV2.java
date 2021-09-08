@@ -15,16 +15,20 @@ import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.doc_app_android.Adapter.AppointWithAdapter;
+import com.example.doc_app_android.Dialogs.docListFragment;
 import com.example.doc_app_android.data_model.AppointmentData;
 import com.example.doc_app_android.databinding.FragmentAppointmentV2Binding;
 import com.example.doc_app_android.view_model.FragApmntViewModel;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
+
+import org.threeten.bp.LocalDate;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -55,6 +59,7 @@ public class AppointmentV2 extends Fragment { // implements CalendarAdapter.OnIt
     private boolean fromPatientInfoAppointment = false;
     private ArrayList<String> nameList = new ArrayList<>();
     private AppointWithAdapter adapter;
+    private CharSequence SelectedDate = LocalDate.now().toString();
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -126,7 +131,7 @@ public class AppointmentV2 extends Fragment { // implements CalendarAdapter.OnIt
             binding.addANote.setVisibility(View.GONE);
         }
 
-        if(fromPatientInfoAppointment){
+        if (fromPatientInfoAppointment) {
             binding.separator1.setVisibility(View.GONE);
             binding.appointmentList.setVisibility(View.GONE);
             binding.askForAppointment.setVisibility(View.GONE);
@@ -222,6 +227,13 @@ public class AppointmentV2 extends Fragment { // implements CalendarAdapter.OnIt
             }
         });
 
+        binding.askForAppointment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDialog();
+            }
+        });
+
 
         // Inflate the layout for this fragment
         return binding.getRoot();
@@ -230,6 +242,16 @@ public class AppointmentV2 extends Fragment { // implements CalendarAdapter.OnIt
     void setUpSharedPreferences() {
         preferences = requireContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
 
+    }
+
+
+    void openDialog() {
+        {
+            docListFragment docDialog = new docListFragment(SelectedDate);
+            docDialog.setDialog(docDialog);
+            docDialog.setStyle(DialogFragment.STYLE_NO_FRAME, R.style.AlertDialogLowRadius);
+            docDialog.show(getChildFragmentManager(), "docList");
+        }
     }
 
 

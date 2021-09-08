@@ -3,6 +3,7 @@ package com.example.doc_app_android.services;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
 
@@ -15,6 +16,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.doc_app_android.Dialogs.dialogs;
 import com.example.doc_app_android.Globals;
+import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.DocData;
 
 import org.json.JSONException;
@@ -24,6 +26,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class getAppointmentService {
+
+    private androidx.appcompat.app.AlertDialog.Builder builder;
+    private androidx.appcompat.app.AlertDialog alertDialog;
+
     public void getAppointment(DocData docData, CharSequence date, Context context, ProgressDialog dialog1){
 
         SharedPreferences pref = context.getSharedPreferences("tokenFile",Context.MODE_PRIVATE);
@@ -40,13 +46,13 @@ public class getAppointmentService {
                 @Override
                 public void onResponse(JSONObject response) {
                     dialog1.dismiss();
-                    dialog.displayDialog("Request Sent Sucessfully", context);
+                    dialog.displayDialog("Request Sent Successfully", context, true);
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     dialog1.dismiss();
-                    dialog.displayDialog("Error in Sending Request ", context);
+                    dialog.displayDialog("Error in Sending Request ", context, true);
                 }
             }){
                 @Override
@@ -79,14 +85,15 @@ public class getAppointmentService {
                 @Override
                 public void onResponse(JSONObject response) {
                     dialog1.dismiss();
-                    dialog.displayDialog("Report Shared Sucessfully", context);
+                    dialog.displayDialog("Report Shared Successfully", context, true);
+
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     Log.e("TAG", "onErrorResponse: "+ error );
                     dialog1.dismiss();
-                    dialog.displayDialog("Error in Sending Report ", context);
+                    dialog.displayDialog("Error in Sending Report ", context, true);
                 }
             }){
                 @Override
@@ -104,4 +111,19 @@ public class getAppointmentService {
             e.printStackTrace();
         }
     }
+
+
+//    public final void displayDialog1(String str,Context context) {
+//        builder = new androidx.appcompat.app.AlertDialog.Builder(context, R.style.AlertDialog);
+//        builder.setMessage(str);
+//        alertDialog = builder.create();
+//        alertDialog.show();
+//        alertDialog.getWindow().getWindowStyle();
+//
+//
+//    }
+//
+//    public void hideDialog(){
+//        alertDialog.dismiss();
+//    }
 }

@@ -41,6 +41,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:singleLine="true"
                     android:layout_marginLeft="19dp"
                     android:layout_weight="8"
                     android:fontFamily="@font/rubik_medium"

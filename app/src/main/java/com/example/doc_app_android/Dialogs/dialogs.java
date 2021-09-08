@@ -2,6 +2,7 @@ package com.example.doc_app_android.Dialogs;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Handler;
 import android.util.Log;
 
 import com.example.doc_app_android.R;
@@ -9,6 +10,8 @@ import com.example.doc_app_android.data_model.DocData;
 import com.example.doc_app_android.services.getAppointmentService;
 
 public class dialogs {
+
+    private boolean ifFromGetAppointmentService = false;
 
     public void alertDialogLogin(ProgressDialog progressDialog , String msg){
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -18,6 +21,22 @@ public class dialogs {
 
     public void dismissDialog(ProgressDialog progressDialog){
         progressDialog.dismiss();
+    }
+
+    public final void displayDialog(String str,Context context, boolean ifFromGetAppointmentService) {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(context, R.style.AlertDialog);
+        builder.setMessage(str);
+        androidx.appcompat.app.AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+        alertDialog.getWindow().getWindowStyle();
+        if(ifFromGetAppointmentService){
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                public void run() {
+                    alertDialog.dismiss();
+                }
+            }, 800);
+        }
     }
 
     public final void displayDialog(String str,Context context) {

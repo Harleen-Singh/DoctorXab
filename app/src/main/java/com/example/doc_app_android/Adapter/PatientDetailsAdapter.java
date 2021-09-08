@@ -27,6 +27,7 @@ import com.example.doc_app_android.DoctorHomeFragments.CheckupDetailsPatient;
 import com.example.doc_app_android.DoctorHomeFragments.PatientHistoryFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.ProfileData;
+import com.example.doc_app_android.databinding.FragmentDataLoaderBinding;
 import com.example.doc_app_android.databinding.HomeSinglePatientRowBinding;
 import com.example.doc_app_android.services.DoctorPatientListService;
 import com.squareup.picasso.Picasso;
@@ -45,9 +46,10 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
     private SharedPreferences.Editor editor;
     private DoctorPatientListService doctorPatientListService = new DoctorPatientListService();
     private ConstraintLayout dataFragCont;
+    private FragmentDataLoaderBinding binding1;
 
-    public PatientDetailsAdapter(Context mContext, ConstraintLayout dataFragmentContainer) {
-        this.dataFragCont = dataFragmentContainer;
+    public PatientDetailsAdapter(Context mContext, FragmentDataLoaderBinding binding1) {
+        this.binding1 = binding1;
         this.mContext = mContext;
     }
 
@@ -134,10 +136,17 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
                 if (((ArrayList<ProfileData>) results.values).size() > 0) {
                     data.addAll((ArrayList<ProfileData>) results.values);
 
-                    dataFragCont.setBackground(AppCompatResources.getDrawable(mContext, R.color.scnd_blue_white));
+                    binding1.noRes.setVisibility(View.GONE);
+                    binding1.noRes1.setVisibility(View.GONE);
+                    binding1.detailsRcv.setVisibility(View.VISIBLE);
+
+//                    dataFragCont.setBackground(AppCompatResources.getDrawable(mContext, R.color.scnd_blue_white));
 
                 } else {
-                    setBackground(mContext, dataFragCont, R.drawable.not_found);
+                    binding1.detailsRcv.setVisibility(View.GONE);
+                    assert binding1.noRes != null;
+                    binding1.noRes.setVisibility(View.VISIBLE);
+                    binding1.noRes1.setVisibility(View.VISIBLE);
 
                     // dataFragCont.setBackground(AppCompatResources.getDrawable(mContext, R.drawable.audit));
                 }

@@ -24,6 +24,7 @@
                 android:id="@+id/img_xray"
                 android:layout_width="140dp"
                 android:layout_height="162dp"
+                android:scaleType="centerInside"
                 android:src="@drawable/x_ray_sample"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/barrier"
