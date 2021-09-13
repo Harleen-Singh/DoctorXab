@@ -204,16 +204,16 @@ public class PatientHistoryFragment extends Fragment {
             }
         });
 
-        binding.patientInfoEditButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, new ProfileEditFragment()).addToBackStack("editi").commit();
-                editor = preferences.edit();
-                editor.putBoolean("isFromPatientHistory", true);
-                editor.apply();
-
-            }
-        });
+//        binding.patientInfoEditButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, new ProfileEditFragment()).addToBackStack("editi").commit();
+//                editor = preferences.edit();
+//                editor.putBoolean("isFromPatientHistory", true);
+//                editor.apply();
+//
+//            }
+//        });
 
         binding.patientInfoShareButton.setOnClickListener(new View.OnClickListener() {
             @Override

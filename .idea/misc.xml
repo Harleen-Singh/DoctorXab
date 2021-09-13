@@ -25,7 +25,7 @@
         <entry key="..\:/Projects/DocApp/app/src/main/res/drawable/myrect.xml" value="0.23055555555555557" />
         <entry key="..\:/Projects/DocApp/app/src/main/res/drawable/no_data.xml" value="0.2703125" />
         <entry key="..\:/Projects/DocApp/app/src/main/res/drawable/pd_bg.xml" value="0.23055555555555557" />
-        <entry key="..\:/Projects/DocApp/app/src/main/res/layout-v21/fragment_checkup_details_patient.xml" value="0.12360688956433637" />
+        <entry key="..\:/Projects/DocApp/app/src/main/res/layout-v21/fragment_checkup_details_patient.xml" value="0.264" />
         <entry key="..\:/Projects/DocApp/app/src/main/res/layout-v21/fragment_data_loader.xml" value="0.21784420289855072" />
         <entry key="..\:/Projects/DocApp/app/src/main/res/layout-v21/fragment_patient_history.xml" value="0.264" />
         <entry key="..\:/Projects/DocApp/app/src/main/res/layout-v21/fragment_x_ray_scan.xml" value="0.20652173913043478" />
@@ -41,7 +41,7 @@
         <entry key="..\:/Projects/DocApp/app/src/main/res/layout/fragment_doctor_appointments.xml" value="0.21965579710144928" />
         <entry key="..\:/Projects/DocApp/app/src/main/res/layout/fragment_doctor_appoitments.xml" value="0.2246376811594203" />
         <entry key="..\:/Projects/DocApp/app/src/main/res/layout/fragment_patient_check_up_history.xml" value="0.12360688956433637" />
-        <entry key="..\:/Projects/DocApp/app/src/main/res/layout/fragment_patient_history.xml" value="0.1" />
+        <entry key="..\:/Projects/DocApp/app/src/main/res/layout/fragment_patient_history.xml" value="0.2" />
         <entry key="..\:/Projects/DocApp/app/src/main/res/layout/fragment_patient_info.xml" value="0.2210144927536232" />
         <entry key="..\:/Projects/DocApp/app/src/main/res/layout/fragment_patient_info_appointment.xml" value="0.2210144927536232" />
         <entry key="..\:/Projects/DocApp/app/src/main/res/layout/fragment_profile.xml" value="0.264" />

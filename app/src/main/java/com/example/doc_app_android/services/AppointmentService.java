@@ -60,14 +60,14 @@ public class AppointmentService {
                     for (int i = 0; i < response.length(); i++) {
                         String id, date, patient_id, doctor_id;
                         JSONObject obj = response.getJSONObject(i);
-                        id = obj.getString("id");
+                        // id = obj.getString("id");
                         date = obj.getString("date");
                         patient_id = obj.getString("patient");
                         doctor_id = obj.getString("doctor");
 
 //                        Date comingDate = new SimpleDateFormat("yyyy-MM-dd", Locale.US).parse(date);
 
-                        appointmentData.add(new AppointmentData(id, date, patient_id, doctor_id, true));
+                        appointmentData.add(new AppointmentData("1", date, patient_id, doctor_id, true));
 //                        assert today1 != null;
 //                        if (today1.after(comingDate)) {
 //

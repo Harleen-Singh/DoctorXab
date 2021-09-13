@@ -254,13 +254,13 @@ public class CheckupDetailsPatient extends Fragment {
             }
         });
 
-        binding.checkupDetailsEditButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, new ProfileEditFragment()).setReorderingAllowed(true).addToBackStack("editProf").commit();
-
-            }
-        });
+//        binding.checkupDetailsEditButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, new ProfileEditFragment()).setReorderingAllowed(true).addToBackStack("editProf").commit();
+//
+//            }
+//        });
 
         binding.checkupDetailsBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
