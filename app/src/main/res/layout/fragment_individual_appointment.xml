@@ -107,6 +107,17 @@
                         app:layout_constraintStart_toStartOf="@id/btn_month_container"
                         app:layout_constraintTop_toBottomOf="@id/btn_month_container" />
 
+                    <ProgressBar
+                        android:id="@+id/appointment_V2_progress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:indeterminateTint="@color/theme"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@id/compact_calendar_view"
+                        app:layout_constraintEnd_toEndOf="@id/compact_calendar_view"
+                        app:layout_constraintStart_toStartOf="@id/compact_calendar_view" />
+
 
                     <View
                         android:id="@+id/separator1"

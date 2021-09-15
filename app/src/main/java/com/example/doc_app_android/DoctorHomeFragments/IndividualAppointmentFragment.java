@@ -135,7 +135,7 @@ public class IndividualAppointmentFragment extends Fragment {
         String note = preferences.getString("appointment_note", "");
         binding.editNote.setText(note);
 
-        viewModel.getIndividualAppointmentData().observe(getViewLifecycleOwner(), new Observer<ArrayList<AppointmentData>>() {
+        viewModel.getIndividualAppointmentData(binding.appointmentV2Progress).observe(getViewLifecycleOwner(), new Observer<ArrayList<AppointmentData>>() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onChanged(ArrayList<AppointmentData> data) {

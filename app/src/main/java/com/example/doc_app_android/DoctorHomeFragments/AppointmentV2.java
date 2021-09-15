@@ -156,7 +156,7 @@ public class AppointmentV2 extends Fragment { // implements CalendarAdapter.OnIt
         }
 
 
-        viewModel.getApmntData().observe(getViewLifecycleOwner(), new Observer<ArrayList<AppointmentData>>() {
+        viewModel.getApmntData(binding.appointmentV2Progress).observe(getViewLifecycleOwner(), new Observer<ArrayList<AppointmentData>>() {
             @Override
             public void onChanged(ArrayList<AppointmentData> data) {
                 binding.compactCalendarView.removeAllEvents();
@@ -177,7 +177,7 @@ public class AppointmentV2 extends Fragment { // implements CalendarAdapter.OnIt
                 listOfEvents = (ArrayList<Event>) binding.compactCalendarView.getEvents(today1);
                 adapter.setData(listOfEvents);
                 adapter.notifyDataSetChanged();
-                binding.appointmentV2Progress.setVisibility(View.GONE);
+                
 
             }
         });

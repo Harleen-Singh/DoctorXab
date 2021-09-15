@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Base64;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.lifecycle.LiveData;
@@ -45,14 +47,20 @@ public class AppointmentService {
     private String required_id = "";
     private TreeMap<Integer, String> namesOfDocPat = new TreeMap<>();
     private String url;
+    private ProgressBar progressBarFromAppointmentV2;
+    private ProgressBar progressBarFromIndividualAppointment;
 
-    public LiveData<ArrayList<AppointmentData>> getApmntData(Application app) {
+
+    public LiveData<ArrayList<AppointmentData>> getApmntData(Application app, ProgressBar progressBar) {
         this.app = app;
+        this.progressBarFromAppointmentV2 = progressBar;
 
         final SharedPreferences sp = app.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
         isDoc = sp.getBoolean("isDoc", false);
 
         if (data_model == null) {
+            progressBarFromAppointmentV2.setVisibility(View.VISIBLE);
+
 
             data_model = new MutableLiveData<>();
             if (!isDoc) {
@@ -65,13 +73,14 @@ public class AppointmentService {
         return data_model;
     }
 
-    public LiveData<ArrayList<AppointmentData>> getIndividualAppointmentData(Application app) {
-
+    public LiveData<ArrayList<AppointmentData>> getIndividualAppointmentData(Application app, ProgressBar progressBar) {
+        progressBarFromIndividualAppointment = progressBar;
         this.app = app;
         prefs = app.getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
         required_id = prefs.getString("patient_id", "");
         url = Globals.individualAppointment + required_id;
 
+        progressBarFromIndividualAppointment.setVisibility(View.VISIBLE);
         individualAppointmentDataModel = new MutableLiveData<>();
         getDoctorList(true);
 
@@ -128,6 +137,7 @@ public class AppointmentService {
 
                     }
                     data_model.setValue(appointmentData);
+                    progressBarFromAppointmentV2.setVisibility(View.GONE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -137,6 +147,8 @@ public class AppointmentService {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(app, "Error Response : " + error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                progressBarFromAppointmentV2.setVisibility(View.GONE);
+
             }
         }) {
             @Override
@@ -195,6 +207,7 @@ public class AppointmentService {
 
                     }
                     individualAppointmentDataModel.setValue(individualAppointment);
+                    progressBarFromIndividualAppointment.setVisibility(View.GONE);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -203,6 +216,8 @@ public class AppointmentService {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(app, "Error Response : " + error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                progressBarFromIndividualAppointment.setVisibility(View.GONE);
+
             }
         });
 //        {
@@ -257,6 +272,12 @@ public class AppointmentService {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                if (!fromIndividualPatient) {
+                    progressBarFromAppointmentV2.setVisibility(View.GONE);
+                } else {
+                    progressBarFromIndividualAppointment.setVisibility(View.GONE);
+                }
+
                 Log.d("TAG", "onErrorResponse: " + error.getLocalizedMessage());
             }
         });
@@ -299,6 +320,7 @@ public class AppointmentService {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                progressBarFromAppointmentV2.setVisibility(View.GONE);
 
                 Log.d("TAG", "onErrorResponse: " + error.getLocalizedMessage());
 

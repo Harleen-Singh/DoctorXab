@@ -1,6 +1,7 @@
 package com.example.doc_app_android.view_model;
 
 import android.app.Application;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -22,12 +23,12 @@ public class FragApmntViewModel extends AndroidViewModel {
         super(application);
         app = application;
     }
-    public LiveData<ArrayList<AppointmentData>> getApmntData(){
-        return service.getApmntData(app);
+    public LiveData<ArrayList<AppointmentData>> getApmntData(ProgressBar progressBar){
+        return service.getApmntData(app, progressBar);
     }
 
-    public LiveData<ArrayList<AppointmentData>> getIndividualAppointmentData(){
-        return service.getIndividualAppointmentData(app);
+    public LiveData<ArrayList<AppointmentData>> getIndividualAppointmentData(ProgressBar progressBar){
+        return service.getIndividualAppointmentData(app, progressBar);
     }
 
 }
