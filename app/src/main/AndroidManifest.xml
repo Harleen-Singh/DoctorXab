@@ -18,7 +18,7 @@
         android:theme="@style/NoActionBar"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".splashScreen"
+            android:name=".actvities.splashScreen"
             android:theme="@style/NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,21 +33,21 @@
             android:theme="@style/Base.Theme.AppCompat" />
 
         <activity
-            android:name=".Home"
+            android:name=".actvities.Home"
             android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar" />
         <activity
-            android:name=".sign_as"
+            android:name=".actvities.sign_as"
             android:theme="@style/NoActionBar" />
         <activity
-            android:name=".sign_next"
+            android:name=".actvities.sign_next"
             android:theme="@style/NoActionBar" />
         <activity
-            android:name=".sign_up_doctor_or_patient"
+            android:name=".actvities.sign_up_doctor_or_patient"
             android:theme="@style/NoActionBar" />
         <activity
-            android:name=".MainActivity"
+            android:name=".actvities.MainActivity"
             android:theme="@style/NoActionBar" />
 
         <service

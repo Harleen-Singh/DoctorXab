@@ -1,4 +1,4 @@
-package com.example.doc_app_android;
+package com.example.doc_app_android.DoctorHomeFragments;
 
 import android.Manifest;
 import android.app.Dialog;
@@ -6,7 +6,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -14,8 +13,6 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -30,11 +27,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Toast;
 
-import com.example.doc_app_android.DoctorHomeFragments.CheckupDetailsPatient;
-import com.example.doc_app_android.DoctorHomeFragments.PatientHistoryFragment;
-import com.example.doc_app_android.DoctorHomeFragments.ShareFragment;
+import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.ProfileData;
-import com.example.doc_app_android.databinding.FragmentProfileBinding;
 import com.example.doc_app_android.databinding.FragmentProfileEditBinding;
 import com.example.doc_app_android.databinding.ProfileDialogBinding;
 import com.example.doc_app_android.databinding.ValidationDialogBinding;
@@ -52,9 +46,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Objects;
 
 /**

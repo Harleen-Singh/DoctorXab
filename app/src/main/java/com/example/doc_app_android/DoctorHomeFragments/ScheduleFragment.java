@@ -11,8 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.doc_app_android.AppointmentV2;
-import com.example.doc_app_android.PatentHomeFragments.AppointmentsFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.databinding.FragmentScheduleBinding;
 

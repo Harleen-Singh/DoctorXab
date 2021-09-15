@@ -23,7 +23,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.doc_app_android.Adapter.ReportData;
-import com.example.doc_app_android.ProfileEditFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.databinding.FragmentCheckupDetailsPatientBinding;
 import com.example.doc_app_android.view_model.ReportDataViewModel;

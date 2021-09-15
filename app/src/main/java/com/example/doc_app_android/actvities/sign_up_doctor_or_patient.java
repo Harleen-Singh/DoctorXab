@@ -1,4 +1,4 @@
-package com.example.doc_app_android;
+package com.example.doc_app_android.actvities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.doc_app_android.R;
 
 public class sign_up_doctor_or_patient extends AppCompatActivity {
     private Boolean catcher;

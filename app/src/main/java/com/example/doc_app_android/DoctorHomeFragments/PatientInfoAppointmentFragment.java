@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
-import com.example.doc_app_android.AppointmentV2;
-import com.example.doc_app_android.IndividualAppointmentFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.databinding.FragmentPatientInfoAppointmentBinding;
 

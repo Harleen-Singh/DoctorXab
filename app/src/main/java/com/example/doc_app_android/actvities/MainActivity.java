@@ -1,4 +1,4 @@
-package com.example.doc_app_android;
+package com.example.doc_app_android.actvities;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -13,6 +13,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.Login_data;
 import com.example.doc_app_android.Dialogs.dialogs;
 import com.example.doc_app_android.databinding.SignInBinding;

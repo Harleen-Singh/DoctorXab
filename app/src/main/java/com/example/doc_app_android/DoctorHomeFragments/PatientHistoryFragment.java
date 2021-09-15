@@ -18,16 +18,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.Toast;
 
 import com.example.doc_app_android.Adapter.FilterRCVadapter;
-import com.example.doc_app_android.PatentHomeFragments.AppointmentsFragment;
-import com.example.doc_app_android.ProfileEditFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.FilterData;
-import com.example.doc_app_android.databinding.FragmentAppointmentsBinding;
-import com.example.doc_app_android.databinding.FragmentPatientCheckUpHistoryBinding;
 import com.example.doc_app_android.databinding.FragmentPatientHistoryBinding;
 import com.example.doc_app_android.view_model.PatientChechkUpHistoryModel;
 

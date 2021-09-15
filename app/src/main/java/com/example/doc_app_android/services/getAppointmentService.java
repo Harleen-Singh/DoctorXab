@@ -3,7 +3,6 @@ package com.example.doc_app_android.services;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Handler;
 import android.util.Base64;
 import android.util.Log;
 
@@ -15,8 +14,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.doc_app_android.Dialogs.dialogs;
-import com.example.doc_app_android.Globals;
-import com.example.doc_app_android.R;
+import com.example.doc_app_android.utils.Globals;
 import com.example.doc_app_android.data_model.DocData;
 
 import org.json.JSONException;

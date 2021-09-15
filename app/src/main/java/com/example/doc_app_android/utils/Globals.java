@@ -1,4 +1,4 @@
-package com.example.doc_app_android;
+package com.example.doc_app_android.utils;
 
 public class Globals {
     public static String serverURL = "https://maivrikdoc.herokuapp.com/api/";

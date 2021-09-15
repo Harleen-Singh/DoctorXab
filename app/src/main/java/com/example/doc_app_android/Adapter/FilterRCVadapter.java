@@ -13,10 +13,9 @@ import androidx.appcompat.content.res.AppCompatResources;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.doc_app_android.AppointmentV2;
+import com.example.doc_app_android.DoctorHomeFragments.AppointmentV2;
 import com.example.doc_app_android.DoctorHomeFragments.DataLoaderFragment;
 import com.example.doc_app_android.DoctorHomeFragments.PatientInfoAppointmentFragment;
-import com.example.doc_app_android.PatentHomeFragments.AppointmentsFragment;
 import com.example.doc_app_android.PatentHomeFragments.FragmentPrescription;
 import com.example.doc_app_android.PatentHomeFragments.FragmentXRayScan;
 import com.example.doc_app_android.PatentHomeFragments.patientCheckUpHistory;

@@ -13,7 +13,7 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 
-import com.example.doc_app_android.Home;
+import com.example.doc_app_android.actvities.Home;
 import com.example.doc_app_android.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;

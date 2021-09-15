@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
         android:background="@color/scnd_blue_white"
-        tools:context=".AppointmentV2">
+        tools:context=".DoctorHomeFragments.AppointmentV2">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/appointmentsContainer"

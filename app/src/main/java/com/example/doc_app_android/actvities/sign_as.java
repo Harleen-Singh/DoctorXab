@@ -1,4 +1,4 @@
-package com.example.doc_app_android;
+package com.example.doc_app_android.actvities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.doc_app_android.R;
 
 public class sign_as extends AppCompatActivity {
     private Button Doctor, Patient;

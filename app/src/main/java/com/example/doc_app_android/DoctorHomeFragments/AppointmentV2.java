@@ -1,4 +1,4 @@
-package com.example.doc_app_android;
+package com.example.doc_app_android.DoctorHomeFragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.doc_app_android.Adapter.AppointWithAdapter;
 import com.example.doc_app_android.Dialogs.docListFragment;
+import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.AppointmentData;
 import com.example.doc_app_android.databinding.FragmentAppointmentV2Binding;
 import com.example.doc_app_android.view_model.FragApmntViewModel;

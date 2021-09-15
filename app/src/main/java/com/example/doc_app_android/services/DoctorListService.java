@@ -11,7 +11,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.doc_app_android.Globals;
+import com.example.doc_app_android.utils.Globals;
 import com.example.doc_app_android.data_model.DocData;
 
 import org.json.JSONArray;

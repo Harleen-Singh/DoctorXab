@@ -1,66 +1,33 @@
 package com.example.doc_app_android.DoctorHomeFragments;
 
-import android.Manifest;
 import android.app.Dialog;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.provider.MediaStore;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.doc_app_android.ProfileEditFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.databinding.FragmentProfileBinding;
-import com.example.doc_app_android.databinding.LoadingDialogBinding;
-import com.example.doc_app_android.databinding.NavHeaderBinding;
 import com.example.doc_app_android.databinding.ProfileDialogBinding;
-import com.example.doc_app_android.databinding.ValidationDialogBinding;
 
 import com.example.doc_app_android.view_model.ProfileViewModel;
 import com.squareup.picasso.Picasso;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 

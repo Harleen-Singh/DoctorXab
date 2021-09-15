@@ -15,7 +15,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.doc_app_android.Dialogs.dialogs;
-import com.example.doc_app_android.Globals;
+import com.example.doc_app_android.utils.Globals;
 import com.example.doc_app_android.data_model.Pat_prescription;
 import com.example.doc_app_android.data_model.PrescData;
 

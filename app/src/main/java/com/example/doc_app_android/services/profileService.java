@@ -1,10 +1,7 @@
 package com.example.doc_app_android.services;
 
-import android.app.Activity;
 import android.app.Application;
 import android.app.Dialog;
-import android.app.DownloadManager;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -19,7 +16,6 @@ import android.widget.Toast;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.android.volley.ClientError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
@@ -31,15 +27,10 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.doc_app_android.Dialogs.dialogs;
-import com.example.doc_app_android.Globals;
-import com.example.doc_app_android.R;
+import com.example.doc_app_android.utils.Globals;
 import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.databinding.LoadingDialogBinding;
-import com.example.doc_app_android.databinding.NavHeaderBinding;
-import com.example.doc_app_android.view_model.ProfileViewModel;
 import com.example.doc_app_android.volley.VolleyMultipartRequest;
-import com.google.android.material.badge.BadgeDrawable;
-import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;

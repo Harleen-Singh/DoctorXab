@@ -2,9 +2,7 @@ package com.example.doc_app_android.services;
 
 import android.app.Application;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -14,11 +12,8 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.NoConnectionError;
 import com.android.volley.Request;
@@ -29,9 +24,7 @@ import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.doc_app_android.Dialogs.dialogs;
-import com.example.doc_app_android.Globals;
-import com.example.doc_app_android.R;
+import com.example.doc_app_android.utils.Globals;
 import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.databinding.LoadingDialogBinding;
 import com.example.doc_app_android.volley.VolleyMultipartRequest;

@@ -1,4 +1,4 @@
-package com.example.doc_app_android;
+package com.example.doc_app_android.actvities;
 
 import android.animation.LayoutTransition;
 import android.content.Context;
@@ -30,6 +30,7 @@ import com.example.doc_app_android.DoctorHomeFragments.ProfileFragment;
 import com.example.doc_app_android.DoctorHomeFragments.ScheduleFragment;
 import com.example.doc_app_android.DoctorHomeFragments.SettingsFragment;
 import com.example.doc_app_android.PatentHomeFragments.NotificationFragment;
+import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.FilterData;
 import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.databinding.ActivityHomeBinding;

@@ -1,4 +1,4 @@
-package com.example.doc_app_android;
+package com.example.doc_app_android.actvities;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.doc_app_android.Dialogs.docListFragment;
+import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.Register_data;
 import com.example.doc_app_android.databinding.SignNextBinding;
 import com.example.doc_app_android.services.signUpService;

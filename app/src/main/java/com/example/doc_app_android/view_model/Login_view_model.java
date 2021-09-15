@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.doc_app_android.data_model.Login_data;
-import com.example.doc_app_android.sign_as;
+import com.example.doc_app_android.actvities.sign_as;
 
 
 public class Login_view_model extends ViewModel {
