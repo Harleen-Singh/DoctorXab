@@ -23,7 +23,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.doc_app_android.Adapter.AppointWithAdapter;
 import com.example.doc_app_android.Dialogs.docListFragment;
 import com.example.doc_app_android.data_model.AppointmentData;
-import com.example.doc_app_android.databinding.FragmentAppointmentV2Binding;
+import com.example.doc_app_android.databinding.FragmentIndividualAppointmentBinding;
 import com.example.doc_app_android.view_model.FragApmntViewModel;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
@@ -42,39 +42,34 @@ import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link AppointmentV2#newInstance} factory method to
+ * Use the {@link IndividualAppointmentFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AppointmentV2 extends Fragment { // implements CalendarAdapter.OnItemListener {
-
-
-    private FragApmntViewModel viewModel;
-    private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM-yyyy", Locale.getDefault());
-    private Event event;
-    private ArrayList<Event> eventList = new ArrayList<>();
-    private FragmentAppointmentV2Binding binding;
-    private SharedPreferences preferences;
-    private SharedPreferences.Editor editor;
-    private boolean fromDrawerAppointment = false;
-    private boolean fromCheckupDetailsAppointment = false;
-    private boolean fromPatientInfoAppointment = false;
-    private ArrayList<Event> nameList = new ArrayList<>();
-    private AppointWithAdapter adapter;
-    private CharSequence SelectedDate = LocalDate.now().toString();
-    private Date today1;
-    private ArrayList<Event> listOfEvents;
-
+public class IndividualAppointmentFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private FragmentIndividualAppointmentBinding binding;
+    private FragApmntViewModel viewModel;
+    private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM-yyyy", Locale.getDefault());
+    private Event event;
+    private ArrayList<Event> eventList = new ArrayList<>();
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+    private boolean fromPatientInfoAppointment = false;
+    private ArrayList<Event> listOfEvents = new ArrayList<>();
+    private AppointWithAdapter adapter;
+    private CharSequence SelectedDate = LocalDate.now().toString();
+    private Date today1;
+
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
-    public AppointmentV2() {
+    public IndividualAppointmentFragment() {
         // Required empty public constructor
     }
 
@@ -82,12 +77,17 @@ public class AppointmentV2 extends Fragment { // implements CalendarAdapter.OnIt
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @return A new instance of fragment AppointmentV2.
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment IndividualAppointmentFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static AppointmentV2 newInstance() {
-        AppointmentV2 fragment = new AppointmentV2();
-
+    public static IndividualAppointmentFragment newInstance(String param1, String param2) {
+        IndividualAppointmentFragment fragment = new IndividualAppointmentFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -100,17 +100,18 @@ public class AppointmentV2 extends Fragment { // implements CalendarAdapter.OnIt
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_appointment_v2, container, false);
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_individual_appointment, container, false);
         binding.compactCalendarView.setUseThreeLetterAbbreviation(false);
         viewModel = new ViewModelProvider(requireActivity()).get(FragApmntViewModel.class);
-        //binding.appointmentV2Progress.setVisibility(View.VISIBLE);
         setUpSharedPreferences();
 //        nameList.add("DR.SUMIT YADAV");
 //        nameList.add("DR.SAMARTH SINGH");
+
+//        adapter = new AppointWithAdapter(nameList, requireContext());
+//        binding.appointmentList.setAdapter(adapter);
 
         SimpleDateFormat todayDateForRCV = new SimpleDateFormat("yyyy-MM-dd, hh:mm:ss", Locale.US);
         String today = todayDateForRCV.format(new Date());
@@ -133,32 +134,15 @@ public class AppointmentV2 extends Fragment { // implements CalendarAdapter.OnIt
         String note = preferences.getString("appointment_note", "");
         binding.editNote.setText(note);
 
-
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            fromDrawerAppointment = bundle.getBoolean("fromDrawerAppointment", false);
-            fromPatientInfoAppointment = bundle.getBoolean("fromPatientInfoAppointment", false);
-        }
-
-        if (fromDrawerAppointment) {
-            binding.askForAppointment.setVisibility(View.GONE);
-            binding.addReminder.setVisibility(View.GONE);
-            binding.addANote.setVisibility(View.GONE);
-        }
-
-        if (fromPatientInfoAppointment) {
-            binding.separator1.setVisibility(View.GONE);
-            binding.appointmentList.setVisibility(View.GONE);
-            binding.askForAppointment.setVisibility(View.GONE);
-            binding.addReminder.setVisibility(View.GONE);
-            binding.addANote.setVisibility(View.GONE);
-        }
-
-
-        viewModel.getApmntData().observe(getViewLifecycleOwner(), new Observer<ArrayList<AppointmentData>>() {
+        viewModel.getIndividualAppointmentData().observe(getViewLifecycleOwner(), new Observer<ArrayList<AppointmentData>>() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onChanged(ArrayList<AppointmentData> data) {
                 binding.compactCalendarView.removeAllEvents();
+
+                if (data.size() == 0) {
+                    Toast.makeText(requireContext(), "No events to Load", Toast.LENGTH_SHORT).show();
+                }
 
 
                 for (int i = 0; i < data.size(); i++) {
@@ -176,24 +160,31 @@ public class AppointmentV2 extends Fragment { // implements CalendarAdapter.OnIt
                 listOfEvents = (ArrayList<Event>) binding.compactCalendarView.getEvents(today1);
                 adapter.setData(listOfEvents);
                 adapter.notifyDataSetChanged();
-                binding.appointmentV2Progress.setVisibility(View.GONE);
-
             }
         });
+
+
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            fromPatientInfoAppointment = bundle.getBoolean("fromPatientInfoAppointment", false);
+        }
+
+        if (fromPatientInfoAppointment) {
+            binding.separator1.setVisibility(View.GONE);
+            binding.appointmentList.setVisibility(View.GONE);
+            binding.askForAppointment.setVisibility(View.GONE);
+            binding.addReminder.setVisibility(View.GONE);
+            binding.addANote.setVisibility(View.GONE);
+        }
 
 
         binding.compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
             @Override
             public void onDayClick(Date dateClicked) {
 
-//                ArrayList<Event> listOfEvents = (ArrayList<Event>) binding.compactCalendarView.getEvents(dateClicked);
-//                adapter = new AppointWithAdapter(listOfEvents, requireContext());
-//                binding.appointmentList.setAdapter(adapter);
-
                 listOfEvents = (ArrayList<Event>) binding.compactCalendarView.getEvents(dateClicked);
                 adapter.setData(listOfEvents);
                 adapter.notifyDataSetChanged();
-
 
             }
 
@@ -258,7 +249,6 @@ public class AppointmentV2 extends Fragment { // implements CalendarAdapter.OnIt
             }
         });
 
-
         binding.askForAppointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -266,18 +256,14 @@ public class AppointmentV2 extends Fragment { // implements CalendarAdapter.OnIt
             }
         });
 
-        //binding.appointmentV2Progress.setVisibility(View.GONE);
-
 
         // Inflate the layout for this fragment
         return binding.getRoot();
     }
 
-    void setUpSharedPreferences() {
+    private void setUpSharedPreferences() {
         preferences = requireContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
-
     }
-
 
     void openDialog() {
         {
@@ -287,6 +273,4 @@ public class AppointmentV2 extends Fragment { // implements CalendarAdapter.OnIt
             docDialog.show(getChildFragmentManager(), "docList");
         }
     }
-
-
 }

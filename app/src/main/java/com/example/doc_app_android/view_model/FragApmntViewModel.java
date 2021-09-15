@@ -26,4 +26,8 @@ public class FragApmntViewModel extends AndroidViewModel {
         return service.getApmntData(app);
     }
 
+    public LiveData<ArrayList<AppointmentData>> getIndividualAppointmentData(){
+        return service.getIndividualAppointmentData(app);
+    }
+
 }

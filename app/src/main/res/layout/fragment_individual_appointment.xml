@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/scnd_blue"
-        tools:context=".AppointmentV2">
+        tools:context=".IndividualAppointmentFragment">
 
         <ScrollView
             android:id="@+id/appointment_scrollView"
@@ -99,10 +99,10 @@
                         app:compactCalendarCurrentSelectedDayBackgroundColor="#172578"
                         app:compactCalendarCurrentSelectedDayTextColor="@color/white"
                         app:compactCalendarMultiEventIndicatorColor="#fff"
+                        app:compactCalendarShouldSelectFirstDayOfMonthOnScroll="false"
                         app:compactCalendarTargetHeight="250dp"
                         app:compactCalendarTextColor="@color/black"
                         app:compactCalendarTextSize="16sp"
-                        app:compactCalendarShouldSelectFirstDayOfMonthOnScroll="false"
                         app:layout_constraintEnd_toEndOf="@id/btn_month_container"
                         app:layout_constraintStart_toStartOf="@id/btn_month_container"
                         app:layout_constraintTop_toBottomOf="@id/btn_month_container" />
@@ -323,18 +323,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/hidden_note_save_container" />
-
-                <ProgressBar
-                    android:id="@+id/appointment_V2_progress"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:visibility="visible"
-                    android:indeterminateTint="@color/theme"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

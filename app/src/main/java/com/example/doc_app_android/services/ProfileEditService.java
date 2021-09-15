@@ -131,7 +131,7 @@ public class ProfileEditService {
                     Log.d("TestingProfileEdit", "id: " + id);
                     Log.d("TestingProfileEdit", "name: " + name);
                     Log.d("TestingProfileEdit", "username: " + userName);
-                    Log.d("TestingProfileEdit", "addsress: " + phoneNumber);
+                    Log.d("TestingProfileEdit", "addresses: " + phoneNumber);
                     Log.d("TestingProfileEdit", "email: " + email);
                     Log.d("TestingProfileEdit", "image: " + image);
                     Log.d("TestingProfileEdit", "id: " + age);

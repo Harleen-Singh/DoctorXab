@@ -11,17 +11,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.databinding.AppointmentRowBinding;
+import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.util.ArrayList;
 
 public class AppointWithAdapter extends RecyclerView.Adapter<AppointWithAdapter.AppointmentWithViewHolder> {
 
-    private ArrayList<String> nameList;
+    private ArrayList<Event> nameList;
     private Context mContext;
 
-    public AppointWithAdapter(ArrayList<String> nameList, Context mContext) {
+    public AppointWithAdapter(ArrayList<Event> nameList, Context mContext) {
         this.nameList = nameList;
         this.mContext = mContext;
+    }
+
+    public void setData(ArrayList<Event> nameList){
+        this.nameList = nameList;
     }
 
     @NonNull
@@ -33,7 +38,8 @@ public class AppointWithAdapter extends RecyclerView.Adapter<AppointWithAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull AppointmentWithViewHolder holder, int position) {
-        holder.binding.appointmentDoctorName.setText(nameList.get(position));
+        Event feed = nameList.get(position);
+        holder.binding.appointmentDoctorName.setText(String.valueOf(feed.getData()));
     }
 
     @Override

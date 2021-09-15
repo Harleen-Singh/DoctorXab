@@ -220,6 +220,7 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
                 public void onClick(View v) {
                     PatientHistoryFragment patientHistoryFragment = new PatientHistoryFragment();
                     Bundle bundle = new Bundle();
+                    //bundle.putString("required_id", String.valueOf(data.get(getAbsoluteAdapterPosition()).getPateint_Id()));
                     bundle.putString("name", data.get(getAbsoluteAdapterPosition()).getName());
                     bundle.putString("image", data.get(getAbsoluteAdapterPosition()).getImage());
                     bundle.putString("age", data.get(getAbsoluteAdapterPosition()).getAge());

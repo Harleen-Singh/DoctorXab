@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.doc_app_android.AppointmentV2;
+import com.example.doc_app_android.IndividualAppointmentFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.databinding.FragmentPatientInfoAppointmentBinding;
 
@@ -60,10 +61,10 @@ public class PatientInfoAppointmentFragment extends Fragment {
         binding.pdProgress.setVisibility(View.VISIBLE);
         Bundle bundle = new Bundle();
         bundle.putBoolean("fromPatientInfoAppointment", true);
-        AppointmentV2 appointmentV2 = new AppointmentV2();
-        appointmentV2.setArguments(bundle);
+        IndividualAppointmentFragment individualAppointmentFragment = new IndividualAppointmentFragment();
+        individualAppointmentFragment.setArguments(bundle);
 
-        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.patient_calendar_fragment_container, appointmentV2).setReorderingAllowed(true).commit();
+        requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.patient_calendar_fragment_container, individualAppointmentFragment).setReorderingAllowed(true).commit();
 
 
         binding.pdProgress.setVisibility(View.GONE);
@@ -72,7 +73,7 @@ public class PatientInfoAppointmentFragment extends Fragment {
         binding.editCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.patient_calendar_fragment_container, appointmentV2).setReorderingAllowed(true).commit();
+                requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.patient_calendar_fragment_container, individualAppointmentFragment).setReorderingAllowed(true).commit();
                 Bundle bundle1 = new Bundle();
                 bundle1.putBoolean("fromCheckupDetailsAppointment", true);
                 DoctorAppointmentsFragment doctorAppointmentsFragment = new DoctorAppointmentsFragment();

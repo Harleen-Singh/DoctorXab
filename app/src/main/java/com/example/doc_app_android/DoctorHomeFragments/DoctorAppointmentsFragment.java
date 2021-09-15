@@ -11,6 +11,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 
 import com.example.doc_app_android.AppointmentV2;
+import com.example.doc_app_android.IndividualAppointmentFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.databinding.FragmentDoctorAppointmentsBinding;
 
@@ -104,8 +105,9 @@ public class DoctorAppointmentsFragment extends Fragment {
         if (fromCheckupDetailsAppointment) {
 
             bundle.putBoolean("fromDrawerAppointment", false);
-            appointmentV2.setArguments(bundle);
-            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.appointmentsLayoutContainer, appointmentV2).setReorderingAllowed(true).commit();
+            IndividualAppointmentFragment individualAppointmentFragment = new IndividualAppointmentFragment();
+            individualAppointmentFragment.setArguments(bundle);
+            requireActivity().getSupportFragmentManager().beginTransaction().replace(R.id.appointmentsLayoutContainer, individualAppointmentFragment).setReorderingAllowed(true).commit();
 
 
         } else {

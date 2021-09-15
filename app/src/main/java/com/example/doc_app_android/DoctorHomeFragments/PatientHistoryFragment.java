@@ -47,6 +47,7 @@ public class PatientHistoryFragment extends Fragment {
     private PatientChechkUpHistoryModel model;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
+    private String required_id = "";
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -145,6 +146,8 @@ public class PatientHistoryFragment extends Fragment {
                 String name = bundle.getString("name");
                 String age = bundle.getString("age");
                 String image = bundle.getString("image");
+                required_id = bundle.getString("required_id");
+
 
                 preferences = getContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
                 editor = preferences.edit();

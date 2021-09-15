@@ -11,6 +11,7 @@ public class Globals {
     public static String profilePatient = serverURL + "patient/";
     public static String editGenDetails = serverURL + "user/";
     public static String doctorHomeScreenPatientList = serverURL + "patients?problem=";
+    public static String patientList = serverURL + "patients";
     public static String checkUpHistory = serverURL + "reports/";
     public static String xray = serverURL + "xrays/";
     public static String prescription = serverURL + "prescriptions/";
@@ -27,4 +28,5 @@ public class Globals {
     public static String denyAppointment = serverURL + "denyrequest";
     public static String addUserData = serverURL + "user/";
     public static String addSpecialistList = serverURL + "registerp";
+    public static String individualAppointment = serverURL + "appointments/";
 }
