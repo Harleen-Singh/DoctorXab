@@ -29,4 +29,5 @@ public class Globals {
     public static String addUserData = serverURL + "user/";
     public static String addSpecialistList = serverURL + "registerp";
     public static String individualAppointment = serverURL + "appointments/";
+    public static String cancelAppointment = serverURL + "getappointment";
 }

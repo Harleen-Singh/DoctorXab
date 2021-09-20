@@ -181,6 +181,7 @@ public class loginService {
         editor.putString("username", userName);
         editor.putString("Email", email);
         editor.putString("pass", pass);
+        editor.putBoolean("hasLoggedIn", true);
         editor.apply();
     }
 

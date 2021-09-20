@@ -19,13 +19,15 @@ public class AppointWithAdapter extends RecyclerView.Adapter<AppointWithAdapter.
 
     private ArrayList<Event> nameList;
     private Context mContext;
+    private OnCancelListener onCancelListener;
 
-    public AppointWithAdapter(ArrayList<Event> nameList, Context mContext) {
+    public AppointWithAdapter(ArrayList<Event> nameList, Context mContext, OnCancelListener onCancelListener) {
         this.nameList = nameList;
         this.mContext = mContext;
+        this.onCancelListener = onCancelListener;
     }
 
-    public void setData(ArrayList<Event> nameList){
+    public void setData(ArrayList<Event> nameList) {
         this.nameList = nameList;
     }
 
@@ -33,13 +35,15 @@ public class AppointWithAdapter extends RecyclerView.Adapter<AppointWithAdapter.
     @Override
     public AppointmentWithViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         AppointmentRowBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.appointment_row, parent, false);
-        return new AppointmentWithViewHolder(binding);
+        return new AppointmentWithViewHolder(binding, onCancelListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull AppointmentWithViewHolder holder, int position) {
         Event feed = nameList.get(position);
-        holder.binding.appointmentDoctorName.setText(String.valueOf(feed.getData()));
+        String name = String.valueOf(feed.getData());
+        String[] arr = name.split("-");
+        holder.binding.appointmentDoctorName.setText(arr[0]);
     }
 
     @Override
@@ -47,12 +51,25 @@ public class AppointWithAdapter extends RecyclerView.Adapter<AppointWithAdapter.
         return nameList.size();
     }
 
-    protected class AppointmentWithViewHolder extends RecyclerView.ViewHolder {
+    protected class AppointmentWithViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         AppointmentRowBinding binding;
-        public AppointmentWithViewHolder(@NonNull AppointmentRowBinding binding) {
+        OnCancelListener onCancelListener;
+
+        public AppointmentWithViewHolder(@NonNull AppointmentRowBinding binding, OnCancelListener onCancelListener) {
             super(binding.getRoot());
             this.binding = binding;
+            this.onCancelListener = onCancelListener;
+            binding.appointmentCancel.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onCancelListener.onCancelClick(getAbsoluteAdapterPosition(), binding);
+        }
+    }
+
+    public interface OnCancelListener {
+        void onCancelClick(int position, AppointmentRowBinding binding);
     }
 }

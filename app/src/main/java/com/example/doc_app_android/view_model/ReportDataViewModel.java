@@ -8,6 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.example.doc_app_android.Adapter.ReportData;
+import com.example.doc_app_android.data_model.AppointmentData;
 import com.example.doc_app_android.services.ReportService;
 
 import org.jetbrains.annotations.NotNull;
@@ -32,5 +33,9 @@ public class ReportDataViewModel extends AndroidViewModel {
 
     public void addPatientReport(com.example.doc_app_android.data_model.ReportData reportData, ReportData reportData1, Context context){
         reportService.addPatientReport(application, context, reportData, reportData1);
+    }
+
+    public void addAppointment(AppointmentData appointmentData, Context context){
+        reportService.addAppointment(appointmentData, context);
     }
 }

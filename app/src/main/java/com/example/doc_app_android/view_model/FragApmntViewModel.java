@@ -1,6 +1,7 @@
 package com.example.doc_app_android.view_model;
 
 import android.app.Application;
+import android.content.Context;
 import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
@@ -29,6 +30,10 @@ public class FragApmntViewModel extends AndroidViewModel {
 
     public LiveData<ArrayList<AppointmentData>> getIndividualAppointmentData(ProgressBar progressBar){
         return service.getIndividualAppointmentData(app, progressBar);
+    }
+
+    public void cancelAppointmentFromDoctorOrPatient(String id, Context context){
+        service.cancelAppointmentFromDoctorOrPatient(id, app, context);
     }
 
 }

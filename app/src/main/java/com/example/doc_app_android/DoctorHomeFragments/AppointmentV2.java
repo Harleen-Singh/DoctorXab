@@ -1,5 +1,6 @@
 package com.example.doc_app_android.DoctorHomeFragments;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,9 +9,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.CalendarContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -24,6 +27,8 @@ import com.example.doc_app_android.Adapter.AppointWithAdapter;
 import com.example.doc_app_android.Dialogs.docListFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.AppointmentData;
+import com.example.doc_app_android.databinding.AppointmentRowBinding;
+import com.example.doc_app_android.databinding.CancelAppointmentBinding;
 import com.example.doc_app_android.databinding.FragmentAppointmentV2Binding;
 import com.example.doc_app_android.view_model.FragApmntViewModel;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
@@ -46,7 +51,7 @@ import java.util.Objects;
  * Use the {@link AppointmentV2#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AppointmentV2 extends Fragment { // implements CalendarAdapter.OnItemListener {
+public class AppointmentV2 extends Fragment implements AppointWithAdapter.OnCancelListener {
 
 
     private FragApmntViewModel viewModel;
@@ -64,6 +69,8 @@ public class AppointmentV2 extends Fragment { // implements CalendarAdapter.OnIt
     private CharSequence SelectedDate = LocalDate.now().toString();
     private Date today1;
     private ArrayList<Event> listOfEvents;
+    private Dialog dialog;
+    private CancelAppointmentBinding cancelAppointmentBinding;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -108,14 +115,11 @@ public class AppointmentV2 extends Fragment { // implements CalendarAdapter.OnIt
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_appointment_v2, container, false);
         binding.compactCalendarView.setUseThreeLetterAbbreviation(false);
         viewModel = new ViewModelProvider(requireActivity()).get(FragApmntViewModel.class);
-        //binding.appointmentV2Progress.setVisibility(View.VISIBLE);
         setUpSharedPreferences();
-//        nameList.add("DR.SUMIT YADAV");
-//        nameList.add("DR.SAMARTH SINGH");
 
         SimpleDateFormat todayDateForRCV = new SimpleDateFormat("yyyy-MM-dd, hh:mm:ss", Locale.US);
         String today = todayDateForRCV.format(new Date());
-
+        binding.compactCalendarView.setSelected(false);
 
         try {
             today1 = new SimpleDateFormat("yyyy-MM-dd", Locale.US).parse(today);
@@ -124,7 +128,7 @@ public class AppointmentV2 extends Fragment { // implements CalendarAdapter.OnIt
         }
 
         listOfEvents = (ArrayList<Event>) binding.compactCalendarView.getEvents(today1);
-        adapter = new AppointWithAdapter(listOfEvents, requireContext());
+        adapter = new AppointWithAdapter(listOfEvents, requireContext(), this);
         binding.appointmentList.setAdapter(adapter);
 
 
@@ -169,7 +173,7 @@ public class AppointmentV2 extends Fragment { // implements CalendarAdapter.OnIt
                             .atZone(ZoneId.systemDefault())
                             .toInstant().toEpochMilli();
 
-                    event = new Event(Color.BLUE, millis, data.get(i).getName());
+                    event = new Event(Color.BLUE, millis, data.get(i).getName() + "-" + data.get(i).getId());
                     eventList.add(event);
 
                 }
@@ -177,7 +181,7 @@ public class AppointmentV2 extends Fragment { // implements CalendarAdapter.OnIt
                 listOfEvents = (ArrayList<Event>) binding.compactCalendarView.getEvents(today1);
                 adapter.setData(listOfEvents);
                 adapter.notifyDataSetChanged();
-                
+
 
             }
         });
@@ -290,4 +294,34 @@ public class AppointmentV2 extends Fragment { // implements CalendarAdapter.OnIt
     }
 
 
+    @Override
+    public void onCancelClick(int position, AppointmentRowBinding binding1) {
+        Log.d("ONCANCELLISTENER", "onCancelClick: " + "Clicked from AppointmentV2 at position " + position + ".");
+        dialog = new Dialog(requireActivity());
+        String name = String.valueOf(listOfEvents.get(position).getData());
+        String[] arr = name.split("-");
+        cancelAppointmentBinding = CancelAppointmentBinding.inflate(LayoutInflater.from(requireContext()));
+        cancelAppointmentBinding.getRoot().setBackgroundResource(android.R.color.transparent);
+        cancelAppointmentBinding.appointmentFinalCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("AppointmentService", "Appointment with id " + arr[1] + "getting deleted");
+                viewModel.cancelAppointmentFromDoctorOrPatient(arr[1], requireActivity());
+                binding.compactCalendarView.removeEvent(listOfEvents.get(position));
+                listOfEvents.remove(position);
+                adapter.notifyDataSetChanged();
+
+                dialog.dismiss();
+            }
+        });
+
+        cancelAppointmentBinding.appointmentDoctorName.setText(arr[0]);
+
+        //dialog.setCancelable(false);
+        dialog.setContentView(cancelAppointmentBinding.getRoot());
+        Window window1 = dialog.getWindow();
+        window1.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.show();
+
+    }
 }

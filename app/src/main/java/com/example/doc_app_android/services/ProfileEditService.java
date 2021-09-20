@@ -92,6 +92,7 @@ public class ProfileEditService {
 
 
     public void editData(String Url, ProfileData data) {
+
         JSONObject details = null;
 
         try {

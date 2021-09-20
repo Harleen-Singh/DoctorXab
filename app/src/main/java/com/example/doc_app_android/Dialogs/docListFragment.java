@@ -31,8 +31,11 @@ public class docListFragment extends DialogFragment {
 
     public docListFragment() {
     }
+
     Register_view_model model;
+
     boolean duringRegisteration = false;
+
     public docListFragment(boolean duringRegisteration) {
         this.duringRegisteration = duringRegisteration;
     }
@@ -49,7 +52,7 @@ public class docListFragment extends DialogFragment {
         service.getDocList(getContext()).observeForever(new Observer<ArrayList<DocData>>() {
             @Override
             public void onChanged(ArrayList<DocData> docData) {
-                final docListAdapter adapter = new docListAdapter(docData, date, docDialog,duringRegisteration);
+                final docListAdapter adapter = new docListAdapter(docData, date, docDialog, duringRegisteration);
                 rcv.setAdapter(adapter);
                 progressBar.setVisibility(View.GONE);
                 adapter.docName.observeForever(new Observer<String>() {

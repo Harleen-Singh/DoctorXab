@@ -117,7 +117,7 @@ public class notiService {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Globals.newNotifications, param, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                dialog.displayDialog("Sucessfully Accepted",context);
+                dialog.displayDialog("Accepted Successfully",context);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -149,7 +149,7 @@ public class notiService {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Globals.denyAppointment, param, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                dialog.displayDialog("Sucessfull Rejected",context);
+                dialog.displayDialog("Rejected Successfully",context);
             }
         }, new Response.ErrorListener() {
             @Override

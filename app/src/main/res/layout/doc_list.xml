@@ -2,14 +2,34 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="wrap_content"
+    android:padding="2dp"
+    android:background="@drawable/pd_bg1"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/label_for_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="List"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:textSize="16sp"
+        android:fontFamily="@font/rubik_semi_bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/docList"
+        app:layout_constraintStart_toStartOf="@id/docList"
+        app:layout_constraintEnd_toEndOf="@id/docList"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/docList"
-        android:layout_width="match_parent"
-        android:layout_height="445dp"
+        android:layout_width="wrap_content"
+        android:layout_height="400dp"
         android:layout_margin="5dp"
+        android:paddingTop="20dp"
+        android:background="@color/white"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -24,7 +44,7 @@
         android:indeterminateTint="@color/theme"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/docList"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/docList"
+        app:layout_constraintStart_toStartOf="@+id/docList"
+        app:layout_constraintTop_toTopOf="@+id/docList" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -20,6 +20,7 @@ import com.example.doc_app_android.databinding.FragmentNotificationBinding;
 import com.example.doc_app_android.view_model.FragmentNotificationViewModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class NotificationFragment extends Fragment {
 
@@ -66,6 +67,7 @@ public class NotificationFragment extends Fragment {
         model.getNotiData().observe(getViewLifecycleOwner(), new Observer<ArrayList<NotiData>>() {
             @Override
             public void onChanged(ArrayList<NotiData> notiData) {
+                Collections.reverse(notiData);
                 adapter.setData(notiData);
                 adapter.notifyDataSetChanged();
                 if (notiData.isEmpty()){

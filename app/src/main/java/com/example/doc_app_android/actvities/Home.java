@@ -66,12 +66,13 @@ public class Home extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
+        SharedPreferences preferences = getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+        boolean hasLoggedIn = preferences.getBoolean("hasLoggedIn", false);
         binding.toolbar.setVisibility(View.VISIBLE);
         if(getIntent().getExtras()!=null) {
             try {
                 boolean b = getIntent().getExtras().getBoolean("notification");
-                if (b) {
+                if (b && hasLoggedIn) {
                     temp = new NotificationFragment();
                     getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, temp).setReorderingAllowed(true).addToBackStack(null).commit();
                 }
@@ -213,12 +214,12 @@ public class Home extends AppCompatActivity {
                         break;
 
                     case R.id.menu_logout:
-                        SharedPreferences.Editor editor = getSharedPreferences("tokenFile", Context.MODE_PRIVATE).edit();
-                        editor.clear();
-                        editor.apply();
+                        SharedPreferences preferences= getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+                        preferences.edit().clear().apply();
                         finishAffinity();
                         Intent intent = new Intent(Home.this, MainActivity.class);
                         startActivity(intent);
+                        finish();
                         break;
                 }
 

@@ -34,7 +34,7 @@ public class getAppointmentService {
         JSONObject obj = new JSONObject();
         try {
             obj.put("doctor",docData.getDocID());
-            obj.put("time","");
+            obj.put("time","15:56");
             obj.put("date",date);
 
             final RequestQueue requestQueue = Volley.newRequestQueue(context);

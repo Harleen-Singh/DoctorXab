@@ -29,6 +29,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.doc_app_android.Adapter.ReportData;
+import com.example.doc_app_android.Dialogs.dialogs;
+import com.example.doc_app_android.data_model.AppointmentData;
+import com.example.doc_app_android.data_model.NotiData;
 import com.example.doc_app_android.utils.Globals;
 import com.example.doc_app_android.databinding.LoadingDialogBinding;
 import com.example.doc_app_android.volley.VolleyMultipartRequest;
@@ -57,6 +60,7 @@ public class ReportService {
     private Application application;
     private Context context;
     private int report_id;
+    private dialogs dialogs = new dialogs();
 
 
     public LiveData<ReportData> getReportData(Application application) {
@@ -80,6 +84,10 @@ public class ReportService {
         url = Globals.report + prefs.getString("patient_id", "-1");
         Log.d("Testing", "Url for Patient history from doctor patient list: " + url);
         editData(application, url, reportData, Request.Method.PUT);
+    }
+
+    public void addAppointment(AppointmentData appointmentData, Context context){
+        allotAppointment(appointmentData, context);
     }
 
 
@@ -357,6 +365,53 @@ public class ReportService {
             }
         });
 
+    }
+
+
+
+
+    public void allotAppointment(AppointmentData appointmentData , Context context){
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        JSONObject param = new JSONObject();
+
+        try {
+            param.put("date",appointmentData.getDate());
+            param.put("patient",appointmentData.getPatientId());
+            param.put("time", appointmentData.getTime());
+
+            Log.d("Report Service", "Appointment from doctor side: \n" +
+                    "Date: " + appointmentData.getDate() + "\n" +
+                    "Patient ID: " + appointmentData.getPatientId() + "\n" +
+                    "Time: " + appointmentData.getTime());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+//        param.put("date",);
+
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Globals.newNotifications, param, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                dialogs.displayDialog("Allotted Successfully",context);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                dialogs.displayDialog(error + " !",context);
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                SharedPreferences pref = context.getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+                Map<String, String> params = new HashMap<>();
+                String creds = String.format("%s:%s",pref.getString("username", ""),pref.getString("pass", ""));
+                String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
+                params.put("Authorization", auth);
+                return params;
+            }
+        };
+        requestQueue.add(jsonObjectRequest);
     }
 
 

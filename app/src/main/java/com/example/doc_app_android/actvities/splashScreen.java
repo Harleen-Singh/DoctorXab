@@ -22,8 +22,11 @@ public class splashScreen extends AppCompatActivity {
             @Override
             public void run() {
                 final SharedPreferences sp = getSharedPreferences("tokenFile", MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
                 if (sp.contains("id")) {
                     Intent intent = new Intent(splashScreen.this, Home.class);
+                    editor.putBoolean("hasLoggedIn", true);
+                    editor.apply();
                     startActivity(intent);
                     finishAffinity();
                 } else {

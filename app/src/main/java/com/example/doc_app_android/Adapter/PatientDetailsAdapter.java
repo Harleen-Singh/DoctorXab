@@ -14,15 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.content.res.AppCompatResources;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.doc_app_android.DoctorHomeFragments.CheckupDetailsPatient;
 import com.example.doc_app_android.DoctorHomeFragments.PatientHistoryFragment;
 import com.example.doc_app_android.R;
@@ -32,11 +29,10 @@ import com.example.doc_app_android.databinding.HomeSinglePatientRowBinding;
 import com.example.doc_app_android.services.DoctorPatientListService;
 import com.squareup.picasso.Picasso;
 
-
 import java.util.ArrayList;
 
-public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAdapter.PatientDetailsHolder> implements Filterable {
 
+public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAdapter.PatientDetailsHolder> implements Filterable {
 
 
     private ArrayList<ProfileData> data = new ArrayList<>();
@@ -57,7 +53,6 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
         this.data = data;
         this.backup = new ArrayList<>(data);
     }
-
 
 
     @NonNull
@@ -113,11 +108,11 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
 
             ArrayList<ProfileData> filteredData = new ArrayList<>();
 
-            if(constraint.toString().isEmpty()){
+            if (constraint.toString().isEmpty()) {
                 filteredData.addAll(backup);
             } else {
-                for(ProfileData obj: backup){
-                    if(obj.getName().toString().toLowerCase().contains(constraint.toString().toLowerCase())){
+                for (ProfileData obj : backup) {
+                    if (obj.getName().toString().toLowerCase().contains(constraint.toString().toLowerCase())) {
                         filteredData.add(obj);
                     }
                 }
@@ -130,7 +125,7 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
 
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
-            if(results != null) {
+            if (results != null) {
                 data.clear();
                 Log.d("TextWatcher", "Size of Published Data: " + ((ArrayList<ProfileData>) results.values).size());
                 if (((ArrayList<ProfileData>) results.values).size() > 0) {
@@ -156,7 +151,6 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
 
         }
     };
-
 
 
     class PatientDetailsHolder extends RecyclerView.ViewHolder {
@@ -198,7 +192,6 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
                     bundle.putString("age", data.get(getAbsoluteAdapterPosition()).getAge());
                     bundle.putString("mobile_number", data.get(getAbsoluteAdapterPosition()).getPhoneNumber());
                     bundle.putInt("patientId", data.get(getAbsoluteAdapterPosition()).getPateint_Id());
-
 
 
                     preferences = mContext.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
@@ -243,7 +236,7 @@ public class PatientDetailsAdapter extends RecyclerView.Adapter<PatientDetailsAd
 
     }
 
-    public void setBackground(Context context, View view, int drawableId){
+    public void setBackground(Context context, View view, int drawableId) {
         Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
                 drawableId);
         bitmap = Bitmap.createScaledBitmap(bitmap, Resources.getSystem().getDisplayMetrics()

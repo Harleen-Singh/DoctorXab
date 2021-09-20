@@ -8,11 +8,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.doc_app_android.Dialogs.docListFragment;
+import com.example.doc_app_android.Dialogs.dialogs;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.DocData;
 import com.example.doc_app_android.databinding.ShareSingleRowBinding;
@@ -27,12 +26,13 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.ShareViewHol
     private ArrayList<DocData> doctorList = new ArrayList<>();
     private Context context;
     private FragmentManager manager;
+
     public ShareAdapter(Context context, FragmentManager childFragmentManager) {
         this.context = context;
         manager = childFragmentManager;
     }
 
-    public void setData(ArrayList<DocData> doctorList){
+    public void setData(ArrayList<DocData> doctorList) {
         this.doctorList = doctorList;
     }
 
@@ -49,27 +49,32 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.ShareViewHol
     @Override
     public void onBindViewHolder(@NonNull @NotNull ShareAdapter.ShareViewHolder holder, int position) {
 
-        if(!TextUtils.isEmpty(doctorList.get(position).getName()) && !TextUtils.isEmpty(doctorList.get(position).getImage()) && !TextUtils.isEmpty(doctorList.get(position).getAge())) {
+        if (!TextUtils.isEmpty(doctorList.get(position).getName()) && !TextUtils.isEmpty(doctorList.get(position).getImage()) && !TextUtils.isEmpty(doctorList.get(position).getAge())) {
             holder.binding.shareDocName.setText(doctorList.get(position).getName());
             Picasso.get().load(doctorList.get(position).getImage())
                     .placeholder(R.drawable.doctor_profile_image)
                     .into(holder.binding.shareProfileImage);
             holder.binding.shareAge.setText(doctorList.get(position).getAge());
+            DocData docData = doctorList.get(position);
             holder.binding.shareButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showDocFragment();
+                    showDocFragment(docData);
                 }
             });
         }
 
     }
 
-    private void showDocFragment() {
-        docListFragment docDialog = new docListFragment();
-        docDialog.setDialog(docDialog);
-        docDialog.setStyle(DialogFragment.STYLE_NO_FRAME,R.style.AlertDialog);
-        docDialog.show(manager, "docList");
+    private void showDocFragment(DocData newData) {
+//        docListFragment docDialog = new docListFragment();
+//        docDialog.setDialog(docDialog);
+//        docDialog.setStyle(DialogFragment.STYLE_NO_FRAME,R.style.AlertDialog);
+//        docDialog.show(manager, "docList");
+
+        dialogs dialog = new dialogs();
+        dialog.displayShareConfirmationDialog("Do you want to share report with Dr." + newData.getName() + "?", context, newData);
+
     }
 
     @Override
@@ -77,7 +82,7 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.ShareViewHol
         return doctorList.size();
     }
 
-    public class ShareViewHolder extends RecyclerView.ViewHolder{
+    public class ShareViewHolder extends RecyclerView.ViewHolder {
         private ShareSingleRowBinding binding;
 
 

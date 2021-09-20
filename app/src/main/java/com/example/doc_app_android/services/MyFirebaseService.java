@@ -6,9 +6,11 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -26,10 +28,23 @@ public class MyFirebaseService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull @NotNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
+        SharedPreferences preferences = getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+        boolean isDoctor = preferences.getBoolean("isDoc",false);
+
+
 
 
         RemoteMessage.Notification notification = remoteMessage.getNotification();
-        sendNotification(notification.getTitle(), notification.getBody());
+
+        if (isDoctor && notification.getTitle().equals("NewAppointment")){
+            sendNotification("Appointment Request", notification.getBody());
+        } else if(isDoctor && notification.getTitle().equals("Patient Report Shared")){
+            sendNotification(notification.getTitle(), notification.getBody());
+        } else if(!isDoctor && notification.getTitle().equals("Appointment")){
+            sendNotification("Appointment Status", notification.getBody());
+        }
+
+        Log.d("NotificationTitles", "Title->" + notification.getTitle() + ".");
 
     }
 

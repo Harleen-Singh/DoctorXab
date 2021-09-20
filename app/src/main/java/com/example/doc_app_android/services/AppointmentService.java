@@ -1,6 +1,7 @@
 package com.example.doc_app_android.services;
 
 import android.app.Application;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Base64;
@@ -23,20 +24,25 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.doc_app_android.utils.Globals;
+import com.example.doc_app_android.Dialogs.dialogs;
+import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.AppointmentData;
 import com.example.doc_app_android.data_model.ProfileData;
+import com.example.doc_app_android.utils.Globals;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
 public class AppointmentService {
+
+    public static final String TAG = "AppointmentService";
     private MutableLiveData<ArrayList<AppointmentData>> data_model;
     private MutableLiveData<ArrayList<AppointmentData>> individualAppointmentDataModel;
     private Application app;
@@ -49,6 +55,14 @@ public class AppointmentService {
     private String url;
     private ProgressBar progressBarFromAppointmentV2;
     private ProgressBar progressBarFromIndividualAppointment;
+    private ProgressDialog progressDialog;
+    private dialogs dialogs = new dialogs();
+
+
+    public void cancelAppointmentFromDoctorOrPatient(String id, Application app, Context context) {
+        progressDialog = new ProgressDialog(context, R.style.AlertDialog);
+        cancelAppointment(id, app, context);
+    }
 
 
     public LiveData<ArrayList<AppointmentData>> getApmntData(Application app, ProgressBar progressBar) {
@@ -101,7 +115,7 @@ public class AppointmentService {
                     for (int i = 0; i < response.length(); i++) {
                         String id, date, patient_id, doctor_id;
                         JSONObject obj = response.getJSONObject(i);
-                        // id = obj.getString("id");
+                        id = obj.getString("id");
                         date = obj.getString("date");
                         patient_id = obj.getString("patient");
                         doctor_id = obj.getString("doctor");
@@ -112,14 +126,16 @@ public class AppointmentService {
                         if (!isDoc) {
 
 
-                            appointmentData.add(new AppointmentData("1", date, patient_id, doctor_id, "Dr." + namesOfDocPat.get(Integer.valueOf(doctor_id))));
-                            Log.e("Individual", "onResponse: " + "Date:" + date +
+                            appointmentData.add(new AppointmentData(id, date, patient_id, doctor_id, "Dr." + namesOfDocPat.get(Integer.valueOf(doctor_id))));
+                            Log.e("Individual", "onResponse: " + "Appointment_Id:" + id +
+                                    "\t" + "Date:" + date +
                                     "\t" + "doctor_id" + doctor_id +
                                     "\t" + "name: " + namesOfDocPat.get(Integer.valueOf(doctor_id)));
                         } else {
                             if (namesOfDocPat.get(Integer.valueOf(patient_id)) != null) {
-                                appointmentData.add(new AppointmentData("1", date, patient_id, doctor_id, namesOfDocPat.get(Integer.valueOf(patient_id))));
-                                Log.e("Individual", "onResponse: " + "Date:" + date +
+                                appointmentData.add(new AppointmentData(id, date, patient_id, doctor_id, namesOfDocPat.get(Integer.valueOf(patient_id))));
+                                Log.e("Individual", "onResponse: " + "Appointment_Id:" + id +
+                                        "\t" + "Date:" + date +
                                         "\t" + "Patient_ID:" + patient_id +
                                         "\t" + "name: " + namesOfDocPat.get(Integer.valueOf(patient_id)));
                             }
@@ -184,7 +200,7 @@ public class AppointmentService {
                     for (int i = 0; i < response.length(); i++) {
                         String id, date, patient_id, doctor_id;
                         JSONObject obj = response.getJSONObject(i);
-                        // id = obj.getString("id");
+                        id = obj.getString("id");
                         date = obj.getString("date");
                         patient_id = obj.getString("patient");
                         doctor_id = obj.getString("doctor");
@@ -192,8 +208,9 @@ public class AppointmentService {
 //                        Date comingDate = new SimpleDateFormat("yyyy-MM-dd", Locale.US).parse(date);
 
 
-                        individualAppointment.add(new AppointmentData("1", date, patient_id, doctor_id, "Dr." + namesOfDocPat.get(Integer.valueOf(doctor_id))));
-                        Log.e("Individual", "onResponse: " + "Date:" + date +
+                        individualAppointment.add(new AppointmentData(id, date, patient_id, doctor_id, "Dr." + namesOfDocPat.get(Integer.valueOf(doctor_id))));
+                        Log.e("Individual", "onResponse: " + "Appointment_Id:" + id +
+                                "\t" + "Date:" + date +
                                 "\t" + "doctor_id" + doctor_id +
                                 "\t" + "name: " + namesOfDocPat.get(Integer.valueOf(doctor_id)));
 //                        assert today1 != null;
@@ -368,5 +385,70 @@ public class AppointmentService {
 
             }
         });
+    }
+
+
+    private void cancelAppointment(String id, Application app, Context context) {
+
+        dialogs.alertDialogLogin(progressDialog, "Cancelling...");
+
+
+        JSONObject details = null;
+
+        try {
+            details = new JSONObject();
+            details.put("id", id);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+        final RequestQueue cancelRequest = Volley.newRequestQueue(app.getApplicationContext());
+
+        JsonObjectRequest cancel = new JsonObjectRequest(Request.Method.DELETE, Globals.cancelAppointment, details, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, "onResponse: Cancellation response " + response);
+                Toast.makeText(app.getApplicationContext(), "Appointment Cancelled Successfully", Toast.LENGTH_SHORT).show();
+                dialogs.dismissDialog(progressDialog);
+                dialogs.displayDialog("Successfully Cancelled",context, true);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                Log.d(TAG, "onErrorResponse: Cancellation error " + error);
+                Log.d(TAG, "onErrorResponse: Cancellation status code " + error.networkResponse.statusCode);
+                Log.d(TAG, "onErrorResponse: Cancellation error data " + Arrays.toString(error.networkResponse.data));
+                Toast.makeText(app.getApplicationContext(), "Appointment Cancellation error with status code " + error.networkResponse.statusCode, Toast.LENGTH_SHORT).show();
+                dialogs.dismissDialog(progressDialog);
+                dialogs.displayDialog("Error Occurred",context, true);
+
+
+            }
+        });
+
+        cancelRequest.add(cancel);
+
+        cancel.setRetryPolicy(new RetryPolicy() {
+            @Override
+            public int getCurrentTimeout() {
+                return 50000;
+            }
+
+            @Override
+            public int getCurrentRetryCount() {
+                return 50000;
+            }
+
+            @Override
+            public void retry(VolleyError error) throws VolleyError {
+
+            }
+        });
+
+
     }
 }

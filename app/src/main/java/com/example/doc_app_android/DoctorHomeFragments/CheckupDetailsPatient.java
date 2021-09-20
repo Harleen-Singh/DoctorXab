@@ -1,6 +1,8 @@
 package com.example.doc_app_android.DoctorHomeFragments;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
@@ -13,7 +15,10 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +29,8 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.doc_app_android.Adapter.ReportData;
 import com.example.doc_app_android.R;
+import com.example.doc_app_android.data_model.AppointmentData;
+import com.example.doc_app_android.databinding.AppointmentFromDoctorBinding;
 import com.example.doc_app_android.databinding.FragmentCheckupDetailsPatientBinding;
 import com.example.doc_app_android.view_model.ReportDataViewModel;
 import com.squareup.picasso.Picasso;
@@ -31,6 +38,7 @@ import com.squareup.picasso.Picasso;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -52,8 +60,12 @@ public class CheckupDetailsPatient extends Fragment {
     private String mobileNumber;
     private FragmentCheckupDetailsPatientBinding binding;
     private int patientId;
-    private Dialog dialog;
     private int report_size;
+    private Dialog dialog;
+    private AppointmentFromDoctorBinding fromDoctorBinding;
+    private String name;
+    private int mDay, mMonth, mYear, mHour, mMinute;
+    private String selectedTime, selectedDate;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -187,7 +199,7 @@ public class CheckupDetailsPatient extends Fragment {
         Bundle bundle = getArguments();
         if (bundle != null) {
 
-            String name = bundle.getString("name");
+            name = bundle.getString("name");
             String image = bundle.getString("image");
             String age = bundle.getString("age");
             mobileNumber = bundle.getString("mobile_number");
@@ -207,8 +219,8 @@ public class CheckupDetailsPatient extends Fragment {
             binding.checkupDetailsAge.setText(age);
         } else {
 
-            preferences = getContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
-            String name = preferences.getString("patientInfoName", "");
+            preferences = requireContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+            name = preferences.getString("patientInfoName", "");
             String age = preferences.getString("patientInfoAge", "");
             String image = preferences.getString("patientInfoImage", "");
             binding.checkupDetailsDoctorName.setText(name);
@@ -273,11 +285,67 @@ public class CheckupDetailsPatient extends Fragment {
         binding.addAppointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bundle bundle1 = new Bundle();
-                bundle1.putBoolean("fromCheckupDetailsAppointment", true);
-                DoctorAppointmentsFragment doctorAppointmentsFragment = new DoctorAppointmentsFragment();
-                doctorAppointmentsFragment.setArguments(bundle1);
-                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, doctorAppointmentsFragment).addToBackStack("name9").commit();
+//                Bundle bundle1 = new Bundle();
+//                bundle1.putBoolean("fromCheckupDetailsAppointment", true);
+//                DoctorAppointmentsFragment doctorAppointmentsFragment = new DoctorAppointmentsFragment();
+//                doctorAppointmentsFragment.setArguments(bundle1);
+//                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, doctorAppointmentsFragment).addToBackStack("name9").commit();
+
+                dialog = new Dialog(requireActivity());
+                fromDoctorBinding = AppointmentFromDoctorBinding.inflate(LayoutInflater.from(requireActivity()));
+                fromDoctorBinding.getRoot().setBackgroundResource(android.R.color.transparent);
+
+                fromDoctorBinding.appointmentPatientName.setText(name);
+
+                fromDoctorBinding.selectedDate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final Calendar calendar = Calendar.getInstance();
+                        mDay = calendar.get(Calendar.DAY_OF_MONTH);
+                        mMonth = calendar.get(Calendar.MONTH);
+                        mYear = calendar.get(Calendar.YEAR);
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                selectedDate = String.valueOf(year + "-" + month + "-" + dayOfMonth);
+                                fromDoctorBinding.selectedDate.setText(selectedDate);
+                            }
+                        }, mYear, mMonth, mDay);
+                        datePickerDialog.show();
+                    }
+                });
+
+                fromDoctorBinding.selectedTime.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final Calendar calendar = Calendar.getInstance();
+                        mHour = calendar.get(Calendar.HOUR_OF_DAY);
+                        mMinute = calendar.get(Calendar.MINUTE);
+
+                        TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(), new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                selectedTime = String.valueOf(mHour + "-" + mMinute);
+                                fromDoctorBinding.selectedTime.setText(selectedTime);
+                            }
+                        }, mHour, mMinute, true);
+                        timePickerDialog.show();
+                    }
+                });
+
+                fromDoctorBinding.addAppointmentWithPatient.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AppointmentData appointmentData = new AppointmentData(selectedDate, selectedTime, String.valueOf(patientId));
+                        reportDataViewModel.addAppointment(appointmentData, requireContext());
+                        dialog.dismiss();
+                    }
+                });
+
+                dialog.setContentView(fromDoctorBinding.getRoot());
+                Window window1 = dialog.getWindow();
+                window1.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog.show();
 
             }
         });

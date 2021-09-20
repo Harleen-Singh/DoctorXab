@@ -1,5 +1,6 @@
 package com.example.doc_app_android.Adapter;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,13 +22,14 @@ import java.util.ArrayList;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class docListAdapter extends RecyclerView.Adapter<docListAdapter.viewHolder>{
+public class docListAdapter extends RecyclerView.Adapter<docListAdapter.viewHolder> {
     public ArrayList<DocData> data;
     docListFragment docDialog;
     private CharSequence date;
     public MutableLiveData<String> docId = new MutableLiveData<>();
     public MutableLiveData<String> docName = new MutableLiveData<>();
     private boolean duringRegisteration;
+
     public docListAdapter(ArrayList<DocData> arr, CharSequence date, docListFragment docDialog, boolean duringRegisteration) {
         data = arr;
         this.date = date;
@@ -38,15 +40,17 @@ public class docListAdapter extends RecyclerView.Adapter<docListAdapter.viewHold
     @NonNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view  = LayoutInflater.from(parent.getContext()).inflate(R.layout.doclist_single,null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.doclist_single, null);
         return new viewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
-        Picasso.get().load(data.get(position).getImage()).error(R.drawable.errorimgload).placeholder(R.drawable.loading).into(holder.image);
-        holder.name.setText(data.get(position).getName());
-        Log.e("TAG", "onBindViewHolder: "+ data.get(position).getName() );
+        Picasso.get().load(data.get(position).getImage()).placeholder(R.drawable.doctor_profile_image).into(holder.image);
+        if (!TextUtils.isEmpty(data.get(position).getName())) {
+            holder.name.setText(data.get(position).getName());
+        }
+        Log.e("TAG", "onBindViewHolder: " + data.get(position).getName());
         String docName = data.get(position).getName().toUpperCase();
         DocData newData = data.get(position);
         String docID = data.get(position).getDocID();
@@ -54,11 +58,11 @@ public class docListAdapter extends RecyclerView.Adapter<docListAdapter.viewHold
         holder.click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!duringRegisteration)
-                    manageClicks(v,docName,newData);
+                if (!duringRegisteration)
+                    manageClicks(v, docName, newData);
                 else {
                     giveDataToModel(docName, docID);
-                    Log.e("TAG", "onClick: " + docName + docID );
+                    Log.e("TAG", "onClick: " + docName + docID);
                 }
             }
         });
@@ -73,11 +77,9 @@ public class docListAdapter extends RecyclerView.Adapter<docListAdapter.viewHold
 
     private void manageClicks(View v, String docName, DocData newData) {
         dialogs dialog = new dialogs();
-        if(date==null){
-            dialog.displayConfirmationDialog("CONFIRM","Do You Want To Share Report With Doc " + docName, v.getContext() , newData, date , docDialog );
-        }else{
-            dialog.displayConfirmationDialog("CONFIRM","Do You Want To Book Appointment With Doc " + docName, v.getContext() , newData, date , docDialog );
-        }
+
+        dialog.displayConfirmationDialog("Do you want to book appointment with Dr." + docName + "?", v.getContext(), newData, date, docDialog);
+
     }
 
     @Override
@@ -89,6 +91,7 @@ public class docListAdapter extends RecyclerView.Adapter<docListAdapter.viewHold
         TextView name;
         CircleImageView image;
         ConstraintLayout click;
+
         public viewHolder(@NonNull View itemView) {
             super(itemView);
             image = itemView.findViewById(R.id.docImage);
