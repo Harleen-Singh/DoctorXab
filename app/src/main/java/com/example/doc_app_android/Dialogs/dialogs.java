@@ -3,6 +3,7 @@ package com.example.doc_app_android.Dialogs;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ public class dialogs {
     private boolean ifFromGetAppointmentService = false;
     private Dialog dialog;
     private ConfirmationDialogBinding confirmationBinding;
+    private SharedPreferences preferences;
 
     public void alertDialogLogin(ProgressDialog progressDialog, String msg) {
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -55,12 +57,13 @@ public class dialogs {
         alertDialog.getWindow().getWindowStyle();
     }
 
-    public final void displayConfirmationDialog(String str, Context context, DocData docData, CharSequence date, docListFragment docDialog) {
+    public final void displayConfirmationDialog(String str, Context context, DocData docData, String selectedDate, docListFragment docDialog, String selectedTime) {
         dialog = new Dialog(context);
         dialog.setCancelable(false);
         confirmationBinding = ConfirmationDialogBinding.inflate(LayoutInflater.from(context));
         confirmationBinding.getRoot().setBackgroundResource(android.R.color.transparent);
         confirmationBinding.validationMessage.setText(str);
+        preferences = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
 
         confirmationBinding.Confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,7 +72,11 @@ public class dialogs {
                 getAppointmentService service = new getAppointmentService();
                 ProgressDialog dialog1 = new ProgressDialog(context, R.style.AlertDialog);
                 alertDialogLogin(dialog1, "Processing");
-                service.getAppointment(docData, date, context, dialog1);
+                if(preferences.getBoolean("isDoc", false)) {
+                    service.allotAppointment(docData, selectedDate, context, dialog1, selectedTime);
+                } else {
+                    service.getAppointment(docData, selectedDate, context, dialog1, selectedTime);
+                }
                 docDialog.dismiss();
                 dialog.dismiss();
                 Log.e("TAG", "displayConfirmationDialog: confirmed");

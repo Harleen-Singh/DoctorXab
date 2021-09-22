@@ -8,6 +8,12 @@ public class ProfileData {
     boolean isDoc, isPatient, isExpanded, isRowExpanded;
     private Bitmap bitmap;
 
+    public ProfileData(int pateint_Id, String name, String image) {
+        this.pateint_Id = pateint_Id;
+        this.name = name;
+        this.image = image;
+    }
+
     public ProfileData(int doctor_Id, int age, String userName, String email, String name, String phoneNumber, String address, String image) {
         this.doctor_Id = doctor_Id;
         this.age = age;
@@ -46,6 +52,8 @@ public class ProfileData {
         this.isExpanded = false;
         this.isRowExpanded = true;
     }
+
+
 
 
 

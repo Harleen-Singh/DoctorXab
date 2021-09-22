@@ -1,7 +1,13 @@
 package com.example.doc_app_android.data_model;
 
 public class DocData {
-    String docID , username, name , age, state,image, email,phone , department;
+    String docID , username, name , age, state,image, email,phone , department, patientId;
+
+    public DocData(String name, String image, String patientId) {
+        this.name = name;
+        this.image = image;
+        this.patientId = patientId;
+    }
 
     public DocData(String docID, String username, String name, String age, String state, String image, String email, String phone, String department) {
         this.docID = docID;
@@ -18,6 +24,14 @@ public class DocData {
     public DocData(String docID, String name) {
         this.docID = docID;
         this.name = name;
+    }
+
+    public String getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(String patientId) {
+        this.patientId = patientId;
     }
 
     public String getDocID() {

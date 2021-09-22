@@ -1,10 +1,13 @@
 package com.example.doc_app_android.Dialogs;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +27,7 @@ import java.util.ArrayList;
 public class docListFragment extends DialogFragment {
     docListFragment docDialog;
     private CharSequence date = null;
+    private SharedPreferences preferences;
 
     public docListFragment(CharSequence selectedDate) {
         date = selectedDate;
@@ -47,8 +51,15 @@ public class docListFragment extends DialogFragment {
         DoctorListService service = new DoctorListService();
         model = new ViewModelProvider(requireActivity()).get(Register_view_model.class);
         RecyclerView rcv = view.findViewById(R.id.docList);
+        TextView label = view.findViewById(R.id.label_for_list);
         ProgressBar progressBar = view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
+        preferences = requireContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+        if(preferences.getBoolean("isDoc", false)){
+            label.setText("List Of Patients");
+        } else {
+            label.setText("List Of Doctors");
+        }
         service.getDocList(getContext()).observeForever(new Observer<ArrayList<DocData>>() {
             @Override
             public void onChanged(ArrayList<DocData> docData) {

@@ -19,8 +19,8 @@ import com.android.volley.ServerError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.doc_app_android.utils.Globals;
 import com.example.doc_app_android.data_model.ProfileData;
+import com.example.doc_app_android.utils.Globals;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -37,11 +37,6 @@ public class DoctorPatientListService {
     private boolean isDoc, isPatient;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
-
-//    private  results;
-//    private  object;
-//    private  user;
-
     private MutableLiveData<ArrayList<ProfileData>> mutableLiveElbowData;
     private MutableLiveData<ArrayList<ProfileData>> mutableLiveWristData;
     private MutableLiveData<ArrayList<ProfileData>> mutableLiveKneeData;
@@ -50,11 +45,7 @@ public class DoctorPatientListService {
 
 
     public LiveData<ArrayList<ProfileData>> getPatientListForDoctorHome(String problemId, Context context) {
-        preferences = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE );
-//        editor = preferences.edit();
-//        editor.putString("body_component_id", problemId);
-//        editor.apply();
-
+        preferences = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
         if (problemId.equals("1")) {
             if (mutableLiveElbowData == null) {
                 mutableLiveElbowData = new MutableLiveData<>();
@@ -106,7 +97,7 @@ public class DoctorPatientListService {
                     for (int i = 0; i < results.length(); i++) {
                         JSONObject object = results.getJSONObject(i);
                         JSONObject user = object.getJSONObject("user");
-                         patient_Id = user.getInt("id");
+                        patient_Id = user.getInt("id");
                         name = user.getString("name");
                         image = user.getString("image");
                         phoneNumber = user.getString("phone_number");
@@ -194,10 +185,6 @@ public class DoctorPatientListService {
             }
         });
     }
-
-
-
-
 
 
 }

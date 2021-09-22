@@ -1,6 +1,8 @@
 package com.example.doc_app_android.DoctorHomeFragments;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -27,6 +31,7 @@ import com.example.doc_app_android.Adapter.AppointWithAdapter;
 import com.example.doc_app_android.Dialogs.docListFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.AppointmentData;
+import com.example.doc_app_android.databinding.AppointmentFromDoctorBinding;
 import com.example.doc_app_android.databinding.AppointmentRowBinding;
 import com.example.doc_app_android.databinding.CancelAppointmentBinding;
 import com.example.doc_app_android.databinding.FragmentAppointmentV2Binding;
@@ -42,6 +47,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -64,6 +70,7 @@ public class AppointmentV2 extends Fragment implements AppointWithAdapter.OnCanc
     private boolean fromDrawerAppointment = false;
     private boolean fromCheckupDetailsAppointment = false;
     private boolean fromPatientInfoAppointment = false;
+    private boolean fromScheduleFragment = false;
     private ArrayList<Event> nameList = new ArrayList<>();
     private AppointWithAdapter adapter;
     private CharSequence SelectedDate = LocalDate.now().toString();
@@ -71,6 +78,8 @@ public class AppointmentV2 extends Fragment implements AppointWithAdapter.OnCanc
     private ArrayList<Event> listOfEvents;
     private Dialog dialog;
     private CancelAppointmentBinding cancelAppointmentBinding;
+
+    private String name;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -143,6 +152,7 @@ public class AppointmentV2 extends Fragment implements AppointWithAdapter.OnCanc
         if (bundle != null) {
             fromDrawerAppointment = bundle.getBoolean("fromDrawerAppointment", false);
             fromPatientInfoAppointment = bundle.getBoolean("fromPatientInfoAppointment", false);
+            fromScheduleFragment = bundle.getBoolean("fromScheduleFragment", false);
         }
 
         if (fromDrawerAppointment) {
@@ -157,6 +167,12 @@ public class AppointmentV2 extends Fragment implements AppointWithAdapter.OnCanc
             binding.askForAppointment.setVisibility(View.GONE);
             binding.addReminder.setVisibility(View.GONE);
             binding.addANote.setVisibility(View.GONE);
+        }
+
+        if (fromScheduleFragment){
+            if (preferences.getBoolean("isDoc", false)) {
+                binding.addLabel.setText("ADD APPOINTMENT");
+            }
         }
 
 
@@ -324,4 +340,6 @@ public class AppointmentV2 extends Fragment implements AppointWithAdapter.OnCanc
         dialog.show();
 
     }
+
+
 }

@@ -1,6 +1,8 @@
 package com.example.doc_app_android.DoctorHomeFragments;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,6 +16,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -27,10 +31,12 @@ import com.example.doc_app_android.Adapter.AppointWithAdapter;
 import com.example.doc_app_android.Dialogs.docListFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.AppointmentData;
+import com.example.doc_app_android.databinding.AppointmentFromDoctorBinding;
 import com.example.doc_app_android.databinding.AppointmentRowBinding;
 import com.example.doc_app_android.databinding.CancelAppointmentBinding;
 import com.example.doc_app_android.databinding.FragmentIndividualAppointmentBinding;
 import com.example.doc_app_android.view_model.FragApmntViewModel;
+import com.example.doc_app_android.view_model.ReportDataViewModel;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
@@ -42,6 +48,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -71,6 +78,12 @@ public class IndividualAppointmentFragment extends Fragment implements AppointWi
     private Date today1;
     private Dialog dialog;
     private CancelAppointmentBinding cancelAppointmentBinding;
+    private Dialog dialog1;
+    private AppointmentFromDoctorBinding fromDoctorBinding;
+    private String name;
+    private int mDay, mMonth, mYear, mHour, mMinute;
+    private String selectedTime, selectedDate, patientId;
+    private ReportDataViewModel reportDataViewModel;
 
 
     // TODO: Rename and change types of parameters
@@ -114,7 +127,11 @@ public class IndividualAppointmentFragment extends Fragment implements AppointWi
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_individual_appointment, container, false);
         binding.compactCalendarView.setUseThreeLetterAbbreviation(false);
         viewModel = new ViewModelProvider(requireActivity()).get(FragApmntViewModel.class);
+        reportDataViewModel = new ViewModelProvider(requireActivity()).get(ReportDataViewModel.class);
+
         setUpSharedPreferences();
+        preferences = requireContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+        patientId = preferences.getString("patient_id", "");
 //        nameList.add("DR.SUMIT YADAV");
 //        nameList.add("DR.SAMARTH SINGH");
 
@@ -261,7 +278,61 @@ public class IndividualAppointmentFragment extends Fragment implements AppointWi
         binding.askForAppointment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openDialog();
+                dialog1 = new Dialog(requireActivity());
+                fromDoctorBinding = AppointmentFromDoctorBinding.inflate(LayoutInflater.from(requireActivity()));
+                fromDoctorBinding.getRoot().setBackgroundResource(android.R.color.transparent);
+
+                fromDoctorBinding.appointmentPatientName.setText(name);
+
+                fromDoctorBinding.selectedDate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final Calendar calendar = Calendar.getInstance();
+                        mDay = calendar.get(Calendar.DAY_OF_MONTH);
+                        mMonth = calendar.get(Calendar.MONTH);
+                        mYear = calendar.get(Calendar.YEAR);
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                                selectedDate = String.valueOf(year + "-" + month + "-" + dayOfMonth);
+                                fromDoctorBinding.selectedDate.setText(selectedDate);
+                            }
+                        }, mYear, mMonth, mDay);
+                        datePickerDialog.show();
+                    }
+                });
+
+                fromDoctorBinding.selectedTime.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final Calendar calendar = Calendar.getInstance();
+                        mHour = calendar.get(Calendar.HOUR_OF_DAY);
+                        mMinute = calendar.get(Calendar.MINUTE);
+
+                        TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(), new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                                selectedTime = String.valueOf(hourOfDay + ":" + minute);
+                                fromDoctorBinding.selectedTime.setText(selectedTime);
+                            }
+                        }, mHour, mMinute, true);
+                        timePickerDialog.show();
+                    }
+                });
+
+                fromDoctorBinding.addAppointmentWithPatient.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        AppointmentData appointmentData = new AppointmentData(selectedDate, selectedTime, String.valueOf(patientId));
+                        reportDataViewModel.addAppointment(appointmentData, requireContext());
+                        dialog1.dismiss();
+                    }
+                });
+
+                dialog1.setContentView(fromDoctorBinding.getRoot());
+                Window window1 = dialog1.getWindow();
+                window1.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                dialog1.show();
             }
         });
 

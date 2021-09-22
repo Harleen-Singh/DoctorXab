@@ -412,7 +412,8 @@ public class AppointmentService {
                 Log.d(TAG, "onResponse: Cancellation response " + response);
                 Toast.makeText(app.getApplicationContext(), "Appointment Cancelled Successfully", Toast.LENGTH_SHORT).show();
                 dialogs.dismissDialog(progressDialog);
-                dialogs.displayDialog("Successfully Cancelled",context, true);
+//                dialogs.displayDialog("Successfully Cancelled",context, true);
+
 
             }
         }, new Response.ErrorListener() {
@@ -424,7 +425,9 @@ public class AppointmentService {
                 Log.d(TAG, "onErrorResponse: Cancellation error data " + Arrays.toString(error.networkResponse.data));
                 Toast.makeText(app.getApplicationContext(), "Appointment Cancellation error with status code " + error.networkResponse.statusCode, Toast.LENGTH_SHORT).show();
                 dialogs.dismissDialog(progressDialog);
-                dialogs.displayDialog("Error Occurred",context, true);
+//                dialogs.displayDialog("Error Occurred",context, true);
+                Toast.makeText(context, "Error Occurred", Toast.LENGTH_SHORT).show();
+
 
 
             }

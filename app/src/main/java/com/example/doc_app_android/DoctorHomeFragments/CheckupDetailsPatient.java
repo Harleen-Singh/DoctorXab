@@ -307,7 +307,7 @@ public class CheckupDetailsPatient extends Fragment {
                         DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                selectedDate = String.valueOf(year + "-" + month + "-" + dayOfMonth);
+                                selectedDate = String.valueOf(year + "-" + addZeroToStart(String.valueOf(month)) + "-" + addZeroToStart(String.valueOf(dayOfMonth)));
                                 fromDoctorBinding.selectedDate.setText(selectedDate);
                             }
                         }, mYear, mMonth, mDay);
@@ -325,7 +325,7 @@ public class CheckupDetailsPatient extends Fragment {
                         TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(), new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                selectedTime = String.valueOf(mHour + "-" + mMinute);
+                                selectedTime = String.valueOf(addZeroToStart(String.valueOf(hourOfDay)) + ":" + addZeroToStart(String.valueOf(minute)));
                                 fromDoctorBinding.selectedTime.setText(selectedTime);
                             }
                         }, mHour, mMinute, true);
@@ -424,5 +424,13 @@ public class CheckupDetailsPatient extends Fragment {
 
 
         return binding.getRoot();
+    }
+
+    public String addZeroToStart(String value) {
+        if (value.length() == 1) {
+            value = "0" + value;
+            return value;
+        }
+        return value;
     }
 }
