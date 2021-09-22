@@ -49,6 +49,10 @@ public class ProfileViewModel extends AndroidViewModel {
           profileService.getEditedProfileDetails(application, context, profileData);
     }
 
+    public void onRefresh(String url, boolean values){
+        profileService.getData(url, values);
+    }
+
 //    public void onClickBackButton(View view){
 ////        FragmentManager fragmentManager = ((AppCompatActivity)application.getApplicationContext()).getSupportFragmentManager();
 ////        fragmentManager.beginTransaction().remove(application.).commit();

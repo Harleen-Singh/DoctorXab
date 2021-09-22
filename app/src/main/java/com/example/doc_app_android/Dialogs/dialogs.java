@@ -58,44 +58,45 @@ public class dialogs {
     }
 
     public final void displayConfirmationDialog(String str, Context context, DocData docData, String selectedDate, docListFragment docDialog, String selectedTime) {
-        dialog = new Dialog(context);
-        dialog.setCancelable(false);
-        confirmationBinding = ConfirmationDialogBinding.inflate(LayoutInflater.from(context));
-        confirmationBinding.getRoot().setBackgroundResource(android.R.color.transparent);
-        confirmationBinding.validationMessage.setText(str);
+//        dialog = new Dialog(context);
+//        dialog.setCancelable(false);
+//        confirmationBinding = ConfirmationDialogBinding.inflate(LayoutInflater.from(context));
+//        confirmationBinding.getRoot().setBackgroundResource(android.R.color.transparent);
+//        confirmationBinding.validationMessage.setText(str);
         preferences = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+        getAppointmentService service = new getAppointmentService();
+        ProgressDialog dialog1 = new ProgressDialog(context, R.style.AlertDialog);
+        alertDialogLogin(dialog1, "Processing");
+        if(preferences.getBoolean("isDoc", false)) {
+            service.allotAppointment(docData, selectedDate, context, dialog1, selectedTime);
+        } else {
+            service.getAppointment(docData, selectedDate, context, dialog1, selectedTime);
+        }
+        docDialog.dismiss();
 
-        confirmationBinding.Confirm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                getAppointmentService service = new getAppointmentService();
-                ProgressDialog dialog1 = new ProgressDialog(context, R.style.AlertDialog);
-                alertDialogLogin(dialog1, "Processing");
-                if(preferences.getBoolean("isDoc", false)) {
-                    service.allotAppointment(docData, selectedDate, context, dialog1, selectedTime);
-                } else {
-                    service.getAppointment(docData, selectedDate, context, dialog1, selectedTime);
-                }
-                docDialog.dismiss();
-                dialog.dismiss();
-                Log.e("TAG", "displayConfirmationDialog: confirmed");
-
-            }
-        });
-
-        confirmationBinding.dismiss.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+//        confirmationBinding.Confirm.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//
+//                dialog.dismiss();
+//                Log.e("TAG", "displayConfirmationDialog: confirmed");
+//
+//            }
+//        });
+//
+//        confirmationBinding.dismiss.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialog.dismiss();
+//            }
+//        });
 
 
-        dialog.setContentView(confirmationBinding.getRoot());
-        Window window1 = dialog.getWindow();
-        window1.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        dialog.show();
+//        dialog.setContentView(confirmationBinding.getRoot());
+//        Window window1 = dialog.getWindow();
+//        window1.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//        dialog.show();
     }
 
     public final void displayShareConfirmationDialog(String str, Context context, DocData docData) {

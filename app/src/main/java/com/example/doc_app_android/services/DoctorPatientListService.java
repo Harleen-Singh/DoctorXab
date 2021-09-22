@@ -83,7 +83,7 @@ public class DoctorPatientListService {
         return mutableLiveData;
     }
 
-    private void getPatientList(String url, Context context, String problem_Id) {
+    public void getPatientList(String url, Context context, String problem_Id) {
         ArrayList<ProfileData> data = new ArrayList<>();
         final RequestQueue patientDetailsQueue = Volley.newRequestQueue(context);
         JsonObjectRequest getPatientListObject = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {

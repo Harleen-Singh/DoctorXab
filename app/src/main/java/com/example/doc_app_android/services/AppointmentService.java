@@ -390,6 +390,8 @@ public class AppointmentService {
 
     private void cancelAppointment(String id, Application app, Context context) {
 
+        Log.d("AppointmentService", "Appointment with id" + id + "getting deleted");
+
         dialogs.alertDialogLogin(progressDialog, "Cancelling...");
 
 
@@ -401,7 +403,6 @@ public class AppointmentService {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
 
 
         final RequestQueue cancelRequest = Volley.newRequestQueue(app.getApplicationContext());
@@ -426,12 +427,22 @@ public class AppointmentService {
                 Toast.makeText(app.getApplicationContext(), "Appointment Cancellation error with status code " + error.networkResponse.statusCode, Toast.LENGTH_SHORT).show();
                 dialogs.dismissDialog(progressDialog);
 //                dialogs.displayDialog("Error Occurred",context, true);
-                Toast.makeText(context, "Error Occurred", Toast.LENGTH_SHORT).show();
-
+                Toast.makeText(context, "Cancellation Failed", Toast.LENGTH_SHORT).show();
 
 
             }
-        });
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                SharedPreferences pref = context.getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+                Map<String, String> params = new HashMap<>();
+                String creds = String.format("%s:%s", pref.getString("username", ""), pref.getString("pass", ""));
+                String auth = "Basic " + Base64.encodeToString(creds.getBytes(), Base64.DEFAULT);
+                params.put("Authorization", auth);
+                Log.d("Credentials", "Username: " + pref.getString("username", "") + "\n" + "password: " + pref.getString("pass", ""));
+                return params;
+            }
+        };
 
         cancelRequest.add(cancel);
 

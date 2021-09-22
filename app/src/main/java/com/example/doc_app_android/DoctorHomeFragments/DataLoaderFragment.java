@@ -8,7 +8,10 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,6 +29,7 @@ import com.example.doc_app_android.databinding.FragmentDataLoaderBinding;
 import com.example.doc_app_android.view_model.DataLoaderViewModel;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 
 public class DataLoaderFragment extends Fragment {
@@ -65,7 +69,11 @@ public class DataLoaderFragment extends Fragment {
         binding.setLifecycleOwner(this);
         patientDetailsAdapter = new PatientDetailsAdapter(getContext(), binding);
         binding.detailsRcv.setAdapter(patientDetailsAdapter);
+        ((SimpleItemAnimator) Objects.requireNonNull(binding.detailsRcv.getItemAnimator())).setSupportsChangeAnimations(false);
+
         binding.dataLoadingProgressBar.setVisibility(View.VISIBLE);
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(getActivity());
+        binding.detailsRcv.setLayoutManager(mLayoutManager);
         dataLoaderViewModel = new ViewModelProvider(requireActivity()).get(DataLoaderViewModel.class);
         dataLoaderViewModel.getPatientListForDoctorHome(id).observe(getViewLifecycleOwner(), new Observer<ArrayList<ProfileData>>() {
             @Override
@@ -104,7 +112,21 @@ public class DataLoaderFragment extends Fragment {
             }
         });
 
+        binding.detailsRcv.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                binding.swipeToRefresh.setEnabled(mLayoutManager.findFirstCompletelyVisibleItemPosition() == 0); // 0 is for first item position
+            }
+        });
 
+        binding.swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                dataLoaderViewModel.refresh(id);
+                binding.swipeToRefresh.setRefreshing(false);
+            }
+        });
 
         // Inflate the layout for this fragment
         return binding.getRoot();

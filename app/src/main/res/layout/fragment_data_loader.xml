@@ -11,67 +11,73 @@
         android:animateLayoutChanges="true"
         tools:context=".DoctorHomeFragments.DataLoaderFragment">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/data_fragment_container"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipeToRefresh"
             android:layout_width="match_parent"
-            android:animateLayoutChanges="true"
-
             android:layout_height="match_parent">
 
-
-            <ImageView
-                android:id="@+id/no_res"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
-                android:animateLayoutChanges="true"
-                android:contentDescription="It will be shown when nothing will be found in search"
-                android:src="@drawable/ic_baseline_search_off_24"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:animateLayoutChanges="true"
-                android:id="@+id/no_res1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/rubik"
-                android:text="Search Not Found!"
-                android:textColor="@color/black"
-                android:textSize="20sp"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="@id/no_res"
-                app:layout_constraintStart_toStartOf="@id/no_res"
-                app:layout_constraintTop_toBottomOf="@id/no_res" />
-
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/details_rcv"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/data_fragment_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="visible"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:listitem="@layout/home_single_patient_row" />
 
-            <ProgressBar
-                android:id="@+id/data_loading_progress_bar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:indeterminateTint="@color/theme"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:animateLayoutChanges="true">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <ImageView
+                    android:id="@+id/no_res"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:animateLayoutChanges="true"
+                    android:contentDescription="It will be shown when nothing will be found in search"
+                    android:src="@drawable/ic_baseline_search_off_24"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/no_res1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:animateLayoutChanges="true"
+                    android:fontFamily="@font/rubik"
+                    android:text="Search Not Found!"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:visibility="gone"
+                    app:layout_constraintEnd_toEndOf="@id/no_res"
+                    app:layout_constraintStart_toStartOf="@id/no_res"
+                    app:layout_constraintTop_toBottomOf="@id/no_res" />
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/details_rcv"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:listitem="@layout/home_single_patient_row" />
+
+                <ProgressBar
+                    android:id="@+id/data_loading_progress_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:indeterminateTint="@color/theme"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </FrameLayout>
 

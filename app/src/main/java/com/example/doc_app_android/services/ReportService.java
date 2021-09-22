@@ -2,6 +2,7 @@ package com.example.doc_app_android.services;
 
 import android.app.Application;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -30,6 +31,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.doc_app_android.Adapter.ReportData;
 import com.example.doc_app_android.Dialogs.dialogs;
+import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.AppointmentData;
 import com.example.doc_app_android.data_model.NotiData;
 import com.example.doc_app_android.utils.Globals;
@@ -61,6 +63,7 @@ public class ReportService {
     private Context context;
     private int report_id;
     private dialogs dialogs = new dialogs();
+    private ProgressDialog progressDialog;
 
 
     public LiveData<ReportData> getReportData(Application application) {
@@ -87,6 +90,7 @@ public class ReportService {
     }
 
     public void addAppointment(AppointmentData appointmentData, Context context){
+        progressDialog = new ProgressDialog(context, R.style.AlertDialog);
         allotAppointment(appointmentData, context);
     }
 
@@ -371,6 +375,8 @@ public class ReportService {
 
 
     public void allotAppointment(AppointmentData appointmentData , Context context){
+
+        dialogs.alertDialogLogin(progressDialog, "Adding Appointment...");
         RequestQueue requestQueue = Volley.newRequestQueue(context);
         JSONObject param = new JSONObject();
 
@@ -393,12 +399,17 @@ public class ReportService {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, Globals.newNotifications, param, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                dialogs.displayDialog("Allotted Successfully",context);
+//                dialogs.displayDialog("Allotted Successfully",context);
+                dialogs.dismissDialog(progressDialog);
+
+                Toast.makeText(context, "Allotted Successfully", Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                dialogs.displayDialog(error + " !",context);
+                dialogs.dismissDialog(progressDialog);
+                Toast.makeText(context, "Error Occurred", Toast.LENGTH_SHORT).show();
+//                dialogs.displayDialog(error + " !",context);
             }
         }){
             @Override

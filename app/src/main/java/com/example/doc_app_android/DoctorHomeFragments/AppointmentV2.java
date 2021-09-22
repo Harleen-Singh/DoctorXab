@@ -26,6 +26,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.example.doc_app_android.Adapter.AppointWithAdapter;
 import com.example.doc_app_android.Dialogs.docListFragment;
@@ -287,6 +288,13 @@ public class AppointmentV2 extends Fragment implements AppointWithAdapter.OnCanc
             }
         });
 
+        binding.swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+            }
+        });
+
         //binding.appointmentV2Progress.setVisibility(View.GONE);
 
 
@@ -321,8 +329,8 @@ public class AppointmentV2 extends Fragment implements AppointWithAdapter.OnCanc
         cancelAppointmentBinding.appointmentFinalCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("AppointmentService", "Appointment with id " + arr[1] + "getting deleted");
-                viewModel.cancelAppointmentFromDoctorOrPatient(arr[1], requireActivity());
+                Log.d("AppointmentService", "Appointment with id " + arr[1] + " getting deleted");
+                viewModel.cancelAppointmentFromDoctorOrPatient(arr[1], requireContext());
                 binding.compactCalendarView.removeEvent(listOfEvents.get(position));
                 listOfEvents.remove(position);
                 adapter.notifyDataSetChanged();

@@ -5,13 +5,6 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,11 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.databinding.FragmentProfileBinding;
 import com.example.doc_app_android.databinding.ProfileDialogBinding;
-
+import com.example.doc_app_android.utils.Globals;
 import com.example.doc_app_android.view_model.ProfileViewModel;
 import com.squareup.picasso.Picasso;
 
@@ -125,7 +125,6 @@ public class ProfileFragment extends Fragment {
         preferences = requireContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
 
 
-
         binding.profileProgress.setVisibility(View.VISIBLE);
         profileViewModel = new ViewModelProvider(requireActivity()).get(ProfileViewModel.class);
 
@@ -136,7 +135,7 @@ public class ProfileFragment extends Fragment {
 
                 if (!TextUtils.isEmpty(profileData.getName()) && !TextUtils.isEmpty(profileData.getEmail()) && !TextUtils.isEmpty(profileData.getPhoneNumber())) {
 
-                    binding.doctorNameText.setText(profileData.getName());
+                    binding.doctorNameText.setText("Dr." + profileData.getName());
                     binding.emailAddressText.setText(profileData.getEmail());
                     binding.contactText.setText(profileData.getPhoneNumber());
                 } else {
@@ -145,7 +144,9 @@ public class ProfileFragment extends Fragment {
                     binding.contactText.setText("9999999999");
                 }
 
-                if(!preferences.getBoolean("isDoc",false)){
+                if (!preferences.getBoolean("isDoc", false)) {
+                    binding.doctorNameText.setText(profileData.getName());
+
                     binding.speciality.setText("CASE OF: ORTHOLOGIST");
                     speciality = "ORTHOLOGIST";
                 }
@@ -178,7 +179,6 @@ public class ProfileFragment extends Fragment {
                 requireActivity().getSupportFragmentManager().popBackStack();
 
 
-
             }
         });
 
@@ -191,14 +191,13 @@ public class ProfileFragment extends Fragment {
                 bundle.putString("PROFILE-FRAGMENT-NAME", (String) binding.doctorNameText.getText());
                 bundle.putString("PROFILE-FRAGMENT-EMAIL", (String) binding.emailAddressText.getText());
                 bundle.putString("PROFILE-FRAGMENT-PHONE-NUMBER", (String) binding.contactText.getText());
-                if(!preferences.getBoolean("isDoc",false)){
+                if (!preferences.getBoolean("isDoc", false)) {
                     bundle.putString("PROFILE-FRAGMENT-SPECIALITY", speciality);
-                } else{
+                } else {
                     bundle.putString("PROFILE-FRAGMENT-SPECIALITY", (String) binding.speciality.getText());
                 }
                 bundle.putString("PROFILE-FRAGMENT-PROFILE-IMAGE", receivedProfileData.getImage());
                 profileEditFragment.setArguments(bundle);
-
 
 
                 requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, profileEditFragment).setReorderingAllowed(true).addToBackStack("profileedit").commit();
@@ -206,20 +205,32 @@ public class ProfileFragment extends Fragment {
             }
         });
 
-        
+        final SharedPreferences sp = requireContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+        boolean isDoc = sp.getBoolean("isDoc", false);
+        String dorP_id = sp.getString("doctor_id", "");
+        String patient_id = sp.getString("id", "");
 
+        binding.swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                if (isDoc) {
+                    Log.d("Testing", "Url: " + Globals.profileDoctor + dorP_id);
+                    profileViewModel.onRefresh(Globals.profileDoctor + dorP_id, true);
+
+                } else {
+                    Log.d("Testing", "Url: " + Globals.profileDoctor + patient_id);
+                    profileViewModel.onRefresh(Globals.profilePatient + patient_id, false);
+
+                }
+                binding.swipeToRefresh.setRefreshing(false);
+
+            }
+        });
 
 
         return binding.getRoot();
     }
-
-
-
-
-
-
-
-
 
 
 }
