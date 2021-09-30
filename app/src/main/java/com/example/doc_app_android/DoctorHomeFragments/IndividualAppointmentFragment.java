@@ -178,7 +178,18 @@ public class IndividualAppointmentFragment extends Fragment implements AppointWi
                             .atZone(ZoneId.systemDefault())
                             .toInstant().toEpochMilli();
 
-                    event = new Event(Color.BLUE, millis, data.get(i).getName() + "-" + data.get(i).getId());
+                    try {
+                        Date today23=new SimpleDateFormat("yyyy-MM-dd").parse(data.get(i).getDate());
+                        if(today23.before(today1)){
+                            event = new Event(Color.RED, millis, data.get(i).getName() + "-" + data.get(i).getId() + "-" + "before");
+                        } else {
+                            event = new Event(Color.BLUE, millis, data.get(i).getName() + "-" + data.get(i).getId() + "-" + "after");
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+                    //event = new Event(Color.BLUE, millis, data.get(i).getName() + "-" + data.get(i).getId());
                     eventList.add(event);
 
                 }
@@ -201,6 +212,7 @@ public class IndividualAppointmentFragment extends Fragment implements AppointWi
             binding.askForAppointment.setVisibility(View.GONE);
             binding.addReminder.setVisibility(View.GONE);
             binding.addANote.setVisibility(View.GONE);
+            binding.appointmentScrollView.setBackgroundResource(R.color.white);
         }
 
 

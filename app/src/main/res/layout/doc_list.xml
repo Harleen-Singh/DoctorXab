@@ -1,49 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/container"
+    android:minWidth="858px"
+    android:minHeight="1200px"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:padding="2dp"
-    android:background="@drawable/pd_bg1"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:windowSoftInputMode="adjustNothing"
+    android:background="@drawable/pd_bg1">
 
-    <TextView
-        android:id="@+id/label_for_list"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="List"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:paddingTop="15dp"
-        android:textSize="16sp"
-        android:fontFamily="@font/rubik_semi_bold"
-        app:layout_constraintBottom_toTopOf="@id/docList"
-        app:layout_constraintStart_toStartOf="@id/docList"
-        app:layout_constraintEnd_toEndOf="@id/docList"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/docList"
-        android:layout_width="wrap_content"
-        android:layout_height="400dp"
-        android:layout_margin="5dp"
-        android:paddingTop="20dp"
-        android:background="@color/white"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/doclist_single" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:indeterminateTint="@color/theme"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/docList"
-        app:layout_constraintEnd_toEndOf="@+id/docList"
-        app:layout_constraintStart_toStartOf="@+id/docList"
-        app:layout_constraintTop_toTopOf="@+id/docList" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+
+            <TextView
+                android:id="@+id/label_for_list"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/rubik_semi_bold"
+                android:gravity="center"
+                android:paddingTop="15dp"
+                android:text="List"
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+
+                app:layout_constraintBottom_toTopOf="@id/edit_text_for_search"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <EditText
+                android:id="@+id/edit_text_for_search"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:fontFamily="@font/rubik"
+                android:gravity="start"
+                android:hint="Search..."
+                android:inputType="textPersonName"
+                android:paddingTop="15dp"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+
+                app:layout_constraintBottom_toTopOf="@id/docList"
+                app:layout_constraintEnd_toStartOf="@id/search_list"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <androidx.constraintlayout.utils.widget.ImageFilterButton
+                android:id="@+id/search_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:background="@color/white"
+                android:clickable="false"
+                android:focusable="false"
+                android:src="@drawable/search_toolbar"
+
+                app:layout_constraintBottom_toTopOf="@id/docList"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/edit_text_for_search"
+                app:layout_constraintTop_toTopOf="@id/edit_text_for_search" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/docList"
+                android:layout_width="wrap_content"
+                android:layout_height="400dp"
+                android:layout_margin="5dp"
+                android:background="@color/white"
+                android:paddingTop="5dp"
+                android:visibility="visible"
+                android:paddingBottom="10dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_text_for_search"
+                tools:listitem="@layout/doclist_single" />
+
+
+            <ImageView
+                android:id="@+id/no_res00"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:animateLayoutChanges="true"
+                android:contentDescription="It will be shown when nothing will be found in search"
+                android:src="@drawable/ic_baseline_search_off_24"
+                android:visibility="gone"
+                android:layout_marginTop="100dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_text_for_search" />
+
+            <TextView
+                android:id="@+id/no_res11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:text="Search Not Found!"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/no_res00"
+                app:layout_constraintStart_toStartOf="@id/no_res00"
+                app:layout_constraintTop_toBottomOf="@id/no_res00" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="@color/theme"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

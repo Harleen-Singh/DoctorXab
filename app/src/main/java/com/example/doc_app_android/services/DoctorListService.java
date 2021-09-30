@@ -38,6 +38,19 @@ public class DoctorListService {
     private boolean isDoc = false;
     private ArrayList<DocData> listOfNames;
 
+    public MutableLiveData<ArrayList<DocData>> getDocListForShare(Context context) {
+        this.app = context;
+        preferences = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+        isDoc = preferences.getBoolean("isDoc", false);
+        if (data == null) {
+            id_name_Pair = new MutableLiveData<>();
+            data = new MutableLiveData<>();
+            loadData();
+
+        }
+        return data;
+    }
+
     public MutableLiveData<ArrayList<DocData>> getDocList(Context context) {
         this.app = context;
         preferences = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);

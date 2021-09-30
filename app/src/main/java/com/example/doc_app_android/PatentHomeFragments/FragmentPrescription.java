@@ -64,6 +64,10 @@ public class FragmentPrescription extends Fragment {
                 adapter.notifyDataSetChanged();
                 binding.progressbar.setVisibility(View.GONE);
                 binding.swipe2refresh.setRefreshing(false);
+                if (prescData.isEmpty()){
+                    binding.noDataPres.setVisibility(View.VISIBLE);
+                    binding.noDataPres1.setVisibility(View.VISIBLE);
+                }
             }
         });
 

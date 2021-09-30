@@ -190,7 +190,20 @@ public class AppointmentV2 extends Fragment implements AppointWithAdapter.OnCanc
                             .atZone(ZoneId.systemDefault())
                             .toInstant().toEpochMilli();
 
-                    event = new Event(Color.BLUE, millis, data.get(i).getName() + "-" + data.get(i).getId());
+                    try {
+                        Date today23=new SimpleDateFormat("yyyy-MM-dd").parse(data.get(i).getDate());
+                        if(today23.before(today1)){
+                            event = new Event(getContext().getResources().getColor(R.color.app_compat_grey), millis, data.get(i).getName() + "-" + data.get(i).getId() + "-" + "before");
+                        } else {
+                            event = new Event(getContext().getResources().getColor(R.color.scnd_blue_white), millis, data.get(i).getName() + "-" + data.get(i).getId() + "-" + "after");
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+
+
+
+                    //event = new Event(Color.BLUE, millis, data.get(i).getName() + "-" + data.get(i).getId());
                     eventList.add(event);
 
                 }
@@ -288,12 +301,12 @@ public class AppointmentV2 extends Fragment implements AppointWithAdapter.OnCanc
             }
         });
 
-        binding.swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-            }
-        });
+//        binding.swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                binding.swipeToRefresh.setRefreshing(false);
+//            }
+//        });
 
         //binding.appointmentV2Progress.setVisibility(View.GONE);
 
@@ -313,7 +326,12 @@ public class AppointmentV2 extends Fragment implements AppointWithAdapter.OnCanc
             docListFragment docDialog = new docListFragment(SelectedDate);
             docDialog.setDialog(docDialog);
             docDialog.setStyle(DialogFragment.STYLE_NO_FRAME, R.style.AlertDialogLowRadius);
+//            Window window1 = docDialog.getDialog().getWindow();
+//            window1.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//            docDialog.getDialog().getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             docDialog.show(getChildFragmentManager(), "docList");
+
+
         }
     }
 

@@ -11,10 +11,10 @@
         android:iconTint="@color/teal_200"
         android:title="PROFILE" />
 
-    <item
-        android:id="@+id/menu_appointments"
-        android:icon="@drawable/appointments"
-        android:title="APPOINTMENTS"/>
+<!--    <item-->
+<!--        android:id="@+id/menu_appointments"-->
+<!--        android:icon="@drawable/appointments"-->
+<!--        android:title="APPOINTMENTS"/>-->
 
     <item
         android:id="@+id/menu_schedule"

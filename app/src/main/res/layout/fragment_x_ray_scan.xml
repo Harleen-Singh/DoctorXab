@@ -43,6 +43,31 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:listitem="@layout/single_list_xray" />
 
+            <ImageView
+                android:id="@+id/no_data_pres"
+                android:layout_width="300dp"
+                android:layout_height="150dp"
+                android:src="@drawable/ic_baseline_cloud_off_24"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/no_data_pres1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/rubik"
+                android:text="No Data Found"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="@id/no_data_pres"
+                app:layout_constraintStart_toStartOf="@id/no_data_pres"
+                app:layout_constraintTop_toBottomOf="@id/no_data_pres" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </FrameLayout>

@@ -56,7 +56,9 @@ public class patientCheckUpHistory extends Fragment {
                 Log.d("TAG", "onChanged: " + ckpHstryData);
                 adapter.notifyDataSetChanged();
                 if (ckpHstryData.isEmpty()){
-                    binding.background.setBackground(AppCompatResources.getDrawable(requireContext(),R.drawable.no_data));
+                    binding.noDataPres.setVisibility(View.VISIBLE);
+                    binding.noDataPres1.setVisibility(View.VISIBLE);
+//                    binding.background.setBackground(AppCompatResources.getDrawable(requireContext(),R.drawable.ic_baseline_cloud_off_24));
                 }
                 binding.swipe2refresh.setRefreshing(false);
                 binding.progressbar.setVisibility(View.GONE);

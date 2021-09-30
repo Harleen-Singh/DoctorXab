@@ -50,7 +50,9 @@ public class FragmentXRayScan extends Fragment {
                 adapter.setdata(xray_data);
                 adapter.notifyDataSetChanged();
                 if (xray_data.isEmpty()) {
-                    binding.TopLayout.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.no_data));
+//                    binding.TopLayout.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.no_data));
+                    binding.noDataPres.setVisibility(View.VISIBLE);
+                    binding.noDataPres1.setVisibility(View.VISIBLE);
                 }
                 binding.progressbar.setVisibility(View.GONE);
                 binding.swipe2refreshXray.setRefreshing(false);

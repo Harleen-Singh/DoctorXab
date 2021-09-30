@@ -311,6 +311,7 @@ public class CheckupDetailsPatient extends Fragment {
                                 fromDoctorBinding.selectedDate.setText(selectedDate);
                             }
                         }, mYear, mMonth, mDay);
+                        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                         datePickerDialog.show();
                     }
                 });

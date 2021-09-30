@@ -57,6 +57,12 @@ public class DataLoaderFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -84,7 +90,9 @@ public class DataLoaderFragment extends Fragment {
                 binding.dataLoadingProgressBar.setVisibility(View.GONE);
                 if (profileData.isEmpty()) {
                     if (binding.dataFragmentContainer != null) {
-                        binding.dataFragmentContainer.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.no_data));
+//                        binding.dataFragmentContainer.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.no_data));
+                        binding.noRes.setVisibility(View.VISIBLE);
+                        binding.noRes1.setVisibility(View.GONE);
                     } else {
                         Log.d("Testing", "binding.dataFragmentContainer is null");
                     }

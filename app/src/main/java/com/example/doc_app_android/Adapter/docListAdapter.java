@@ -12,6 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.DatePicker;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -20,10 +23,12 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.toolbox.Volley;
 import com.example.doc_app_android.Dialogs.dialogs;
 import com.example.doc_app_android.Dialogs.docListFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.DocData;
+import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.databinding.AppointmentFromDoctorBinding;
 import com.squareup.picasso.Picasso;
 
@@ -32,8 +37,9 @@ import java.util.Calendar;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class docListAdapter extends RecyclerView.Adapter<docListAdapter.viewHolder> {
+public class docListAdapter extends RecyclerView.Adapter<docListAdapter.viewHolder> implements Filterable {
     public ArrayList<DocData> data;
+    public ArrayList<DocData> backup;
     docListFragment docDialog;
     private CharSequence date;
     public MutableLiveData<String> docId = new MutableLiveData<>();
@@ -44,14 +50,22 @@ public class docListAdapter extends RecyclerView.Adapter<docListAdapter.viewHold
     private int mDay, mMonth, mYear, mHour, mMinute;
     private String selectedTime, selectedDate;
     private SharedPreferences preferences;
+    private ImageView no_res1;
+    private TextView no_res;
+    private RecyclerView rcv;
 
-    public docListAdapter(ArrayList<DocData> arr, CharSequence date, docListFragment docDialog, boolean duringRegisteration) {
+    public docListAdapter(ArrayList<DocData> arr, CharSequence date, docListFragment docDialog, boolean duringRegisteration, TextView no_res, ImageView no_res1, RecyclerView rcv) {
         data = arr;
+        this.backup = new ArrayList<>(arr);
         this.date = date;
         this.docDialog = docDialog;
         this.duringRegisteration = duringRegisteration;
+        this.no_res = no_res;
+        this.no_res1 = no_res1;
+        this.rcv = rcv;
 
     }
+
 
     @NonNull
     @Override
@@ -107,6 +121,7 @@ public class docListAdapter extends RecyclerView.Adapter<docListAdapter.viewHold
                                     fromDoctorBinding.selectedDate.setText(selectedDate);
                                 }
                             }, mYear, mMonth, mDay);
+                            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                             datePickerDialog.show();
                         }
                     });
@@ -176,6 +191,60 @@ public class docListAdapter extends RecyclerView.Adapter<docListAdapter.viewHold
     public int getItemCount() {
         return data.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            ArrayList<DocData> filteredData = new ArrayList<>();
+
+            if (constraint.toString().isEmpty()) {
+                filteredData.addAll(backup);
+            } else {
+                for (DocData obj : backup) {
+                    if (obj.getName().toString().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                        filteredData.add(obj);
+                    }
+                }
+            }
+
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = filteredData;
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            if (results != null) {
+                data.clear();
+                Log.d("TextWatcher", "Size of Published Data: " + ((ArrayList<ProfileData>) results.values).size());
+
+                if (((ArrayList<ProfileData>) results.values).size() > 0) {
+
+                    data.addAll((ArrayList<DocData>) results.values);
+                    no_res.setVisibility(View.GONE);
+                    no_res1.setVisibility(View.GONE);
+                    rcv.setVisibility(View.VISIBLE);
+
+                } else{
+                    rcv.setVisibility(View.GONE);
+                    no_res.setVisibility(View.VISIBLE);
+                    no_res1.setVisibility(View.VISIBLE);
+                }
+
+                notifyDataSetChanged();
+                Log.d("TextWatcher", "publishResults: I am working");
+            }
+
+        }
+    };
+
 
     static class viewHolder extends RecyclerView.ViewHolder {
         TextView name;

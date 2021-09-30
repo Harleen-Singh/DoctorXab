@@ -23,6 +23,6 @@ public class DoctorShareViewModel extends AndroidViewModel {
     }
 
     public LiveData<ArrayList<DocData>> getDoctorList(){
-        return doctorListService.getDocList(app);
+        return doctorListService.getDocListForShare(app);
     }
 }

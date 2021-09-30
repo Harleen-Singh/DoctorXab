@@ -9,10 +9,7 @@
         android:background="@color/scnd_blue"
         tools:context=".DoctorHomeFragments.AppointmentV2">
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipeToRefresh"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+
 
             <ScrollView
                 android:id="@+id/appointment_scrollView"
@@ -105,7 +102,8 @@
                             app:compactCalendarCurrentDayTextColor="@color/white"
                             app:compactCalendarCurrentSelectedDayBackgroundColor="#172578"
                             app:compactCalendarCurrentSelectedDayTextColor="@color/white"
-                            app:compactCalendarMultiEventIndicatorColor="#fff"
+                            app:compactCalendarEventIndicatorStyle="fill_large_indicator"
+
                             app:compactCalendarShouldSelectFirstDayOfMonthOnScroll="false"
                             app:compactCalendarTargetHeight="250dp"
                             app:compactCalendarTextColor="@color/black"
@@ -346,7 +344,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </ScrollView>
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

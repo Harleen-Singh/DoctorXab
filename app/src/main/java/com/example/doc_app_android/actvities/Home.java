@@ -197,9 +197,9 @@ public class Home extends AppCompatActivity {
                         temp = new ProfileFragment();
                         break;
 
-                    case R.id.menu_appointments:
-                        temp = new DoctorAppointmentsFragment();
-                        break;
+//                    case R.id.menu_appointments:
+//                        temp = new DoctorAppointmentsFragment();
+//                        break;
 
                     case R.id.menu_schedule:
                         temp = new ScheduleFragment();

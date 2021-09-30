@@ -43,7 +43,14 @@ public class AppointWithAdapter extends RecyclerView.Adapter<AppointWithAdapter.
         Event feed = nameList.get(position);
         String name = String.valueOf(feed.getData());
         String[] arr = name.split("-");
-        holder.binding.appointmentDoctorName.setText(arr[0]);
+        if(arr[2].equals("before")) {
+            holder.binding.appointmentWithLabel.setText("YOU HAD AN APPOINTMENT WITH");
+            holder.binding.appointmentDoctorName.setText(arr[0]);
+            holder.binding.appointmentCancel.setVisibility(View.GONE);
+        }else {
+            holder.binding.appointmentCancel.setVisibility(View.VISIBLE);
+            holder.binding.appointmentDoctorName.setText(arr[0]);
+        }
     }
 
     @Override
