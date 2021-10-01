@@ -99,6 +99,7 @@
                         app:compactCalendarCurrentDayTextColor="@color/white"
                         app:compactCalendarCurrentSelectedDayBackgroundColor="#172578"
                         app:compactCalendarCurrentSelectedDayTextColor="@color/white"
+                        app:compactCalendarEventIndicatorStyle="fill_large_indicator"
                         app:compactCalendarMultiEventIndicatorColor="#fff"
                         app:compactCalendarShouldSelectFirstDayOfMonthOnScroll="false"
                         app:compactCalendarTargetHeight="250dp"

@@ -8,9 +8,11 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.doc_app_android.Dialogs.ConfirmationDialogFragment;
 import com.example.doc_app_android.Dialogs.dialogs;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.DocData;
@@ -72,8 +74,11 @@ public class ShareAdapter extends RecyclerView.Adapter<ShareAdapter.ShareViewHol
 //        docDialog.setStyle(DialogFragment.STYLE_NO_FRAME,R.style.AlertDialog);
 //        docDialog.show(manager, "docList");
 
-        dialogs dialog = new dialogs();
-        dialog.displayShareConfirmationDialog("Do you want to share report with Dr." + newData.getName() + "?", context, newData);
+//        dialogs dialog = new dialogs();
+//        dialog.displayShareConfirmationDialog("Do you want to share report with Dr." + newData.getName() + "?", context, newData);
+        ConfirmationDialogFragment dialogFragment = new ConfirmationDialogFragment("Do you want to share report with Dr." + newData.getName() + "?", context, newData, false);
+        dialogFragment.setStyle(DialogFragment.STYLE_NO_FRAME, R.style.AlertDialogLowRadius);
+        dialogFragment.show(manager, "docList");
 
     }
 

@@ -8,8 +8,11 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.doc_app_android.Dialogs.AppointmentConfirmationDialogFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.NotiData;
 import com.example.doc_app_android.databinding.SingleListNotiBinding;
@@ -23,11 +26,13 @@ public class notificationAdapter extends RecyclerView.Adapter<notificationAdapte
     public Context mContext;
     notiService service = new notiService();
     SharedPreferences preferences;
+    private FragmentManager manager;
 
-    public notificationAdapter(Context xontext) {
+    public notificationAdapter(Context xontext, FragmentManager childFragmentManager) {
         mContext = xontext;
         notiData = new ArrayList<>();
         preferences = mContext.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+        this.manager = childFragmentManager;
     }
 
     public void setData(ArrayList<NotiData> d) {
@@ -50,8 +55,12 @@ public class notificationAdapter extends RecyclerView.Adapter<notificationAdapte
         if (preferences.getBoolean("isDoc", false)) {
             if (Integer.parseInt(data.getIcon()) == 1) {
                 holder.binding.clickableArea.setOnClickListener(v -> {
-                    if (!data.getStatus().equals("1"))
-                        displayConfirmationDialog(data, position);
+                    if (!data.getStatus().equals("1")) {
+                        AppointmentConfirmationDialogFragment dialogFragment = new AppointmentConfirmationDialogFragment(data, position, notiData);
+                        dialogFragment.setStyle(DialogFragment.STYLE_NO_FRAME, R.style.AlertDialogLowRadius);
+                        dialogFragment.show(manager, "AppointmentConfirmation");
+//                        displayConfirmationDialog(data, position);
+                    }
                     else
                         holder.binding.clickableArea.setBackgroundColor(mContext.getResources().getColor(R.color.white));
                 });

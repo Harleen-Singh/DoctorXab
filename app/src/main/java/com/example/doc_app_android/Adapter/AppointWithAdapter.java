@@ -1,6 +1,7 @@
 package com.example.doc_app_android.Adapter;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,7 @@ public class AppointWithAdapter extends RecyclerView.Adapter<AppointWithAdapter.
             holder.binding.appointmentDoctorName.setText(arr[0]);
             holder.binding.appointmentCancel.setVisibility(View.GONE);
         }else {
+            holder.binding.appointmentWithLabel.setText("APPOINTMENT WITH");
             holder.binding.appointmentCancel.setVisibility(View.VISIBLE);
             holder.binding.appointmentDoctorName.setText(arr[0]);
         }

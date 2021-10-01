@@ -122,7 +122,6 @@ public class ShareFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 requireActivity().getSupportFragmentManager().popBackStack();
-
             }
         });
 

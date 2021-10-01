@@ -60,7 +60,7 @@ public class NotificationFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         binding = DataBindingUtil.inflate(inflater,R.layout.fragment_notification,null,false);
-        notificationAdapter adapter = new notificationAdapter(requireContext());
+        notificationAdapter adapter = new notificationAdapter(requireContext(), getChildFragmentManager());
         binding.rView.setAdapter(adapter);
         model = new ViewModelProvider(requireActivity()).get(FragmentNotificationViewModel.class);
         binding.progressbar.setVisibility(View.VISIBLE);

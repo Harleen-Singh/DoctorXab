@@ -14,6 +14,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
             android:fontFamily="@font/rubik"
@@ -53,6 +54,7 @@
             android:background="@drawable/btn_theme_2"
             android:clickable="true"
             android:focusable="true"
+
             android:text="CANCEL"
             android:textColor="#8B91AB"
             android:textSize="14sp"

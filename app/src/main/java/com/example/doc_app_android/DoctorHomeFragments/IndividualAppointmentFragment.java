@@ -181,9 +181,9 @@ public class IndividualAppointmentFragment extends Fragment implements AppointWi
                     try {
                         Date today23=new SimpleDateFormat("yyyy-MM-dd").parse(data.get(i).getDate());
                         if(today23.before(today1)){
-                            event = new Event(Color.RED, millis, data.get(i).getName() + "-" + data.get(i).getId() + "-" + "before");
+                            event = new Event(Color.LTGRAY, millis, data.get(i).getName() + "-" + data.get(i).getId() + "-" + "before");
                         } else {
-                            event = new Event(Color.BLUE, millis, data.get(i).getName() + "-" + data.get(i).getId() + "-" + "after");
+                            event = new Event(getContext().getResources().getColor(R.color.scnd_light_blue), millis, data.get(i).getName() + "-" + data.get(i).getId() + "-" + "after");
                         }
                     } catch (ParseException e) {
                         e.printStackTrace();
@@ -208,7 +208,7 @@ public class IndividualAppointmentFragment extends Fragment implements AppointWi
 
         if (fromPatientInfoAppointment) {
             binding.separator1.setVisibility(View.GONE);
-            binding.appointmentList.setVisibility(View.GONE);
+//            binding.appointmentList.setVisibility(View.GONE);
             binding.askForAppointment.setVisibility(View.GONE);
             binding.addReminder.setVisibility(View.GONE);
             binding.addANote.setVisibility(View.GONE);
@@ -223,6 +223,12 @@ public class IndividualAppointmentFragment extends Fragment implements AppointWi
                 listOfEvents = (ArrayList<Event>) binding.compactCalendarView.getEvents(dateClicked);
                 adapter.setData(listOfEvents);
                 adapter.notifyDataSetChanged();
+                if(listOfEvents.isEmpty()){
+                    binding.separator1.setVisibility(View.GONE);
+                } else {
+                    binding.separator1.setVisibility(View.VISIBLE);
+
+                }
 
             }
 

@@ -193,9 +193,10 @@ public class AppointmentV2 extends Fragment implements AppointWithAdapter.OnCanc
                     try {
                         Date today23=new SimpleDateFormat("yyyy-MM-dd").parse(data.get(i).getDate());
                         if(today23.before(today1)){
-                            event = new Event(getContext().getResources().getColor(R.color.app_compat_grey), millis, data.get(i).getName() + "-" + data.get(i).getId() + "-" + "before");
+                            // getContext().getResources().getColor(R.color.app_compat_grey)
+                            event = new Event(Color.LTGRAY, millis, data.get(i).getName() + "-" + data.get(i).getId() + "-" + "before");
                         } else {
-                            event = new Event(getContext().getResources().getColor(R.color.scnd_blue_white), millis, data.get(i).getName() + "-" + data.get(i).getId() + "-" + "after");
+                            event = new Event(getContext().getResources().getColor(R.color.scnd_light_blue), millis, data.get(i).getName() + "-" + data.get(i).getId() + "-" + "after");
                         }
                     } catch (ParseException e) {
                         e.printStackTrace();

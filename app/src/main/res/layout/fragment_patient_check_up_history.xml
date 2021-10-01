@@ -37,7 +37,6 @@
                     android:id="@+id/rView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="gone"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -47,8 +46,8 @@
 
                 <ImageView
                     android:id="@+id/no_data_pres"
-                    android:layout_width="300dp"
-                    android:layout_height="150dp"
+                    android:layout_width="150dp"
+                    android:layout_height="75dp"
                     android:src="@drawable/ic_baseline_cloud_off_24"
                     android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -61,7 +60,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/rubik"
-                    android:text="No Data Found"
+                    android:text="No Data Available"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
