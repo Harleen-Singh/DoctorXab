@@ -91,6 +91,7 @@ public class ConfirmationDialogFragment extends DialogFragment {
                 ProgressDialog dialog1 = new ProgressDialog(context, R.style.AlertDialog);
                 alertDialogLogin(dialog1, "Processing");
                 service.shareReport(context, dialog1, newData);
+                dismiss();
                 Log.e("TAG", "displayConfirmationDialog: confirmed");
 
             }
