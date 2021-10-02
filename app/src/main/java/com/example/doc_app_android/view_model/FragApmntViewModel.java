@@ -24,12 +24,12 @@ public class FragApmntViewModel extends AndroidViewModel {
         super(application);
         app = application;
     }
-    public LiveData<ArrayList<AppointmentData>> getApmntData(ProgressBar progressBar){
-        return service.getApmntData(app, progressBar);
+    public LiveData<ArrayList<AppointmentData>> getApmntData(ProgressBar progressBar, Context context){
+        return service.getApmntData(app, progressBar, context);
     }
 
-    public LiveData<ArrayList<AppointmentData>> getIndividualAppointmentData(ProgressBar progressBar){
-        return service.getIndividualAppointmentData(app, progressBar);
+    public LiveData<ArrayList<AppointmentData>> getIndividualAppointmentData(ProgressBar progressBar, Context context){
+        return service.getIndividualAppointmentData(app, progressBar, context);
     }
 
     public void cancelAppointmentFromDoctorOrPatient(String id, Context context){

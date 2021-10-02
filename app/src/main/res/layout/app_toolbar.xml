@@ -2,7 +2,6 @@
 
 <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragtoolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -61,10 +60,10 @@
             app:layout_constraintStart_toEndOf="@+id/toolbar_title"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageButton
+        <ImageView
             android:id="@+id/noti_btn"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginEnd="3dp"
             android:layout_marginRight="3dp"
             android:background="@color/scnd_blue_white"
@@ -74,16 +73,61 @@
             android:focusable="true"
             android:foreground="?android:attr/actionBarItemBackground"
             android:src="@drawable/notifications"
-            app:layout_constraintBottom_toBottomOf="@+id/search_btn"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/search_btn"
-            app:layout_constraintTop_toTopOf="@+id/search_btn" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/count_background"
+            android:layout_width="17dp"
+            android:layout_height="17dp"
+            android:visibility="gone"
+            android:background="@drawable/circular_bg"
+            android:backgroundTint="@android:color/holo_red_dark"
+            android:clickable="true"
+            android:focusable="true"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="@id/noti_btn"
+            app:layout_constraintEnd_toEndOf="@id/noti_btn"
+            />
+
+        <TextView
+            android:id="@+id/count_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="11"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
+            android:singleLine="true"
+            android:padding="4dp"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textSize="8sp"
+            android:fontFamily="@font/rubik_bold"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@id/count_background"
+            app:layout_constraintEnd_toEndOf="@id/count_background"
+            app:layout_constraintTop_toTopOf="@id/count_background"
+            app:layout_constraintBottom_toBottomOf="@id/count_background"/>
+
+
+
+
+
+
+
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/edit_search"
             android:layout_width="350dp"
             android:layout_height="50dp"
+            android:layout_marginStart="30dp"
             android:layout_marginTop="25dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/edit_text_search"
             android:drawableRight="@drawable/search_edit_text"
             android:hint="@string/search_here"
@@ -92,9 +136,6 @@
             android:paddingLeft="30dp"
             android:paddingEnd="30dp"
             android:paddingRight="30dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginEnd="30dp"
             android:singleLine="true"
             android:textColor="#8B91AB"
             android:textColorHint="#8B91AB"

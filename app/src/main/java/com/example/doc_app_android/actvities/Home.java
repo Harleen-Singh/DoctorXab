@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -34,6 +35,7 @@ import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.FilterData;
 import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.databinding.ActivityHomeBinding;
+import com.example.doc_app_android.view_model.FragmentNotificationViewModel;
 import com.example.doc_app_android.view_model.HomeViewModel;
 import com.example.doc_app_android.view_model.ProfileViewModel;
 import com.google.android.material.navigation.NavigationView;
@@ -47,19 +49,23 @@ public class Home extends AppCompatActivity {
 
     private NavigationView nav;
     private ProfileViewModel profileViewModel;
+    private FragmentNotificationViewModel countModel;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle toggle;
     private boolean regornot = false;
     private FilterRCVadapter filterAdapter;
     ActivityHomeBinding binding;
     private EditText search_field;
-    private ImageButton search, draw_btn, noti_btn;
+    private ImageButton search, draw_btn;
+    private ImageView noti_btn;
     private HomeViewModel model;
     private CircleImageView nav_profile;
     private TextView nav_name;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     Fragment temp;
+    private CircleImageView count_bg;
+    private TextView count_number;
 
 
 
@@ -111,11 +117,14 @@ public class Home extends AppCompatActivity {
         regornot = getIntent().getBooleanExtra("reg", false);
         search = findViewById(R.id.search_btn);
         noti_btn = findViewById(R.id.noti_btn);
+        count_bg = findViewById(R.id.count_background);
+        count_number = findViewById(R.id.count_number);
         filterAdapter = new FilterRCVadapter(this);
         binding.setLifecycleOwner(this);
         binding.filterRcv.setAdapter(filterAdapter);
         model = new ViewModelProvider(this).get(HomeViewModel.class);
         profileViewModel = new ViewModelProvider(this).get(ProfileViewModel.class);
+        countModel = new ViewModelProvider(this).get(FragmentNotificationViewModel.class);
 
         preferences = getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
 
@@ -139,11 +148,45 @@ public class Home extends AppCompatActivity {
 
                 nav_name = findViewById(R.id.nav_profile_name);
                 nav_profile = findViewById(R.id.nav_profile_image);
-                nav_name.setText(profileData.getName());
+
+                if(preferences.getBoolean("isDoc", false)) {
+                    nav_name.setText("Dr." + profileData.getName());
+                } else {
+                    nav_name.setText(profileData.getName());
+                }
                 Picasso.get()
                         .load(profileData.getImage())
                         .placeholder(R.drawable.doctor_profile_image)
                         .into(nav_profile);
+            }
+        });
+
+        countModel.getCount().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                int num = Integer.parseInt(s);
+                if(num == 0){
+                    count_bg.setVisibility(View.GONE);
+                    count_number.setVisibility(View.GONE);
+                } else if (num >0 && num <=99){
+                    count_number.setText(s);
+                    count_bg.setVisibility(View.VISIBLE);
+                    count_number.setVisibility(View.VISIBLE);
+                    
+                } else {
+                    count_number.setText("99+");
+                    count_bg.setVisibility(View.VISIBLE);
+                    count_number.setVisibility(View.VISIBLE);
+                }
+
+            }
+        });
+        count_number.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                temp = new NotificationFragment();
+                getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, temp).setReorderingAllowed(true).addToBackStack(null).commit();
+
             }
         });
 

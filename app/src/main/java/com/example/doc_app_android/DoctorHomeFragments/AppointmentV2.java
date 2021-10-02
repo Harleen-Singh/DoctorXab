@@ -177,7 +177,7 @@ public class AppointmentV2 extends Fragment implements AppointWithAdapter.OnCanc
         }
 
 
-        viewModel.getApmntData(binding.appointmentV2Progress).observe(getViewLifecycleOwner(), new Observer<ArrayList<AppointmentData>>() {
+        viewModel.getApmntData(binding.appointmentV2Progress, requireContext()).observe(getViewLifecycleOwner(), new Observer<ArrayList<AppointmentData>>() {
             @Override
             public void onChanged(ArrayList<AppointmentData> data) {
                 binding.compactCalendarView.removeAllEvents();

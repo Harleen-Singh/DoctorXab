@@ -40,7 +40,7 @@
                 android:singleLine="true"
                 android:text="Doc Name"
                 android:textAlignment="textStart"
-                android:textColor="@color/theme"
+                android:textColor="@color/black"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -3,6 +3,7 @@ package com.example.doc_app_android.Adapter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -52,6 +53,10 @@ public class notificationAdapter extends RecyclerView.Adapter<notificationAdapte
         holder.binding.setNotiData(data);
         holder.binding.executePendingBindings();
 
+        if(data.getStatus().equals("1")){
+            holder.binding.containerNotif.setBackgroundColor(mContext.getResources().getColor(R.color.white));
+        }
+
         if (preferences.getBoolean("isDoc", false)) {
             if (Integer.parseInt(data.getIcon()) == 1) {
                 holder.binding.clickableArea.setOnClickListener(v -> {
@@ -62,10 +67,12 @@ public class notificationAdapter extends RecyclerView.Adapter<notificationAdapte
 //                        displayConfirmationDialog(data, position);
                     }
                     else
-                        holder.binding.clickableArea.setBackgroundColor(mContext.getResources().getColor(R.color.white));
+                        holder.binding.containerNotif.setBackgroundColor(mContext.getResources().getColor(R.color.white));
                 });
                 holder.binding.imageView2.setBackground(AppCompatResources.getDrawable(mContext, R.drawable.download));
             }
+        } else{
+            holder.binding.imageView2.setVisibility(View.GONE);
         }
     }
 

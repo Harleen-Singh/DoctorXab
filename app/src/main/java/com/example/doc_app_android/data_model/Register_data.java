@@ -75,6 +75,7 @@ public class Register_data {
 
     public void setSpecialistof(String specialistof) {
         this.specialistof = specialistof;
+        this.specialistof = "ORTHOLOGIST";
     }
 
     public String getConslt() {

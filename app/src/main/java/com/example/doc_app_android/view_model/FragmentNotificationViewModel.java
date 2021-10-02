@@ -18,6 +18,11 @@ public class FragmentNotificationViewModel extends AndroidViewModel {
         super(application);
         app = application;
     }
+
+    public LiveData<String> getCount(){
+        return service.getCount(app);
+    }
+
     public LiveData<ArrayList<NotiData>> getNotiData(){
         return service.getNotiData(app);
     }

@@ -65,15 +65,17 @@ public class AppointmentService {
     }
 
 
-    public LiveData<ArrayList<AppointmentData>> getApmntData(Application app, ProgressBar progressBar) {
+    public LiveData<ArrayList<AppointmentData>> getApmntData(Application app, ProgressBar progressBar, Context context) {
         this.app = app;
         this.progressBarFromAppointmentV2 = progressBar;
+        progressDialog = new ProgressDialog(context, R.style.AlertDialog);
 
         final SharedPreferences sp = app.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
         isDoc = sp.getBoolean("isDoc", false);
 
         if (data_model == null) {
-            progressBarFromAppointmentV2.setVisibility(View.VISIBLE);
+//            progressBarFromAppointmentV2.setVisibility(View.VISIBLE);
+            dialogs.alertDialogLogin(progressDialog, "Loading...");
 
 
             data_model = new MutableLiveData<>();
@@ -87,14 +89,16 @@ public class AppointmentService {
         return data_model;
     }
 
-    public LiveData<ArrayList<AppointmentData>> getIndividualAppointmentData(Application app, ProgressBar progressBar) {
+    public LiveData<ArrayList<AppointmentData>> getIndividualAppointmentData(Application app, ProgressBar progressBar, Context context) {
         progressBarFromIndividualAppointment = progressBar;
         this.app = app;
         prefs = app.getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
         required_id = prefs.getString("patient_id", "");
         url = Globals.individualAppointment + required_id;
+        progressDialog = new ProgressDialog(context, R.style.AlertDialog);
+        dialogs.alertDialogLogin(progressDialog, "Loading...");
 
-        progressBarFromIndividualAppointment.setVisibility(View.VISIBLE);
+//        progressBarFromIndividualAppointment.setVisibility(View.VISIBLE);
         individualAppointmentDataModel = new MutableLiveData<>();
         getDoctorList(true);
 
@@ -153,7 +157,9 @@ public class AppointmentService {
 
                     }
                     data_model.setValue(appointmentData);
-                    progressBarFromAppointmentV2.setVisibility(View.GONE);
+//                    progressBarFromAppointmentV2.setVisibility(View.GONE);
+                    dialogs.dismissDialog(progressDialog);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -163,7 +169,9 @@ public class AppointmentService {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(app, "Error Response : " + error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                progressBarFromAppointmentV2.setVisibility(View.GONE);
+//                progressBarFromAppointmentV2.setVisibility(View.GONE);
+                dialogs.dismissDialog(progressDialog);
+
 
             }
         }) {
@@ -224,7 +232,9 @@ public class AppointmentService {
 
                     }
                     individualAppointmentDataModel.setValue(individualAppointment);
-                    progressBarFromIndividualAppointment.setVisibility(View.GONE);
+//                    progressBarFromIndividualAppointment.setVisibility(View.GONE);
+                    dialogs.dismissDialog(progressDialog);
+
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -233,7 +243,8 @@ public class AppointmentService {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Toast.makeText(app, "Error Response : " + error.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                progressBarFromIndividualAppointment.setVisibility(View.GONE);
+//                progressBarFromIndividualAppointment.setVisibility(View.GONE);
+                dialogs.dismissDialog(progressDialog);
 
             }
         });
@@ -254,6 +265,7 @@ public class AppointmentService {
 
 
     private void getDoctorList(boolean fromIndividualPatient) {
+
         RequestQueue queue = Volley.newRequestQueue(app);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, Globals.docList, null, new Response.Listener<JSONArray>() {
             @Override
@@ -289,6 +301,8 @@ public class AppointmentService {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+                dialogs.dismissDialog(progressDialog);
+
                 if (!fromIndividualPatient) {
                     progressBarFromAppointmentV2.setVisibility(View.GONE);
                 } else {
@@ -337,7 +351,9 @@ public class AppointmentService {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                progressBarFromAppointmentV2.setVisibility(View.GONE);
+//                progressBarFromAppointmentV2.setVisibility(View.GONE);
+                dialogs.dismissDialog(progressDialog);
+
 
                 Log.d("TAG", "onErrorResponse: " + error.getLocalizedMessage());
 
