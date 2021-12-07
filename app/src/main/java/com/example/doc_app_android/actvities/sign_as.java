@@ -43,7 +43,9 @@ public class sign_as extends AppCompatActivity {
                 editor.putBoolean("SIGNED_UP_AS_DOCTOR", true);
                 editor.apply();
                 catcher = false;
-                Intent intent = new Intent(sign_as.this, sign_next.class);
+//                Intent intent = new Intent(sign_as.this, sign_next.class);
+                Intent intent = new Intent(sign_as.this, SignNextActivity.class);
+                intent.putExtra("doctorRegistration", true);
                 intent.putExtra("catcher", catcher);
                 startActivity(intent);
                 finish();
@@ -53,7 +55,9 @@ public class sign_as extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 catcher = true;
-                Intent intent = new Intent(sign_as.this, sign_next.class);
+//                Intent intent = new Intent(sign_as.this, sign_next.class);
+                Intent intent = new Intent(sign_as.this, SignNextActivity.class);
+
                 intent.putExtra("catcher", catcher);
                 startActivity(intent);
                 finish();

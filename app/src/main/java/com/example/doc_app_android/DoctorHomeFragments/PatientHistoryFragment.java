@@ -43,6 +43,7 @@ public class PatientHistoryFragment extends Fragment {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     private String required_id = "";
+    private String patientId;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -142,6 +143,7 @@ public class PatientHistoryFragment extends Fragment {
                 String age = bundle.getString("age");
                 String image = bundle.getString("image");
                 required_id = bundle.getString("required_id");
+                patientId = bundle.getString("patient_id");
 
 
                 preferences = getContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
@@ -230,6 +232,18 @@ public class PatientHistoryFragment extends Fragment {
                 requireActivity().getSupportFragmentManager().beginTransaction().remove(PatientHistoryFragment.this).commit();
             }
         });
+
+//        binding.patientSendPrescriptionButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Bundle pres_bundle = new Bundle();
+//                pres_bundle.putInt("patient_id", Integer.parseInt(patientId));
+//                WritePrescriptionFragment writePrescriptionFragment = new WritePrescriptionFragment();
+//                writePrescriptionFragment.setArguments(pres_bundle);
+//                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, writePrescriptionFragment).setReorderingAllowed(true).addToBackStack("hist_pres").commit();
+//
+//            }
+//        });
 
 
         return binding.getRoot();

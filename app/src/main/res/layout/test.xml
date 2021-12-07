@@ -1,0 +1,383 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".DoctorHomeFragments.ReportFragment">
+
+        <ScrollView
+            android:id="@+id/take_photo_scrollable"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/xray_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/myrect"
+                    android:elevation="5dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingLeft="26dp"
+                    android:paddingTop="24dp"
+                    android:paddingRight="26dp"
+                    android:paddingBottom="24dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/xray_back_button"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/app_back_button" />
+
+                    <TextView
+                        android:id="@+id/xray_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="center"
+                        android:text="X-RAY"
+                        android:textColor="@color/black"
+                        android:textSize="24sp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <ImageView
+                    android:id="@+id/xray_ImageView"
+                    android:layout_width="match_parent"
+                    android:layout_height="305dp"
+                    android:background="#E1E1E1"
+                    android:contentDescription="@string/x_ray"
+                    android:scaleType="fitXY"
+                    app:layout_constraintBottom_toTopOf="@id/xray_add_label"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/xray_toolbar" />
+
+
+                <androidx.constraintlayout.utils.widget.ImageFilterButton
+                    android:id="@+id/open_camera_Add_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@android:color/transparent"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:src="@drawable/ic_baseline_add_a_photo"
+                    app:layout_constraintBottom_toBottomOf="@id/xray_ImageView"
+                    app:layout_constraintEnd_toEndOf="@id/xray_ImageView" />
+
+
+                <TextView
+                    android:id="@+id/xray_add_label"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="29dp"
+                    android:fontFamily="@font/rubik"
+                    android:gravity="center"
+                    android:text="ABOUT X-RAY"
+                    android:textColor="#454545"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@id/xray_id_container"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/xray_ImageView" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/xray_id_container"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:hint="@string/x_ray_id"
+                    app:hintTextColor="@color/app.compat.grey"
+                    app:layout_constraintBottom_toTopOf="@id/xray_date_container"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/xray_add_label">
+
+                    <EditText
+
+                        android:id="@+id/xray_id_edittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="2uehd"
+                        android:gravity="start"
+                        android:inputType="text"
+                        android:textColor="@color/scnd_blue" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/xray_date_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toTopOf="@id/xray_time_container"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/xray_id_container">
+
+                    <TextView
+                        android:id="@+id/xray_date_label"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="start"
+                        android:text="DATE:"
+                        android:textColor="@color/theme"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/xray_date_edittext"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/scnd_light_blue"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="start"
+                        android:hint="e.g. YYYY-MM-DD"
+                        android:inputType="date"
+                        android:textColor="@color/scnd_blue" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/xray_time_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toTopOf="@id/xray_category_container"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/xray_date_container">
+
+                    <TextView
+                        android:id="@+id/xray_time_label"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="start"
+                        android:text="TIME:"
+                        android:textColor="@color/theme"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/xray_time_edittext"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/scnd_light_blue"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="start"
+                        android:hint="e.g. Hrs-Min-Sec"
+                        android:inputType="time"
+                        android:textColor="@color/scnd_blue" />
+
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/xray_category_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toTopOf="@id/xray_bodyArea_container"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/xray_time_container">
+
+                    <TextView
+                        android:id="@+id/xray_category_label"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="start"
+                        android:text="CATEGORY"
+                        android:textColor="@color/theme"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/xray_category_edittext"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/scnd_light_blue"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="start"
+                        android:inputType="text"
+                        android:textColor="@color/scnd_blue" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/xray_bodyArea_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:gravity="center"
+                    app:layout_constraintBottom_toTopOf="@id/xray_container_about_checkup"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/xray_category_container">
+
+                    <TextView
+                        android:id="@+id/xray_bodyArea_label"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="start"
+                        android:text="BODY AREA:"
+                        android:textColor="@color/theme"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/xray_bodyArea_edittext"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/scnd_light_blue"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="start"
+                        android:inputType="number"
+                        android:textColor="@color/scnd_blue" />
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <RelativeLayout
+                    android:id="@+id/xray_container_about_checkup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/white"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toTopOf="@id/xray_save_button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/xray_bodyArea_container">
+
+                    <TextView
+                        android:id="@+id/xray_checkup_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="21dp"
+                        android:layout_marginLeft="21dp"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginBottom="10dp"
+                        android:fontFamily="@font/rubik"
+                        android:text="DATE: 22 March, 2021"
+                        android:textColor="@color/scnd_blue"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <androidx.constraintlayout.utils.widget.ImageFilterButton
+                        android:id="@+id/xray_check_delete"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_above="@id/xray_checkup_tv"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="12dp"
+                        android:layout_marginEnd="21dp"
+                        android:layout_marginRight="21dp"
+                        android:layout_marginBottom="11dp"
+                        android:background="@color/white"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:src="@drawable/ic_delete" />
+
+                    <EditText
+                        android:id="@+id/xray_checkup_tv"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_below="@id/xray_checkup_date"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/add_about_checkup_bg"
+                        android:focusable="true"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="start"
+                        android:hint="TYPE HERE"
+                        android:inputType="textMultiLine"
+                        android:isScrollContainer="true"
+                        android:paddingStart="13dp"
+                        android:paddingLeft="13dp"
+                        android:paddingTop="6dp"
+                        android:paddingEnd="13dp"
+                        android:paddingBottom="6dp"
+                        android:scrollbars="vertical"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/scnd_blue"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/xray_save_button"
+                    android:layout_width="92dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="60dp"
+                    android:background="@drawable/btn_theme_1"
+                    android:fontFamily="@font/rubik"
+                    android:text="SAVE"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/xray_container_about_checkup" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </ScrollView>
+
+    </FrameLayout>
+
+</layout>

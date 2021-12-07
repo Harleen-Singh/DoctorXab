@@ -21,6 +21,7 @@ import android.widget.DatePicker;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
@@ -73,7 +74,17 @@ public class CheckupDetailsPatient extends Fragment {
 
     public CheckupDetailsPatient() {
         // Required empty public constructor
-        Log.d("ImplicitIntentTesting", "I am getting called 1");
+        Log.d("CheckupDetailsPatient", "I am getting called 1");
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (binding != null) {
+            binding.checkupDetailsContainerXrayScan.setVisibility(View.GONE);
+        }
+        Log.d("CheckupDetailsPatient", "I am getting called 2");
+
     }
 
     /**
@@ -98,7 +109,13 @@ public class CheckupDetailsPatient extends Fragment {
     public void onResume() {
         super.onResume();
         // This particular line will hide the default toolbar of the Home Activity when fragment gets opened.
-        ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().hide();
+        if (binding != null) {
+            binding.checkupDetailsContainerXrayScan.setVisibility(View.GONE);
+        }
+        Log.d("CheckupDetailsPatient", "I am getting called 3");
+
+
     }
 
 
@@ -106,7 +123,7 @@ public class CheckupDetailsPatient extends Fragment {
     public void onStop() {
         super.onStop();
         // This particular line will show the default toolbar of the Home Activity on Home Page when fragment gets closed.
-        ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+        ((AppCompatActivity) requireActivity()).getSupportActionBar().show();
     }
 
     @Override
@@ -116,6 +133,8 @@ public class CheckupDetailsPatient extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        Log.d("CheckupDetailsPatient", "I am getting called 4");
+
     }
 
     @Override
@@ -124,6 +143,7 @@ public class CheckupDetailsPatient extends Fragment {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_checkup_details_patient, container, false);
         binding.setLifecycleOwner(this);
+        binding.checkupDetailsContainerXrayScan.setVisibility(View.GONE);
 
         reportDataViewModel = new ViewModelProvider(requireActivity()).get(ReportDataViewModel.class);
 
@@ -265,6 +285,20 @@ public class CheckupDetailsPatient extends Fragment {
             }
         });
 
+        binding.checkupDetailsPrescriptionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle pres_bundle = new Bundle();
+                pres_bundle.putInt("patient_id", patientId);
+                WritePrescriptionFragment writePrescriptionFragment = new WritePrescriptionFragment();
+                writePrescriptionFragment.setArguments(pres_bundle);
+                requireActivity().getSupportFragmentManager().beginTransaction().add(R.id.fragmentHome_container, writePrescriptionFragment).setReorderingAllowed(true).addToBackStack("share").commit();
+
+            }
+        });
+
+
+
 //        binding.checkupDetailsEditButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -307,7 +341,7 @@ public class CheckupDetailsPatient extends Fragment {
                         DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                selectedDate = String.valueOf(year + "-" + addZeroToStart(String.valueOf(month)) + "-" + addZeroToStart(String.valueOf(dayOfMonth)));
+                                selectedDate = String.valueOf(year + "-" + addZeroToStart(String.valueOf(month+1)) + "-" + addZeroToStart(String.valueOf(dayOfMonth)));
                                 fromDoctorBinding.selectedDate.setText(selectedDate);
                             }
                         }, mYear, mMonth, mDay);

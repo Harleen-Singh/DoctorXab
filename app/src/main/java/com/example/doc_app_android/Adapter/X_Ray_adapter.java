@@ -31,19 +31,19 @@ public class X_Ray_adapter extends RecyclerView.Adapter<X_Ray_adapter.X_RayVH> {
     private SharedPreferences preferences;
 
     public X_Ray_adapter(Context context) {
-        this.mContext =context;
+        this.mContext = context;
     }
 
 
-    public void setdata(ArrayList<Xray_data> d){
-        this.data=d;
+    public void setdata(ArrayList<Xray_data> d) {
+        this.data = d;
     }
 
     @NonNull
     @NotNull
     @Override
     public X_RayVH onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        SingleListXrayBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.single_list_xray,parent,false);
+        SingleListXrayBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.single_list_xray, parent, false);
         return new X_RayVH(binding);
     }
 
@@ -51,27 +51,27 @@ public class X_Ray_adapter extends RecyclerView.Adapter<X_Ray_adapter.X_RayVH> {
     public void onBindViewHolder(@NonNull @NotNull X_Ray_adapter.X_RayVH holder, int position) {
         holder.binding.setXRayData(data.get(position));
         Picasso.get().load(data.get(position).getImageUrl()).error(R.drawable.errorimgload).placeholder(R.drawable.loading).into(holder.binding.imgXray);
-        Log.e(" image url -->", "onBindViewHolder: "+data.get(position).getImageUrl() );
+        Log.e(" image url -->", "onBindViewHolder: " + data.get(position).getImageUrl());
         holder.binding.btnViewXray.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 preferences = mContext.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
                 temp = FragmentXrayReport.newInstance(data.get(position));
                 boolean isDoc = preferences.getBoolean("isDoc", false);
-                if(isDoc) {
-                    AppCompatActivity appCompatActivity = (AppCompatActivity)mContext ;
+                if (isDoc) {
+                    AppCompatActivity appCompatActivity = (AppCompatActivity) mContext;
 
-                    appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container,temp).addToBackStack("xray").commit();
+                    appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container, temp).addToBackStack("xray").commit();
                 } else {
-                    AppCompatActivity appCompatActivity = (AppCompatActivity)mContext ;
-                    appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container,temp).addToBackStack(null).commit();
+                    AppCompatActivity appCompatActivity = (AppCompatActivity) mContext;
+                    appCompatActivity.getSupportFragmentManager().beginTransaction().replace(R.id.fragmentHome_container, temp).addToBackStack(null).commit();
                 }
 
 
             }
         });
 
-        Log.d("TAG", "onBindViewHolder: "+ data.get(position));
+        Log.d("TAG", "onBindViewHolder: " + data.get(position));
     }
 
     @Override
@@ -79,8 +79,9 @@ public class X_Ray_adapter extends RecyclerView.Adapter<X_Ray_adapter.X_RayVH> {
         return data.size();
     }
 
-    public class X_RayVH extends RecyclerView.ViewHolder{
+    public class X_RayVH extends RecyclerView.ViewHolder {
         SingleListXrayBinding binding;
+
         public X_RayVH(@NonNull @NotNull SingleListXrayBinding binding) {
             super(binding.getRoot());
             this.binding = binding;

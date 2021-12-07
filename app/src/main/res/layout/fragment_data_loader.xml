@@ -62,6 +62,26 @@
                     app:layout_constraintTop_toTopOf="parent"
                     tools:listitem="@layout/home_single_patient_row" />
 
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/bottom_navigation_fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerInParent="true"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginRight="25dp"
+                    android:layout_marginBottom="25dp"
+                    android:focusable="true"
+                    android:clickable="true"
+                    android:backgroundTint="@color/white"
+                    android:elevation="10dp"
+                    android:scaleType="center"
+                    android:src="@drawable/fab"
+                    app:backgroundTint="@color/scnd_blue"
+                    app:borderWidth="2dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
                 <ProgressBar
                     android:id="@+id/data_loading_progress_bar"
                     android:layout_width="wrap_content"
@@ -93,7 +113,6 @@
                     android:text="No Data Available"
                     android:textColor="@color/black"
                     android:textSize="20sp"
-                    android:textStyle="bold"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="@id/no_data_pres"
                     app:layout_constraintStart_toStartOf="@id/no_data_pres"

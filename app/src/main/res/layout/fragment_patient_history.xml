@@ -14,6 +14,8 @@
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:elevation="10dp"
             android:fitsSystemWindows="true">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -137,7 +139,7 @@
                         android:clickable="true"
                         android:focusable="true"
                         android:gravity="center"
-                        app:layout_constraintBottom_toTopOf="@id/patient_info_add_button"
+                        app:layout_constraintBottom_toTopOf="@id/patient_send_prescription_button"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/patient_info_share_button">
 
@@ -279,13 +281,15 @@
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
                     <androidx.appcompat.widget.LinearLayoutCompat
-                        android:id="@+id/patient_info_add_button"
+                        android:id="@+id/patient_send_prescription_button"
                         android:layout_width="36dp"
                         android:layout_height="36dp"
                         android:layout_marginTop="12dp"
                         android:layout_marginEnd="20dp"
                         android:layout_marginRight="20dp"
                         android:background="@drawable/callbg"
+                        android:clickable="true"
+                        android:focusable="true"
                         android:gravity="center"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/patient_info_chat_button">
@@ -297,6 +301,8 @@
                             android:layout_centerHorizontal="true"
                             android:layout_gravity="center"
                             android:background="@color/scnd_light_blue"
+                            android:clickable="false"
+                            android:focusable="false"
                             android:src="@drawable/ic_add" />
                     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -314,8 +320,12 @@
                 android:background="@drawable/myrect"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
                 tools:listitem="@layout/single_filter" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/black" />
 
         </com.google.android.material.appbar.AppBarLayout>
 

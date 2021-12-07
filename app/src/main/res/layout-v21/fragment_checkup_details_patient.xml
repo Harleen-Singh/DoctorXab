@@ -317,6 +317,50 @@
 
                             </androidx.appcompat.widget.LinearLayoutCompat>
 
+                            <androidx.appcompat.widget.LinearLayoutCompat
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <androidx.appcompat.widget.LinearLayoutCompat
+                                    android:id="@+id/checkup_details_prescription_button"
+                                    android:layout_width="36dp"
+                                    android:layout_height="36dp"
+                                    android:background="@drawable/callbg"
+                                    android:clickable="true"
+                                    android:focusable="true"
+                                    android:gravity="center">
+
+                                    <androidx.constraintlayout.utils.widget.ImageFilterButton
+                                        android:layout_width="18dp"
+                                        android:layout_height="18dp"
+                                        android:clickable="false"
+                                        android:focusable="false"
+                                        android:layout_below="@+id/profile_toolbar"
+                                        android:layout_centerHorizontal="true"
+                                        android:layout_gravity="center"
+                                        android:background="@color/scnd_light_blue"
+                                        android:src="@drawable/ic_outline_medical_services_24" />
+
+                                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="8dp"
+                                    android:fontFamily="@font/rubik"
+                                    android:text="MEDICINE"
+                                    android:textColor="#454545"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+
+
+                            </androidx.appcompat.widget.LinearLayoutCompat>
+
 <!--                            <androidx.appcompat.widget.LinearLayoutCompat-->
 <!--                                android:layout_width="0dp"-->
 <!--                                android:layout_height="wrap_content"-->

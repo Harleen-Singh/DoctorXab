@@ -148,19 +148,20 @@ public class loginService {
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.PUT, Globals.updateUserData + id, object, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
+                saveToPreferences();
                 Intent i;
                 if (isDoc) {
                     i = new Intent(mContext, Home.class);
                     mContext.startActivity(i);
-                    mContext.finish();
-                    Toast.makeText(mContext, "Hello Doctor " + userName, Toast.LENGTH_SHORT).show();
+                    mContext.finishAffinity();
+                    Toast.makeText(mContext, "Hello Doctor " + userName + "!", Toast.LENGTH_SHORT).show();
                 } else {
                     i = new Intent(mContext, Home.class);
                     mContext.startActivity(i);
                     mContext.finishAffinity();
-                    Toast.makeText(mContext, "Hello " + userName, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "Hello " + userName + "!", Toast.LENGTH_SHORT).show();
                 }
-                saveToPreferences();
+
             }
         }, new Response.ErrorListener() {
             @Override

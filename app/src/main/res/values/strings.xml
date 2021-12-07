@@ -18,6 +18,8 @@
     <string name="email">Email</string>
     <string name="next">next</string>
     <string name="contact">Contact</string>
+    <string name="state">State</string>
+    <string name="address">Address</string>
     <string name="or_sign_up_with">-or Sign Up with-</string>
     <string name="already_have_an_account">Already have an account?</string>
     <string name="specialist_of">Specialist Of</string>
@@ -44,6 +46,9 @@
     <string name="Yes">Yes</string>
     <string name="No">No</string>
     <string name="chooser_title">Message</string>
+    <string name="specialistOf">SpecialistOf…</string>
+    <string name="consultTo">ConsultTo…</string>
+    <string name="x_ray_id">X-RAY ID</string>
 
 
     <array name="patientFilters">
@@ -58,6 +63,16 @@
     <string-array name="gender">
         <item>Male</item>
         <item>Female</item>
+        <item>Other</item>
+    </string-array>
+
+
+    <string-array name="problems">
+        <item>Problem</item>
+        <item>Elbow</item>
+        <item>Hip</item>
+        <item>Ankle</item>
+        <item>Wrist</item>
         <item>Other</item>
     </string-array>
 

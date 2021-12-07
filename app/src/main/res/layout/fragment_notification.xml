@@ -2,17 +2,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+
     <data>
 
     </data>
 
-<FrameLayout
-    android:id="@+id/noti_frameLayout"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".PatentHomeFragments.NotificationFragment"
-    android:background="@color/white">
-
+    <FrameLayout
+        android:id="@+id/noti_frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".PatentHomeFragments.NotificationFragment">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -81,9 +81,36 @@
                     app:layout_constraintTop_toBottomOf="@id/head_tv"
                     app:layout_constraintVertical_bias="0.0"
                     tools:listitem="@layout/single_list_noti" />
+
+
             </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            <ImageView
+                android:id="@+id/empty_notification_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:scaleType="centerInside"
+                android:src="@drawable/errorimgload"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/empty_notification_list_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:visibility="gone"
+                android:text="No Notifications Yet"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="@id/empty_notification_list"
+                app:layout_constraintStart_toStartOf="@id/empty_notification_list"
+                app:layout_constraintTop_toBottomOf="@id/empty_notification_list" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-</FrameLayout>
+    </FrameLayout>
 </layout>

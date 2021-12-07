@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -23,13 +24,13 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.android.volley.toolbox.Volley;
 import com.example.doc_app_android.Dialogs.dialogs;
 import com.example.doc_app_android.Dialogs.docListFragment;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.DocData;
 import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.databinding.AppointmentFromDoctorBinding;
+import com.example.doc_app_android.utils.PreferencesName;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -50,9 +51,11 @@ public class docListAdapter extends RecyclerView.Adapter<docListAdapter.viewHold
     private int mDay, mMonth, mYear, mHour, mMinute;
     private String selectedTime, selectedDate;
     private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
     private ImageView no_res1;
     private TextView no_res;
     private RecyclerView rcv;
+    private Button buttonFromRegistration;
 
     public docListAdapter(ArrayList<DocData> arr, CharSequence date, docListFragment docDialog, boolean duringRegisteration, TextView no_res, ImageView no_res1, RecyclerView rcv) {
         data = arr;
@@ -63,6 +66,19 @@ public class docListAdapter extends RecyclerView.Adapter<docListAdapter.viewHold
         this.no_res = no_res;
         this.no_res1 = no_res1;
         this.rcv = rcv;
+
+    }
+
+    public docListAdapter(ArrayList<DocData> arr, CharSequence date, docListFragment docDialog, boolean duringRegisteration, TextView no_res, ImageView no_res1, RecyclerView rcv, Button buttonFromRegistration) {
+        data = arr;
+        this.backup = new ArrayList<>(arr);
+        this.date = date;
+        this.docDialog = docDialog;
+        this.duringRegisteration = duringRegisteration;
+        this.no_res = no_res;
+        this.no_res1 = no_res1;
+        this.rcv = rcv;
+        this.buttonFromRegistration = buttonFromRegistration;
 
     }
 
@@ -88,10 +104,9 @@ public class docListAdapter extends RecyclerView.Adapter<docListAdapter.viewHold
         holder.click.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                preferences = v.getContext().getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+
                 if (!duringRegisteration) {
-
-                    preferences = v.getContext().getApplicationContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
-
                     dialog1 = new Dialog(v.getContext());
                     fromDoctorBinding = AppointmentFromDoctorBinding.inflate(LayoutInflater.from(v.getContext()));
                     fromDoctorBinding.getRoot().setBackgroundResource(android.R.color.transparent);
@@ -117,7 +132,7 @@ public class docListAdapter extends RecyclerView.Adapter<docListAdapter.viewHold
                             DatePickerDialog datePickerDialog = new DatePickerDialog(v.getContext(), new DatePickerDialog.OnDateSetListener() {
                                 @Override
                                 public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                                    selectedDate = String.valueOf(year + "-" + addZeroToStart(String.valueOf(month)) + "-" + addZeroToStart(String.valueOf(dayOfMonth)));
+                                    selectedDate = String.valueOf(year + "-" + addZeroToStart(String.valueOf(month+1)) + "-" + addZeroToStart(String.valueOf(dayOfMonth)));
                                     fromDoctorBinding.selectedDate.setText(selectedDate);
                                 }
                             }, mYear, mMonth, mDay);
@@ -158,8 +173,20 @@ public class docListAdapter extends RecyclerView.Adapter<docListAdapter.viewHold
                     dialog1.show();
 
                 } else {
-                    giveDataToModel(docName, docID);
-                    Log.e("TAG", "onClick: " + docName + docID);
+//                    giveDataToModel(docName, docID);
+//                    Log.e("TAG", "onClick: " + docName + docID);
+
+
+                    editor = preferences.edit();
+                    editor.putString(PreferencesName.SELECTED_DOCTOR_ID, docID);
+                    editor.apply();
+
+                    buttonFromRegistration.setText("Dr." + docName);
+                    Log.d("Testing", "During registration in docListFragment " + duringRegisteration + "with name and id " + docName + " and " + docID);
+                    docDialog.dismiss();
+
+
+
                 }
             }
         });
@@ -232,7 +259,7 @@ public class docListAdapter extends RecyclerView.Adapter<docListAdapter.viewHold
                     no_res1.setVisibility(View.GONE);
                     rcv.setVisibility(View.VISIBLE);
 
-                } else{
+                } else {
                     rcv.setVisibility(View.GONE);
                     no_res.setVisibility(View.VISIBLE);
                     no_res1.setVisibility(View.VISIBLE);

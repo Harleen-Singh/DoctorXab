@@ -1,6 +1,7 @@
 package com.example.doc_app_android.view_model;
 
 import android.app.Application;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -11,6 +12,8 @@ import com.example.doc_app_android.services.notiService;
 
 import java.util.ArrayList;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class FragmentNotificationViewModel extends AndroidViewModel {
     notiService service = new notiService();
     Application app;
@@ -19,7 +22,7 @@ public class FragmentNotificationViewModel extends AndroidViewModel {
         app = application;
     }
 
-    public LiveData<String> getCount(){
+    public LiveData<String> getCount(CircleImageView circleImageView, TextView textView){
         return service.getCount(app);
     }
 

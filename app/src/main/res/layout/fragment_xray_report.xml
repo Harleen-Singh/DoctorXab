@@ -61,12 +61,12 @@
 
                 <ImageView
                     android:id="@+id/img_xray"
-                    android:layout_height="310dp"
                     android:layout_width="match_parent"
-                    android:padding="10dp"
-                    android:scaleType="centerInside"
+                    android:layout_height="305dp"
+                    android:background="#E1E1E1"
+                    android:contentDescription="@string/x_ray"
+                    android:scaleType="fitXY"
                     android:layout_marginTop="20dp"
-                    android:background="@color/scnd_blue_white"
                     android:src="@drawable/x_ray_sample"
                     app:layout_constraintBottom_toTopOf="@id/data_cnt"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -75,7 +75,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/data_cnt"
-                    android:layout_width="224dp"
+                    android:layout_width="0dp"
+                    android:padding="10dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     app:layout_constraintEnd_toEndOf="parent"

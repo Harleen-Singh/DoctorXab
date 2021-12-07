@@ -67,6 +67,25 @@ public class DoctorListService {
         return data;
     }
 
+    public MutableLiveData<ArrayList<DocData>> getDocList(Context context, boolean fromDataLoaderFragment) {
+        this.app = context;
+        preferences = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+        isDoc = preferences.getBoolean("isDoc", false);
+        if (data == null) {
+            id_name_Pair = new MutableLiveData<>();
+            data = new MutableLiveData<>();
+            if (isDoc && fromDataLoaderFragment) {
+                loadData();
+            } else if (isDoc) {
+                getPatientList(context);
+            } else {
+                loadData();
+            }
+
+        }
+        return data;
+    }
+
     public MutableLiveData<ArrayList<DocData>> getId_name_Pair(Context context) {
         this.app = context;
         if (id_name_Pair == null) {

@@ -5,12 +5,11 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -28,7 +27,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.doc_app_android.Adapter.docListAdapter;
 import com.example.doc_app_android.R;
 import com.example.doc_app_android.data_model.DocData;
-import com.example.doc_app_android.data_model.Login_data;
 import com.example.doc_app_android.services.DoctorListService;
 import com.example.doc_app_android.view_model.Register_view_model;
 
@@ -40,6 +38,7 @@ public class docListFragment extends DialogFragment {
     private SharedPreferences preferences;
     private docListAdapter adapter;
 
+
     public docListFragment(CharSequence selectedDate) {
         date = selectedDate;
     }
@@ -48,11 +47,19 @@ public class docListFragment extends DialogFragment {
     }
 
     Register_view_model model;
+    private Button button;
 
     boolean duringRegisteration = false;
+    boolean fromDataLoaderFragment = false;
 
     public docListFragment(boolean duringRegisteration) {
         this.duringRegisteration = duringRegisteration;
+    }
+
+    public docListFragment(boolean duringRegisteration, Button button, boolean fromDataLoaderFragment) {
+        this.duringRegisteration = duringRegisteration;
+        this.button = button;
+        this.fromDataLoaderFragment = fromDataLoaderFragment;
     }
 
     @Nullable
@@ -71,15 +78,22 @@ public class docListFragment extends DialogFragment {
         ProgressBar progressBar = view.findViewById(R.id.progressBar);
         progressBar.setVisibility(View.VISIBLE);
         preferences = requireContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
-        if (preferences.getBoolean("isDoc", false)) {
+        if (preferences.getBoolean("isDoc", false) && fromDataLoaderFragment) {
+            label.setText("List Of Doctors");
+        } else if (preferences.getBoolean("isDoc", false)) {
             label.setText("List Of Patients");
         } else {
             label.setText("List Of Doctors");
         }
-        service.getDocList(getContext()).observeForever(new Observer<ArrayList<DocData>>() {
+        service.getDocList(getContext(), fromDataLoaderFragment).observeForever(new Observer<ArrayList<DocData>>() {
             @Override
             public void onChanged(ArrayList<DocData> docData) {
-                adapter = new docListAdapter(docData, date, docDialog, duringRegisteration, no_res, no_res1, rcv);
+                if (!duringRegisteration) {
+                    adapter = new docListAdapter(docData, date, docDialog, duringRegisteration, no_res, no_res1, rcv);
+                } else {
+                    adapter = new docListAdapter(docData, date, docDialog, true, no_res, no_res1, rcv, button);
+                    Log.d("Testing", "During registration " + duringRegisteration);
+                }
                 rcv.setAdapter(adapter);
                 progressBar.setVisibility(View.GONE);
                 label.setVisibility(View.VISIBLE);

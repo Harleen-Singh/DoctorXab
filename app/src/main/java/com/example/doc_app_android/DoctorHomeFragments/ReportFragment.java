@@ -1,7 +1,9 @@
 package com.example.doc_app_android.DoctorHomeFragments;
 
 import android.Manifest;
+import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Context;
@@ -19,6 +21,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.provider.MediaStore;
@@ -29,6 +32,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.doc_app_android.R;
@@ -55,6 +60,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Objects;
@@ -88,6 +94,8 @@ public class ReportFragment extends Fragment {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     private int permission_count = 0;
+    private int mDay, mMonth, mYear, mHour, mMinute;
+    private String selectedTime, selectedDate;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -125,6 +133,7 @@ public class ReportFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -148,6 +157,8 @@ public class ReportFragment extends Fragment {
 
 
         preferences = requireContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
+        selectedTime = preferences.getString("X-RAY-TIME-REPORT", "");
+        selectedDate = preferences.getString("X-RAY-DATE-REPORT", "");
         binding.xrayIdEdittext.setText(preferences.getString("X-RAY-ID-Report", ""));
         binding.xrayDateEdittext.setText(preferences.getString("X-RAY-DATE-REPORT", ""));
         binding.xrayTimeEdittext.setText(preferences.getString("X-RAY-TIME-REPORT", ""));
@@ -158,6 +169,51 @@ public class ReportFragment extends Fragment {
 //        if(!TextUtils.isEmpty(savedUri)){
 //            binding.xrayImageView.setImageURI(Uri.parse(savedUri));
 //        }
+
+        binding.xrayDateEdittext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Calendar calendar = Calendar.getInstance();
+                mDay = calendar.get(Calendar.DAY_OF_MONTH);
+                mMonth = calendar.get(Calendar.MONTH);
+                mYear = calendar.get(Calendar.YEAR);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(requireContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                        selectedDate = String.valueOf(year + "-" + addZeroToStart(String.valueOf(month+1)) + "-" + addZeroToStart(String.valueOf(dayOfMonth)));
+                        binding.xrayDateEdittext.setText(selectedDate);
+                    }
+                }, mYear, mMonth, mDay);
+                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                datePickerDialog.show();
+
+            }
+        });
+
+
+        binding.xrayTimeEdittext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                final Calendar calendar = Calendar.getInstance();
+                mHour = calendar.get(Calendar.HOUR_OF_DAY);
+                mMinute = calendar.get(Calendar.MINUTE);
+
+                TimePickerDialog timePickerDialog = new TimePickerDialog(requireContext(), new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        selectedTime = String.valueOf(addZeroToStart(String.valueOf(hourOfDay)) + ":" + addZeroToStart(String.valueOf(minute)) + ":00");
+                        binding.xrayTimeEdittext.setText(selectedTime);
+                    }
+                }, mHour, mMinute, true);
+                timePickerDialog.show();
+
+            }
+        });
+
+
+
 
 
         binding.xrayCheckupDate.setText(date);
@@ -190,8 +246,8 @@ public class ReportFragment extends Fragment {
                 preferences = requireContext().getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
                 editor = preferences.edit();
                 editor.putString("X-RAY-ID-Report", xray_id);
-                editor.putString("X-RAY-DATE-REPORT", xray_date);
-                editor.putString("X-RAY-TIME-REPORT", time);
+                editor.putString("X-RAY-DATE-REPORT", selectedDate);
+                editor.putString("X-RAY-TIME-REPORT", selectedTime);
                 editor.putString("X-RAY-CATEGORY-REPORT", category);
                 editor.putString("X-RAY-BODYAREA-REPORT", body_area);
                 editor.putString("X-RAY-REPORT-REPORT", report);
@@ -214,7 +270,7 @@ public class ReportFragment extends Fragment {
                 Window window1 = dialog.getWindow();
                 window1.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
-                if (TextUtils.isEmpty(xray_id) || TextUtils.isEmpty(xray_date) || TextUtils.isEmpty(time) || TextUtils.isEmpty(category) || TextUtils.isEmpty(body_area) || TextUtils.isEmpty(report)) {
+                if (TextUtils.isEmpty(xray_id) || TextUtils.isEmpty(selectedDate) || TextUtils.isEmpty(selectedTime) || TextUtils.isEmpty(category) || TextUtils.isEmpty(body_area) || TextUtils.isEmpty(report)) {
                     binding1.messageTextview.setText("Please enter all the details.");
                     dialog.show();
                 } else if (resultUri == null) {
@@ -224,10 +280,11 @@ public class ReportFragment extends Fragment {
                     Toast.makeText(requireContext(), "Filled SuccessFully", Toast.LENGTH_SHORT).show();
 
                     written_data = new com.example.doc_app_android.Adapter.ReportData(finalDate, report);
-                    reportData = new ReportData(patientId, xray_id, xray_date, time, category, body_area, 2, resultUri);
-                    reportDataViewModel.addPatientReport(reportData, written_data, requireContext());
+                    reportData = new ReportData(patientId, xray_id, selectedDate, selectedTime, category, body_area, 2, resultUri);
+                    reportDataViewModel.addPatientReport(reportData, written_data, requireContext(), requireActivity().getSupportFragmentManager());
 
-                    requireActivity().getSupportFragmentManager().popBackStack();
+
+
                 }
 
 
@@ -492,5 +549,13 @@ public class ReportFragment extends Fragment {
         inImage.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
         String path = MediaStore.Images.Media.insertImage(inContext.getContentResolver(), inImage, "Title", null);
         return Uri.parse(path);
+    }
+
+    public String addZeroToStart(String value) {
+        if (value.length() == 1) {
+            value = "0" + value;
+            return value;
+        }
+        return value;
     }
 }

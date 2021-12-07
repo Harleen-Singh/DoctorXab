@@ -1,5 +1,6 @@
 package com.example.doc_app_android.DoctorHomeFragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -23,6 +24,8 @@ import android.widget.EditText;
 
 import com.example.doc_app_android.Adapter.PatientDetailsAdapter;
 import com.example.doc_app_android.R;
+import com.example.doc_app_android.actvities.SignNextActivity;
+import com.example.doc_app_android.actvities.sign_as;
 import com.example.doc_app_android.data_model.ProfileData;
 import com.example.doc_app_android.databinding.ActivityHomeBinding;
 import com.example.doc_app_android.databinding.FragmentDataLoaderBinding;
@@ -91,8 +94,9 @@ public class DataLoaderFragment extends Fragment {
                 if (profileData.isEmpty()) {
                     if (binding.dataFragmentContainer != null) {
 //                        binding.dataFragmentContainer.setBackground(AppCompatResources.getDrawable(requireContext(), R.drawable.no_data));
-                        binding.noRes.setVisibility(View.VISIBLE);
-                        binding.noRes1.setVisibility(View.GONE);
+                        binding.detailsRcv.setVisibility(View.GONE);
+                        binding.noDataPres.setVisibility(View.VISIBLE);
+                        binding.noDataPres1.setVisibility(View.VISIBLE);
                     } else {
                         Log.d("Testing", "binding.dataFragmentContainer is null");
                     }
@@ -117,6 +121,17 @@ public class DataLoaderFragment extends Fragment {
                 Log.d("TextWatcher", "Entered Text:"  + s.toString());
                 patientDetailsAdapter.getFilter().filter(s.toString());
 
+            }
+        });
+
+        binding.bottomNavigationFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(requireContext(), SignNextActivity.class);
+                intent.putExtra("doctorRegistration", false);
+                intent.putExtra("catcher", true);
+                intent.putExtra("FROM_DATA_LOADER_FRAGMENT", true);
+                startActivity(intent);
             }
         });
 

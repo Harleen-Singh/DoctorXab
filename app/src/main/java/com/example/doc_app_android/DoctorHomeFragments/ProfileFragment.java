@@ -131,32 +131,35 @@ public class ProfileFragment extends Fragment {
         profileViewModel.getProfileDetails().observe(getViewLifecycleOwner(), new Observer<ProfileData>() {
             @Override
             public void onChanged(ProfileData profileData) {
-                receivedProfileData = profileData;
+                if (profileData != null) {
+                    receivedProfileData = profileData;
 
-                if (!TextUtils.isEmpty(profileData.getName()) && !TextUtils.isEmpty(profileData.getEmail()) && !TextUtils.isEmpty(profileData.getPhoneNumber())) {
+                    if (!TextUtils.isEmpty(profileData.getName()) && !TextUtils.isEmpty(profileData.getEmail()) && !TextUtils.isEmpty(profileData.getPhoneNumber())) {
 
-                    binding.doctorNameText.setText("Dr." + profileData.getName());
-                    binding.emailAddressText.setText(profileData.getEmail());
-                    binding.contactText.setText(profileData.getPhoneNumber());
-                } else {
-                    binding.doctorNameText.setText("Sam Dawson");
-                    binding.emailAddressText.setText("example@gmail.com");
-                    binding.contactText.setText("9999999999");
+                        binding.doctorNameText.setText("Dr." + profileData.getName());
+                        binding.emailAddressText.setText(profileData.getEmail());
+                        binding.contactText.setText(profileData.getPhoneNumber());
+                    } else {
+                        binding.doctorNameText.setText("Sam Dawson");
+                        binding.emailAddressText.setText("example@gmail.com");
+                        binding.contactText.setText("9999999999");
+                    }
+
+                    if (!preferences.getBoolean("isDoc", false)) {
+                        binding.doctorNameText.setText(profileData.getName());
+
+                        binding.speciality.setText("CASE OF: ORTHOLOGIST");
+                        speciality = "ORTHOLOGIST";
+                    }
+                    Log.d("Testing", "Received Image: " + "https://maivrikdoc.herokuapp.com/api" + profileData.getImage());
+
+                    Picasso.get()
+                            .load("https://maivrikdoc.herokuapp.com/api" + profileData.getImage())
+                            .placeholder(R.drawable.doctor_profile_image)
+                            .into(binding.doctorProfileImageSave);
+
+
                 }
-
-                if (!preferences.getBoolean("isDoc", false)) {
-                    binding.doctorNameText.setText(profileData.getName());
-
-                    binding.speciality.setText("CASE OF: ORTHOLOGIST");
-                    speciality = "ORTHOLOGIST";
-                }
-                Log.d("Testing", "Received Image: " + "https://maivrikdoc.herokuapp.com/api" + profileData.getImage());
-
-                Picasso.get()
-                        .load("https://maivrikdoc.herokuapp.com/api" + profileData.getImage())
-                        .placeholder(R.drawable.doctor_profile_image)
-                        .into(binding.doctorProfileImageSave);
-
                 binding.profileProgress.setVisibility(View.GONE);
 
 
@@ -196,7 +199,9 @@ public class ProfileFragment extends Fragment {
                 } else {
                     bundle.putString("PROFILE-FRAGMENT-SPECIALITY", (String) binding.speciality.getText());
                 }
-                bundle.putString("PROFILE-FRAGMENT-PROFILE-IMAGE", receivedProfileData.getImage());
+                if (receivedProfileData.getImage() != null) {
+                    bundle.putString("PROFILE-FRAGMENT-PROFILE-IMAGE", receivedProfileData.getImage());
+                }
                 profileEditFragment.setArguments(bundle);
 
 

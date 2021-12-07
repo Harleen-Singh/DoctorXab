@@ -64,14 +64,16 @@ public class NotificationFragment extends Fragment {
         binding.rView.setAdapter(adapter);
         model = new ViewModelProvider(requireActivity()).get(FragmentNotificationViewModel.class);
         binding.progressbar.setVisibility(View.VISIBLE);
-        model.getNotiData().observe(getViewLifecycleOwner(), new Observer<ArrayList<NotiData>>() {
+        model.getNotiData().observeForever( new Observer<ArrayList<NotiData>>() {
             @Override
             public void onChanged(ArrayList<NotiData> notiData) {
                 Collections.reverse(notiData);
                 adapter.setData(notiData);
                 adapter.notifyDataSetChanged();
                 if (notiData.isEmpty()){
-                    binding.notiParentCLayout.setBackground(AppCompatResources.getDrawable(requireContext(),R.drawable.no_data));
+                    binding.rView.setVisibility(View.GONE);
+                    binding.emptyNotificationList.setVisibility(View.VISIBLE);
+                    binding.emptyNotificationListMessage.setVisibility(View.VISIBLE);
                 }
                 binding.progressbar.setVisibility(View.GONE);
                 binding.swipe2refresh.setRefreshing(false);

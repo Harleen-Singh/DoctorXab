@@ -61,6 +61,7 @@ public class Home extends AppCompatActivity {
     private HomeViewModel model;
     private CircleImageView nav_profile;
     private TextView nav_name;
+    private TextView nav_profile_speciality;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     Fragment temp;
@@ -75,6 +76,7 @@ public class Home extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
         boolean hasLoggedIn = preferences.getBoolean("hasLoggedIn", false);
         binding.toolbar.setVisibility(View.VISIBLE);
+
         if(getIntent().getExtras()!=null) {
             try {
                 boolean b = getIntent().getExtras().getBoolean("notification");
@@ -148,11 +150,13 @@ public class Home extends AppCompatActivity {
 
                 nav_name = findViewById(R.id.nav_profile_name);
                 nav_profile = findViewById(R.id.nav_profile_image);
+                nav_profile_speciality = findViewById(R.id.nav_profile_specility);
 
                 if(preferences.getBoolean("isDoc", false)) {
                     nav_name.setText("Dr." + profileData.getName());
                 } else {
                     nav_name.setText(profileData.getName());
+                    nav_profile_speciality.setVisibility(View.GONE);
                 }
                 Picasso.get()
                         .load(profileData.getImage())
@@ -161,7 +165,7 @@ public class Home extends AppCompatActivity {
             }
         });
 
-        countModel.getCount().observe(this, new Observer<String>() {
+        countModel.getCount(count_bg, count_number).observeForever( new Observer<String>() {
             @Override
             public void onChanged(String s) {
                 int num = Integer.parseInt(s);

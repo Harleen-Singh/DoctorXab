@@ -7,7 +7,7 @@
     tools:context=".actvities.splashScreen"
     android:background="@color/white">
 
-    <ImageView
+    <androidx.constraintlayout.utils.widget.ImageFilterView
         android:layout_width="271dp"
         android:layout_height="56dp"
         app:layout_constraintBottom_toBottomOf="parent"

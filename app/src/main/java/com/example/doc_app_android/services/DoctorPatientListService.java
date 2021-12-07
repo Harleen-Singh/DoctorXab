@@ -42,45 +42,48 @@ public class DoctorPatientListService {
     private MutableLiveData<ArrayList<ProfileData>> mutableLiveKneeData;
     private MutableLiveData<ArrayList<ProfileData>> mutableLiveHipData;
     private MutableLiveData<ArrayList<ProfileData>> mutableLiveData;
+    private MutableLiveData<ArrayList<ProfileData>> patientListData;
 
 
     public LiveData<ArrayList<ProfileData>> getPatientListForDoctorHome(String problemId, Context context) {
         preferences = context.getSharedPreferences("tokenFile", Context.MODE_PRIVATE);
-        if (problemId.equals("1")) {
-            if (mutableLiveElbowData == null) {
-                mutableLiveElbowData = new MutableLiveData<>();
-                mutableLiveData = mutableLiveElbowData;
-                getPatientList(Globals.doctorHomeScreenPatientList + problemId, context, problemId);
-            } else {
-                mutableLiveData = mutableLiveElbowData;
-            }
-        } else if (problemId.equals("2")) {
-            if (mutableLiveWristData == null) {
-                mutableLiveWristData = new MutableLiveData<>();
-                mutableLiveData = mutableLiveWristData;
-                getPatientList(Globals.doctorHomeScreenPatientList + problemId, context, problemId);
-            } else {
-                mutableLiveData = mutableLiveWristData;
-            }
-        } else if (problemId.equals("3")) {
-            if (mutableLiveKneeData == null) {
-                mutableLiveKneeData = new MutableLiveData<>();
-                mutableLiveData = mutableLiveKneeData;
-                getPatientList(Globals.doctorHomeScreenPatientList + problemId, context, problemId);
-            } else {
-                mutableLiveData = mutableLiveKneeData;
-            }
-        } else if (problemId.equals("4")) {
-            if (mutableLiveHipData == null) {
-                mutableLiveHipData = new MutableLiveData<>();
-                mutableLiveData = mutableLiveHipData;
-                getPatientList(Globals.doctorHomeScreenPatientList + problemId, context, problemId);
-            } else {
-                mutableLiveData = mutableLiveHipData;
-            }
-        }
+        patientListData = new MutableLiveData<>();
+        getPatientList(Globals.doctorHomeScreenPatientList + problemId, context, problemId);
+//        if (problemId.equals("1")) {
+//            if (mutableLiveElbowData == null) {
+//                mutableLiveElbowData = new MutableLiveData<>();
+//                mutableLiveData = mutableLiveElbowData;
+//                getPatientList(Globals.doctorHomeScreenPatientList + problemId, context, problemId);
+//            } else {
+//                mutableLiveData = mutableLiveElbowData;
+//            }
+//        } else if (problemId.equals("2")) {
+//            if (mutableLiveWristData == null) {
+//                mutableLiveWristData = new MutableLiveData<>();
+//                mutableLiveData = mutableLiveWristData;
+//                getPatientList(Globals.doctorHomeScreenPatientList + problemId, context, problemId);
+//            } else {
+//                mutableLiveData = mutableLiveWristData;
+//            }
+//        } else if (problemId.equals("3")) {
+//            if (mutableLiveKneeData == null) {
+//                mutableLiveKneeData = new MutableLiveData<>();
+//                mutableLiveData = mutableLiveKneeData;
+//                getPatientList(Globals.doctorHomeScreenPatientList + problemId, context, problemId);
+//            } else {
+//                mutableLiveData = mutableLiveKneeData;
+//            }
+//        } else if (problemId.equals("4")) {
+//            if (mutableLiveHipData == null) {
+//                mutableLiveHipData = new MutableLiveData<>();
+//                mutableLiveData = mutableLiveHipData;
+//                getPatientList(Globals.doctorHomeScreenPatientList + problemId, context, problemId);
+//            } else {
+//                mutableLiveData = mutableLiveHipData;
+//            }
+//        }
 
-        return mutableLiveData;
+        return patientListData;
     }
 
     public void getPatientList(String url, Context context, String problem_Id) {
@@ -119,15 +122,17 @@ public class DoctorPatientListService {
 
                     }
 
-                    if (problem_Id.equals("1")) {
-                        mutableLiveElbowData.setValue(data);
-                    } else if (problem_Id.equals("2")) {
-                        mutableLiveWristData.setValue(data);
-                    } else if (problem_Id.equals("3")) {
-                        mutableLiveKneeData.setValue(data);
-                    } else if (problem_Id.equals("4")) {
-                        mutableLiveHipData.setValue(data);
-                    }
+                    patientListData.setValue(data);
+
+//                    if (problem_Id.equals("1")) {
+//                        mutableLiveElbowData.setValue(data);
+//                    } else if (problem_Id.equals("2")) {
+//                        mutableLiveWristData.setValue(data);
+//                    } else if (problem_Id.equals("3")) {
+//                        mutableLiveKneeData.setValue(data);
+//                    } else if (problem_Id.equals("4")) {
+//                        mutableLiveHipData.setValue(data);
+//                    }
 
 
                 } catch (JSONException e) {
@@ -144,10 +149,15 @@ public class DoctorPatientListService {
                     Toast.makeText(context, "Not Connected to Internet", Toast.LENGTH_SHORT).show();
                 } else if (error instanceof ServerError) {
                     Log.d("", "ServiceError: " + error);
+                    //Toast.makeText(context, "Server Error", Toast.LENGTH_SHORT).show();
+
 
                 } else {
                     Log.d("", "error.networkRespose.toString()" + error.networkResponse.toString());
                 }
+
+                Toast.makeText(context, error.toString(), Toast.LENGTH_SHORT).show();
+
 
             }
         }) {

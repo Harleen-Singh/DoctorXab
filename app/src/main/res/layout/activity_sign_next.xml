@@ -1,0 +1,625 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/reg_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    android:id="@+id/tv_logo"
+                    android:layout_width="91dp"
+                    android:layout_height="18.8dp"
+                    android:layout_marginTop="60dp"
+                    android:background="@drawable/splash"
+                    android:fontFamily="@font/rubik_bold"
+                    android:textColor="@color/theme"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="50dp"
+                    android:fontFamily="@font/rubik_medium"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="@string/create_your_account"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintTop_toBottomOf="@id/tv_logo" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edit_username"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="55dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="55dp"
+                    android:background="@drawable/text_field_1"
+                    android:hint="@string/username"
+                    android:inputType="text"
+                    android:paddingStart="20dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:singleLine="true"
+                    android:textColor="#8B91AB"
+                    android:textColorHint="#8B91AB"
+                    android:textSize="14sp"
+                    android:theme="@style/EditTextTheme"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_desc" />
+
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:id="@+id/edit_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="55dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="55dp"
+                    android:background="@drawable/text_field_1"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
+                    android:paddingStart="20dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:singleLine="true"
+                    android:textColor="#8B91AB"
+                    android:textColorHint="#8B91AB"
+                    android:textSize="14sp"
+                    android:theme="@style/EditTextTheme"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/edit_username" />
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_create_pass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="55dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="55dp"
+                    app:hintEnabled="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_email"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/create_pass"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/text_field_1"
+                        android:fontFamily="@font/rubik"
+                        android:hint="@string/create_password"
+                        android:inputType="textPassword"
+                        android:paddingStart="20dp"
+                        android:paddingLeft="20dp"
+                        android:singleLine="true"
+                        android:textColor="#8B91AB"
+                        android:textSize="14sp"
+                        android:theme="@style/EditTextTheme"
+                        tools:ignore="RtlSymmetry" />
+                </com.google.android.material.textfield.TextInputLayout><!--> PassWord Field <!-->
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/edit_confirm_pass"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="55dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="55dp"
+                    app:hintEnabled="false"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_create_pass"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/confirm_pass"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/text_field_1"
+                        android:fontFamily="@font/rubik"
+                        android:hint="@string/confirm_password"
+                        android:inputType="textPassword"
+                        android:paddingStart="20dp"
+                        android:paddingLeft="20dp"
+                        android:singleLine="true"
+                        android:textColor="#8B91AB"
+                        android:textSize="14sp"
+                        android:theme="@style/EditTextTheme"
+                        tools:ignore="RtlSymmetry" />
+                </com.google.android.material.textfield.TextInputLayout><!--> Cnfrm Pass Field <!-->
+
+
+                <Button
+                    android:id="@+id/btn_next"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="55dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="55dp"
+                    android:background="@drawable/btn_theme_1"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/rubik_medium"
+                    android:text="Sign Up"
+                    android:textColor="@color/app.compat.light"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/edit_confirm_pass" />
+
+                <TextView
+                    android:id="@+id/tv_or"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:fontFamily="@font/rubik"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="@string/or_sign_in_with"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/btn_next" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/btn_parent_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_or"
+                    app:layout_constraintStart_toStartOf="@+id/tv_or"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_or">
+
+                    <LinearLayout
+                        android:id="@+id/layout_google"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingRight="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/layout_facebook"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageButton
+                            android:id="@+id/btn_google"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/google"
+                            android:clickable="true"
+                            android:focusable="true" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/rubik"
+                            android:text="@string/google" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/layout_facebook"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:paddingLeft="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/layout_google"
+                        app:layout_constraintTop_toTopOf="parent">
+
+
+                        <ImageButton
+                            android:id="@+id/btn_facebook"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:background="@drawable/facebook"
+                            android:clickable="true"
+                            android:focusable="true"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/tv_or" />
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:fontFamily="@font/rubik"
+                            android:text="@string/facebook" />
+
+
+                    </LinearLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="40dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/btn_parent_layout"
+                    app:layout_constraintStart_toStartOf="@+id/btn_parent_layout"
+                    app:layout_constraintTop_toBottomOf="@+id/btn_parent_layout">
+
+                    <TextView
+                        android:id="@+id/tv_end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="center"
+                        android:paddingTop="15dp"
+                        android:text="@string/already_have_an_account"
+                        android:textColor="@color/black"
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/tv_sign_in"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_sign_in"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:fontFamily="@font/rubik"
+                        android:gravity="center"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="15dp"
+                        android:text="@string/sign_in"
+                        android:textColor="@color/theme"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/tv_end"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="RtlSymmetry" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <FrameLayout
+                android:id="@+id/reg_container1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:background="@color/white"
+                android:elevation="100dp"
+                android:paddingBottom="50dp"
+
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/reg_container">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layout_constraintVertical_chainStyle="spread_inside">
+
+                    <TextView
+                        android:id="@+id/tv_logo1"
+                        android:layout_width="91dp"
+                        android:layout_height="18.8dp"
+                        android:layout_marginTop="60dp"
+                        android:background="@drawable/splash"
+                        android:gravity="center"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/tv_desc1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="50dp"
+                        android:fontFamily="@font/rubik_medium"
+                        android:gravity="center"
+                        android:padding="15dp"
+                        android:text="@string/create_your_account"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        app:layout_constraintTop_toBottomOf="@id/tv_logo1" />
+
+
+                    <Button
+                        android:id="@+id/edit_status_doctor"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="55dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="55dp"
+                        android:background="@drawable/text_field_1"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:gravity="start|center"
+                        android:paddingStart="20sp"
+                        android:paddingLeft="20sp"
+                        android:singleLine="true"
+                        android:text="Specialist Of..."
+                        android:textAllCaps="false"
+                        android:textColor="#8B91AB"
+                        android:textColorHint="#8B91AB"
+                        android:textSize="14sp"
+                        android:theme="@style/EditTextTheme"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_desc1" />
+
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        android:id="@+id/spinner_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="55dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="55dp"
+                        app:layout_constraintBottom_toTopOf="@id/edit_name"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/edit_status_doctor">
+
+                        <androidx.appcompat.widget.AppCompatSpinner
+                            android:id="@+id/problem_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="8"
+                            android:background="@drawable/myspinner_background"
+                            android:dropDownWidth="match_parent"
+                            android:dropDownSelector="@color/scnd_blue"
+                            android:entries="@array/problems"
+                            android:gravity="center_horizontal"
+                            android:paddingStart="20dp"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:spinnerMode="dropdown"
+                            android:textColor="#8B91AB"
+                            android:textColorHint="#8B91AB"
+                            android:textSize="14sp" />
+
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:id="@+id/edit_problem"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="8"
+                            android:background="@drawable/text_field_1"
+                            android:hint="Problem"
+                            android:inputType="text"
+                            android:paddingStart="20dp"
+                            android:paddingLeft="20dp"
+                            android:paddingRight="20dp"
+                            android:singleLine="true"
+                            android:textColor="#8B91AB"
+                            android:textColorHint="#8B91AB"
+                            android:textSize="14sp"
+                            android:theme="@style/EditTextTheme"
+                            android:visibility="gone"
+                            app:layout_constraintBottom_toTopOf="@id/edit_name"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/problem_spinner" />
+
+
+                        <androidx.constraintlayout.utils.widget.ImageFilterView
+                            android:id="@+id/back_to_spinner"
+                            android:layout_width="0dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="2"
+                            android:src="@drawable/arrow_back"
+                            android:visibility="gone" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edit_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="55dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="55dp"
+                        android:background="@drawable/text_field_1"
+                        android:hint="Name"
+                        android:inputType="text"
+                        android:paddingStart="20dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:singleLine="true"
+                        android:textColor="#8B91AB"
+                        android:textColorHint="#8B91AB"
+                        android:textSize="14sp"
+                        android:theme="@style/EditTextTheme"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/spinner_container" />  <!--> Name Field <!-->
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edit_contact"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="55dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="55dp"
+                        android:background="@drawable/text_field_1"
+                        android:hint="@string/contact"
+                        android:inputType="phone"
+                        android:paddingStart="20dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:singleLine="true"
+                        android:textColor="#8B91AB"
+                        android:textColorHint="#8B91AB"
+                        android:textSize="14sp"
+                        android:theme="@style/EditTextTheme"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/edit_name" />  <!--> Contact <!-->
+
+                    <androidx.appcompat.widget.AppCompatEditText
+                        android:id="@+id/edit_state"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="55dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="55dp"
+                        android:background="@drawable/text_field_1"
+                        android:hint="@string/state"
+                        android:inputType="text"
+                        android:paddingStart="20dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:singleLine="true"
+                        android:textColor="#8B91AB"
+                        android:textColorHint="#8B91AB"
+                        android:textSize="14sp"
+                        android:theme="@style/EditTextTheme"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/edit_contact" />
+
+                    <EditText
+                        android:id="@+id/edit_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="55dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="55dp"
+                        android:background="@drawable/add_about_checkup_bg"
+                        android:focusable="true"
+                        android:gravity="start"
+                        android:hint="@string/address"
+                        android:inputType="textMultiLine"
+                        android:minLines="7"
+                        android:paddingStart="20dp"
+                        android:paddingLeft="20dp"
+                        android:paddingTop="6dp"
+                        android:paddingRight="20dp"
+                        android:paddingBottom="6dp"
+                        android:textAlignment="textStart"
+                        android:textColor="#8B91AB"
+                        android:textColorHint="#8B91AB"
+                        android:textSize="14sp"
+                        android:theme="@style/EditTextTheme"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/edit_state" />
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/patient_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        app:hintEnabled="false"
+                        app:layout_constraintBottom_toTopOf="@id/btn_sign_up"
+                        app:layout_constraintEnd_toStartOf="@id/age_field"
+                        app:layout_constraintStart_toStartOf="@id/edit_address"
+                        app:layout_constraintTop_toBottomOf="@+id/edit_address"
+                        tools:ignore="NotSibling">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/age_field"
+                            android:layout_width="100dp"
+                            android:layout_height="50dp"
+                            android:layout_margin="20dp"
+                            android:background="@drawable/text_field_1"
+                            android:fontFamily="@font/rubik"
+                            android:gravity="center"
+                            android:hint="Age"
+                            android:inputType="phone"
+                            android:maxLength="3"
+                            android:paddingStart="20dp"
+                            android:paddingLeft="20dp"
+                            android:paddingEnd="20dp"
+                            android:paddingRight="20dp"
+                            android:singleLine="true"
+                            android:textColor="#8B91AB"
+                            android:textSize="14sp"
+                            android:theme="@style/EditTextTheme" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <androidx.appcompat.widget.AppCompatSpinner
+                        android:id="@+id/gender_spinner"
+                        android:layout_width="100dp"
+                        android:layout_height="50dp"
+                        android:layout_column="1"
+                        android:layout_margin="20dp"
+                        android:background="@drawable/text_field_1"
+                        android:entries="@array/gender"
+                        android:gravity="center_horizontal"
+                        android:spinnerMode="dropdown"
+                        android:textAlignment="center"
+                        android:textColor="#8B91AB"
+                        android:textSize="14sp"
+
+                        app:layout_constraintBottom_toTopOf="@id/btn_sign_up"
+                        app:layout_constraintEnd_toEndOf="@id/edit_address"
+                        app:layout_constraintTop_toBottomOf="@+id/edit_address" />
+
+
+                    <Button
+                        android:id="@+id/btn_sign_up"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginLeft="55dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginRight="55dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/btn_bg_changer"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:fontFamily="@font/rubik_medium"
+                        android:text="Continue"
+                        android:textColor="@drawable/btn_text_color"
+
+                        android:textSize="14sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@id/gender_spinner"
+                        app:layout_constraintStart_toStartOf="@id/patient_age"
+                        app:layout_goneMarginTop="20dp" /> <!--> Sign UP BTN <!-->
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </FrameLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</layout>

@@ -63,7 +63,6 @@
                 android:textColor="@color/black"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:visibility="gone"
                 app:layout_constraintEnd_toEndOf="@id/no_data_pres"
                 app:layout_constraintStart_toStartOf="@id/no_data_pres"
                 app:layout_constraintTop_toBottomOf="@id/no_data_pres" />
