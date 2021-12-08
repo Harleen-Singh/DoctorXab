@@ -21,6 +21,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.doc_app_android.Dialogs.dialogs;
 import com.example.doc_app_android.R;
+import com.example.doc_app_android.data_model.MedicineList;
 import com.example.doc_app_android.utils.Globals;
 
 import org.json.JSONException;
@@ -39,7 +40,7 @@ public class WritePrescriptionService {
     public WritePrescriptionService() {
     }
 
-    public void send_Medicine_List(ArrayList<String> medicineList, int patient_id, Context context, FragmentManager fragmentManager) {
+    public void send_Medicine_List(ArrayList<MedicineList> medicineList, int patient_id, Context context, FragmentManager fragmentManager) {
 
         JSONObject prescription = null;
         progressDialog = new ProgressDialog(context, R.style.AlertDialog);
@@ -50,7 +51,7 @@ public class WritePrescriptionService {
             prescription.put("patient", String.valueOf(patient_id));
             JSONObject details = new JSONObject();
             for (int i = 0; i < medicineList.size(); i++) {
-                details.put(String.valueOf(i + 1), medicineList.get(i));
+                details.put(String.valueOf(medicineList.get(i).getQuantity()), medicineList.get(i).getMeds_name());
             }
             prescription.put("details", details);
 

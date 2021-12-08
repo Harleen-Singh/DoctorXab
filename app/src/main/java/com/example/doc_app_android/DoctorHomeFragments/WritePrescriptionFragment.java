@@ -1,22 +1,21 @@
 package com.example.doc_app_android.DoctorHomeFragments;
 
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.doc_app_android.Adapter.MedicineAdapter;
 import com.example.doc_app_android.R;
+import com.example.doc_app_android.data_model.MedicineList;
 import com.example.doc_app_android.databinding.FragmentWritePrescriptionBinding;
-import com.example.doc_app_android.view_model.ReportDataViewModel;
 import com.example.doc_app_android.view_model.WritePrescriptionViewModel;
 
 import java.util.ArrayList;
@@ -35,9 +34,10 @@ public class WritePrescriptionFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private FragmentWritePrescriptionBinding binding;
     private MedicineAdapter adapter;
-    private ArrayList<String> medicineList;
+    private ArrayList<MedicineList> medicineList;
     private int patientId;
     private WritePrescriptionViewModel model;
+    private MedicineList list;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -101,7 +101,7 @@ public class WritePrescriptionFragment extends Fragment {
         model = new ViewModelProvider(requireActivity()).get(WritePrescriptionViewModel.class);
 
         Bundle bundle = getArguments();
-        if(bundle!= null){
+        if (bundle != null) {
             patientId = bundle.getInt("patient_id", patientId);
         }
 
@@ -109,11 +109,22 @@ public class WritePrescriptionFragment extends Fragment {
         binding.moreMeds.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!TextUtils.isEmpty(binding.editPrescription.getText().toString())) {
-                    medicineList.add(binding.editPrescription.getText().toString());
+                if (!TextUtils.isEmpty(binding.editPrescription.getText().toString()) && !TextUtils.isEmpty(binding.editMedicineQuantity.getText().toString())) {
+                    list = new MedicineList(binding.editPrescription.getText().toString(), binding.editMedicineQuantity.getText().toString());
+                    medicineList.add(list);
                     adapter.setData(medicineList);
                     adapter.notifyDataSetChanged();
                     binding.editPrescription.setText("");
+                    binding.editMedicineQuantity.setText("");
+                } else if (TextUtils.isEmpty(binding.editPrescription.getText().toString()) && TextUtils.isEmpty(binding.editMedicineQuantity.getText().toString())) {
+                    Toast.makeText(requireContext(), "Please add the Medicine and its Quantity.", Toast.LENGTH_SHORT).show();
+
+                } else if (TextUtils.isEmpty(binding.editPrescription.getText().toString())) {
+                    Toast.makeText(requireContext(), "Please add the Medicine.", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    Toast.makeText(requireContext(), "Please add the Quantity.", Toast.LENGTH_SHORT).show();
+
                 }
             }
         });
@@ -123,7 +134,7 @@ public class WritePrescriptionFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
-                if(!TextUtils.isEmpty(binding.editPrescription.getText().toString())) {
+                if (!TextUtils.isEmpty(binding.editPrescription.getText().toString())) {
                     Toast.makeText(requireContext(), "Add the Medicine", Toast.LENGTH_SHORT).show();
                 } else {
                     model.send_Medicine_List(adapter.getData(), patientId, requireContext(), requireActivity().getSupportFragmentManager());
@@ -132,8 +143,6 @@ public class WritePrescriptionFragment extends Fragment {
 
             }
         });
-
-
 
 
         binding.prescriptionBackButton.setOnClickListener(new View.OnClickListener() {
